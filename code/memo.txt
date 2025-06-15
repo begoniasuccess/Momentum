@@ -1,1 +1,60 @@
-../data/FinMind/TW/DailyPrice
+我有一個csv檔案如圖，
+**檔案位置:
+	..\data\analysis\momentum\combinations\priceSrc_2016-05-01_2018-06-01.csv
+
+請你給我完成下列要求的python程式碼：
+**要求如下：
+	1.提取 date 欄位每個月的第一個日期，存成一個陣列 startDateList
+	2.提取 date 欄位每個月的最後一個日期，存成一個陣列 endDateList
+	3.提取 stock_id 欄位，存成一個不重複陣列 stockIdList
+	4.尋找所有 stockIdList 的 配合 startDateList、endDateList對應的股價，
+	生成一張新表，存成檔案combinationReturn_2016-05-01_2018-06-01.csv
+
+
+你上面程式碼匯出來的結果如下：
+	Stock_id,Start_Date,End_Date,Start_Price,End_Price,Return
+	1101,2016-05-03,2016-05-31,32.65,30.05,-0.07963246554364466
+	1101,2016-06-01,2016-06-30,29.9,32.05,0.07190635451505012
+	1101,2016-07-01,2016-07-29,32.65,33.9,0.03828483920367535 
+	1101,2016-08-01,2016-08-31,33.9,36.25,0.06932153392330388     
+我覺得超級棒！但希望能進行以下調整：
+我給定一個整數變數observeHoldingPeriod，
+每列 Start_Date 、 End_Date 配對的邏輯變成：
+	如果observeHoldingPeriod = 1，
+	當 Start_Date = 2016-05-03 ，則 End_Date = 2016-05-31
+	如果observeHoldingPeriod = 2，
+	當 Start_Date = 2016-05-03 ，則 End_Date = 2016-06-30
+	如果observeHoldingPeriod = 3，
+	當 Start_Date = 2016-05-03 ，則 End_Date = 2016-07-29
+	...以此類推
+	然後各自的Price一樣要對應股價、日期
+	
+你幫了我大忙！這個檔案完全時我要的！
+	
+現在再幫我進行一點處理：
+	1.再新增一個欄位，名稱為combination，值為連接同列的Start_Date + "_" + End_Date
+	2.combination欄位相同的股票為一組，依據報酬率欄位附上該組的排名rank欄位
+	
+
+	
+	
+	
+再幫我進行這些處理：
+	3.新增欄位remark
+	4.以combination為分組，將該combination依據rank大小分為十組
+		=> 第一組為 rank PR90以上 的資料列，幫我標示"Winner"
+		=> 第十組為 rank PR10以下 的資料列，幫我標示"Loser"
+	5.協助將remark欄位不為空的資料列全部拖出來，存成檔案result.csv
+
+
+
+
+
+
+
+
+
+
+======
+希望你幫忙我用python產生一個檔案，
+取名叫做combinationReturn_2016-05-01_2018-06-01.csv

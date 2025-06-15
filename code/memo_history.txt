@@ -1,6 +1,4 @@
 
-
-
 幫我寫一個python程式，要求如下：
 1.要有以下變數：(//後方的註解也幫我寫進程式裡)
 String fstM // 股價資料起始年月，此範例為201605(代表2016年5月)
@@ -33,7 +31,9 @@ data/
 │       	└──20191231_averagePrice_min.csv
 └── analysis/ 
 	└── 201605-201805/ 
+	
 3.幫我在data/analysis/summary資料夾底下建立一個叫做closingPrice2013-2019.csv的檔案
+
 4.在檔案data/analysis/summary/closingPrice2013-2019.csv填入以下內容：
 	(1)第1行資料：股票代號，來自於min_data_2013-2019/yyyy/averageprice/yyyymmdd_averagePrice_min.csv檔案的第1列
 	(2)第1列資料：日期，來自於(1)所述csv檔的檔名-yyyymmdd部分
