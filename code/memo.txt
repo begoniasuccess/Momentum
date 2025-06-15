@@ -1,6 +1,1 @@
-第一圈：
-	df1
-第二圈：
-	df2
-	df1
-	df1合併df2 =>　變成previousDF
+../data/FinMind/TW/DailyPrice
