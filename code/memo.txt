@@ -1,3 +1,31 @@
+我有一個csv檔案(Momentum0050_0051-20160501_20180601-HP_6_returnPercent.csv)內容節錄如下：
+Stock_id,Combination,Start_Date,End_Date,Start_Price,End_Price,Return,RT_Percentile_Rank
+1101,201605-201610,2016-05-03,2016-10-31,32.65,37.85,0.15926493108728954,0.7638190954773869
+1710,201605-201610,2016-05-03,2016-10-31,20.8,19.75,-0.05048076923076927,0.17587939698492464
+2015,201605-201610,2016-05-03,2016-10-31,46.8,41.9,-0.10470085470085468,0.09045226130653267
+幫我進行這些處理：
+	1.新增欄位Remark
+	2.將RT_Percentile_Rank欄位值大於99.9%與小於0.1%的資料列，Remark欄位填入"Exclude"
+	3.新增欄位RT_Rank
+	4.排除Remark值為Exvclude的資料，以Combination為分組，將每組的Return資料排名結果寫進RT_Rank欄位
+	5.排除Remark值為Exvclude的資料，Remark欄位再依下列邏輯填寫：
+		以combination為分組，將該combination依據rank大小分為十組
+		=> 第一組為 rank PR90以上 的資料列，幫我標示"Winner"
+		=> 第十組為 rank PR10以下 的資料列，幫我標示"Loser"
+	
+	
+	
+	
+	
+----------	
+	3.以combination為分組，將該combination依據rank大小分為十組
+		=> 第一組為 rank PR90以上 的資料列，幫我標示"Winner"
+		=> 第十組為 rank PR10以下 的資料列，幫我標示"Loser"
+	4.協助將remark欄位不為空的資料列全部拖出來，存成檔案result.csv
+
+
+=====
+
 我有一個csv檔案(combinationReturn_2016-05-01_2018-06-01_HP-6_raw.csv)內容節錄如下：
 Stock_id,Start_Date,End_Date,Start_Price,End_Price,Return,combination
 1101,2016-05-03,2016-10-31,32.65,37.85,0.15926493108728954,2016-05-03_2016-10-31
@@ -6,7 +34,8 @@ Stock_id,Start_Date,End_Date,Start_Price,End_Price,Return,combination
 1907,2016-05-03,2016-10-31,10.0,9.3,-0.06999999999999992,2016-05-03_2016-10-31
 2006,2016-05-03,2016-10-31,20.35,20.15,-0.009828009828009967,2016-05-03_2016-10-31
 請依據我的需求給我對應的python程式碼：
-1.依據combination
+1.新增一個叫做Return_%的欄位
+2.依據combination欄位分組，將組內依據Return欄位的大小進行百分比排序
 
 
 ====================

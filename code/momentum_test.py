@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from dateutil.relativedelta import relativedelta
+from datetime import datetime
 
 # 可調整觀察期（月數）
 observeHoldingPeriod = 6
@@ -14,7 +15,7 @@ targetFile = f'{outputDir}/{outputFilBaseName}_base.csv'
 if os.path.exists(targetFile):
     df = pd.read_csv(targetFile)
     print(f"✅ Step01：初步處理檔案已存在：{targetFile}")
-    print(df.head())  # 顯示前五筆資料
+    # print(df.head())  # 顯示前五筆資料
 else:
     # 讀取原始資料 => (index), dates, tock_id, close
     srcDataPath = r'..\data\analysis\momentum\Combinations\priceSrc_2016-05-01_2018-06-01.csv'
@@ -53,104 +54,128 @@ else:
                     'End_Price': end_price,
                     'Return': ret                    
                 })
-    result_df = pd.DataFrame(result)
+    df = pd.DataFrame(result)
 
-    result_df.to_csv(targetFile, index=False)
+    df.to_csv(targetFile, index=False)
     print(f"✅ Step01：初步處理完成，已儲存檔案：{targetFile}")
 
 ### Step02：新增 RT_Percentile_Rank 欄位，根據每個 Combination 分組後算百分比排名
 targetFile = f'{outputDir}/{outputFilBaseName}_returnPercent.csv'
 if os.path.exists(targetFile):
-    result_df = pd.read_csv(targetFile)
+    df = pd.read_csv(targetFile)
     print(f"✅ Step02：Return%欄位檔案已存在：{targetFile}")
-    print(result_df.head())  # 顯示前五筆資料
+    # print(df.head())  # 顯示前五筆資料
 else:
-    result_df["RT_Percentile_Rank"] = (
-        result_df.groupby("Combination")["Return"]
+    df["RT_Percentile_Rank"] = (
+        df.groupby("Combination")["Return"]
         .rank(pct=True)  # 百分比排名（0~1之間）
     )
 
-    result_df.to_csv(targetFile, index=False)
+    df.to_csv(targetFile, index=False)
     print(f"✅ 報酬百分比欄位(RT_Percentile_Rank)計算完成，已儲存檔案：{targetFile}")
 
-#########
 
-# # 對每個 Combination 群組依 Return 排序並加入 rank
-# result_df['rank'] = result_df.groupby('Combination')['Return'].rank(method='min', ascending=False).astype(int)
+### Step03：完成Remark欄位
+targetFile = f'{outputDir}/{outputFilBaseName}_remark.csv'
+if os.path.exists(targetFile):
+    df = pd.read_csv(targetFile)
+    print(f"✅ Step03：Remark欄位檔案已存在：{targetFile}")
+    # print(df.head())  # 顯示前五筆資料
+else:
+    # 1. 新增欄位 Remark，初始為空字串
+    df["Remark"] = ""
 
-# # 儲存檔案
-# targetFile = f'{outputDir}/{outputFilBaseName}_ranked.csv'
-# result_df.to_csv(targetFile, index=False)
+    # 2. 將 RT_Percentile_Rank > 0.999 或 < 0.001 的資料標為 "Exclude"
+    df.loc[(df["RT_Percentile_Rank"] > 0.999) | (df["RT_Percentile_Rank"] < 0.001), "Remark"] = "Exclude"
 
-# print(f"✅ 排名完成，已儲存檔案：{targetFile}")
+    # 3. 新增欄位 RT_Rank，先設為 NaN
+    df["RT_Rank"] = None
 
-# ### 新增 remark 欄位
-# result_df['remark'] = ''
+    # 4. 排除 Exclude 資料後，每組 combination 用 Return 欄位排名，結果寫入 RT_Rank
+    mask_include = df["Remark"] != "Exclude"
+    df.loc[mask_include, "RT_Rank"] = (
+        df[mask_include]
+        .groupby("Combination")["Return"]
+        .rank(ascending=False, method="min")
+    )
 
-# # 每個 Combination 內依 rank 做分組
-# def assign_remark(group):
-#     n = len(group)
-#     if n < 10:
-#         return group  # 太少不分組
-#     group = group.sort_values(by='rank')  # rank越小報酬越高
+    # 5. 再依每組 combination，將 RT_Rank 分為 10 組（等頻），PR90 為 Winner，PR10 為 Loser
+    def assign_winner_loser(group):
+        # 排除 Exclude
+        group = group.copy()
+        mask = group["Remark"] != "Exclude"
+        if mask.sum() >= 10:  # 確保有足夠資料分成 10 分位
+            group.loc[mask, "Quantile"] = pd.qcut(group.loc[mask, "RT_Rank"], 10, labels=False) + 1
+            group.loc[group["Quantile"] == 1, "Remark"] = "Winner"
+            group.loc[group["Quantile"] == 10, "Remark"] = "Loser"
+        return group.drop(columns="Quantile", errors="ignore")
 
-#     # 計算前10% 和 後10% 的 rank 數值閾值
-#     top_threshold = max(1, int(n * 0.9))  # PR90 = top 10%
-#     bottom_threshold = int(n * 0.1)       # PR10 = bottom 10%
+    df = df.groupby("Combination", group_keys=False).apply(assign_winner_loser)
 
-#     # 根據 rank 指定 Winner / Loser
-#     group.loc[group['rank'] <= bottom_threshold, 'remark'] = 'Winner'
-#     group.loc[group['rank'] >= top_threshold, 'remark'] = 'Loser'
-
-#     return group
-
-# # 分組套用邏輯
-# result_df = result_df.groupby('Combination', group_keys=False).apply(assign_remark)
-
-# targetFile = f'{outputDir}/{outputFilBaseName}_remarked.csv'
-# result_df.to_csv(targetFile, index=False)
-
-# print(f"✅ Winner/Loser 標記已完成，已儲存 {targetFile} 檔案")
-
-
-# # 讀取資料
-# df = pd.read_csv(targetFile, parse_dates=["Start_Date", "End_Date"])
-
-# # 新增 YearMonth 欄位（取 Start_Date 的年月）
-# df["YearMonth"] = df["Start_Date"].dt.to_period("M")
-
-# # 篩選 Winner / Loser
-# df_filtered = df[df["remark"].isin(["Winner", "Loser"])].copy()
-
-# # 計算六個月後的年月
-# df_filtered["TargetYM"] = df_filtered["Start_Date"].apply(lambda x: (x + relativedelta(months=6)).to_period("M"))
-
-# # 建立查詢用的 DataFrame：Stock_id + YearMonth → Return
-# lookup_df = df[["Stock_id", "YearMonth", "Return"]].copy()
-# lookup_df = lookup_df.drop_duplicates(subset=["Stock_id", "YearMonth"])  # 避免多筆
-
-# # 合併查詢
-# merged = pd.merge(
-#     df_filtered[["Stock_id", "Start_Date", "TargetYM"]],
-#     lookup_df,
-#     left_on=["Stock_id", "TargetYM"],
-#     right_on=["Stock_id", "YearMonth"],
-#     how="left"
-# )
-
-# # 回填回原始 DataFrame
-# df["after6monthsReturn"] = float("nan")
-# df.loc[df_filtered.index, "after6monthsReturn"] = merged["Return"].values
-
-# # 儲存結果
-# targetFile = f'{outputDir}/{outputFilBaseName}_after6monthsReturn.csv'
-# df.to_csv(targetFile, index=False)
-
-# print(f"✅ 6個月後的報酬率填寫已完成，已儲存 {targetFile} 檔案")
+    df.to_csv(targetFile, index=False)
+    print(f"✅ Step03：Remark欄位處理完成，已儲存檔案：{targetFile}")
 
 
-# # 篩選 after6monthsReturn 有值的資料
-# df_with_return = df[df["after6monthsReturn"].notna()]
+### Step04：寫入RT_6M_After欄位
+targetFile = f'{outputDir}/{outputFilBaseName}_rt_6m_after.csv'
+if os.path.exists(targetFile):
+    df = pd.read_csv(targetFile)
+    print(f"✅ Step04：寫入RT_6M_After欄位檔案已存在：{targetFile}")
+    # print(df.head())  # 顯示前五筆資料
+else:
+    # 確保欄位無空白
+    df.columns = df.columns.str.strip()  # 移除欄位名稱的空白
 
-# # 儲存成另一個檔案
-# df_with_return.to_csv(f'{outputDir}/{outputFilBaseName}_after6monthsReturn_only.csv', index=False)
+    # 將 Combination 加 6 個月的函數
+    def shift_combination(comb_str, months=6):
+        try:
+            start_str, end_str = comb_str.split("-")
+            start_dt = datetime.strptime(start_str, "%Y%m")
+            end_dt = datetime.strptime(end_str, "%Y%m")
+            new_start = start_dt + relativedelta(months=months)
+            new_end = end_dt + relativedelta(months=months)
+            return f"{new_start.strftime('%Y%m')}-{new_end.strftime('%Y%m')}"
+        except:
+            return None
+
+    # 只對 Winner / Loser 做轉換，產生要找的 Combination
+    df["Target_Combination"] = df.apply(
+        lambda row: shift_combination(row["Combination"]) if str(row["Remark"]).strip() in ["Winner", "Loser"] else None,
+        axis=1
+    )
+
+    # 建立查詢表：Stock_id + Combination → Return
+    lookup_df = df[["Stock_id", "Combination", "Return"]].copy()
+    lookup_df = lookup_df.rename(columns={
+        "Combination": "Target_Combination",
+        "Return": "RT_6M_After"
+    })
+
+    # 合併資料
+    df = df.merge(lookup_df, on=["Stock_id", "Target_Combination"], how="left")
+
+    # 移除中介欄位
+    df.drop(columns=["Target_Combination"], inplace=True)
+
+    # 調整欄位順序，把 RT_6M_After 移到最後
+    cols = [col for col in df.columns if col != "RT_6M_After"] + ["RT_6M_After"]
+    df = df[cols]
+
+    df.to_csv(targetFile, index=False)
+    print(f"✅ Step04：RT_6M_After欄位處理完成，已儲存檔案：{targetFile}")
+
+
+### Step05：將Step04的檔案中，RT_6M_After有值的資料提取出來
+targetFile = f'{outputDir}/{outputFilBaseName}_rt_6m_after-filter.csv'
+if os.path.exists(targetFile):
+    df = pd.read_csv(targetFile)
+    print(f"✅ Step05：篩出RT_6M_After欄位檔案已存在：{targetFile}")
+    # print(df.head())  # 顯示前五筆資料
+else:
+    # 篩選 RT_6M_After 欄位不為空值的資料
+    filtered_df = df[df["RT_6M_After"].notna()]
+    
+    filtered_df.to_csv(targetFile, index=False)
+    print(f"✅ Step05：篩出RT_6M_After欄位處理完成，已儲存檔案：{targetFile}")
+    
+
