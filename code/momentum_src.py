@@ -16,8 +16,10 @@ def searchStocskData(stockId, filename):
     return df
 
 api = DataLoader()
-# 台股日交易資料是免費的 => 不用登入！
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0xNSAxMDo0MDoxNCIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiI0Mi43Mi4xNDIuMjQiLCJleHAiOjE3NTA1NjAwMTR9.3MiziI-uBY2TgQNNpvvB7TK1ZTBK2t3Db69k0QTqNVo"
+
+# 台股日交易資料是免費的 => 理論上可以不用登入！
+# 如果呼叫次數太多，還是需要登入(會被擋！)
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yMyAyMjoyNzoyNCIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiI0Mi43My4xODcuNzAiLCJleHAiOjE3NTEyOTM2NDR9.PgiV0M8-hNg-YO5gXZVELOh24IMK2JLS840OSGGLufE"
 api.login_by_token(api_token=token)
 # api.login(user_id='user_id',password='password')
 
