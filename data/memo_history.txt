@@ -1,0 +1,301 @@
+我有一個csv檔案(test.cstaiwan_stock_info.csv)內容節錄如下：
+industry_category,stock_id,stock_name,type,date
+ETF,0050,元大台灣50,twse,2025-06-25
+ETF,0051,元大中型100,twse,2025-06-25
+電子零組件業,3144,新揚科,tpex,2021-12-16
+資訊服務業,3147,大綜,tpex,2025-06-25
+光電業,3149,正達,twse,2025-06-25
+電子工業,3149,正達,twse,2025-06-25
+創新板股票,3150,鈺寶-創,twse,2025-06-25
+創新版股票,3150,鈺寶-創,twse,2024-12-04
+半導體業,3150,鈺寶,emerging,2024-06-26
+
+幫我寫出做到以下任務的python：
+
+==================
+我有一個csv檔案(data.csv)內容節錄如下：
+Combination,Remark,RT_6M_After
+201605-201610,Winner,0.146
+201605-201610,Loser,0.13666666666666663
+201605-201610,Winner - Loser,0.00933333333333336
+201606-201611,Winner,0.36
+201606-201611,Loser,0.1805
+201606-201611,Winner - Loser,0.1795
+
+希望你能幫我以Winner、Loser、Winner-Loser三組數據進行單一樣本t檢定
+看三者是否顯著大於0
+
+=============
+我有一個csv檔案(data.csv)內容節錄如下：
+Stock_id,Combination,Start_Date,End_Date,Start_Price,End_Price,Return,RT_Percentile_Rank,Remark,RT_Rank,RT_6M_After
+3005,201605-201610,2016/5/3,2016/10/31,21.35,41,92%,99%,Winner,1,-6%
+2439,201605-201610,2016/5/3,2016/10/31,64,122,91%,99%,Winner,2,44%
+2377,201605-201610,2016/5/3,2016/10/31,51.2,90.9,78%,98%,Winner,3,-32%
+給我python程式碼，幫我製作統計數據：
+	1.以Combination為分組，計算每組數據裡面，Remark欄位為Winner、Loser的RT_6M_After欄位平均值
+	2.計算每個Combination的RT_6M_After欄位Winner平均值 - Loser平均值
+
+最後的結果大概像這樣：
+Combination,Remark,Count,RT_6M_After_Mean
+201605-201610,Winner,20,0.146
+201605-201610,Loser,18,0.13666666666666663
+201605-201610,Winner - Loser,-,0.00933333333333336
+
+	
+
+=============
+我有一個csv檔案(data.csv)內容節錄如下：
+Stock_id,Combination,Start_Date,End_Date,Start_Price,End_Price,Return,RT_Percentile_Rank,Remark,RT_Rank
+1101,201605-201610,2016-05-03,2016-10-31,32.65,37.85,0.1592649310872895,0.7638190954773869,,47.0
+1710,201605-201610,2016-05-03,2016-10-31,20.8,19.75,-0.0504807692307692,0.1758793969849246,,164.0
+給我python程式碼，幫我在右側新增一個欄位，條件如下：
+	1.欄位名稱為"RT_6M_After"
+	2.填入資料的條件：
+		(1)僅限Remark欄位值為Winner、Loser的資料
+		(2)每列資料依據其Stock_id、Combination欄位值找出對應的資料列
+		(3)承(2)，對應的規則為：
+			a.Stock_id相同
+			b.Combination為6個月後的數值：			若某列資料的Combination為201605-201610，對應的資料列其Combination為201611-201604
+			c.填入對應資料列Return欄位的值到RT_6M_After欄位中
+		
+		
+=====
+我有一個csv檔案(Momentum0050_0051-20160501_20180601-HP_6_returnPercent.csv)內容節錄如下：
+Stock_id,Combination,Start_Date,End_Date,Start_Price,End_Price,Return,RT_Percentile_Rank
+1101,201605-201610,2016-05-03,2016-10-31,32.65,37.85,0.15926493108728954,0.7638190954773869
+1710,201605-201610,2016-05-03,2016-10-31,20.8,19.75,-0.05048076923076927,0.17587939698492464
+2015,201605-201610,2016-05-03,2016-10-31,46.8,41.9,-0.10470085470085468,0.09045226130653267
+幫我進行這些處理：
+	1.新增欄位Remark
+	2.將RT_Percentile_Rank欄位值大於99.9%與小於0.1%的資料列，Remark欄位填入"Exclude"
+	3.新增欄位RT_Rank
+	4.排除Remark值為Exvclude的資料，以Combination為分組，將每組的Return資料排名結果寫進RT_Rank欄位
+	5.排除Remark值為Exvclude的資料，Remark欄位再依下列邏輯填寫：
+		以combination為分組，將該combination依據rank大小分為十組
+		=> 第一組為 rank PR90以上 的資料列，幫我標示"Winner"
+		=> 第十組為 rank PR10以下 的資料列，幫我標示"Loser"
+	
+=====
+
+我有一個csv檔案(combinationReturn_2016-05-01_2018-06-01_HP-6_raw.csv)內容節錄如下：
+Stock_id,Start_Date,End_Date,Start_Price,End_Price,Return,combination
+1101,2016-05-03,2016-10-31,32.65,37.85,0.15926493108728954,2016-05-03_2016-10-31
+1710,2016-05-03,2016-10-31,20.8,19.75,-0.05048076923076927,2016-05-03_2016-10-31
+2015,2016-05-03,2016-10-31,46.8,41.9,-0.10470085470085468,2016-05-03_2016-10-31
+1907,2016-05-03,2016-10-31,10.0,9.3,-0.06999999999999992,2016-05-03_2016-10-31
+2006,2016-05-03,2016-10-31,20.35,20.15,-0.009828009828009967,2016-05-03_2016-10-31
+請依據我的需求給我對應的python程式碼：
+1.新增一個叫做Return_%的欄位
+2.依據combination欄位分組，將組內依據Return欄位的大小進行百分比排序
+
+
+====================
+我有一個csv檔案如圖，
+**檔案位置:
+	..\data\analysis\momentum\combinations\priceSrc_2016-05-01_2018-06-01.csv
+
+請你給我完成下列要求的python程式碼：
+**要求如下：
+	1.提取 date 欄位每個月的第一個日期，存成一個陣列 startDateList
+	2.提取 date 欄位每個月的最後一個日期，存成一個陣列 endDateList
+	3.提取 stock_id 欄位，存成一個不重複陣列 stockIdList
+	4.尋找所有 stockIdList 的 配合 startDateList、endDateList對應的股價，
+	生成一張新表，存成檔案combinationReturn_2016-05-01_2018-06-01.csv
+
+
+你上面程式碼匯出來的結果如下：
+	Stock_id,Start_Date,End_Date,Start_Price,End_Price,Return
+	1101,2016-05-03,2016-05-31,32.65,30.05,-0.07963246554364466
+	1101,2016-06-01,2016-06-30,29.9,32.05,0.07190635451505012
+	1101,2016-07-01,2016-07-29,32.65,33.9,0.03828483920367535 
+	1101,2016-08-01,2016-08-31,33.9,36.25,0.06932153392330388     
+我覺得超級棒！但希望能進行以下調整：
+我給定一個整數變數observeHoldingPeriod，
+每列 Start_Date 、 End_Date 配對的邏輯變成：
+	如果observeHoldingPeriod = 1，
+	當 Start_Date = 2016-05-03 ，則 End_Date = 2016-05-31
+	如果observeHoldingPeriod = 2，
+	當 Start_Date = 2016-05-03 ，則 End_Date = 2016-06-30
+	如果observeHoldingPeriod = 3，
+	當 Start_Date = 2016-05-03 ，則 End_Date = 2016-07-29
+	...以此類推
+	然後各自的Price一樣要對應股價、日期
+	
+你幫了我大忙！這個檔案完全時我要的！
+	
+現在再幫我進行一點處理：
+	1.再新增一個欄位，名稱為combination，值為連接同列的Start_Date + "_" + End_Date
+	2.combination欄位相同的股票為一組，依據報酬率欄位附上該組的排名rank欄位
+	
+再幫我進行這些處理：
+	3.新增欄位remark
+	4.以combination為分組，將該combination依據rank大小分為十組
+		=> 第一組為 rank PR90以上 的資料列，幫我標示"Winner"
+		=> 第十組為 rank PR10以下 的資料列，幫我標示"Loser"
+	5.協助將remark欄位不為空的資料列全部拖出來，存成檔案result.csv
+
+
+======
+希望你幫忙我用python產生一個檔案，
+取名叫做combinationReturn_2016-05-01_2018-06-01.csv
+======
+幫我寫一個python程式，要求如下：
+1.要有以下變數：(//後方的註解也幫我寫進程式裡)
+String fstM // 股價資料起始年月，此範例為201605(代表2016年5月)
+String lastM // 股價資料結束年月，此範例為201805(代表2018年5月)
+int J = 6// observation period(months)，觀察股票在J個月前至建立組合日間所得到的報酬
+int K = 6// holding Period(months)，持有投資組合k個月
+這些變數之後擴充程式的時候會用的，這次我只完成部分，沒用到屬於正常現象
+
+2.專案資料夾結構如下：
+data/
+├── min_data_2013-2019/ 
+│   ├── 2013/ 
+│   │   └── averageprice 
+│   │   	├──20130102_averagePrice_min.csv
+│   │   	├──20130103_averagePrice_min.csv
+│   │   	├── ...略(yyyymmdd_averagePrice_min.csv)
+│   │   	└──20131231_averagePrice_min.csv
+│   ├── 2014/
+│   │   └── averageprice 
+│   │   	├──20140102_averagePrice_min.csv
+│   │   	├──20140103_averagePrice_min.csv
+│   │   	├── ...略(yyyymmdd_averagePrice_min.csv)
+│   │   	└──20141231_averagePrice_min.csv
+│   ├──...略(yyyy)
+│   └── 2019/
+│       └── averageprice 
+│       	├──20190102_averagePrice_min.csv
+│       	├──20190103_averagePrice_min.csv
+│       	├── ...略(yyyymmdd_averagePrice_min.csv)
+│       	└──20191231_averagePrice_min.csv
+└── analysis/ 
+	└── 201605-201805/ 
+	
+3.幫我在data/analysis/summary資料夾底下建立一個叫做closingPrice2013-2019.csv的檔案
+
+4.在檔案data/analysis/summary/closingPrice2013-2019.csv填入以下內容：
+	(1)第1行資料：股票代號，來自於min_data_2013-2019/yyyy/averageprice/yyyymmdd_averagePrice_min.csv檔案的第1列
+	(2)第1列資料：日期，來自於(1)所述csv檔的檔名-yyyymmdd部分
+	(3)中間部分的資料：yyyymmdd_averagePrice_min.csv最後一列的資料，就是對應第一列股票代號當天的收盤價
+	(4)資料提取邏輯：
+		a.yyyymmdd_averagePrice_min.csv檔案收錄範疇：只要取資料夾內每個月最小、最大日期的資料即可，例如：以2013年01月而言，要抄錄的檔案就只有20130102_averagePrice_min.csv、20130131_averagePrice_min.csv，其他月份以此類推。
+		b.特別注意：要特別注意讓收盤價對應到正確的股票代號(不可以亂掉！)，由於每個yyyymmdd_averagePrice_min.csv檔案收錄的股票名單有差異，所以最後每一行的資料因為有收錄到別的日期的名單而出現參差不齊的缺失(正常現象)。
+		
+		c.標註缺失值的部分：
+			<i>這支股票有在檔案裡，但是該檔案內它的股價空白，請幫我填入值"NoTraded"
+			<ii>其餘該月檔案沒有記錄到該股票的月份，填入值"outOf150"
+----
+
+你完美完成了closingPrice2013-2019.csv的檔案，
+現在我想再寫一隻python，讀取這個檔案，並且試圖填補此檔案空白(表示當月股價資料不在該日的檔案內)部分：
+	1.希望可以利用免費的API進行查詢，如果不行，詳見2.的方法
+	2.如果1.的方法無法完成查詢，則可使用FinMind的api去完成：
+		a.這個api有額度限制，記得查詢方法盡量節省額度！
+	3.如果經過查詢發現沒有交易資料，請幫我在格子裡填入"NoTraded2"
+	4.填完的檔案幫我另存為closingPrice2013-2019_fill.csv
+
+
+
+
+
+依據2的檔案yyyymmdd_averagePrice_min.csv檔案，幫我匯出一個stockCadidates的檔案
+	
+
+
+==================
+幫我用FinMind API按以下條件寫出python程式給我：
+	1.建立一個叫做Return_201610lastMinus201605fst.csv的檔案
+		第1列資料為對應欄位的名稱
+			股票代號
+			股票名稱
+			201605fstTD
+			201610lastTD
+			報酬率(%)
+			排名
+			標記
+		第1欄的資料：股票代號
+			2016年5月第一個交易日，0050、0051的所有成分股(共150檔)
+		第2欄資料：股票名稱
+		第3欄資料：這些股票在2016年5月第一個交易日的收盤價
+		第4欄資料：這些股票在2016年10月最後一個交易日的收盤價
+		第5欄資料：買入第3欄價格，賣出第4欄價格所獲得的報酬率
+		第6欄資料：依據第5欄資料，各支股票獲得的排名(名次越高報酬率越高)
+		第7欄資料：依據第6欄資料，1~15名標記"Winner"，136~150標記"Loser"
+		
+	2.依照1.的邏輯，逐月建立Return_YYYYMMlastMinusYYYYMMfst.csv格式的檔案，如下：
+		└── analysis/ 
+			└── 201605-201805/ 
+				├── Return_201610lastMinus201605fst.csv
+				├── Return_201611lastMinus201606fst.csv
+				├── Return_201612lastMinus201607fst.csv
+				├── Return_201701lastMinus201608fst.csv
+				├── ... 略(逐月依此類推)
+				└── Return_201805lastMinus201712fst.csv
+	
+	3.把這些CSV檔案都放在資料夾data/analysis/201605-201805底下
+	
+		
+==================
+＊我的資料夾結構如下：
+data/
+├── min_data_2013-2019/ 
+│   ├── 2013/ 
+│   │   └── averageprice 
+│   │   	├──20130102_averagePrice_min.csv
+│   │   	├──20130103_averagePrice_min.csv
+│   │   	├── ...略(yyyymmdd_averagePrice_min.csv)
+│   │   	└──20131231_averagePrice_min.csv
+│   ├── 2014/
+│   │   └── averageprice 
+│   │   	├──20140102_averagePrice_min.csv
+│   │   	├──20140103_averagePrice_min.csv
+│   │   	├── ...略(yyyymmdd_averagePrice_min.csv)
+│   │   	└──20141231_averagePrice_min.csv
+│   ├──...略(yyyy)
+│   └── 2019/
+│       └── averageprice 
+│       	├──20190102_averagePrice_min.csv
+│       	├──20190103_averagePrice_min.csv
+│       	├── ...略(yyyymmdd_averagePrice_min.csv)
+│       	└──20191231_averagePrice_min.csv
+└── analysis/ 
+	└── 201605-201805/ 
+
+
+＊每個yyyymmdd_averagePrice_min.csv資料的說明如下：
+檔名yyyymmdd的部分為交易日
+第一列為股票代號，收錄了150檔股票，因此有150欄
+台股每個交易日開盤為4.5個小時，第2~271列收錄了每分鐘的平均股價
+最後一列為對應股票的當日收盤價
+-----------
+現在開始按照我的需求寫出對應的python程式給我：
+1.幫我在data/analysis/201605-201805/底下建立一個檔案：
+	檔名為Return_201610lastMinus201605fst.csv
+	第1列資料：150檔股票的代號
+	第2列資料：2016年5月第一個交易日的收盤價資料
+	第3列資料：2016年10月最後一個交易日的收盤價資料
+	第4列資料：計算買入第2列的價格且賣出第3列的價格所取得的報酬率
+	第5列資料：根據第4列的報酬率資料給150檔股票排名(高到低,1~150名)
+	第6列資料：根據第5列的資料，將1~15名標記為"winner"，136~150名標記為"loser"
+	此外，此檔案的第1欄為列表資料標題：
+		第1列第1欄：股票代號
+		第2列第1欄：201605fstTD
+		第3列第1欄：201610lastTD
+		第4列第1欄：報酬率
+		第5列第1欄：排名
+		第6列第1欄：標記
+2.依據1的模式，依此類推，逐月建立相同模式的檔案
+	結果會如同：
+		└── analysis/ 
+			└── 201605-201805/ 
+				├── Return_201610lastMinus201605fst.csv
+				├── Return_201611lastMinus201606fst.csv
+				├── Return_201612lastMinus201607fst.csv
+				├── Return_201701lastMinus201608fst.csv
+				├── ... 略(逐月依此類推)
+				└── Return_201805lastMinus201712fst.csv
+		
+	
+	
+	

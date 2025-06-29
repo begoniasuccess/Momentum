@@ -1,6 +1,16 @@
+from FinMind.data import DataLoader
 import pandas as pd
 import os
-from FinMind.data import DataLoader
+from datetime import datetime
+
+
+outputDir = r'..\data\FinMind\TW\StockInfo'
+
+sDt = datetime.strptime('2010/01/01', "%Y/%m/%d")
+eDt = datetime.strptime('2020/12/31', "%Y/%m/%d")
+
+outputFile = f'{outputDir}/TWSI-{sDt.strftime("%Y%m%d")}.csv'
+os.makedirs(os.path.dirname(outputFile), exist_ok=True) # 確保資料夾存在
 
 srcFilePath = "../data/FinMind/TW/taiwan_stock_info.csv"
 
@@ -10,7 +20,9 @@ if os.path.exists(srcFilePath):
 else:
     print(f'檔案{srcFilePath}不存在，從FindMind下載資料...')
     api = DataLoader()
-    df = api.taiwan_stock_info()
+    df = api.taiwan_stock_info(
+        start_date="2010-01-01"
+    )
     df.to_csv(srcFilePath, index=False, encoding='utf-8-sig')    
 
 targetFilePath = "../data/analysis/taiwan_stock_info-twse.csv"
@@ -29,3 +41,4 @@ else:
     df_twse_filtered.to_csv(targetFilePath, index=False, encoding='utf-8-sig')
 
     print("已成功儲存：" + targetFilePath)
+

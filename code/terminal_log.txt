@@ -1,0 +1,782 @@
+✅ 已重新命名：TWMV-1104.csv -> TWDPadj-1104.csv
+✅ 已重新命名：TWMV-1201.csv -> TWDPadj-1201.csv
+✅ 已重新命名：TWMV-1210.csv -> TWDPadj-1210.csv
+✅ 已重新命名：TWMV-1215.csv -> TWDPadj-1215.csv
+✅ 已重新命名：TWMV-1216.csv -> TWDPadj-1216.csv
+✅ 已重新命名：TWMV-1227.csv -> TWDPadj-1227.csv
+✅ 已重新命名：TWMV-1229.csv -> TWDPadj-1229.csv
+✅ 已重新命名：TWMV-1232.csv -> TWDPadj-1232.csv
+✅ 已重新命名：TWMV-1234.csv -> TWDPadj-1234.csv
+✅ 已重新命名：TWMV-1262.csv -> TWDPadj-1262.csv
+✅ 已重新命名：TWMV-1301.csv -> TWDPadj-1301.csv
+✅ 已重新命名：TWMV-1303.csv -> TWDPadj-1303.csv
+✅ 已重新命名：TWMV-1304.csv -> TWDPadj-1304.csv
+✅ 已重新命名：TWMV-1307.csv -> TWDPadj-1307.csv
+✅ 已重新命名：TWMV-1308.csv -> TWDPadj-1308.csv
+✅ 已重新命名：TWMV-1312.csv -> TWDPadj-1312.csv
+✅ 已重新命名：TWMV-1313.csv -> TWDPadj-1313.csv
+✅ 已重新命名：TWMV-1314.csv -> TWDPadj-1314.csv
+✅ 已重新命名：TWMV-1319.csv -> TWDPadj-1319.csv
+✅ 已重新命名：TWMV-1326.csv -> TWDPadj-1326.csv
+✅ 已重新命名：TWMV-1337.csv -> TWDPadj-1337.csv
+✅ 已重新命名：TWMV-1402.csv -> TWDPadj-1402.csv
+✅ 已重新命名：TWMV-1409.csv -> TWDPadj-1409.csv
+✅ 已重新命名：TWMV-1434.csv -> TWDPadj-1434.csv
+✅ 已重新命名：TWMV-1440.csv -> TWDPadj-1440.csv
+✅ 已重新命名：TWMV-1476.csv -> TWDPadj-1476.csv
+✅ 已重新命名：TWMV-1477.csv -> TWDPadj-1477.csv
+✅ 已重新命名：TWMV-1503.csv -> TWDPadj-1503.csv
+✅ 已重新命名：TWMV-1504.csv -> TWDPadj-1504.csv
+✅ 已重新命名：TWMV-1507.csv -> TWDPadj-1507.csv
+✅ 已重新命名：TWMV-1532.csv -> TWDPadj-1532.csv
+✅ 已重新命名：TWMV-1536.csv -> TWDPadj-1536.csv
+✅ 已重新命名：TWMV-1589.csv -> TWDPadj-1589.csv
+✅ 已重新命名：TWMV-1590.csv -> TWDPadj-1590.csv
+✅ 已重新命名：TWMV-1605.csv -> TWDPadj-1605.csv
+✅ 已重新命名：TWMV-1702.csv -> TWDPadj-1702.csv
+✅ 已重新命名：TWMV-1704.csv -> TWDPadj-1704.csv
+✅ 已重新命名：TWMV-1707.csv -> TWDPadj-1707.csv
+✅ 已重新命名：TWMV-1710.csv -> TWDPadj-1710.csv
+✅ 已重新命名：TWMV-1714.csv -> TWDPadj-1714.csv
+✅ 已重新命名：TWMV-1717.csv -> TWDPadj-1717.csv
+✅ 已重新命名：TWMV-1718.csv -> TWDPadj-1718.csv
+✅ 已重新命名：TWMV-1722.csv -> TWDPadj-1722.csv
+✅ 已重新命名：TWMV-1723.csv -> TWDPadj-1723.csv
+✅ 已重新命名：TWMV-1736.csv -> TWDPadj-1736.csv
+✅ 已重新命名：TWMV-1789.csv -> TWDPadj-1789.csv
+✅ 已重新命名：TWMV-1795.csv -> TWDPadj-1795.csv
+✅ 已重新命名：TWMV-1802.csv -> TWDPadj-1802.csv
+✅ 已重新命名：TWMV-1808.csv -> TWDPadj-1808.csv
+✅ 已重新命名：TWMV-1903.csv -> TWDPadj-1903.csv
+✅ 已重新命名：TWMV-1904.csv -> TWDPadj-1904.csv
+✅ 已重新命名：TWMV-1907.csv -> TWDPadj-1907.csv
+✅ 已重新命名：TWMV-1909.csv -> TWDPadj-1909.csv
+✅ 已重新命名：TWMV-2002.csv -> TWDPadj-2002.csv
+✅ 已重新命名：TWMV-2006.csv -> TWDPadj-2006.csv
+✅ 已重新命名：TWMV-2014.csv -> TWDPadj-2014.csv
+✅ 已重新命名：TWMV-2015.csv -> TWDPadj-2015.csv
+✅ 已重新命名：TWMV-2023.csv -> TWDPadj-2023.csv
+✅ 已重新命名：TWMV-2027.csv -> TWDPadj-2027.csv
+✅ 已重新命名：TWMV-2032.csv -> TWDPadj-2032.csv
+✅ 已重新命名：TWMV-2049.csv -> TWDPadj-2049.csv
+✅ 已重新命名：TWMV-2059.csv -> TWDPadj-2059.csv
+✅ 已重新命名：TWMV-2101.csv -> TWDPadj-2101.csv
+✅ 已重新命名：TWMV-2103.csv -> TWDPadj-2103.csv
+✅ 已重新命名：TWMV-2104.csv -> TWDPadj-2104.csv
+✅ 已重新命名：TWMV-2105.csv -> TWDPadj-2105.csv
+✅ 已重新命名：TWMV-2106.csv -> TWDPadj-2106.csv
+✅ 已重新命名：TWMV-2107.csv -> TWDPadj-2107.csv
+✅ 已重新命名：TWMV-2108.csv -> TWDPadj-2108.csv
+✅ 已重新命名：TWMV-2201.csv -> TWDPadj-2201.csv
+✅ 已重新命名：TWMV-2204.csv -> TWDPadj-2204.csv
+✅ 已重新命名：TWMV-2206.csv -> TWDPadj-2206.csv
+✅ 已重新命名：TWMV-2207.csv -> TWDPadj-2207.csv
+✅ 已重新命名：TWMV-2208.csv -> TWDPadj-2208.csv
+✅ 已重新命名：TWMV-2227.csv -> TWDPadj-2227.csv
+✅ 已重新命名：TWMV-2228.csv -> TWDPadj-2228.csv
+✅ 已重新命名：TWMV-2231.csv -> TWDPadj-2231.csv
+✅ 已重新命名：TWMV-2239.csv -> TWDPadj-2239.csv
+✅ 已重新命名：TWMV-2301.csv -> TWDPadj-2301.csv
+✅ 已重新命名：TWMV-2303.csv -> TWDPadj-2303.csv
+✅ 已重新命名：TWMV-2308.csv -> TWDPadj-2308.csv
+✅ 已重新命名：TWMV-2311.csv -> TWDPadj-2311.csv
+✅ 已重新命名：TWMV-2312.csv -> TWDPadj-2312.csv
+✅ 已重新命名：TWMV-2313.csv -> TWDPadj-2313.csv
+✅ 已重新命名：TWMV-2315.csv -> TWDPadj-2315.csv
+✅ 已重新命名：TWMV-2317.csv -> TWDPadj-2317.csv
+✅ 已重新命名：TWMV-2323.csv -> TWDPadj-2323.csv
+✅ 已重新命名：TWMV-2324.csv -> TWDPadj-2324.csv
+✅ 已重新命名：TWMV-2325.csv -> TWDPadj-2325.csv
+✅ 已重新命名：TWMV-2327.csv -> TWDPadj-2327.csv
+✅ 已重新命名：TWMV-2328.csv -> TWDPadj-2328.csv
+✅ 已重新命名：TWMV-2330.csv -> TWDPadj-2330.csv
+✅ 已重新命名：TWMV-2331.csv -> TWDPadj-2331.csv
+✅ 已重新命名：TWMV-2332.csv -> TWDPadj-2332.csv
+✅ 已重新命名：TWMV-2337.csv -> TWDPadj-2337.csv
+✅ 已重新命名：TWMV-2340.csv -> TWDPadj-2340.csv
+✅ 已重新命名：TWMV-2344.csv -> TWDPadj-2344.csv
+✅ 已重新命名：TWMV-2345.csv -> TWDPadj-2345.csv
+✅ 已重新命名：TWMV-2347.csv -> TWDPadj-2347.csv
+✅ 已重新命名：TWMV-2349.csv -> TWDPadj-2349.csv
+✅ 已重新命名：TWMV-2350.csv -> TWDPadj-2350.csv
+✅ 已重新命名：TWMV-2352.csv -> TWDPadj-2352.csv
+✅ 已重新命名：TWMV-2353.csv -> TWDPadj-2353.csv
+✅ 已重新命名：TWMV-2354.csv -> TWDPadj-2354.csv
+✅ 已重新命名：TWMV-2355.csv -> TWDPadj-2355.csv
+✅ 已重新命名：TWMV-2356.csv -> TWDPadj-2356.csv
+✅ 已重新命名：TWMV-2357.csv -> TWDPadj-2357.csv
+✅ 已重新命名：TWMV-2360.csv -> TWDPadj-2360.csv
+✅ 已重新命名：TWMV-2362.csv -> TWDPadj-2362.csv
+✅ 已重新命名：TWMV-2363.csv -> TWDPadj-2363.csv
+✅ 已重新命名：TWMV-2367.csv -> TWDPadj-2367.csv
+✅ 已重新命名：TWMV-2368.csv -> TWDPadj-2368.csv
+✅ 已重新命名：TWMV-2371.csv -> TWDPadj-2371.csv
+✅ 已重新命名：TWMV-2373.csv -> TWDPadj-2373.csv
+✅ 已重新命名：TWMV-2374.csv -> TWDPadj-2374.csv
+✅ 已重新命名：TWMV-2376.csv -> TWDPadj-2376.csv
+✅ 已重新命名：TWMV-2377.csv -> TWDPadj-2377.csv
+✅ 已重新命名：TWMV-2379.csv -> TWDPadj-2379.csv
+✅ 已重新命名：TWMV-2382.csv -> TWDPadj-2382.csv
+✅ 已重新命名：TWMV-2383.csv -> TWDPadj-2383.csv
+✅ 已重新命名：TWMV-2384.csv -> TWDPadj-2384.csv
+✅ 已重新命名：TWMV-2385.csv -> TWDPadj-2385.csv
+✅ 已重新命名：TWMV-2388.csv -> TWDPadj-2388.csv
+✅ 已重新命名：TWMV-2392.csv -> TWDPadj-2392.csv
+✅ 已重新命名：TWMV-2393.csv -> TWDPadj-2393.csv
+✅ 已重新命名：TWMV-2395.csv -> TWDPadj-2395.csv
+✅ 已重新命名：TWMV-2401.csv -> TWDPadj-2401.csv
+✅ 已重新命名：TWMV-2403.csv -> TWDPadj-2403.csv
+✅ 已重新命名：TWMV-2404.csv -> TWDPadj-2404.csv
+✅ 已重新命名：TWMV-2408.csv -> TWDPadj-2408.csv
+✅ 已重新命名：TWMV-2409.csv -> TWDPadj-2409.csv
+✅ 已重新命名：TWMV-2412.csv -> TWDPadj-2412.csv
+✅ 已重新命名：TWMV-2439.csv -> TWDPadj-2439.csv
+✅ 已重新命名：TWMV-2441.csv -> TWDPadj-2441.csv
+✅ 已重新命名：TWMV-2448.csv -> TWDPadj-2448.csv
+✅ 已重新命名：TWMV-2449.csv -> TWDPadj-2449.csv
+✅ 已重新命名：TWMV-2450.csv -> TWDPadj-2450.csv
+✅ 已重新命名：TWMV-2451.csv -> TWDPadj-2451.csv
+✅ 已重新命名：TWMV-2452.csv -> TWDPadj-2452.csv
+✅ 已重新命名：TWMV-2454.csv -> TWDPadj-2454.csv
+✅ 已重新命名：TWMV-2455.csv -> TWDPadj-2455.csv
+✅ 已重新命名：TWMV-2456.csv -> TWDPadj-2456.csv
+✅ 已重新命名：TWMV-2457.csv -> TWDPadj-2457.csv
+✅ 已重新命名：TWMV-2458.csv -> TWDPadj-2458.csv
+✅ 已重新命名：TWMV-2474.csv -> TWDPadj-2474.csv
+✅ 已重新命名：TWMV-2475.csv -> TWDPadj-2475.csv
+✅ 已重新命名：TWMV-2478.csv -> TWDPadj-2478.csv
+✅ 已重新命名：TWMV-2481.csv -> TWDPadj-2481.csv
+✅ 已重新命名：TWMV-2485.csv -> TWDPadj-2485.csv
+✅ 已重新命名：TWMV-2489.csv -> TWDPadj-2489.csv
+✅ 已重新命名：TWMV-2492.csv -> TWDPadj-2492.csv
+✅ 已重新命名：TWMV-2495.csv -> TWDPadj-2495.csv
+✅ 已重新命名：TWMV-2498.csv -> TWDPadj-2498.csv
+✅ 已重新命名：TWMV-2499.csv -> TWDPadj-2499.csv
+✅ 已重新命名：TWMV-2501.csv -> TWDPadj-2501.csv
+✅ 已重新命名：TWMV-2504.csv -> TWDPadj-2504.csv
+✅ 已重新命名：TWMV-2511.csv -> TWDPadj-2511.csv
+✅ 已重新命名：TWMV-2514.csv -> TWDPadj-2514.csv
+✅ 已重新命名：TWMV-2515.csv -> TWDPadj-2515.csv
+✅ 已重新命名：TWMV-2520.csv -> TWDPadj-2520.csv
+✅ 已重新命名：TWMV-2534.csv -> TWDPadj-2534.csv
+✅ 已重新命名：TWMV-2542.csv -> TWDPadj-2542.csv
+✅ 已重新命名：TWMV-2545.csv -> TWDPadj-2545.csv
+✅ 已重新命名：TWMV-2547.csv -> TWDPadj-2547.csv
+✅ 已重新命名：TWMV-2548.csv -> TWDPadj-2548.csv
+✅ 已重新命名：TWMV-2601.csv -> TWDPadj-2601.csv
+✅ 已重新命名：TWMV-2603.csv -> TWDPadj-2603.csv
+✅ 已重新命名：TWMV-2605.csv -> TWDPadj-2605.csv
+✅ 已重新命名：TWMV-2606.csv -> TWDPadj-2606.csv
+✅ 已重新命名：TWMV-2607.csv -> TWDPadj-2607.csv
+✅ 已重新命名：TWMV-2608.csv -> TWDPadj-2608.csv
+✅ 已重新命名：TWMV-2609.csv -> TWDPadj-2609.csv
+✅ 已重新命名：TWMV-2610.csv -> TWDPadj-2610.csv
+✅ 已重新命名：TWMV-2612.csv -> TWDPadj-2612.csv
+✅ 已重新命名：TWMV-2615.csv -> TWDPadj-2615.csv
+✅ 已重新命名：TWMV-2617.csv -> TWDPadj-2617.csv
+✅ 已重新命名：TWMV-2618.csv -> TWDPadj-2618.csv
+✅ 已重新命名：TWMV-2633.csv -> TWDPadj-2633.csv
+✅ 已重新命名：TWMV-2634.csv -> TWDPadj-2634.csv
+✅ 已重新命名：TWMV-2637.csv -> TWDPadj-2637.csv
+✅ 已重新命名：TWMV-2704.csv -> TWDPadj-2704.csv
+✅ 已重新命名：TWMV-2707.csv -> TWDPadj-2707.csv
+✅ 已重新命名：TWMV-2723.csv -> TWDPadj-2723.csv
+✅ 已重新命名：TWMV-2727.csv -> TWDPadj-2727.csv
+✅ 已重新命名：TWMV-2801.csv -> TWDPadj-2801.csv
+✅ 已重新命名：TWMV-2809.csv -> TWDPadj-2809.csv
+✅ 已重新命名：TWMV-2812.csv -> TWDPadj-2812.csv
+✅ 已重新命名：TWMV-2820.csv -> TWDPadj-2820.csv
+✅ 已重新命名：TWMV-2823.csv -> TWDPadj-2823.csv
+✅ 已重新命名：TWMV-2833.csv -> TWDPadj-2833.csv
+✅ 已重新命名：TWMV-2834.csv -> TWDPadj-2834.csv
+✅ 已重新命名：TWMV-2837.csv -> TWDPadj-2837.csv
+✅ 已重新命名：TWMV-2838.csv -> TWDPadj-2838.csv
+✅ 已重新命名：TWMV-2845.csv -> TWDPadj-2845.csv
+✅ 已重新命名：TWMV-2847.csv -> TWDPadj-2847.csv
+✅ 已重新命名：TWMV-2849.csv -> TWDPadj-2849.csv
+✅ 已重新命名：TWMV-2854.csv -> TWDPadj-2854.csv
+✅ 已重新命名：TWMV-2855.csv -> TWDPadj-2855.csv
+✅ 已重新命名：TWMV-2856.csv -> TWDPadj-2856.csv
+✅ 已重新命名：TWMV-2867.csv -> TWDPadj-2867.csv
+✅ 已重新命名：TWMV-2880.csv -> TWDPadj-2880.csv
+✅ 已重新命名：TWMV-2881.csv -> TWDPadj-2881.csv
+✅ 已重新命名：TWMV-2881A.csv -> TWDPadj-2881A.csv
+✅ 已重新命名：TWMV-2881B.csv -> TWDPadj-2881B.csv
+✅ 已重新命名：TWMV-2882.csv -> TWDPadj-2882.csv
+✅ 已重新命名：TWMV-2882A.csv -> TWDPadj-2882A.csv
+✅ 已重新命名：TWMV-2882B.csv -> TWDPadj-2882B.csv
+✅ 已重新命名：TWMV-2883.csv -> TWDPadj-2883.csv
+✅ 已重新命名：TWMV-2884.csv -> TWDPadj-2884.csv
+✅ 已重新命名：TWMV-2885.csv -> TWDPadj-2885.csv
+✅ 已重新命名：TWMV-2886.csv -> TWDPadj-2886.csv
+✅ 已重新命名：TWMV-2887.csv -> TWDPadj-2887.csv
+✅ 已重新命名：TWMV-2887C.csv -> TWDPadj-2887C.csv
+✅ 已重新命名：TWMV-2887E.csv -> TWDPadj-2887E.csv
+✅ 已重新命名：TWMV-2888.csv -> TWDPadj-2888.csv
+✅ 已重新命名：TWMV-2889.csv -> TWDPadj-2889.csv
+✅ 已重新命名：TWMV-2890.csv -> TWDPadj-2890.csv
+✅ 已重新命名：TWMV-2891.csv -> TWDPadj-2891.csv
+✅ 已重新命名：TWMV-2891B.csv -> TWDPadj-2891B.csv
+✅ 已重新命名：TWMV-2892.csv -> TWDPadj-2892.csv
+✅ 已重新命名：TWMV-2897.csv -> TWDPadj-2897.csv
+✅ 已重新命名：TWMV-2903.csv -> TWDPadj-2903.csv
+✅ 已重新命名：TWMV-2905.csv -> TWDPadj-2905.csv
+✅ 已重新命名：TWMV-2908.csv -> TWDPadj-2908.csv
+✅ 已重新命名：TWMV-2912.csv -> TWDPadj-2912.csv
+✅ 已重新命名：TWMV-2913.csv -> TWDPadj-2913.csv
+✅ 已重新命名：TWMV-2915.csv -> TWDPadj-2915.csv
+✅ 已重新命名：TWMV-2923.csv -> TWDPadj-2923.csv
+✅ 已重新命名：TWMV-3005.csv -> TWDPadj-3005.csv
+✅ 已重新命名：TWMV-3006.csv -> TWDPadj-3006.csv
+✅ 已重新命名：TWMV-3008.csv -> TWDPadj-3008.csv
+✅ 已重新命名：TWMV-3009.csv -> TWDPadj-3009.csv
+✅ 已重新命名：TWMV-3016.csv -> TWDPadj-3016.csv
+✅ 已重新命名：TWMV-3017.csv -> TWDPadj-3017.csv
+✅ 已重新命名：TWMV-3019.csv -> TWDPadj-3019.csv
+✅ 已重新命名：TWMV-3022.csv -> TWDPadj-3022.csv
+✅ 已重新命名：TWMV-3023.csv -> TWDPadj-3023.csv
+✅ 已重新命名：TWMV-3026.csv -> TWDPadj-3026.csv
+✅ 已重新命名：TWMV-3034.csv -> TWDPadj-3034.csv
+✅ 已重新命名：TWMV-3035.csv -> TWDPadj-3035.csv
+✅ 已重新命名：TWMV-3036.csv -> TWDPadj-3036.csv
+✅ 已重新命名：TWMV-3037.csv -> TWDPadj-3037.csv
+✅ 已重新命名：TWMV-3041.csv -> TWDPadj-3041.csv
+✅ 已重新命名：TWMV-3042.csv -> TWDPadj-3042.csv
+✅ 已重新命名：TWMV-3044.csv -> TWDPadj-3044.csv
+✅ 已重新命名：TWMV-3045.csv -> TWDPadj-3045.csv
+✅ 已重新命名：TWMV-3049.csv -> TWDPadj-3049.csv
+✅ 已重新命名：TWMV-3059.csv -> TWDPadj-3059.csv
+✅ 已重新命名：TWMV-3060.csv -> TWDPadj-3060.csv
+✅ 已重新命名：TWMV-3061.csv -> TWDPadj-3061.csv
+✅ 已重新命名：TWMV-3062.csv -> TWDPadj-3062.csv
+✅ 已重新命名：TWMV-3149.csv -> TWDPadj-3149.csv
+✅ 已重新命名：TWMV-3189.csv -> TWDPadj-3189.csv
+✅ 已重新命名：TWMV-3231.csv -> TWDPadj-3231.csv
+✅ 已重新命名：TWMV-3311.csv -> TWDPadj-3311.csv
+✅ 已重新命名：TWMV-3367.csv -> TWDPadj-3367.csv
+✅ 已重新命名：TWMV-3376.csv -> TWDPadj-3376.csv
+✅ 已重新命名：TWMV-3383.csv -> TWDPadj-3383.csv
+✅ 已重新命名：TWMV-3406.csv -> TWDPadj-3406.csv
+✅ 已重新命名：TWMV-3443.csv -> TWDPadj-3443.csv
+✅ 已重新命名：TWMV-3474.csv -> TWDPadj-3474.csv
+✅ 已重新命名：TWMV-3481.csv -> TWDPadj-3481.csv
+✅ 已重新命名：TWMV-3504.csv -> TWDPadj-3504.csv
+✅ 已重新命名：TWMV-3514.csv -> TWDPadj-3514.csv
+✅ 已重新命名：TWMV-3515.csv -> TWDPadj-3515.csv
+✅ 已重新命名：TWMV-3519.csv -> TWDPadj-3519.csv
+✅ 已重新命名：TWMV-3532.csv -> TWDPadj-3532.csv
+✅ 已重新命名：TWMV-3533.csv -> TWDPadj-3533.csv
+✅ 已重新命名：TWMV-3534.csv -> TWDPadj-3534.csv
+✅ 已重新命名：TWMV-3561.csv -> TWDPadj-3561.csv
+✅ 已重新命名：TWMV-3573.csv -> TWDPadj-3573.csv
+✅ 已重新命名：TWMV-3576.csv -> TWDPadj-3576.csv
+✅ 已重新命名：TWMV-3622.csv -> TWDPadj-3622.csv
+✅ 已重新命名：TWMV-3638.csv -> TWDPadj-3638.csv
+✅ 已重新命名：TWMV-3653.csv -> TWDPadj-3653.csv
+✅ 已重新命名：TWMV-3661.csv -> TWDPadj-3661.csv
+✅ 已重新命名：TWMV-3665.csv -> TWDPadj-3665.csv
+✅ 已重新命名：TWMV-3673.csv -> TWDPadj-3673.csv
+✅ 已重新命名：TWMV-3682.csv -> TWDPadj-3682.csv
+✅ 已重新命名：TWMV-3697.csv -> TWDPadj-3697.csv
+✅ 已重新命名：TWMV-3698.csv -> TWDPadj-3698.csv
+✅ 已重新命名：TWMV-3702.csv -> TWDPadj-3702.csv
+✅ 已重新命名：TWMV-3705.csv -> TWDPadj-3705.csv
+✅ 已重新命名：TWMV-3706.csv -> TWDPadj-3706.csv
+✅ 已重新命名：TWMV-3711.csv -> TWDPadj-3711.csv
+✅ 已重新命名：TWMV-4137.csv -> TWDPadj-4137.csv
+✅ 已重新命名：TWMV-4142.csv -> TWDPadj-4142.csv
+✅ 已重新命名：TWMV-4164.csv -> TWDPadj-4164.csv
+✅ 已重新命名：TWMV-4426.csv -> TWDPadj-4426.csv
+✅ 已重新命名：TWMV-4438.csv -> TWDPadj-4438.csv
+✅ 已重新命名：TWMV-4532.csv -> TWDPadj-4532.csv
+✅ 已重新命名：TWMV-4725.csv -> TWDPadj-4725.csv
+✅ 已重新命名：TWMV-4733.csv -> TWDPadj-4733.csv
+✅ 已重新命名：TWMV-4736.csv -> TWDPadj-4736.csv
+✅ 已重新命名：TWMV-4766.csv -> TWDPadj-4766.csv
+✅ 已重新命名：TWMV-4904.csv -> TWDPadj-4904.csv
+✅ 已重新命名：TWMV-4906.csv -> TWDPadj-4906.csv
+✅ 已重新命名：TWMV-4915.csv -> TWDPadj-4915.csv
+✅ 已重新命名：TWMV-4938.csv -> TWDPadj-4938.csv
+✅ 已重新命名：TWMV-4943.csv -> TWDPadj-4943.csv
+✅ 已重新命名：TWMV-4958.csv -> TWDPadj-4958.csv
+✅ 已重新命名：TWMV-4960.csv -> TWDPadj-4960.csv
+✅ 已重新命名：TWMV-4994.csv -> TWDPadj-4994.csv
+✅ 已重新命名：TWMV-5007.csv -> TWDPadj-5007.csv
+✅ 已重新命名：TWMV-5203.csv -> TWDPadj-5203.csv
+✅ 已重新命名：TWMV-5264.csv -> TWDPadj-5264.csv
+✅ 已重新命名：TWMV-5269.csv -> TWDPadj-5269.csv
+✅ 已重新命名：TWMV-5306.csv -> TWDPadj-5306.csv
+✅ 已重新命名：TWMV-5388.csv -> TWDPadj-5388.csv
+✅ 已重新命名：TWMV-5434.csv -> TWDPadj-5434.csv
+✅ 已重新命名：TWMV-5469.csv -> TWDPadj-5469.csv
+✅ 已重新命名：TWMV-5522.csv -> TWDPadj-5522.csv
+✅ 已重新命名：TWMV-5531.csv -> TWDPadj-5531.csv
+✅ 已重新命名：TWMV-5534.csv -> TWDPadj-5534.csv
+✅ 已重新命名：TWMV-5608.csv -> TWDPadj-5608.csv
+✅ 已重新命名：TWMV-5854.csv -> TWDPadj-5854.csv
+✅ 已重新命名：TWMV-5871.csv -> TWDPadj-5871.csv
+✅ 已重新命名：TWMV-5876.csv -> TWDPadj-5876.csv
+✅ 已重新命名：TWMV-5880.csv -> TWDPadj-5880.csv
+✅ 已重新命名：TWMV-5907.csv -> TWDPadj-5907.csv
+✅ 已重新命名：TWMV-6005.csv -> TWDPadj-6005.csv
+✅ 已重新命名：TWMV-6116.csv -> TWDPadj-6116.csv
+✅ 已重新命名：TWMV-6120.csv -> TWDPadj-6120.csv
+✅ 已重新命名：TWMV-6153.csv -> TWDPadj-6153.csv
+✅ 已重新命名：TWMV-6166.csv -> TWDPadj-6166.csv
+✅ 已重新命名：TWMV-6176.csv -> TWDPadj-6176.csv
+✅ 已重新命名：TWMV-6197.csv -> TWDPadj-6197.csv
+✅ 已重新命名：TWMV-6206.csv -> TWDPadj-6206.csv
+✅ 已重新命名：TWMV-6213.csv -> TWDPadj-6213.csv
+✅ 已重新命名：TWMV-6214.csv -> TWDPadj-6214.csv
+✅ 已重新命名：TWMV-6230.csv -> TWDPadj-6230.csv
+✅ 已重新命名：TWMV-6239.csv -> TWDPadj-6239.csv
+✅ 已重新命名：TWMV-6269.csv -> TWDPadj-6269.csv
+✅ 已重新命名：TWMV-6271.csv -> TWDPadj-6271.csv
+✅ 已重新命名：TWMV-6278.csv -> TWDPadj-6278.csv
+✅ 已重新命名：TWMV-6282.csv -> TWDPadj-6282.csv
+✅ 已重新命名：TWMV-6285.csv -> TWDPadj-6285.csv
+✅ 已重新命名：TWMV-6286.csv -> TWDPadj-6286.csv
+✅ 已重新命名：TWMV-6409.csv -> TWDPadj-6409.csv
+✅ 已重新命名：TWMV-6412.csv -> TWDPadj-6412.csv
+✅ 已重新命名：TWMV-6414.csv -> TWDPadj-6414.csv
+✅ 已重新命名：TWMV-6415.csv -> TWDPadj-6415.csv
+✅ 已重新命名：TWMV-6446.csv -> TWDPadj-6446.csv
+✅ 已重新命名：TWMV-6451.csv -> TWDPadj-6451.csv
+✅ 已重新命名：TWMV-6452.csv -> TWDPadj-6452.csv
+✅ 已重新命名：TWMV-6456.csv -> TWDPadj-6456.csv
+✅ 已重新命名：TWMV-6464.csv -> TWDPadj-6464.csv
+✅ 已重新命名：TWMV-6505.csv -> TWDPadj-6505.csv
+✅ 已重新命名：TWMV-6531.csv -> TWDPadj-6531.csv
+✅ 已重新命名：TWMV-6541.csv -> TWDPadj-6541.csv
+✅ 已重新命名：TWMV-6592.csv -> TWDPadj-6592.csv
+✅ 已重新命名：TWMV-6605.csv -> TWDPadj-6605.csv
+✅ 已重新命名：TWMV-6669.csv -> TWDPadj-6669.csv
+✅ 已重新命名：TWMV-6670.csv -> TWDPadj-6670.csv
+✅ 已重新命名：TWMV-8008.csv -> TWDPadj-8008.csv
+✅ 已重新命名：TWMV-8016.csv -> TWDPadj-8016.csv
+✅ 已重新命名：TWMV-8046.csv -> TWDPadj-8046.csv
+✅ 已重新命名：TWMV-8078.csv -> TWDPadj-8078.csv
+✅ 已重新命名：TWMV-8131.csv -> TWDPadj-8131.csv
+✅ 已重新命名：TWMV-8150.csv -> TWDPadj-8150.csv
+✅ 已重新命名：TWMV-8163.csv -> TWDPadj-8163.csv
+✅ 已重新命名：TWMV-8201.csv -> TWDPadj-8201.csv
+✅ 已重新命名：TWMV-8341.csv -> TWDPadj-8341.csv
+✅ 已重新命名：TWMV-8422.csv -> TWDPadj-8422.csv
+✅ 已重新命名：TWMV-8454.csv -> TWDPadj-8454.csv
+✅ 已重新命名：TWMV-8464.csv -> TWDPadj-8464.csv
+✅ 已重新命名：TWMV-8926.csv -> TWDPadj-8926.csv
+✅ 已重新命名：TWMV-9802.csv -> TWDPadj-9802.csv
+✅ 已重新命名：TWMV-9904.csv -> TWDPadj-9904.csv
+✅ 已重新命名：TWMV-9907.csv -> TWDPadj-9907.csv
+✅ 已重新命名：TWMV-9910.csv -> TWDPadj-9910.csv
+✅ 已重新命名：TWMV-9914.csv -> TWDPadj-9914.csv
+✅ 已重新命名：TWMV-9917.csv -> TWDPadj-9917.csv
+✅ 已重新命名：TWMV-9921.csv -> TWDPadj-9921.csv
+✅ 已重新命名：TWMV-9925.csv -> TWDPadj-9925.csv
+✅ 已重新命名：TWMV-9930.csv -> TWDPadj-9930.csv
+✅ 已重新命名：TWMV-9933.csv -> TWDPadj-9933.csv
+✅ 已重新命名：TWMV-9938.csv -> TWDPadj-9938.csv
+✅ 已重新命名：TWMV-9939.csv -> TWDPadj-9939.csv
+✅ 已重新命名：TWMV-9940.csv -> TWDPadj-9940.csv
+✅ 已重新命名：TWMV-9941.csv -> TWDPadj-9941.csv
+✅ 已重新命名：TWMV-9945.csv -> TWDPadj-9945.csv
+✅ 已重新命名：TWMV-9958.csv -> TWDPadj-9958.csv
+☑️ 檔案已存在： ..\data\analysis\summary/TWMV_mean-201001_202012.csv
+☑️ 檔案已存在： ..\data\analysis\summary/TWMV_mean-201001_202012-rank200.csv
+📢 即將處理的股價資料檔案數： 385
+讀取檔案： TWDPadj-1101.csv
+讀取檔案： TWDPadj-1102.csv
+讀取檔案： TWDPadj-1104.csv
+讀取檔案： TWDPadj-1201.csv
+讀取檔案： TWDPadj-1210.csv
+讀取檔案： TWDPadj-1215.csv
+讀取檔案： TWDPadj-1216.csv
+讀取檔案： TWDPadj-1227.csv
+讀取檔案： TWDPadj-1229.csv
+讀取檔案： TWDPadj-1232.csv
+讀取檔案： TWDPadj-1234.csv
+讀取檔案： TWDPadj-1262.csv
+讀取檔案： TWDPadj-1301.csv
+讀取檔案： TWDPadj-1303.csv
+讀取檔案： TWDPadj-1304.csv
+讀取檔案： TWDPadj-1307.csv
+讀取檔案： TWDPadj-1308.csv
+讀取檔案： TWDPadj-1312.csv
+讀取檔案： TWDPadj-1313.csv
+讀取檔案： TWDPadj-1314.csv
+讀取檔案： TWDPadj-1319.csv
+讀取檔案： TWDPadj-1326.csv
+讀取檔案： TWDPadj-1337.csv
+讀取檔案： TWDPadj-1402.csv
+讀取檔案： TWDPadj-1409.csv
+讀取檔案： TWDPadj-1434.csv
+讀取檔案： TWDPadj-1440.csv
+讀取檔案： TWDPadj-1476.csv
+讀取檔案： TWDPadj-1477.csv
+讀取檔案： TWDPadj-1503.csv
+讀取檔案： TWDPadj-1504.csv
+讀取檔案： TWDPadj-1507.csv
+讀取檔案： TWDPadj-1532.csv
+讀取檔案： TWDPadj-1536.csv
+讀取檔案： TWDPadj-1589.csv
+讀取檔案： TWDPadj-1590.csv
+讀取檔案： TWDPadj-1605.csv
+讀取檔案： TWDPadj-1702.csv
+讀取檔案： TWDPadj-1704.csv
+讀取檔案： TWDPadj-1707.csv
+讀取檔案： TWDPadj-1710.csv
+讀取檔案： TWDPadj-1714.csv
+讀取檔案： TWDPadj-1717.csv
+讀取檔案： TWDPadj-1718.csv
+讀取檔案： TWDPadj-1722.csv
+讀取檔案： TWDPadj-1723.csv
+讀取檔案： TWDPadj-1736.csv
+讀取檔案： TWDPadj-1789.csv
+讀取檔案： TWDPadj-1795.csv
+讀取檔案： TWDPadj-1802.csv
+讀取檔案： TWDPadj-1808.csv
+讀取檔案： TWDPadj-1903.csv
+讀取檔案： TWDPadj-1904.csv
+讀取檔案： TWDPadj-1907.csv
+讀取檔案： TWDPadj-1909.csv
+讀取檔案： TWDPadj-2002.csv
+讀取檔案： TWDPadj-2006.csv
+讀取檔案： TWDPadj-2014.csv
+讀取檔案： TWDPadj-2015.csv
+讀取檔案： TWDPadj-2023.csv
+讀取檔案： TWDPadj-2027.csv
+讀取檔案： TWDPadj-2032.csv
+讀取檔案： TWDPadj-2049.csv
+讀取檔案： TWDPadj-2059.csv
+讀取檔案： TWDPadj-2101.csv
+讀取檔案： TWDPadj-2103.csv
+讀取檔案： TWDPadj-2104.csv
+讀取檔案： TWDPadj-2105.csv
+讀取檔案： TWDPadj-2106.csv
+讀取檔案： TWDPadj-2107.csv
+讀取檔案： TWDPadj-2108.csv
+讀取檔案： TWDPadj-2201.csv
+讀取檔案： TWDPadj-2204.csv
+讀取檔案： TWDPadj-2206.csv
+讀取檔案： TWDPadj-2207.csv
+讀取檔案： TWDPadj-2208.csv
+讀取檔案： TWDPadj-2227.csv
+讀取檔案： TWDPadj-2228.csv
+讀取檔案： TWDPadj-2231.csv
+讀取檔案： TWDPadj-2239.csv
+讀取檔案： TWDPadj-2301.csv
+讀取檔案： TWDPadj-2303.csv
+讀取檔案： TWDPadj-2308.csv
+讀取檔案： TWDPadj-2311.csv
+讀取檔案： TWDPadj-2312.csv
+讀取檔案： TWDPadj-2313.csv
+讀取檔案： TWDPadj-2315.csv
+讀取檔案： TWDPadj-2317.csv
+讀取檔案： TWDPadj-2323.csv
+讀取檔案： TWDPadj-2324.csv
+讀取檔案： TWDPadj-2325.csv
+讀取檔案： TWDPadj-2327.csv
+讀取檔案： TWDPadj-2328.csv
+讀取檔案： TWDPadj-2330.csv
+讀取檔案： TWDPadj-2331.csv
+讀取檔案： TWDPadj-2332.csv
+讀取檔案： TWDPadj-2337.csv
+讀取檔案： TWDPadj-2340.csv
+讀取檔案： TWDPadj-2344.csv
+讀取檔案： TWDPadj-2345.csv
+讀取檔案： TWDPadj-2347.csv
+讀取檔案： TWDPadj-2349.csv
+讀取檔案： TWDPadj-2350.csv
+讀取檔案： TWDPadj-2352.csv
+讀取檔案： TWDPadj-2353.csv
+讀取檔案： TWDPadj-2354.csv
+讀取檔案： TWDPadj-2355.csv
+讀取檔案： TWDPadj-2356.csv
+讀取檔案： TWDPadj-2357.csv
+讀取檔案： TWDPadj-2360.csv
+讀取檔案： TWDPadj-2362.csv
+讀取檔案： TWDPadj-2363.csv
+讀取檔案： TWDPadj-2367.csv
+讀取檔案： TWDPadj-2368.csv
+讀取檔案： TWDPadj-2371.csv
+讀取檔案： TWDPadj-2373.csv
+讀取檔案： TWDPadj-2374.csv
+讀取檔案： TWDPadj-2376.csv
+讀取檔案： TWDPadj-2377.csv
+讀取檔案： TWDPadj-2379.csv
+讀取檔案： TWDPadj-2382.csv
+讀取檔案： TWDPadj-2383.csv
+讀取檔案： TWDPadj-2384.csv
+讀取檔案： TWDPadj-2385.csv
+讀取檔案： TWDPadj-2388.csv
+讀取檔案： TWDPadj-2392.csv
+讀取檔案： TWDPadj-2393.csv
+讀取檔案： TWDPadj-2395.csv
+讀取檔案： TWDPadj-2401.csv
+讀取檔案： TWDPadj-2403.csv
+讀取檔案： TWDPadj-2404.csv
+讀取檔案： TWDPadj-2408.csv
+讀取檔案： TWDPadj-2409.csv
+讀取檔案： TWDPadj-2412.csv
+讀取檔案： TWDPadj-2439.csv
+讀取檔案： TWDPadj-2441.csv
+讀取檔案： TWDPadj-2448.csv
+讀取檔案： TWDPadj-2449.csv
+讀取檔案： TWDPadj-2450.csv
+讀取檔案： TWDPadj-2451.csv
+讀取檔案： TWDPadj-2452.csv
+讀取檔案： TWDPadj-2454.csv
+讀取檔案： TWDPadj-2455.csv
+讀取檔案： TWDPadj-2456.csv
+讀取檔案： TWDPadj-2457.csv
+讀取檔案： TWDPadj-2458.csv
+讀取檔案： TWDPadj-2474.csv
+讀取檔案： TWDPadj-2475.csv
+讀取檔案： TWDPadj-2478.csv
+讀取檔案： TWDPadj-2481.csv
+讀取檔案： TWDPadj-2485.csv
+讀取檔案： TWDPadj-2489.csv
+讀取檔案： TWDPadj-2492.csv
+讀取檔案： TWDPadj-2495.csv
+讀取檔案： TWDPadj-2498.csv
+讀取檔案： TWDPadj-2499.csv
+讀取檔案： TWDPadj-2501.csv
+讀取檔案： TWDPadj-2504.csv
+讀取檔案： TWDPadj-2511.csv
+讀取檔案： TWDPadj-2514.csv
+讀取檔案： TWDPadj-2515.csv
+讀取檔案： TWDPadj-2520.csv
+讀取檔案： TWDPadj-2534.csv
+讀取檔案： TWDPadj-2542.csv
+讀取檔案： TWDPadj-2545.csv
+讀取檔案： TWDPadj-2547.csv
+讀取檔案： TWDPadj-2548.csv
+讀取檔案： TWDPadj-2601.csv
+讀取檔案： TWDPadj-2603.csv
+讀取檔案： TWDPadj-2605.csv
+讀取檔案： TWDPadj-2606.csv
+讀取檔案： TWDPadj-2607.csv
+讀取檔案： TWDPadj-2608.csv
+讀取檔案： TWDPadj-2609.csv
+讀取檔案： TWDPadj-2610.csv
+讀取檔案： TWDPadj-2612.csv
+讀取檔案： TWDPadj-2615.csv
+讀取檔案： TWDPadj-2617.csv
+讀取檔案： TWDPadj-2618.csv
+讀取檔案： TWDPadj-2633.csv
+讀取檔案： TWDPadj-2634.csv
+讀取檔案： TWDPadj-2637.csv
+讀取檔案： TWDPadj-2704.csv
+讀取檔案： TWDPadj-2707.csv
+讀取檔案： TWDPadj-2723.csv
+讀取檔案： TWDPadj-2727.csv
+讀取檔案： TWDPadj-2801.csv
+讀取檔案： TWDPadj-2809.csv
+讀取檔案： TWDPadj-2812.csv
+讀取檔案： TWDPadj-2820.csv
+讀取檔案： TWDPadj-2823.csv
+讀取檔案： TWDPadj-2833.csv
+讀取檔案： TWDPadj-2834.csv
+讀取檔案： TWDPadj-2837.csv
+讀取檔案： TWDPadj-2838.csv
+讀取檔案： TWDPadj-2845.csv
+讀取檔案： TWDPadj-2847.csv
+讀取檔案： TWDPadj-2849.csv
+讀取檔案： TWDPadj-2854.csv
+讀取檔案： TWDPadj-2855.csv
+讀取檔案： TWDPadj-2856.csv
+讀取檔案： TWDPadj-2867.csv
+讀取檔案： TWDPadj-2880.csv
+讀取檔案： TWDPadj-2881.csv
+讀取檔案： TWDPadj-2881A.csv
+讀取檔案： TWDPadj-2881B.csv
+讀取檔案： TWDPadj-2882.csv
+讀取檔案： TWDPadj-2882A.csv
+讀取檔案： TWDPadj-2882B.csv
+讀取檔案： TWDPadj-2883.csv
+讀取檔案： TWDPadj-2884.csv
+讀取檔案： TWDPadj-2885.csv
+讀取檔案： TWDPadj-2886.csv
+讀取檔案： TWDPadj-2887.csv
+讀取檔案： TWDPadj-2887C.csv
+讀取檔案： TWDPadj-2887E.csv
+讀取檔案： TWDPadj-2888.csv
+讀取檔案： TWDPadj-2889.csv
+讀取檔案： TWDPadj-2890.csv
+讀取檔案： TWDPadj-2891.csv
+讀取檔案： TWDPadj-2891B.csv
+讀取檔案： TWDPadj-2892.csv
+讀取檔案： TWDPadj-2897.csv
+讀取檔案： TWDPadj-2903.csv
+讀取檔案： TWDPadj-2905.csv
+讀取檔案： TWDPadj-2908.csv
+讀取檔案： TWDPadj-2912.csv
+讀取檔案： TWDPadj-2913.csv
+讀取檔案： TWDPadj-2915.csv
+讀取檔案： TWDPadj-2923.csv
+讀取檔案： TWDPadj-3005.csv
+讀取檔案： TWDPadj-3006.csv
+讀取檔案： TWDPadj-3008.csv
+讀取檔案： TWDPadj-3009.csv
+讀取檔案： TWDPadj-3016.csv
+讀取檔案： TWDPadj-3017.csv
+讀取檔案： TWDPadj-3019.csv
+讀取檔案： TWDPadj-3022.csv
+讀取檔案： TWDPadj-3023.csv
+讀取檔案： TWDPadj-3026.csv
+讀取檔案： TWDPadj-3034.csv
+讀取檔案： TWDPadj-3035.csv
+讀取檔案： TWDPadj-3036.csv
+讀取檔案： TWDPadj-3037.csv
+讀取檔案： TWDPadj-3041.csv
+讀取檔案： TWDPadj-3042.csv
+讀取檔案： TWDPadj-3044.csv
+讀取檔案： TWDPadj-3045.csv
+讀取檔案： TWDPadj-3049.csv
+讀取檔案： TWDPadj-3059.csv
+讀取檔案： TWDPadj-3060.csv
+讀取檔案： TWDPadj-3061.csv
+讀取檔案： TWDPadj-3062.csv
+讀取檔案： TWDPadj-3149.csv
+讀取檔案： TWDPadj-3189.csv
+讀取檔案： TWDPadj-3231.csv
+讀取檔案： TWDPadj-3311.csv
+讀取檔案： TWDPadj-3367.csv
+讀取檔案： TWDPadj-3376.csv
+讀取檔案： TWDPadj-3383.csv
+讀取檔案： TWDPadj-3406.csv
+讀取檔案： TWDPadj-3443.csv
+讀取檔案： TWDPadj-3474.csv
+讀取檔案： TWDPadj-3481.csv
+讀取檔案： TWDPadj-3504.csv
+讀取檔案： TWDPadj-3514.csv
+讀取檔案： TWDPadj-3515.csv
+讀取檔案： TWDPadj-3519.csv
+讀取檔案： TWDPadj-3532.csv
+讀取檔案： TWDPadj-3533.csv
+讀取檔案： TWDPadj-3534.csv
+讀取檔案： TWDPadj-3561.csv
+讀取檔案： TWDPadj-3573.csv
+讀取檔案： TWDPadj-3576.csv
+讀取檔案： TWDPadj-3622.csv
+讀取檔案： TWDPadj-3638.csv
+讀取檔案： TWDPadj-3653.csv
+讀取檔案： TWDPadj-3661.csv
+讀取檔案： TWDPadj-3665.csv
+讀取檔案： TWDPadj-3673.csv
+讀取檔案： TWDPadj-3682.csv
+讀取檔案： TWDPadj-3697.csv
+讀取檔案： TWDPadj-3698.csv
+讀取檔案： TWDPadj-3702.csv
+讀取檔案： TWDPadj-3705.csv
+讀取檔案： TWDPadj-3706.csv
+讀取檔案： TWDPadj-3711.csv
+讀取檔案： TWDPadj-4137.csv
+讀取檔案： TWDPadj-4142.csv
+讀取檔案： TWDPadj-4164.csv
+讀取檔案： TWDPadj-4426.csv
+讀取檔案： TWDPadj-4438.csv
+讀取檔案： TWDPadj-4532.csv
+讀取檔案： TWDPadj-4725.csv
+讀取檔案： TWDPadj-4733.csv
+讀取檔案： TWDPadj-4736.csv
+讀取檔案： TWDPadj-4766.csv
+讀取檔案： TWDPadj-4904.csv
+讀取檔案： TWDPadj-4906.csv
+讀取檔案： TWDPadj-4915.csv
+讀取檔案： TWDPadj-4938.csv
+讀取檔案： TWDPadj-4943.csv
+讀取檔案： TWDPadj-4958.csv
+讀取檔案： TWDPadj-4960.csv
+讀取檔案： TWDPadj-4994.csv
+讀取檔案： TWDPadj-5007.csv
+讀取檔案： TWDPadj-5203.csv
+讀取檔案： TWDPadj-5264.csv
+讀取檔案： TWDPadj-5269.csv
+讀取檔案： TWDPadj-5306.csv
+讀取檔案： TWDPadj-5388.csv
+讀取檔案： TWDPadj-5434.csv
+讀取檔案： TWDPadj-5469.csv
+讀取檔案： TWDPadj-5522.csv
+讀取檔案： TWDPadj-5531.csv
+讀取檔案： TWDPadj-5534.csv
+讀取檔案： TWDPadj-5608.csv
+讀取檔案： TWDPadj-5854.csv
+讀取檔案： TWDPadj-5871.csv
+讀取檔案： TWDPadj-5876.csv
+讀取檔案： TWDPadj-5880.csv
+讀取檔案： TWDPadj-5907.csv
+讀取檔案： TWDPadj-6005.csv
+讀取檔案： TWDPadj-6116.csv
+讀取檔案： TWDPadj-6120.csv
+讀取檔案： TWDPadj-6153.csv
+讀取檔案： TWDPadj-6166.csv
+讀取檔案： TWDPadj-6176.csv
+讀取檔案： TWDPadj-6197.csv
+讀取檔案： TWDPadj-6206.csv
+讀取檔案： TWDPadj-6213.csv
+讀取檔案： TWDPadj-6214.csv
+讀取檔案： TWDPadj-6230.csv
+讀取檔案： TWDPadj-6239.csv
+讀取檔案： TWDPadj-6269.csv
+讀取檔案： TWDPadj-6271.csv
+讀取檔案： TWDPadj-6278.csv
+讀取檔案： TWDPadj-6282.csv
+讀取檔案： TWDPadj-6285.csv
+讀取檔案： TWDPadj-6286.csv
+讀取檔案： TWDPadj-6409.csv
+讀取檔案： TWDPadj-6412.csv
+讀取檔案： TWDPadj-6414.csv
+讀取檔案： TWDPadj-6415.csv
+讀取檔案： TWDPadj-6446.csv
+讀取檔案： TWDPadj-6451.csv
+讀取檔案： TWDPadj-6452.csv
+讀取檔案： TWDPadj-6456.csv
+讀取檔案： TWDPadj-6464.csv
+讀取檔案： TWDPadj-6505.csv
+讀取檔案： TWDPadj-6531.csv
+讀取檔案： TWDPadj-6541.csv
+讀取檔案： TWDPadj-6592.csv
+讀取檔案： TWDPadj-6605.csv
+讀取檔案： TWDPadj-6669.csv
+讀取檔案： TWDPadj-6670.csv
+讀取檔案： TWDPadj-8008.csv
+讀取檔案： TWDPadj-8016.csv
+讀取檔案： TWDPadj-8046.csv
+讀取檔案： TWDPadj-8078.csv
+讀取檔案： TWDPadj-8131.csv
+讀取檔案： TWDPadj-8150.csv
+讀取檔案： TWDPadj-8163.csv
+讀取檔案： TWDPadj-8201.csv
+讀取檔案： TWDPadj-8341.csv
+讀取檔案： TWDPadj-8422.csv
+讀取檔案： TWDPadj-8454.csv
+讀取檔案： TWDPadj-8464.csv
+讀取檔案： TWDPadj-8926.csv
+讀取檔案： TWDPadj-9802.csv
+讀取檔案： TWDPadj-9904.csv
+讀取檔案： TWDPadj-9907.csv
+讀取檔案： TWDPadj-9910.csv
+讀取檔案： TWDPadj-9914.csv
+讀取檔案： TWDPadj-9917.csv
+讀取檔案： TWDPadj-9921.csv
+讀取檔案： TWDPadj-9925.csv
+讀取檔案： TWDPadj-9930.csv
+讀取檔案： TWDPadj-9933.csv
+讀取檔案： TWDPadj-9938.csv
+讀取檔案： TWDPadj-9939.csv
+讀取檔案： TWDPadj-9940.csv
+讀取檔案： TWDPadj-9941.csv
+讀取檔案： TWDPadj-9945.csv
+讀取檔案： TWDPadj-9958.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2010.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2011.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2012.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2013.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2014.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2015.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2016.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2017.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2018.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2019.csv
+✅ 檔案存取成功：..\data\analysis\summary\closePrice_2020.csv
