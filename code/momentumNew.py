@@ -2,20 +2,25 @@ from FinMind.data import DataLoader
 import pandas as pd
 import os
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 from pathlib import Path
 import sys
 
+### python momentumNew.py >> terminal_log.txt 2>&1
 sys.stdout.reconfigure(encoding='utf-8')
 
-### 索取參數設定
-sDt = datetime.strptime('2010/01/01', "%Y/%m/%d")
-eDt = datetime.strptime('2020/12/31', "%Y/%m/%d")
+### 策略參數設定
+sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
+eDt = datetime.strptime('2020/12/31', "%Y/%m/%d") # End Date
+oPeriod = 3 # Observer Period
+hPeriod = 3 # Holding Period
+planType = "A" # A 
 
-### FinMind api設定
-apiUrl = "https://api.finmindtrade.com/api/v4/data"
-api = DataLoader()
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyODoxMSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIxMTQuMTM3LjIxOS4yMTEiLCJleHAiOjE3NTE3MDA0OTF9.u4s5jxRFBz2ojJ01n-8c6Jm2G0FAhtn1-gSMsaspZWE"
-api.login_by_token(api_token=token)
+# ### FinMind api設定
+# apiUrl = "https://api.finmindtrade.com/api/v4/data"
+# api = DataLoader()
+# token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyODoxMSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIxMTQuMTM3LjIxOS4yMTEiLCJleHAiOjE3NTE3MDA0OTF9.u4s5jxRFBz2ojJ01n-8c6Jm2G0FAhtn1-gSMsaspZWE"
+# api.login_by_token(api_token=token)
 
 # ### 撈取市值資料  => DONE
 # outputDir = r'..\data\FinMind\TW\MarketValue'
@@ -41,97 +46,97 @@ api.login_by_token(api_token=token)
 #         print("✅ 檔案存取成功：", outputFile)
 
 
-### 算出每個月各股票的平均市值
-outputDir = r'..\data\analysis\summary'
-outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
-if os.path.exists(outputPath):
-    dfTWMVmean = pd.read_csv(outputPath)
-    print("☑️ 檔案已存在：", outputPath)    
-else:
-    # 資料夾路徑
-    marketValDataDir = f'../data/FinMind/TW/MarketValue/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
-    marketValFolder = Path(marketValDataDir)
+# ### 算出每個月各股票的平均市值
+# outputDir = r'..\data\analysis\summary'
+# outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
+# if os.path.exists(outputPath):
+#     dfTWMVmean = pd.read_csv(outputPath)
+#     print("☑️ 檔案已存在：", outputPath)    
+# else:
+#     # 資料夾路徑
+#     marketValDataDir = f'../data/FinMind/TW/MarketValue/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
+#     marketValFolder = Path(marketValDataDir)
 
-    # 找到所有 CSV 檔案
-    TWMVfiles = list(marketValFolder.glob('*.csv'))
-    print("找到的檔案：", TWMVfiles)
+#     # 找到所有 CSV 檔案
+#     TWMVfiles = list(marketValFolder.glob('*.csv'))
+#     print("找到的檔案：", TWMVfiles)
 
-    # 存放所有檔案的結果
-    marketValMeans = []
+#     # 存放所有檔案的結果
+#     marketValMeans = []
 
-    for aTWMVfile in TWMVfiles:
-        # 檢查檔案大小
-        if aTWMVfile.stat().st_size == 0:
-            print(f"檔案 {aTWMVfile} 是空的，跳過")
-            continue
+#     for aTWMVfile in TWMVfiles:
+#         # 檢查檔案大小
+#         if aTWMVfile.stat().st_size == 0:
+#             print(f"檔案 {aTWMVfile} 是空的，跳過")
+#             continue
 
-        # 讀入資料
-        try:
-            dfTWMVmean = pd.read_csv(aTWMVfile)
-        except pd.errors.EmptyDataError:
-            print(f"檔案 {aTWMVfile} 無資料，跳過")
-            continue
+#         # 讀入資料
+#         try:
+#             dfTWMVmean = pd.read_csv(aTWMVfile)
+#         except pd.errors.EmptyDataError:
+#             print(f"檔案 {aTWMVfile} 無資料，跳過")
+#             continue
 
-        if dfTWMVmean.empty:
-            print(f"檔案 {aTWMVfile} 內容為空，跳過")
-            continue
+#         if dfTWMVmean.empty:
+#             print(f"檔案 {aTWMVfile} 內容為空，跳過")
+#             continue
 
-        if 'market_value' not in dfTWMVmean.columns:
-            print(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
-            continue
+#         if 'market_value' not in dfTWMVmean.columns:
+#             print(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
+#             continue
             
-        # 排除 market_value == 0
-        dfTWMVmean = dfTWMVmean[dfTWMVmean['market_value'] != 0]
+#         # 排除 market_value == 0
+#         dfTWMVmean = dfTWMVmean[dfTWMVmean['market_value'] != 0]
         
-        # 轉成 datetime
-        dfTWMVmean['date'] = pd.to_datetime(dfTWMVmean['date'])
+#         # 轉成 datetime
+#         dfTWMVmean['date'] = pd.to_datetime(dfTWMVmean['date'])
         
-        # 產生 year_month 欄位 (YYYY-MM)
-        dfTWMVmean['year_month'] = dfTWMVmean['date'].dt.strftime('%Y-%m')
+#         # 產生 year_month 欄位 (YYYY-MM)
+#         dfTWMVmean['year_month'] = dfTWMVmean['date'].dt.strftime('%Y-%m')
         
-        # 以 year_month 分組計算平均
-        grouped = dfTWMVmean.groupby('year_month')['market_value'].mean().reset_index()
+#         # 以 year_month 分組計算平均
+#         grouped = dfTWMVmean.groupby('year_month')['market_value'].mean().reset_index()
         
-        # 加上 stock_id (每檔資料都是同一個 stock_id)
-        stock_id = dfTWMVmean['stock_id'].iloc[0]
-        grouped['stock_id'] = stock_id
+#         # 加上 stock_id (每檔資料都是同一個 stock_id)
+#         stock_id = dfTWMVmean['stock_id'].iloc[0]
+#         grouped['stock_id'] = stock_id
         
-        # 改欄位順序
-        grouped = grouped[['stock_id', 'year_month', 'market_value']]
+#         # 改欄位順序
+#         grouped = grouped[['stock_id', 'year_month', 'market_value']]
         
-        # 改欄位名稱
-        grouped = grouped.rename(columns={'market_value': 'mean_market_value'})
+#         # 改欄位名稱
+#         grouped = grouped.rename(columns={'market_value': 'mean_market_value'})
         
-        # 加到總表
-        marketValMeans.append(grouped)
+#         # 加到總表
+#         marketValMeans.append(grouped)
 
-    # 合併所有結果
-    dfTWMVmean = pd.concat(marketValMeans, ignore_index=True)
+#     # 合併所有結果
+#     dfTWMVmean = pd.concat(marketValMeans, ignore_index=True)
 
-    # 依 year_month 分組，計算排名 (1=最大)
-    dfTWMVmean['rank'] = dfTWMVmean.groupby('year_month')['mean_market_value'] \
-                .rank(method='min', ascending=False)
+#     # 依 year_month 分組，計算排名 (1=最大)
+#     dfTWMVmean['rank'] = dfTWMVmean.groupby('year_month')['mean_market_value'] \
+#                 .rank(method='min', ascending=False)
 
-    # 輸出含排名的完整資料
-    dfTWMVmean.to_csv(outputPath, index=False, encoding='utf-8')
+#     # 輸出含排名的完整資料
+#     dfTWMVmean.to_csv(outputPath, index=False, encoding='utf-8')
 
-    # 輸出成CSV
-    dfTWMVmean.to_csv(outputPath, index=False, encoding='utf-8')
-    print("✅ 檔案存取成功：", outputPath)
+#     # 輸出成CSV
+#     dfTWMVmean.to_csv(outputPath, index=False, encoding='utf-8')
+#     print("✅ 檔案存取成功：", outputPath)
 
-### 取出每個月前n大市值的名單
-maxIncludeRank = 200
-outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxIncludeRank}.csv'
-if os.path.exists(outputPath):
-    dfTWMVrank = pd.read_csv(outputPath)
-    print("☑️ 檔案已存在：", outputPath)
-else:
-    # 篩選 rank < 200
-    dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= 200]
+# ### 取出每個月前n大市值的名單
+# maxIncludeRank = 200
+# outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxIncludeRank}.csv'
+# if os.path.exists(outputPath):
+#     dfTWMVrank = pd.read_csv(outputPath)
+#     print("☑️ 檔案已存在：", outputPath)
+# else:
+#     # 篩選 rank < 200
+#     dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= 200]
 
-    # 輸出篩選結果
-    dfTWMVrank.to_csv(outputPath, index=False, encoding='utf-8')
-    print("✅ 檔案存取成功：", outputPath)
+#     # 輸出篩選結果
+#     dfTWMVrank.to_csv(outputPath, index=False, encoding='utf-8')
+#     print("✅ 檔案存取成功：", outputPath)
 
 # ### 撈取FindMind的調整後股價資料  => DONE
 # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
@@ -229,4 +234,100 @@ else:
 #             print(f"✅ 檔案存取成功：{output_file}")
 #     else:
 #         print(f"⚠️ 沒有資料：{year}")
+
+### 計算觀察期報酬
+# 檔案路徑
+source_folder = Path(r"..\data\analysis\summary")
+target_folder = Path(r"..\data\analysis\momentumNew")
+target_folder.mkdir(parents=True, exist_ok=True)
+
+# 預先讀取所有年度檔案
+data_by_year = {}
+for year in range(sDt.year, eDt.year + 1):
+    file = source_folder / f"closePrice_{year}.csv"
+    if file.exists():
+        df = pd.read_csv(file, parse_dates=["date"])
+        data_by_year[year] = df
+        print(f"已讀取資料：{file}")
+    else:
+        print(f"⚠️ 找不到檔案：{file}")
+
+# 結果清單
+result_rows = []
+
+# 時間游標
+current_dt = sDt
+
+while current_dt <= eDt:
+    year = current_dt.year
+    month = current_dt.month
+
+    df_year = data_by_year.get(year)
+    if df_year is not None:
+        df_month = df_year[
+            (df_year["date"].dt.year == year) &
+            (df_year["date"].dt.month == month)
+        ]
+
+        grouped = df_month.groupby("stock_id", as_index=False)
+        first_trading_days = grouped.apply(lambda g: g.nsmallest(1, "date")).reset_index(drop=True)
+
+        for _, row in first_trading_days.iterrows():
+            stock_id = row["stock_id"]
+            start_date = row["date"]
+
+            # 計算 end_month
+            end_month_dt = start_date + relativedelta(months=oPeriod - 1)
+            end_year = end_month_dt.year
+            end_month = end_month_dt.month
+
+            df_end_year = data_by_year.get(end_year)
+            if df_end_year is not None:
+                df_end_month = df_end_year[
+                    (df_end_year["stock_id"] == stock_id) &
+                    (df_end_year["date"].dt.year == end_year) &
+                    (df_end_year["date"].dt.month == end_month)
+                ]
+
+                if not df_end_month.empty:
+                    end_date = df_end_month["date"].max()
+                    ED_close = df_end_month[df_end_month["date"] == end_date]["close"].values[0]
+                else:
+                    end_date = pd.NaT
+                    ED_close = ""
+            else:
+                end_date = pd.NaT
+                ED_close = ""
+
+            # 組合 combination
+            comb_start = start_date.strftime("%Y%m")
+            comb_end = (start_date + relativedelta(months=oPeriod)).strftime("%Y%m")
+            combination = f"{comb_start}-{comb_end}"
+
+            # 計算 return
+            SD_close = row["close"]
+            if ED_close != "":
+                ret = (ED_close - SD_close) / SD_close
+            else:
+                ret = ""
+
+            result_rows.append({
+                "stock_id": stock_id,
+                "start_date": start_date.strftime("%Y-%m-%d"),
+                "end_date": end_date.strftime("%Y-%m-%d") if pd.notna(end_date) else "",
+                "SD_close": SD_close,
+                "ED_close": ED_close,
+                "combination": combination,
+                "return": ret
+            })
+
+    current_dt += relativedelta(months=1)
+
+# 結果DataFrame
+result_df = pd.DataFrame(result_rows)
+
+# 輸出
+output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
+result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+print(f"✅ 已輸出檔案：{output_file}")
 
