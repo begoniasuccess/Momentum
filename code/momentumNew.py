@@ -236,98 +236,127 @@ planType = "A" # A
 #         print(f"⚠️ 沒有資料：{year}")
 
 ### 計算觀察期報酬
-# 檔案路徑
-source_folder = Path(r"..\data\analysis\summary")
 target_folder = Path(r"..\data\analysis\momentumNew")
 target_folder.mkdir(parents=True, exist_ok=True)
+output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
+if os.path.exists(output_file):
+    result_df = pd.read_csv(output_file)
+    print(f"☑️ 檔案已存在：：{output_file}")
+else:    
+    # 預先讀取所有年度檔案
+    source_folder = Path(r"..\data\analysis\summary")
+    data_by_year = {}
+    for year in range(sDt.year, eDt.year + 1):
+        file = source_folder / f"closePrice_{year}.csv"
+        if file.exists():
+            df = pd.read_csv(file, parse_dates=["date"])
+            data_by_year[year] = df
+            print(f"已讀取資料：{file}")
+        else:
+            print(f"⚠️ 找不到檔案：{file}")
 
-# 預先讀取所有年度檔案
-data_by_year = {}
-for year in range(sDt.year, eDt.year + 1):
-    file = source_folder / f"closePrice_{year}.csv"
-    if file.exists():
-        df = pd.read_csv(file, parse_dates=["date"])
-        data_by_year[year] = df
-        print(f"已讀取資料：{file}")
-    else:
-        print(f"⚠️ 找不到檔案：{file}")
+    # 結果清單
+    result_rows = []
 
-# 結果清單
-result_rows = []
+    # 時間游標
+    current_dt = sDt
+    while current_dt <= eDt:
+        year = current_dt.year
+        month = current_dt.month
 
-# 時間游標
-current_dt = sDt
+        df_year = data_by_year.get(year)
+        if df_year is not None:
+            df_month = df_year[
+                (df_year["date"].dt.year == year) &
+                (df_year["date"].dt.month == month)
+            ]
 
-while current_dt <= eDt:
-    year = current_dt.year
-    month = current_dt.month
+            grouped = df_month.groupby("stock_id", as_index=False)
+            first_trading_days = grouped.apply(lambda g: g.nsmallest(1, "date")).reset_index(drop=True)
 
-    df_year = data_by_year.get(year)
-    if df_year is not None:
-        df_month = df_year[
-            (df_year["date"].dt.year == year) &
-            (df_year["date"].dt.month == month)
-        ]
+            for _, row in first_trading_days.iterrows():
+                stock_id = row["stock_id"]
+                start_date = row["date"]
 
-        grouped = df_month.groupby("stock_id", as_index=False)
-        first_trading_days = grouped.apply(lambda g: g.nsmallest(1, "date")).reset_index(drop=True)
+                # 計算 end_month
+                end_month_dt = start_date + relativedelta(months=oPeriod - 1)
+                end_year = end_month_dt.year
+                end_month = end_month_dt.month
 
-        for _, row in first_trading_days.iterrows():
-            stock_id = row["stock_id"]
-            start_date = row["date"]
+                df_end_year = data_by_year.get(end_year)
+                if df_end_year is not None:
+                    df_end_month = df_end_year[
+                        (df_end_year["stock_id"] == stock_id) &
+                        (df_end_year["date"].dt.year == end_year) &
+                        (df_end_year["date"].dt.month == end_month)
+                    ]
 
-            # 計算 end_month
-            end_month_dt = start_date + relativedelta(months=oPeriod - 1)
-            end_year = end_month_dt.year
-            end_month = end_month_dt.month
-
-            df_end_year = data_by_year.get(end_year)
-            if df_end_year is not None:
-                df_end_month = df_end_year[
-                    (df_end_year["stock_id"] == stock_id) &
-                    (df_end_year["date"].dt.year == end_year) &
-                    (df_end_year["date"].dt.month == end_month)
-                ]
-
-                if not df_end_month.empty:
-                    end_date = df_end_month["date"].max()
-                    ED_close = df_end_month[df_end_month["date"] == end_date]["close"].values[0]
+                    if not df_end_month.empty:
+                        end_date = df_end_month["date"].max()
+                        ED_close = df_end_month[df_end_month["date"] == end_date]["close"].values[0]
+                    else:
+                        end_date = pd.NaT
+                        ED_close = ""
                 else:
                     end_date = pd.NaT
                     ED_close = ""
-            else:
-                end_date = pd.NaT
-                ED_close = ""
 
-            # 組合 combination
-            comb_start = start_date.strftime("%Y%m")
-            comb_end = (start_date + relativedelta(months=oPeriod)).strftime("%Y%m")
-            combination = f"{comb_start}-{comb_end}"
+                # 組合 combination
+                comb_start = start_date.strftime("%Y%m")
+                comb_end = (start_date + relativedelta(months=oPeriod)).strftime("%Y%m")
+                combination = f"{comb_start}-{comb_end}"
 
-            # 計算 return
-            SD_close = row["close"]
-            if ED_close != "":
-                ret = (ED_close - SD_close) / SD_close
-            else:
-                ret = ""
+                # 計算 return
+                SD_close = row["close"]
+                if ED_close != "":
+                    ret = (ED_close - SD_close) / SD_close
+                else:
+                    ret = ""
 
-            result_rows.append({
-                "stock_id": stock_id,
-                "start_date": start_date.strftime("%Y-%m-%d"),
-                "end_date": end_date.strftime("%Y-%m-%d") if pd.notna(end_date) else "",
-                "SD_close": SD_close,
-                "ED_close": ED_close,
-                "combination": combination,
-                "return": ret
-            })
+                result_rows.append({
+                    "stock_id": stock_id,
+                    "start_date": start_date.strftime("%Y-%m-%d"),
+                    "end_date": end_date.strftime("%Y-%m-%d") if pd.notna(end_date) else "",
+                    "SD_close": SD_close,
+                    "ED_close": ED_close,
+                    "combination": combination,
+                    "return": ret
+                })
 
-    current_dt += relativedelta(months=1)
+        current_dt += relativedelta(months=1)
 
-# 結果DataFrame
-result_df = pd.DataFrame(result_rows)
+    # 結果DataFrame
+    result_df = pd.DataFrame(result_rows)
 
-# 輸出
-output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
+    # 輸出
+    result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+    print(f"✅ 已輸出檔案：{output_file}")
+
+
+### 增加RT_rank、RT_%_Rank欄位
+output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank.csv"
+
+# 先確保 return 是 float
+result_df["return"] = pd.to_numeric(result_df["return"], errors="coerce")
+
+# RT_rank: 由大排到小
+result_df["RT_rank"] = result_df.groupby("combination")["return"].rank(
+    method="min",
+    ascending=False
+)
+
+# 百分比排名: 0~100
+def scale_to_0_100(x):
+    min_val = x.min()
+    max_val = x.max()
+    if pd.isna(min_val) or pd.isna(max_val) or max_val == min_val:
+        return pd.Series([None] * len(x), index=x.index)
+    else:
+        return (x - min_val) / (max_val - min_val) * 100
+
+# 用 transform避免index不對齊
+result_df["RT_%_Rank"] = result_df.groupby("combination")["return"].transform(scale_to_0_100)
+
+# 輸出結果檔
 result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 print(f"✅ 已輸出檔案：{output_file}")
-
