@@ -1,3 +1,103 @@
+我有一個檔案資料(..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static2.csv)如下：
+
+combination,remark,count,mean_return2,
+201001-201004,loser,31,-13%,
+201001-201004,winner,31,-2%,
+201001-201004,winner - loser,-,10%,
+201002-201005,loser,31,-1%,
+201002-201005,winner,31,10%,
+201002-201005,winner - loser,-,11%,
+201003-201006,loser,32,9%,
+201003-201006,winner,32,15%,
+201003-201006,winner - loser,-,6%,
+
+
+==========
+我有一個檔案資料(..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static.csv)如下：
+combination,remark,count,mean_return2
+201001-201004,loser,31,-0.12655181641935484
+201001-201004,winner,31,-0.022821950322580647
+201002-201005,loser,31,-0.006791918741935483
+201002-201005,winner,31,0.09927487058064516
+201003-201006,loser,32,0.089387154375
+201003-201006,winner,32,0.1469420914375
+201004-201007,loser,31,0.15881216193548386
+
+我想依據combination計算winner - loser的mean_return2資料，讓資料變成類似：
+combination,remark,count,mean_return2
+201001-201004,loser,31,-0.12655181641935484
+201001-201004,winner,31,-0.022821950322580647
+201001-201004,winner - loser,-,0.103729866096774193
+
+之後存成檔案..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static2.csv
+
+我有一個檔案(..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012.csv)：
+stock_id,start_date,end_date,SD_close,ED_close,combination,return,RT_%_Rank,remark,RT_rank,start_date2,SD_close2,end_date2,ED_close2,return2
+4725,2010/1/4,2010/3/31,69.9,116.86,201001-201004,67%,99.18111293,winner,1,2010/4/1,121.73,2010/6/30,118.89,-0.023330321
+6197,2010/1/4,2010/3/31,54.86,80.45,201001-201004,47%,77.81506351,winner,2,2010/4/1,79.58,2010/6/30,59.17,-0.256471475
+1234,2010/1/4,2010/3/31,12.27,17.29,201001-201004,41%,71.85002593,winner,3,2010/4/1,17.29,2010/6/30,14.13,-0.182764604
+2049,2010/1/4,2010/3/31,23.25,31.86,201001-201004,37%,67.81257732,winner,4,2010/4/1,33.5,2010/6/30,38.08,0.136716418
+
+幫我進行統計，並存成新檔案(..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static.csv)
+1.此檔案的欄位： combination, remark, count, mean_return2
+2.以combination、remark欄位分組，計算每一組return2欄位的平均值
+3.count欄位紀錄是多少個return2計算出的平均值
+4.若mean_return2沒有資料可計算則不紀錄
+
+
+
+
+============
+然後我有一個資料夾(..\data\analysis\summary)，
+底下有個個年度許多支股票的日收盤價，例如檔案closePrice_2010.csv的部分內容節錄為：
+date,stock_id,close
+2010-01-04,1101,12.18
+2010-01-05,1101,12.61
+2010-01-06,1101,12.88
+從上面可以看出，2010是股價資料的年份
+
+我有一個檔案(..\data\analysis\momentumNew\oPeriod3_hPeriod3\winner_loser-201001_202012.csv)內容如下：
+stock_id,start_date,end_date,SD_close,ED_close,combination,return,RT_%_Rank,remark,RT_rank
+1101,2010-01-04,2010-03-31,12.18,10.64,201001-201004,-0.1264367816091953,16.127972617320722,,285.0
+1102,2010-01-04,2010-03-31,13.87,12.44,201001-201004,-0.10310021629416,18.555991583841823,,255.0
+
+python給定一個變數：
+hPeriod = 3 # Holding Period
+
+我要你幫我進行下面操作：
+1.新增start_date2、SD_close2欄位：
+	值分別參照closePrice_yyyy.csv檔案內的date、close欄位
+	邏輯是假設start_date為2010-01-04，則找尋3(hPeriod)個月後-2010年4月的第一個交易日，同個stock_id的資料列寫入對應資料
+2.新增end_date2、ED_close2欄位：
+	值分別參照closePrice_yyyy.csv檔案內的date、close欄位
+	邏輯是假設end_date為2010-03-31，則找尋3(hPeriod)個月後-2010年6月的最後一個交易日，同個stock_id的資料列寫入對應資料
+3.新增return2欄位
+	計算以SD_close2股價買入、ED_close2股價賣出的報酬率
+
+操作結果另存新檔(..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012.csv)
+
+
+=========
+我有一個檔案內容如下
+stock_id,start_date,end_date,SD_close,ED_close,combination,return,RT_%_Rank
+1101,2010-01-04,2010-03-31,12.18,10.64,201001-201004,-0.1264367816091953,16.127972617320722
+1102,2010-01-04,2010-03-31,13.87,12.44,201001-201004,-0.10310021629416,18.555991583841823
+1104,2010-01-04,2010-03-31,7.49,6.62,201001-201004,-0.1161548731642189,17.197738813820596
+
+幫我進行下面處理：
+1.新增remark欄位：
+	將RT_%_Rank大於99.9以及小於0.1的資料列填入"exclude"
+	
+2.新增RT_rank欄位：
+	以combination分組，排除remark為"exclude"的資料後，填入return欄位在該組的大小排名，
+	
+3.remark欄位依規則填入：
+	以combination分組，排除exclude的資料後，每組RT_rank值落在該組前10%的填入"winner"
+	以combination分組，每組RT_rank值落在該組後10%的填入"loser"
+
+
+
+===============
 恭喜，我們完成了階段任務！
 現在我要用上面的result_df資料為基礎，進行以下運算：
 1.新增RT_rank欄位：
@@ -5,9 +105,6 @@
 2.新增RT_%_Rank欄位：
 以combination欄位分組，每組return值最大定義為100、return值最小定義為0，
 計算每個return值在各組的數值後填入此欄位
-
-
-
 
 
 ===========
