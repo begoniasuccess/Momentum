@@ -11,6 +11,9 @@ combination,remark,count,mean_return2,
 201003-201006,winner,32,15%,
 201003-201006,winner - loser,-,6%,
 
+幫我針對loser組、winner組、winner - loser組三堆資料分別進行t檢定，
+n為各組資料組數，鑑定樣本值為mean_return2的資料
+虛無假設為0
 
 ==========
 我有一個檔案資料(..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static.csv)如下：
