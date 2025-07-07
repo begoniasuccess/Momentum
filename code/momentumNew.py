@@ -7,9 +7,15 @@ from pathlib import Path
 import sys
 import glob
 from scipy import stats
+from common import utils
 
-### in PowerShell：python -u momentumNew.py 2>&1 | Tee-Object -FilePath terminal_log.txt
-sys.stdout.reconfigure(encoding='utf-8')
+### in PowerShell：
+# $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
+# python -u momentumNew.py 2>&1 | Tee-Object -FilePath terminal_log.txt -Append -Encoding 
+sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
+
+# 起始訊息
+utils.ptMsg("⚙️ momentumNew.py Run")
 
 ### 策略參數設定
 sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
@@ -31,12 +37,12 @@ api.login_by_token(api_token=token)
 # stockListSrc = f"../data/analysis/summary/taiwan_stock_info-twse.csv" 
 # dfSI = pd.read_csv(stockListSrc)
 # stockList = dfSI['stock_id'].drop_duplicates().tolist()
-# print("📢 即將撈取[市值歷史]資料，股票清單的長度為：", len(stockList))
+# utils.ptMsg("📢 即將撈取[市值歷史]資料，股票清單的長度為：", len(stockList))
 
 # for stock_id in stockList:
 #     outputFile = f'{outputDir}/TWMV-{stock_id}.csv'
 #     if os.path.exists(outputFile):
-#         print("☑️ 檔案已存在：", outputFile)
+#         utils.ptMsg("☑️ 檔案已存在：", outputFile)
 #     else:
 #         os.makedirs(os.path.dirname(outputFile), exist_ok=True) # 確保資料夾存在
 #         dfMV = api.taiwan_stock_market_value(
@@ -45,7 +51,7 @@ api.login_by_token(api_token=token)
 #             end_date=eDt.strftime("%Y-%m-%d")
 #         )
 #         dfMV.to_csv(outputFile, index=False, encoding='utf-8-sig')
-#         print("✅ 檔案存取成功：", outputFile)
+#         utils.ptMsg("✅ 檔案存取成功：", outputFile)
 
 
 ### 算出每個月各股票的平均市值
@@ -53,7 +59,7 @@ outputDir = r'..\data\analysis\summary'
 outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
 if os.path.exists(outputPath):
     dfTWMVmean = pd.read_csv(outputPath)
-    print("☑️ 檔案已存在：", outputPath)    
+    utils.ptMsg("☑️ 檔案已存在：" + outputPath)    
 else:
     # 資料夾路徑
     marketValDataDir = f'../data/FinMind/TW/MarketValue/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
@@ -61,7 +67,8 @@ else:
 
     # 找到所有 CSV 檔案
     TWMVfiles = list(marketValFolder.glob('*.csv'))
-    print("找到的檔案：", TWMVfiles)
+    utils.ptMsg("找到的檔案：")
+    print(TWMVfiles)
 
     # 存放所有檔案的結果
     marketValMeans = []
@@ -69,22 +76,22 @@ else:
     for aTWMVfile in TWMVfiles:
         # 檢查檔案大小
         if aTWMVfile.stat().st_size == 0:
-            print(f"檔案 {aTWMVfile} 是空的，跳過")
+            utils.ptMsg(f"檔案 {aTWMVfile} 是空的，跳過")
             continue
 
         # 讀入資料
         try:
             dfTWMVmean = pd.read_csv(aTWMVfile)
         except pd.errors.EmptyDataError:
-            print(f"檔案 {aTWMVfile} 無資料，跳過")
+            utils.ptMsg(f"檔案 {aTWMVfile} 無資料，跳過")
             continue
 
         if dfTWMVmean.empty:
-            print(f"檔案 {aTWMVfile} 內容為空，跳過")
+            utils.ptMsg(f"檔案 {aTWMVfile} 內容為空，跳過")
             continue
 
         if 'market_value' not in dfTWMVmean.columns:
-            print(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
+            utils.ptMsg(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
             continue
             
         # 排除 market_value == 0
@@ -124,30 +131,30 @@ else:
 
     # 輸出成CSV
     dfTWMVmean.to_csv(outputPath, index=False, encoding='utf-8')
-    print("✅ 檔案存取成功：", outputPath)
+    utils.ptMsg("✅ 檔案存取成功：", outputPath)
 
 ### 取出每個月前n大市值的名單
 maxIncludeRank = 150
 outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxIncludeRank}.csv'
 if os.path.exists(outputPath):
     dfTWMVrank = pd.read_csv(outputPath)
-    print("☑️ 檔案已存在：", outputPath)
+    utils.ptMsg("☑️ 檔案已存在：" + outputPath)
 else:
     # 篩選 rank <= maxIncludeRank
     dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= maxIncludeRank]
 
     # 輸出篩選結果
     dfTWMVrank.to_csv(outputPath, index=False, encoding='utf-8')
-    print("✅ 檔案存取成功：", outputPath)
+    utils.ptMsg("✅ 檔案存取成功：", outputPath)
 
 # ### 撈取FindMind的調整後股價資料  => DONE
 # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
 # stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
-# print("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+# utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
 # for stock_id in stockList:
 #     outputFile = f'{outputDir}/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}/TWDPadj-{stock_id}.csv'
 #     if os.path.exists(outputFile):
-#         print("☑️ 檔案已存在：", outputFile)
+#         utils.ptMsg("☑️ 檔案已存在：", outputFile)
 #     else:
 #         os.makedirs(os.path.dirname(outputFile), exist_ok=True)  # 確保資料夾存在
 #         try:
@@ -159,20 +166,20 @@ else:
 #             )
 #             # 如果沒報錯就直接存檔
 #             dfSDA.to_csv(outputFile, index=False, encoding='utf-8-sig')
-#             print("✅ 檔案存取成功：", outputFile)
+#             utils.ptMsg("✅ 檔案存取成功：", outputFile)
 #         except Exception as e:
-#             print(f"⚠️ 一次抓取失敗：{stock_id}，錯誤訊息：{e}")
+#             utils.ptMsg(f"⚠️ 一次抓取失敗：{stock_id}，錯誤訊息：{e}")
 #             # 分段再試
 #             try:
 #                 # 分成兩段
 #                 midDt = sDt + timedelta(days=365 * 5)
-#                 print(f"➡️ 嘗試分段抓取 {stock_id} 第1段：{sDt.date()} ~ {midDt.date()}")
+#                 utils.ptMsg(f"➡️ 嘗試分段抓取 {stock_id} 第1段：{sDt.date()} ~ {midDt.date()}")
 #                 dfSDA1 = api.taiwan_stock_daily_adj(
 #                     stock_id=stock_id,
 #                     start_date=sDt.strftime("%Y-%m-%d"),
 #                     end_date=midDt.strftime("%Y-%m-%d")
 #                 )
-#                 print(f"➡️ 嘗試分段抓取 {stock_id} 第2段：{(midDt + timedelta(days=1)).date()} ~ {eDt.date()}")
+#                 utils.ptMsg(f"➡️ 嘗試分段抓取 {stock_id} 第2段：{(midDt + timedelta(days=1)).date()} ~ {eDt.date()}")
 #                 dfSDA2 = api.taiwan_stock_daily_adj(
 #                     stock_id=stock_id,
 #                     start_date=(midDt + timedelta(days=1)).strftime("%Y-%m-%d"),
@@ -182,10 +189,10 @@ else:
 #                 dfSDA = pd.concat([dfSDA1, dfSDA2], ignore_index=True)
 #                 # 儲存
 #                 dfSDA.to_csv(outputFile, index=False, encoding='utf-8-sig')
-#                 print("✅ 分段抓取並合併成功：", outputFile)
+#                 utils.ptMsg("✅ 分段抓取並合併成功：", outputFile)
 
 #             except Exception as e2:
-#                 print(f"❌ 分段抓取失敗：{stock_id}，錯誤訊息：{e2}")
+#                 utils.ptMsg(f"❌ 分段抓取失敗：{stock_id}，錯誤訊息：{e2}")
 #                 # 不要 raise，直接繼續跑下一支
 #                 continue
 
@@ -204,11 +211,11 @@ else:
 
 # # 取得所有 csv
 # csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
-# print("📢 即將處理的股價資料檔案數：", len(csv_files))
+# utils.ptMsg("📢 即將處理的股價資料檔案數：", len(csv_files))
 
 # # 遍歷所有檔案
 # for file in csv_files:
-#     print("讀取檔案：", file.name)
+#     utils.ptMsg("讀取檔案：", file.name)
 #     df = pd.read_csv(file)
 
 #     # 只取 date, stock_id, close
@@ -230,25 +237,24 @@ else:
 #         year_df = pd.concat(year_data_dict[year], ignore_index=True)
 #         output_file = target_folder / f"closePrice_{year}.csv"
 #         if os.path.exists(output_file):
-#             print(f"☑️ 檔案已存在：：{output_file}")
+#             utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
 #         else:
 #             year_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-#             print(f"✅ 檔案存取成功：{output_file}")
+#             utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
 #     else:
-#         print(f"⚠️ 沒有資料：{year}")
+#         utils.ptMsg(f"⚠️ 沒有資料：{year}")
 
 ### 計算觀察期報酬
 # 路徑設定
 output_file = r'..\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
 if os.path.exists(output_file):
     pd.read_csv(output_file)
-    print(f"☑️ 檔案已存在：：{output_file}")
+    utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
 else:
     base_dir = r'..\data\analysis\summary'
     close_pattern = os.path.join(base_dir, 'closePrice_*.csv')
 
-    # 讀取所有收盤價資料
-    
+    # 讀取所有收盤價資料    
     close_files = glob.glob(close_pattern)
     close_dfs = []
     for f in close_files:
@@ -260,14 +266,25 @@ else:
     close_df.sort_values(['stock_id', 'date'], inplace=True)
     close_df.set_index(['stock_id', 'date'], inplace=True)
 
-    # 用來存結果
-    result_rows = []
-
-    # 逐月迭代
     cur_dt = sDt
-    while cur_dt <= eDt:
-        ym_str = cur_dt.strftime('%Y-%m')
+
+    ### 嘗試讀取進度：
+    pattern = output_file + "-tmp_*"
+    matching_files = glob.glob(pattern)
+    if matching_files and os.path.exists(matching_files[0]):
+        progressYM = matching_files[0].rsplit("-tmp_", 1)[-1]
+        utils.ptMsg("📢 Observer RT偵測並讀取進度：" + progressYM)
+
+        progressDt = datetime.strptime(progressYM, "%Y%m")
+        cur_dt = progressDt + relativedelta(months=1)
         
+    # 逐月迭代    
+    while cur_dt <= eDt:
+        result_rows = []
+        
+        ym_str = cur_dt.strftime('%Y-%m')
+        utils.ptMsg("**Observer RT " + ym_str + " 開始處理")
+
         # (a) 找當月股票清單
         month_stocks = dfTWMVrank[dfTWMVrank['year_month'] == ym_str]['stock_id'].unique()
         
@@ -318,23 +335,39 @@ else:
                 'return': ret
             })
         
-        # 處理量巨大，保險起見分月暫存
-        result_df = pd.DataFrame(result_rows)
-        os.makedirs(os.path.dirname(output_file_tmp), exist_ok=True)
-        result_df.to_csv(output_file_tmp, index=False, float_format='%.8f')
+        hasData = False
+        if result_rows:
+            hasData = True
+
+        if not hasData:
+            utils.ptMsg("⚠️ No Observer RT Data " + ym_str + " ")
+        
+        if hasData:
+            result_df = pd.DataFrame(result_rows)
+            result_df.sort_values(['stock_id'], inplace=True) # 排序
+
+        ### 處理量巨大，保險起見分月暫存
+        output_file_tmp = output_file + "-tmp_" + cur_dt.strftime("%Y%m")
+        # 尋找前一個月的檔案
+        prev_m_dt = cur_dt - relativedelta(months=1)
+        output_file_tmp_lastM = output_file + "-tmp_" + prev_m_dt.strftime("%Y%m")
+        if os.path.exists(output_file_tmp_lastM):
+            if hasData:
+                result_df.to_csv(output_file_tmp_lastM, mode="a", header=False, index=False)
+            os.rename(output_file_tmp_lastM, output_file_tmp)
+        else:
+            if hasData:
+                os.makedirs(os.path.dirname(output_file_tmp), exist_ok=True)
+                result_df.to_csv(output_file_tmp, mode="w", index=False, float_format='%.8f')
+
+        utils.ptMsg("📢 Observer RT " + ym_str + " 已處理完成")
 
         # 下個月
         cur_dt += relativedelta(months=1)
 
-    # 結果DataFrame
-    result_df = pd.DataFrame(result_rows)
-
-    # 排序（可選）
-    result_df.sort_values(['stock_id', 'start_date'], inplace=True)
-
     # 輸出
     os.rename(output_file_tmp, output_file)
-    print('✅ 整合完成！檔案輸出：', output_file) 
+    utils.ptMsg('✅ 整合完成！檔案輸出：', output_file) 
  
 # ===============
 
@@ -344,7 +377,7 @@ else:
 # output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
 # if os.path.exists(output_file):
 #     result_df = pd.read_csv(output_file)
-#     print(f"☑️ 檔案已存在：：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
 # else:    
 #     # 預先讀取所有年度檔案
 #     source_folder = Path(r"..\data\analysis\summary")
@@ -354,9 +387,9 @@ else:
 #         if file.exists():
 #             result_df = pd.read_csv(file, parse_dates=["date"])
 #             data_by_year[year] = result_df
-#             print(f"已讀取資料：{file}")
+#             utils.ptMsg(f"已讀取資料：{file}")
 #         else:
-#             print(f"⚠️ 找不到檔案：{file}")
+#             utils.ptMsg(f"⚠️ 找不到檔案：{file}")
 
 #     # 結果清單
 #     result_rows = []
@@ -433,7 +466,7 @@ else:
 
 #     # 輸出
 #     result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-#     print(f"✅ 已輸出檔案：{output_file}")
+#     utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
 
 
@@ -441,7 +474,7 @@ else:
 # output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank.csv"
 # if os.path.exists(output_file):
 #     result_df = pd.read_csv(output_file)
-#     print(f"☑️ 檔案已存在：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
 # else:
 #     # 確保 return 是 float
 #     result_df["return"] = pd.to_numeric(result_df["return"], errors="coerce")
@@ -508,13 +541,13 @@ else:
 
 #     # 輸出
 #     result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-#     print(f"✅ 已輸出檔案：{output_file}")
+#     utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
 # ### 產生winner_loser名單
 # output_file = target_folder / f"winner_loser-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
 # if os.path.exists(output_file):
 #     filtered_df = pd.read_csv(output_file)
-#     print(f"☑️ 檔案已存在：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
 # else:
 #     # 篩選 remark 為 winner 或 loser
 #     filtered_df = result_df[result_df["remark"].isin(["winner", "loser"])]
@@ -522,13 +555,13 @@ else:
 #     # 存成新檔
 #     filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
-#     print(f"✅ 已輸出檔案：{output_file}")
+#     utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
 # ### 計算持有期的報酬
 # output_file = Path(r"..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012.csv")
 # if os.path.exists(output_file):
 #     filtered_df = pd.read_csv(output_file)
-#     print(f"☑️ 檔案已存在：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
 # else:
 #     price_folder = Path(r"..\data\analysis\summary")
 
@@ -568,7 +601,7 @@ else:
 #                 start_date2 = None
 #                 SD_close2 = None
 #         except FileNotFoundError:
-#             print(f"❌ 找不到檔案：{price_file_sd2}，填入 None")
+#             utils.ptMsg(f"❌ 找不到檔案：{price_file_sd2}，填入 None")
 #             start_date2 = None
 #             SD_close2 = None
 
@@ -597,7 +630,7 @@ else:
 #                 end_date2 = None
 #                 ED_close2 = None
 #         except FileNotFoundError:
-#             print(f"❌ 找不到檔案：{price_file_ed2}，填入 None")
+#             utils.ptMsg(f"❌ 找不到檔案：{price_file_ed2}，填入 None")
 #             end_date2 = None
 #             ED_close2 = None
 
@@ -624,13 +657,13 @@ else:
 #     output_file.parent.mkdir(parents=True, exist_ok=True)
 #     filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
-#     print(f"✅ 已完成後續報酬計算，輸出至：{output_file}")
+#     utils.ptMsg(f"✅ 已完成後續報酬計算，輸出至：{output_file}")
 
 # ### 統計持有期間平均報酬
 # output_file = Path(r"..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static.csv")
 # if os.path.exists(output_file):
 #     grouped = pd.read_csv(output_file)
-#     print(f"☑️ 檔案已存在：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
 # else:
 #     # 確保 return2 是數字型態
 #     filtered_df["return2"] = pd.to_numeric(filtered_df["return2"], errors="coerce")
@@ -651,13 +684,13 @@ else:
 #     # 輸出結果
 #     grouped.to_csv(output_file, index=False, encoding="utf-8-sig")
 
-#     print(f"✅ 統計已完成，檔案輸出：{output_file}")
+#     utils.ptMsg(f"✅ 統計已完成，檔案輸出：{output_file}")
 
 # ### 計算winner - loser
 # output_file = Path(r"..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201001_202012-static2.csv")
 # if os.path.exists(output_file):
 #     new_df = pd.read_csv(output_file)
-#     print(f"☑️ 檔案已存在：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
 # else:
 #     # 用於儲存新結果
 #     rows = []
@@ -687,47 +720,53 @@ else:
 
 #     new_df = pd.DataFrame(rows)
 #     new_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-#     print(f"✅ 已輸出新檔案：{output_file}")
+#     utils.ptMsg(f"✅ 已輸出新檔案：{output_file}")
 
 # ### t-test
 # output_file = Path(r"..\data\analysis\momentumNew\oPeriod3_hPeriod3\t_test_results.csv")
 # if os.path.exists(output_file):
-#     print(f"☑️ 檔案已存在：{output_file}")
+#     utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
 # else:
-    # 移除多餘逗號
-    new_df.columns = new_df.columns.str.strip()
+#     # 移除多餘逗號
+#     new_df.columns = new_df.columns.str.strip()
 
-    # 將 mean_return2 去掉 % 並轉成數值
-    new_df["mean_return2"] = new_df["mean_return2"].str.replace("%", "").astype(float) / 100
+#     # 將 mean_return2 去掉 % 並轉成數值
+#     new_df["mean_return2"] = new_df["mean_return2"].str.replace("%", "").astype(float) / 100
     
-    results = []
+#     results = []
 
-    # 分組 t檢定
-    for remark in ["loser", "winner", "winner - loser"]:
-        # 取出該 remark 資料
-        values = new_df.loc[new_df["remark"] == remark, "mean_return2"].dropna().values
-        n = len(values)
-        if n > 1:
-            t_stat, p_value = stats.ttest_1samp(values, popmean=0)
-            mean = values.mean()
-            results.append({
-                "remark": remark,
-                "n": n,
-                "mean": mean,
-                "t_stat": t_stat,
-                "p_value": p_value
-            })
-        else:
-            results.append({
-                "remark": remark,
-                "n": n,
-                "mean": values.mean() if n == 1 else None,
-                "t_stat": None,
-                "p_value": None
-            })
+#     # 分組 t檢定
+#     for remark in ["loser", "winner", "winner - loser"]:
+#         # 取出該 remark 資料
+#         values = new_df.loc[new_df["remark"] == remark, "mean_return2"].dropna().values
+#         n = len(values)
+#         if n > 1:
+#             t_stat, p_value = stats.ttest_1samp(values, popmean=0)
+#             mean = values.mean()
+#             results.append({
+#                 "remark": remark,
+#                 "n": n,
+#                 "mean": mean,
+#                 "t_stat": t_stat,
+#                 "p_value": p_value
+#             })
+#         else:
+#             results.append({
+#                 "remark": remark,
+#                 "n": n,
+#                 "mean": values.mean() if n == 1 else None,
+#                 "t_stat": None,
+#                 "p_value": None
+#             })
     
-    result_df = pd.DataFrame(results)
-    # print(result_df)
+#     result_df = pd.DataFrame(results)
+#     # utils.ptMsg(result_df)
 
-    result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-    print(f"✅ 已輸出結果：{output_file}")
+#     result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+#     utils.ptMsg(f"✅ 已輸出結果：{output_file}")
+
+
+
+# 結束訊息
+utils.ptMsg("⚙️ momentumNew.py Finish")
+print("")
