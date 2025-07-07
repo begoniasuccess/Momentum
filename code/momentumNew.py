@@ -8,6 +8,8 @@ import sys
 import glob
 from scipy import stats
 from common import utils
+import re
+from pandas.errors import EmptyDataError
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
@@ -15,14 +17,20 @@ from common import utils
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
+print("")
 utils.ptMsg("⚙️ momentumNew.py Run")
 
 ### 策略參數設定
-sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2020/12/31', "%Y/%m/%d") # End Date
+# sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
+# eDt = datetime.strptime('2020/12/31', "%Y/%m/%d") # End Date
+
+sDt = datetime.strptime('2012/01/01', "%Y/%m/%d") # Start Date
+eDt = datetime.strptime('2015/02/27', "%Y/%m/%d") # End Date
 oPeriod = 3 # Observer Period
 hPeriod = 3 # Holding Period
 planType = "A" # A 
+
+utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
 
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
@@ -30,6 +38,8 @@ api = DataLoader()
 token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyODoxMSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIxMTQuMTM3LjIxOS4yMTEiLCJleHAiOjE3NTE3MDA0OTF9.u4s5jxRFBz2ojJ01n-8c6Jm2G0FAhtn1-gSMsaspZWE"
 api.login_by_token(api_token=token)
 
+
+dataExist = False
 # ### 撈取市值資料  => DONE
 # outputDir = r'..\data\FinMind\TW\MarketValue' + f'/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
 
@@ -55,20 +65,41 @@ api.login_by_token(api_token=token)
 
 
 ### 算出每個月各股票的平均市值
+dataExist = False
 outputDir = r'..\data\analysis\summary'
 outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
 if os.path.exists(outputPath):
     dfTWMVmean = pd.read_csv(outputPath)
     utils.ptMsg("☑️ 檔案已存在：" + outputPath)    
+    dataExist = True
 else:
+    # 查看有沒有範圍更廣的資料區間
+    file_list = os.listdir(outputDir)
+
+    # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm.csv
+    pattern = re.compile(r"^TWMV_mean-(\d{6})_(\d{6})\.csv$")
+
+    # 找符合的檔案
+    matching_files = [f for f in file_list if pattern.match(f)]
+    if matching_files:
+        for f in matching_files:
+            timeRange = utils.getSdtEdt(f)
+            sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            if sDtInRange and dDtInRange:
+                dfTWMVmean = pd.read_csv(f'{outputDir}/{f}')
+                utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}')   
+                dataExist = True
+                break
+
+if not dataExist:
     # 資料夾路徑
     marketValDataDir = f'../data/FinMind/TW/MarketValue/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
     marketValFolder = Path(marketValDataDir)
 
     # 找到所有 CSV 檔案
     TWMVfiles = list(marketValFolder.glob('*.csv'))
-    utils.ptMsg("找到的檔案：")
-    print(TWMVfiles)
+    utils.ptMsg("找到的檔案：", TWMVfiles)
 
     # 存放所有檔案的結果
     marketValMeans = []
@@ -134,12 +165,34 @@ else:
     utils.ptMsg("✅ 檔案存取成功：", outputPath)
 
 ### 取出每個月前n大市值的名單
+dataExist = False
 maxIncludeRank = 150
 outputPath = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxIncludeRank}.csv'
 if os.path.exists(outputPath):
     dfTWMVrank = pd.read_csv(outputPath)
     utils.ptMsg("☑️ 檔案已存在：" + outputPath)
+    dataExist = True
 else:
+    # 查看有沒有範圍更廣的資料區間
+    file_list = os.listdir(outputDir)
+
+    # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm-rankXXX.csv
+    pattern = re.compile(rf"^TWMV_mean-(\d{{6}})_(\d{{6}})-rank{maxIncludeRank}\.csv$")
+
+    # 找符合的檔案
+    matching_files = [f for f in file_list if pattern.match(f)]
+    if matching_files:
+        for f in matching_files:
+            timeRange = utils.getSdtEdt(f)
+            sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            if sDtInRange and dDtInRange:
+                dfTWMVrank = pd.read_csv(f'{outputDir}/{f}')
+                utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}')   
+                dataExist = True
+                break    
+
+if not dataExist:
     # 篩選 rank <= maxIncludeRank
     dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= maxIncludeRank]
 
@@ -245,27 +298,35 @@ else:
 #         utils.ptMsg(f"⚠️ 沒有資料：{year}")
 
 ### 計算觀察期報酬
+### stock_id,start_date,end_date,SD_close,ED_close,combination,return
+dataExist = False
 # 路徑設定
 output_file = r'..\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
 if os.path.exists(output_file):
-    pd.read_csv(output_file)
-    utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
+    result_df = pd.read_csv(output_file)
+    utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
+    dataExist = True
 else:
-    base_dir = r'..\data\analysis\summary'
-    close_pattern = os.path.join(base_dir, 'closePrice_*.csv')
+    # 查看有沒有範圍更廣的資料區間
+    file_list = os.listdir(os.path.dirname(output_file))
 
-    # 讀取所有收盤價資料    
-    close_files = glob.glob(close_pattern)
-    close_dfs = []
-    for f in close_files:
-        df = pd.read_csv(f, parse_dates=['date'])
-        close_dfs.append(df)
-    close_df = pd.concat(close_dfs, ignore_index=True)
+    # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
+    pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
 
-    # 建立索引加快查詢
-    close_df.sort_values(['stock_id', 'date'], inplace=True)
-    close_df.set_index(['stock_id', 'date'], inplace=True)
+    # 找符合的檔案
+    matching_files = [f for f in file_list if pattern.match(f)]
+    if matching_files:
+        for f in matching_files:
+            timeRange = utils.getSdtEdt(f)
+            sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            if sDtInRange and dDtInRange:
+                result_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
+                utils.ptMsg("☑️ 已讀入既有檔案：" + f'{os.path.dirname(output_file)}/{f}')   
+                dataExist = True
+                break    
 
+if not dataExist:
     cur_dt = sDt
 
     ### 嘗試讀取進度：
@@ -278,8 +339,17 @@ else:
         progressDt = datetime.strptime(progressYM, "%Y%m")
         cur_dt = progressDt + relativedelta(months=1)
         
+    close_df = None
+    close_df_year = "0"
     # 逐月迭代    
     while cur_dt <= eDt:
+        curY = cur_dt.strftime("%Y")
+
+        # 讀取近三年收盤價資料    
+        if (close_df is None) or (int(close_df_year) != int(curY)):            
+            close_df = utils.getCloseDf(curY)
+            close_df_year = cur_dt.strftime("%Y")
+
         result_rows = []
         
         ym_str = cur_dt.strftime('%Y-%m')
@@ -287,6 +357,7 @@ else:
 
         # (a) 找當月股票清單
         month_stocks = dfTWMVrank[dfTWMVrank['year_month'] == ym_str]['stock_id'].unique()
+        utils.ptMsg("** " + ym_str + "股票清單長度：" + str(len(month_stocks)))
         
         for stock in month_stocks:
             # (b) 找該股票當月第一個交易日
@@ -298,15 +369,21 @@ else:
                 (sub_df['date'].dt.month == cur_dt.month)
             )
             this_month = sub_df[mask].sort_values('date')
+            # print("this_month=")
+            # print(this_month.head(2))
             if this_month.empty:
+                print(f"⚠️ {ym_str} Stock{stock} 沒有this_month的資料")
                 continue  # 沒有該月資料，跳過
             
             start_row = this_month.iloc[0]
+            # print("## start_row=")
+            # print(start_row)
             start_date = start_row['date']
             SD_close = start_row['close']
             
             # (c) 找end_date
             end_month = cur_dt + relativedelta(months=oPeriod - 1)
+            # print("# end_month=", end_month)
             mask_end = (
                 (sub_df['stock_id'] == stock) &
                 (sub_df['date'].dt.year == end_month.year) &
@@ -314,9 +391,18 @@ else:
             )
             end_month_df = sub_df[mask_end].sort_values('date')
             if end_month_df.empty:
+                print(f"⚠️ {str(end_month.year) + str(end_month.month)} Stock {stock} 沒有end_month_df的資料")
+                # print("*** sub_df=")
+                # print(sub_df)
+                # print("*** sub_df[mask_end]=", sub_df[mask_end])
+                # print(sub_df['stock_id'].dtype)
+                # print("stock =", stock, "型別 =", type(stock))
+                # sys.exit() # for Debug
                 continue  # 沒有該月資料，跳過
             
             end_row = end_month_df.iloc[-1]
+            # print("## end_row=")
+            # print(end_row)
             end_date = end_row['date']
             ED_close = end_row['close']
             
@@ -336,8 +422,10 @@ else:
             })
         
         hasData = False
-        if result_rows:
+        if len(result_rows) > 0:
             hasData = True
+
+        utils.ptMsg("本月處理資料筆數：" + str(len(result_rows)))
 
         if not hasData:
             utils.ptMsg("⚠️ No Observer RT Data " + ym_str + " ")
@@ -345,6 +433,8 @@ else:
         if hasData:
             result_df = pd.DataFrame(result_rows)
             result_df.sort_values(['stock_id'], inplace=True) # 排序
+        else:
+            result_df = pd.DataFrame([])
 
         ### 處理量巨大，保險起見分月暫存
         output_file_tmp = output_file + "-tmp_" + cur_dt.strftime("%Y%m")
@@ -356,9 +446,8 @@ else:
                 result_df.to_csv(output_file_tmp_lastM, mode="a", header=False, index=False)
             os.rename(output_file_tmp_lastM, output_file_tmp)
         else:
-            if hasData:
-                os.makedirs(os.path.dirname(output_file_tmp), exist_ok=True)
-                result_df.to_csv(output_file_tmp, mode="w", index=False, float_format='%.8f')
+            os.makedirs(os.path.dirname(output_file_tmp), exist_ok=True)
+            result_df.to_csv(output_file_tmp, mode="w", index=False, float_format='%.8f')
 
         utils.ptMsg("📢 Observer RT " + ym_str + " 已處理完成")
 
@@ -366,110 +455,26 @@ else:
         cur_dt += relativedelta(months=1)
 
     # 輸出
-    os.rename(output_file_tmp, output_file)
-    utils.ptMsg('✅ 整合完成！檔案輸出：', output_file) 
+    if os.path.exists(output_file_tmp):
+        os.rename(output_file_tmp, output_file)
+        utils.ptMsg('✅ 整合完成！檔案輸出：', output_file) 
+    else:
+        utils.ptMsg('⚠️ 因為沒有資料，未儲存任何檔案') 
+    
+    # result_df = pd.read_csv(output_file)
+    with open(output_file, encoding="utf-8") as f:
+        first_line = f.readline().strip()
+
+        if not first_line:
+            print("檔案沒有任何內容（或只有空行），用空 DataFrame")
+            df = pd.DataFrame()
+        else:
+            try:
+                df = pd.read_csv(output_file)
+            except EmptyDataError:
+                print("檔案格式不正確，用空 DataFrame")
+                df = pd.DataFrame()
  
-# ===============
-
-# ##  TODO:: 每年的股票參照TWMV_mean-201001_202012-rankXXX.csv的檔案對應年份的清單去篩選
-# target_folder = Path(r"..\data\analysis\momentumNew" + f"/oPeriod{oPeriod}_hPeriod{hPeriod}")
-# target_folder.mkdir(parents=True, exist_ok=True)
-# output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
-# if os.path.exists(output_file):
-#     result_df = pd.read_csv(output_file)
-#     utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
-# else:    
-#     # 預先讀取所有年度檔案
-#     source_folder = Path(r"..\data\analysis\summary")
-#     data_by_year = {}
-#     for year in range(sDt.year, eDt.year + 1):
-#         file = source_folder / f"closePrice_{year}.csv"
-#         if file.exists():
-#             result_df = pd.read_csv(file, parse_dates=["date"])
-#             data_by_year[year] = result_df
-#             utils.ptMsg(f"已讀取資料：{file}")
-#         else:
-#             utils.ptMsg(f"⚠️ 找不到檔案：{file}")
-
-#     # 結果清單
-#     result_rows = []
-
-#     # 時間游標
-#     current_dt = sDt
-#     while current_dt <= eDt:
-#         year = current_dt.year
-#         month = current_dt.month
-
-#         df_year = data_by_year.get(year)
-#         if df_year is not None:
-#             df_month = df_year[
-#                 (df_year["date"].dt.year == year) &
-#                 (df_year["date"].dt.month == month)
-#             ]
-
-#             grouped = df_month.groupby("stock_id", as_index=False)
-#             first_trading_days = grouped.apply(lambda g: g.nsmallest(1, "date")).reset_index(drop=True)
-
-#             for _, row in first_trading_days.iterrows():
-#                 stock_id = row["stock_id"]
-#                 start_date = row["date"]
-
-#                 # 計算 end_month
-#                 end_month_dt = start_date + relativedelta(months=oPeriod - 1)
-#                 end_year = end_month_dt.year
-#                 end_month = end_month_dt.month
-
-#                 df_end_year = data_by_year.get(end_year)
-#                 if df_end_year is not None:
-#                     df_end_month = df_end_year[
-#                         (df_end_year["stock_id"] == stock_id) &
-#                         (df_end_year["date"].dt.year == end_year) &
-#                         (df_end_year["date"].dt.month == end_month)
-#                     ]
-
-#                     if not df_end_month.empty:
-#                         end_date = df_end_month["date"].max()
-#                         ED_close = df_end_month[df_end_month["date"] == end_date]["close"].values[0]
-#                     else:
-#                         end_date = pd.NaT
-#                         ED_close = ""
-#                 else:
-#                     end_date = pd.NaT
-#                     ED_close = ""
-
-#                 # 組合 combination
-#                 comb_start = start_date.strftime("%Y%m")
-#                 comb_end = (start_date + relativedelta(months=oPeriod)).strftime("%Y%m")
-#                 combination = f"{comb_start}-{comb_end}"
-
-#                 # 計算 return
-#                 SD_close = row["close"]
-#                 if ED_close != "":
-#                     ret = (ED_close - SD_close) / SD_close
-#                 else:
-#                     ret = ""
-
-#                 result_rows.append({
-#                     "stock_id": stock_id,
-#                     "start_date": start_date.strftime("%Y-%m-%d"),
-#                     "end_date": end_date.strftime("%Y-%m-%d") if pd.notna(end_date) else "",
-#                     "SD_close": SD_close,
-#                     "ED_close": ED_close,
-#                     "combination": combination,
-#                     "return": ret
-#                 })
-
-#         current_dt += relativedelta(months=1)
-
-#     # 結果DataFrame
-#     result_df = pd.DataFrame(result_rows)
-
-#     # 輸出
-#     result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-#     utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
-
-
-
 # ### 增加各種rank相關欄位
 # output_file = target_folder / f"observerReturnList{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank.csv"
 # if os.path.exists(output_file):
