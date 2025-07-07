@@ -47,12 +47,12 @@ def getSdtEdt(filePath: str) -> dict[str, datetime]:
     }
     return result
 
-def getCloseDf(sYear: str) -> pd.DataFrame:
+def getCloseDf(sYear: str , searchY: int) -> pd.DataFrame:
     base_dir = r'..\data\analysis\summary'
     sYear_int = int(sYear)
     
     # 產生三年的檔案清單
-    years = [str(sYear_int + i) for i in range(2)]
+    years = [str(sYear_int + i) for i in range(searchY)]
     filenames = [f'closePrice_{y}.csv' for y in years]
     filepaths = [os.path.join(base_dir, fname) for fname in filenames]
     
@@ -74,7 +74,7 @@ def getCloseDf(sYear: str) -> pd.DataFrame:
     else:
         close_df = pd.DataFrame()
 
-    print(f"closePrice：年份 {sYear} ~ {int(sYear)+2} 合併資料筆數：{len(close_df)}")
+    print(f"closePrice：年份 {sYear} ~ {int(sYear) + searchY - 1} 合併資料筆數：{len(close_df)}")
     print(close_df.head(3))
     ## for test
     close_df.to_csv(f"{base_dir}/closePrice_tmp.csv")
