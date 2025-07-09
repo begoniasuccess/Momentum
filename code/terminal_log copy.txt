@@ -1,190 +1,1612 @@
-☑️ 檔案已存在： ..\data\analysis\summary/TWMV_mean-201001_202012.csv
-☑️ 檔案已存在： ..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
-📢 Observer RT偵測並讀取進度：201210
-**Observer RT 2012-11 開始處理
-⚠️ No Observer RT Data 2012-11 
-📢 Observer RT 2012-11 已處理完成
-**Observer RT 2012-12 開始處理
-⚠️ No Observer RT Data 2012-12 
-📢 Observer RT 2012-12 已處理完成
-**Observer RT 2013-01 開始處理
-⚠️ No Observer RT Data 2013-01 
-📢 Observer RT 2013-01 已處理完成
-**Observer RT 2013-02 開始處理
-⚠️ No Observer RT Data 2013-02 
-📢 Observer RT 2013-02 已處理完成
-**Observer RT 2013-03 開始處理
-⚠️ No Observer RT Data 2013-03 
-📢 Observer RT 2013-03 已處理完成
-**Observer RT 2013-04 開始處理
-⚠️ No Observer RT Data 2013-04 
-📢 Observer RT 2013-04 已處理完成
-**Observer RT 2013-05 開始處理
-⚠️ No Observer RT Data 2013-05 
-📢 Observer RT 2013-05 已處理完成
-**Observer RT 2013-06 開始處理
-⚠️ No Observer RT Data 2013-06 
-📢 Observer RT 2013-06 已處理完成
-**Observer RT 2013-07 開始處理
-⚠️ No Observer RT Data 2013-07 
-📢 Observer RT 2013-07 已處理完成
-**Observer RT 2013-08 開始處理
-⚠️ No Observer RT Data 2013-08 
-📢 Observer RT 2013-08 已處理完成
-**Observer RT 2013-09 開始處理
-⚠️ No Observer RT Data 2013-09 
-📢 Observer RT 2013-09 已處理完成
-**Observer RT 2013-10 開始處理
-⚠️ No Observer RT Data 2013-10 
-📢 Observer RT 2013-10 已處理完成
-**Observer RT 2013-11 開始處理
-⚠️ No Observer RT Data 2013-11 
-📢 Observer RT 2013-11 已處理完成
-**Observer RT 2013-12 開始處理
-⚠️ No Observer RT Data 2013-12 
-📢 Observer RT 2013-12 已處理完成
-**Observer RT 2014-01 開始處理
-⚠️ No Observer RT Data 2014-01 
-📢 Observer RT 2014-01 已處理完成
-**Observer RT 2014-02 開始處理
-⚠️ No Observer RT Data 2014-02 
-📢 Observer RT 2014-02 已處理完成
-**Observer RT 2014-03 開始處理
-⚠️ No Observer RT Data 2014-03 
-📢 Observer RT 2014-03 已處理完成
-**Observer RT 2014-04 開始處理
-⚠️ No Observer RT Data 2014-04 
-📢 Observer RT 2014-04 已處理完成
-**Observer RT 2014-05 開始處理
-⚠️ No Observer RT Data 2014-05 
-📢 Observer RT 2014-05 已處理完成
-**Observer RT 2014-06 開始處理
-⚠️ No Observer RT Data 2014-06 
-📢 Observer RT 2014-06 已處理完成
-**Observer RT 2014-07 開始處理
-⚠️ No Observer RT Data 2014-07 
-📢 Observer RT 2014-07 已處理完成
-**Observer RT 2014-08 開始處理
-⚠️ No Observer RT Data 2014-08 
-📢 Observer RT 2014-08 已處理完成
-**Observer RT 2014-09 開始處理
-⚠️ No Observer RT Data 2014-09 
-📢 Observer RT 2014-09 已處理完成
-**Observer RT 2014-10 開始處理
-⚠️ No Observer RT Data 2014-10 
-📢 Observer RT 2014-10 已處理完成
-**Observer RT 2014-11 開始處理
-⚠️ No Observer RT Data 2014-11 
-📢 Observer RT 2014-11 已處理完成
-**Observer RT 2014-12 開始處理
-⚠️ No Observer RT Data 2014-12 
-📢 Observer RT 2014-12 已處理完成
-**Observer RT 2015-01 開始處理
-⚠️ No Observer RT Data 2015-01 
-📢 Observer RT 2015-01 已處理完成
-**Observer RT 2015-02 開始處理
-⚠️ No Observer RT Data 2015-02 
-📢 Observer RT 2015-02 已處理完成
-**Observer RT 2015-03 開始處理
-⚠️ No Observer RT Data 2015-03 
-📢 Observer RT 2015-03 已處理完成
-**Observer RT 2015-04 開始處理
-⚠️ No Observer RT Data 2015-04 
-📢 Observer RT 2015-04 已處理完成
-**Observer RT 2015-05 開始處理
-⚠️ No Observer RT Data 2015-05 
-📢 Observer RT 2015-05 已處理完成
-**Observer RT 2015-06 開始處理
-⚠️ No Observer RT Data 2015-06 
-📢 Observer RT 2015-06 已處理完成
-**Observer RT 2015-07 開始處理
-⚠️ No Observer RT Data 2015-07 
-📢 Observer RT 2015-07 已處理完成
-**Observer RT 2015-08 開始處理
-⚠️ No Observer RT Data 2015-08 
-📢 Observer RT 2015-08 已處理完成
-**Observer RT 2015-09 開始處理
-⚠️ No Observer RT Data 2015-09 
-📢 Observer RT 2015-09 已處理完成
-**Observer RT 2015-10 開始處理
-⚠️ No Observer RT Data 2015-10 
-📢 Observer RT 2015-10 已處理完成
-**Observer RT 2015-11 開始處理
-⚠️ No Observer RT Data 2015-11 
-📢 Observer RT 2015-11 已處理完成
-**Observer RT 2015-12 開始處理
-⚠️ No Observer RT Data 2015-12 
-📢 Observer RT 2015-12 已處理完成
-**Observer RT 2016-01 開始處理
-📢 Observer RT 2016-01 已處理完成
-**Observer RT 2016-02 開始處理
-📢 Observer RT 2016-02 已處理完成
-**Observer RT 2016-03 開始處理
-📢 Observer RT 2016-03 已處理完成
-**Observer RT 2016-04 開始處理
-📢 Observer RT 2016-04 已處理完成
-**Observer RT 2016-05 開始處理
-📢 Observer RT 2016-05 已處理完成
-**Observer RT 2016-06 開始處理
-📢 Observer RT 2016-06 已處理完成
-**Observer RT 2016-07 開始處理
-📢 Observer RT 2016-07 已處理完成
-**Observer RT 2016-08 開始處理
-📢 Observer RT 2016-08 已處理完成
-**Observer RT 2016-09 開始處理
-📢 Observer RT 2016-09 已處理完成
-**Observer RT 2016-10 開始處理
-📢 Observer RT 2016-10 已處理完成
-**Observer RT 2016-11 開始處理
-📢 Observer RT 2016-11 已處理完成
-**Observer RT 2016-12 開始處理
-📢 Observer RT 2016-12 已處理完成
-**Observer RT 2017-01 開始處理
-📢 Observer RT 2017-01 已處理完成
-**Observer RT 2017-02 開始處理
-📢 Observer RT 2017-02 已處理完成
-**Observer RT 2017-03 開始處理
-📢 Observer RT 2017-03 已處理完成
-**Observer RT 2017-04 開始處理
-📢 Observer RT 2017-04 已處理完成
-**Observer RT 2017-05 開始處理
-📢 Observer RT 2017-05 已處理完成
-**Observer RT 2017-06 開始處理
-📢 Observer RT 2017-06 已處理完成
-**Observer RT 2017-07 開始處理
-📢 Observer RT 2017-07 已處理完成
-**Observer RT 2017-08 開始處理
-📢 Observer RT 2017-08 已處理完成
-**Observer RT 2017-09 開始處理
-📢 Observer RT 2017-09 已處理完成
-**Observer RT 2017-10 開始處理
-📢 Observer RT 2017-10 已處理完成
-**Observer RT 2017-11 開始處理
-📢 Observer RT 2017-11 已處理完成
-**Observer RT 2017-12 開始處理
-📢 Observer RT 2017-12 已處理完成
-**Observer RT 2018-01 開始處理
-📢 Observer RT 2018-01 已處理完成
-**Observer RT 2018-02 開始處理
-📢 Observer RT 2018-02 已處理完成
-**Observer RT 2018-03 開始處理
-📢 Observer RT 2018-03 已處理完成
-**Observer RT 2018-04 開始處理
-📢 Observer RT 2018-04 已處理完成
-**Observer RT 2018-05 開始處理
-📢 Observer RT 2018-05 已處理完成
-**Observer RT 2018-06 開始處理
-📢 Observer RT 2018-06 已處理完成
-**Observer RT 2018-07 開始處理
-📢 Observer RT 2018-07 已處理完成
-**Observer RT 2018-08 開始處理
-📢 Observer RT 2018-08 已處理完成
-**Observer RT 2018-09 開始處理
-📢 Observer RT 2018-09 已處理完成
-**Observer RT 2018-10 開始處理
-📢 Observer RT 2018-10 已處理完成
-**Observer RT 2018-11 開始處理
-📢 Observer RT 2018-11 已處理完成
-**Observer RT 2018-12 開始處理
-📢 Observer RT 2018-12 已處理完成
-**Observer RT 2019-01 開始處理
+
+2025/07/08 19:44:23：⚙️ momentumNew.py Run
+2025/07/08 19:44:23：⚙️ 參數設定：2010/01/01~2014/12/31/Period(o、h):6、6
+2025/07/08 19:44:23：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/08 19:44:23：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+讀取檔案：..\data\analysis\summary\closePrice_2010.csv，筆數：80517
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2010 ~ 2011 合併資料筆數：162229
+        date stock_id  close
+0 2010-01-04     1101  12.18
+1 2010-01-05     1101  12.61
+2 2010-01-06     1101  12.88
+2025/07/08 19:44:23：**Observer RT 2010-01 開始處理
+2025/07/08 19:44:23：** 2010-01股票清單長度：150
+⚠️ 20106 Stock 3009 沒有end_month_df的資料
+2025/07/08 19:44:28：本月處理資料筆數：149
+2025/07/08 19:44:28：📢 Observer RT 2010-01 已處理完成
+2025/07/08 19:44:28：**Observer RT 2010-02 開始處理
+2025/07/08 19:44:28：** 2010-02股票清單長度：150
+⚠️ 20107 Stock 2350 沒有end_month_df的資料
+⚠️ 20107 Stock 3009 沒有end_month_df的資料
+2025/07/08 19:44:32：本月處理資料筆數：148
+2025/07/08 19:44:32：📢 Observer RT 2010-02 已處理完成
+2025/07/08 19:44:32：**Observer RT 2010-03 開始處理
+2025/07/08 19:44:32：** 2010-03股票清單長度：150
+⚠️ 20108 Stock 2350 沒有end_month_df的資料
+⚠️ 20108 Stock 3009 沒有end_month_df的資料
+2025/07/08 19:44:36：本月處理資料筆數：148
+2025/07/08 19:44:36：📢 Observer RT 2010-03 已處理完成
+2025/07/08 19:44:36：**Observer RT 2010-04 開始處理
+2025/07/08 19:44:36：** 2010-04股票清單長度：150
+⚠️ 20109 Stock 2350 沒有end_month_df的資料
+2025/07/08 19:44:41：本月處理資料筆數：149
+2025/07/08 19:44:41：📢 Observer RT 2010-04 已處理完成
+2025/07/08 19:44:41：**Observer RT 2010-05 開始處理
+2025/07/08 19:44:41：** 2010-05股票清單長度：150
+⚠️ 201010 Stock 2350 沒有end_month_df的資料
+2025/07/08 19:44:46：本月處理資料筆數：149
+2025/07/08 19:44:46：📢 Observer RT 2010-05 已處理完成
+2025/07/08 19:44:46：**Observer RT 2010-06 開始處理
+2025/07/08 19:44:46：** 2010-06股票清單長度：150
+⚠️ 201011 Stock 2350 沒有end_month_df的資料
+2025/07/08 19:45:15：本月處理資料筆數：149
+2025/07/08 19:45:15：📢 Observer RT 2010-06 已處理完成
+2025/07/08 19:45:15：**Observer RT 2010-07 開始處理
+2025/07/08 19:45:15：** 2010-07股票清單長度：150
+2025/07/08 19:45:20：本月處理資料筆數：150
+2025/07/08 19:45:20：📢 Observer RT 2010-07 已處理完成
+2025/07/08 19:45:20：**Observer RT 2010-08 開始處理
+2025/07/08 19:45:20：** 2010-08股票清單長度：150
+⚠️ 20111 Stock 2403 沒有end_month_df的資料
+2025/07/08 19:45:24：本月處理資料筆數：149
+2025/07/08 19:45:24：📢 Observer RT 2010-08 已處理完成
+2025/07/08 19:45:24：**Observer RT 2010-09 開始處理
+2025/07/08 19:45:24：** 2010-09股票清單長度：150
+⚠️ 20112 Stock 2403 沒有end_month_df的資料
+2025/07/08 19:45:29：本月處理資料筆數：149
+2025/07/08 19:45:29：📢 Observer RT 2010-09 已處理完成
+2025/07/08 19:45:29：**Observer RT 2010-10 開始處理
+2025/07/08 19:45:29：** 2010-10股票清單長度：150
+⚠️ 20113 Stock 2403 沒有end_month_df的資料
+⚠️ 2010-10 Stock3673 沒有this_month的資料
+2025/07/08 19:45:33：本月處理資料筆數：148
+2025/07/08 19:45:33：📢 Observer RT 2010-10 已處理完成
+2025/07/08 19:45:33：**Observer RT 2010-11 開始處理
+2025/07/08 19:45:33：** 2010-11股票清單長度：150
+2025/07/08 19:45:38：本月處理資料筆數：150
+2025/07/08 19:45:38：📢 Observer RT 2010-11 已處理完成
+2025/07/08 19:45:38：**Observer RT 2010-12 開始處理
+2025/07/08 19:45:38：** 2010-12股票清單長度：150
+2025/07/08 19:45:42：本月處理資料筆數：150
+2025/07/08 19:45:42：📢 Observer RT 2010-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2011 ~ 2012 合併資料筆數：165965
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+2025/07/08 19:45:43：**Observer RT 2011-01 開始處理
+2025/07/08 19:45:43：** 2011-01股票清單長度：150
+2025/07/08 19:45:47：本月處理資料筆數：150
+2025/07/08 19:45:47：📢 Observer RT 2011-01 已處理完成
+2025/07/08 19:45:47：**Observer RT 2011-02 開始處理
+2025/07/08 19:45:47：** 2011-02股票清單長度：150
+2025/07/08 19:45:53：本月處理資料筆數：150
+2025/07/08 19:45:53：📢 Observer RT 2011-02 已處理完成
+2025/07/08 19:45:53：**Observer RT 2011-03 開始處理
+2025/07/08 19:45:53：** 2011-03股票清單長度：150
+2025/07/08 19:46:03：本月處理資料筆數：150
+2025/07/08 19:46:03：📢 Observer RT 2011-03 已處理完成
+2025/07/08 19:46:03：**Observer RT 2011-04 開始處理
+2025/07/08 19:46:03：** 2011-04股票清單長度：150
+2025/07/08 19:46:06：本月處理資料筆數：150
+2025/07/08 19:46:06：📢 Observer RT 2011-04 已處理完成
+2025/07/08 19:46:06：**Observer RT 2011-05 開始處理
+2025/07/08 19:46:06：** 2011-05股票清單長度：150
+⚠️ 201110 Stock 2854 沒有end_month_df的資料
+2025/07/08 19:46:10：本月處理資料筆數：149
+2025/07/08 19:46:10：📢 Observer RT 2011-05 已處理完成
+2025/07/08 19:46:10：**Observer RT 2011-06 開始處理
+2025/07/08 19:46:10：** 2011-06股票清單長度：150
+⚠️ 201111 Stock 2854 沒有end_month_df的資料
+2025/07/08 19:46:14：本月處理資料筆數：149
+2025/07/08 19:46:14：📢 Observer RT 2011-06 已處理完成
+2025/07/08 19:46:14：**Observer RT 2011-07 開始處理
+2025/07/08 19:46:14：** 2011-07股票清單長度：150
+⚠️ 201112 Stock 2854 沒有end_month_df的資料
+⚠️ 201112 Stock 5854 沒有end_month_df的資料
+2025/07/08 19:46:17：本月處理資料筆數：148
+2025/07/08 19:46:17：📢 Observer RT 2011-07 已處理完成
+2025/07/08 19:46:17：**Observer RT 2011-08 開始處理
+2025/07/08 19:46:17：** 2011-08股票清單長度：150
+⚠️ 20121 Stock 2854 沒有end_month_df的資料
+⚠️ 20121 Stock 5854 沒有end_month_df的資料
+2025/07/08 19:46:21：本月處理資料筆數：148
+2025/07/08 19:46:21：📢 Observer RT 2011-08 已處理完成
+2025/07/08 19:46:21：**Observer RT 2011-09 開始處理
+2025/07/08 19:46:21：** 2011-09股票清單長度：150
+⚠️ 20122 Stock 2854 沒有end_month_df的資料
+⚠️ 20122 Stock 5854 沒有end_month_df的資料
+2025/07/08 19:46:25：本月處理資料筆數：148
+2025/07/08 19:46:25：📢 Observer RT 2011-09 已處理完成
+2025/07/08 19:46:25：**Observer RT 2011-10 開始處理
+2025/07/08 19:46:25：** 2011-10股票清單長度：150
+⚠️ 20123 Stock 5854 沒有end_month_df的資料
+2025/07/08 19:46:28：本月處理資料筆數：149
+2025/07/08 19:46:28：📢 Observer RT 2011-10 已處理完成
+2025/07/08 19:46:28：**Observer RT 2011-11 開始處理
+2025/07/08 19:46:28：** 2011-11股票清單長度：150
+⚠️ 20124 Stock 5854 沒有end_month_df的資料
+2025/07/08 19:46:32：本月處理資料筆數：149
+2025/07/08 19:46:32：📢 Observer RT 2011-11 已處理完成
+2025/07/08 19:46:32：**Observer RT 2011-12 開始處理
+2025/07/08 19:46:32：** 2011-12股票清單長度：150
+2025/07/08 19:46:36：本月處理資料筆數：150
+2025/07/08 19:46:36：📢 Observer RT 2011-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2012 ~ 2013 合併資料筆數：169009
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+2025/07/08 19:46:36：**Observer RT 2012-01 開始處理
+2025/07/08 19:46:36：** 2012-01股票清單長度：150
+2025/07/08 19:46:51：本月處理資料筆數：150
+2025/07/08 19:46:51：📢 Observer RT 2012-01 已處理完成
+2025/07/08 19:46:51：**Observer RT 2012-02 開始處理
+2025/07/08 19:46:51：** 2012-02股票清單長度：150
+2025/07/08 19:47:08：本月處理資料筆數：150
+2025/07/08 19:47:08：📢 Observer RT 2012-02 已處理完成
+2025/07/08 19:47:08：**Observer RT 2012-03 開始處理
+2025/07/08 19:47:08：** 2012-03股票清單長度：150
+2025/07/08 19:47:29：本月處理資料筆數：150
+2025/07/08 19:47:29：📢 Observer RT 2012-03 已處理完成
+2025/07/08 19:47:29：**Observer RT 2012-04 開始處理
+2025/07/08 19:47:29：** 2012-04股票清單長度：150
+2025/07/08 19:47:43：本月處理資料筆數：150
+2025/07/08 19:47:43：📢 Observer RT 2012-04 已處理完成
+2025/07/08 19:47:43：**Observer RT 2012-05 開始處理
+2025/07/08 19:47:43：** 2012-05股票清單長度：150
+2025/07/08 19:48:00：本月處理資料筆數：150
+2025/07/08 19:48:00：📢 Observer RT 2012-05 已處理完成
+2025/07/08 19:48:00：**Observer RT 2012-06 開始處理
+2025/07/08 19:48:00：** 2012-06股票清單長度：150
+2025/07/08 19:48:07：本月處理資料筆數：150
+2025/07/08 19:48:07：📢 Observer RT 2012-06 已處理完成
+2025/07/08 19:48:07：**Observer RT 2012-07 開始處理
+2025/07/08 19:48:07：** 2012-07股票清單長度：150
+2025/07/08 19:48:11：本月處理資料筆數：150
+2025/07/08 19:48:11：📢 Observer RT 2012-07 已處理完成
+2025/07/08 19:48:11：**Observer RT 2012-08 開始處理
+2025/07/08 19:48:11：** 2012-08股票清單長度：150
+2025/07/08 19:48:14：本月處理資料筆數：150
+2025/07/08 19:48:14：📢 Observer RT 2012-08 已處理完成
+2025/07/08 19:48:14：**Observer RT 2012-09 開始處理
+2025/07/08 19:48:14：** 2012-09股票清單長度：150
+2025/07/08 19:48:18：本月處理資料筆數：150
+2025/07/08 19:48:18：📢 Observer RT 2012-09 已處理完成
+2025/07/08 19:48:18：**Observer RT 2012-10 開始處理
+2025/07/08 19:48:18：** 2012-10股票清單長度：150
+2025/07/08 19:48:22：本月處理資料筆數：150
+2025/07/08 19:48:22：📢 Observer RT 2012-10 已處理完成
+2025/07/08 19:48:22：**Observer RT 2012-11 開始處理
+2025/07/08 19:48:22：** 2012-11股票清單長度：150
+2025/07/08 19:48:40：本月處理資料筆數：150
+2025/07/08 19:48:40：📢 Observer RT 2012-11 已處理完成
+2025/07/08 19:48:40：**Observer RT 2012-12 開始處理
+2025/07/08 19:48:40：** 2012-12股票清單長度：150
+2025/07/08 19:49:03：本月處理資料筆數：150
+2025/07/08 19:49:03：📢 Observer RT 2012-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2013 ~ 2014 合併資料筆數：171340
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+2025/07/08 19:49:05：**Observer RT 2013-01 開始處理
+2025/07/08 19:49:05：** 2013-01股票清單長度：150
+2025/07/08 19:49:23：本月處理資料筆數：150
+2025/07/08 19:49:23：📢 Observer RT 2013-01 已處理完成
+2025/07/08 19:49:23：**Observer RT 2013-02 開始處理
+2025/07/08 19:49:23：** 2013-02股票清單長度：150
+2025/07/08 19:49:39：本月處理資料筆數：150
+2025/07/08 19:49:39：📢 Observer RT 2013-02 已處理完成
+2025/07/08 19:49:39：**Observer RT 2013-03 開始處理
+2025/07/08 19:49:39：** 2013-03股票清單長度：150
+⚠️ 20138 Stock 8008 沒有end_month_df的資料
+2025/07/08 19:49:53：本月處理資料筆數：149
+2025/07/08 19:49:53：📢 Observer RT 2013-03 已處理完成
+2025/07/08 19:49:53：**Observer RT 2013-04 開始處理
+2025/07/08 19:49:53：** 2013-04股票清單長度：150
+⚠️ 20139 Stock 8008 沒有end_month_df的資料
+2025/07/08 19:50:06：本月處理資料筆數：149
+2025/07/08 19:50:06：📢 Observer RT 2013-04 已處理完成
+2025/07/08 19:50:06：**Observer RT 2013-05 開始處理
+2025/07/08 19:50:06：** 2013-05股票清單長度：150
+⚠️ 201310 Stock 8008 沒有end_month_df的資料
+2025/07/08 19:50:22：本月處理資料筆數：149
+2025/07/08 19:50:22：📢 Observer RT 2013-05 已處理完成
+2025/07/08 19:50:22：**Observer RT 2013-06 開始處理
+2025/07/08 19:50:22：** 2013-06股票清單長度：150
+⚠️ 201311 Stock 8008 沒有end_month_df的資料
+2025/07/08 19:50:44：本月處理資料筆數：149
+2025/07/08 19:50:44：📢 Observer RT 2013-06 已處理完成
+2025/07/08 19:50:44：**Observer RT 2013-07 開始處理
+2025/07/08 19:50:44：** 2013-07股票清單長度：150
+⚠️ 201312 Stock 8008 沒有end_month_df的資料
+2025/07/08 19:51:06：本月處理資料筆數：149
+2025/07/08 19:51:06：📢 Observer RT 2013-07 已處理完成
+2025/07/08 19:51:06：**Observer RT 2013-08 開始處理
+2025/07/08 19:51:06：** 2013-08股票清單長度：150
+2025/07/08 19:51:24：本月處理資料筆數：150
+2025/07/08 19:51:24：📢 Observer RT 2013-08 已處理完成
+2025/07/08 19:51:24：**Observer RT 2013-09 開始處理
+2025/07/08 19:51:24：** 2013-09股票清單長度：150
+⚠️ 20142 Stock 3697 沒有end_month_df的資料
+2025/07/08 19:51:41：本月處理資料筆數：149
+2025/07/08 19:51:41：📢 Observer RT 2013-09 已處理完成
+2025/07/08 19:51:41：**Observer RT 2013-10 開始處理
+2025/07/08 19:51:41：** 2013-10股票清單長度：150
+⚠️ 20143 Stock 3697 沒有end_month_df的資料
+⚠️ 20143 Stock 8078 沒有end_month_df的資料
+2025/07/08 19:51:54：本月處理資料筆數：148
+2025/07/08 19:51:54：📢 Observer RT 2013-10 已處理完成
+2025/07/08 19:51:54：**Observer RT 2013-11 開始處理
+2025/07/08 19:51:54：** 2013-11股票清單長度：150
+⚠️ 20144 Stock 3697 沒有end_month_df的資料
+⚠️ 20144 Stock 8078 沒有end_month_df的資料
+2025/07/08 19:52:08：本月處理資料筆數：148
+2025/07/08 19:52:08：📢 Observer RT 2013-11 已處理完成
+2025/07/08 19:52:08：**Observer RT 2013-12 開始處理
+2025/07/08 19:52:08：** 2013-12股票清單長度：150
+⚠️ 20145 Stock 3697 沒有end_month_df的資料
+⚠️ 20145 Stock 8078 沒有end_month_df的資料
+2025/07/08 19:52:25：本月處理資料筆數：148
+2025/07/08 19:52:25：📢 Observer RT 2013-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2014 ~ 2015 合併資料筆數：172697
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+2025/07/08 19:52:27：**Observer RT 2014-01 開始處理
+2025/07/08 19:52:27：** 2014-01股票清單長度：150
+⚠️ 20146 Stock 3697 沒有end_month_df的資料
+⚠️ 20146 Stock 8078 沒有end_month_df的資料
+2025/07/08 19:52:50：本月處理資料筆數：148
+2025/07/08 19:52:50：📢 Observer RT 2014-01 已處理完成
+2025/07/08 19:52:50：**Observer RT 2014-02 開始處理
+2025/07/08 19:52:50：** 2014-02股票清單長度：150
+⚠️ 20147 Stock 8078 沒有end_month_df的資料
+2025/07/08 19:53:08：本月處理資料筆數：149
+2025/07/08 19:53:08：📢 Observer RT 2014-02 已處理完成
+2025/07/08 19:53:08：**Observer RT 2014-03 開始處理
+2025/07/08 19:53:08：** 2014-03股票清單長度：150
+2025/07/08 19:53:26：本月處理資料筆數：150
+2025/07/08 19:53:26：📢 Observer RT 2014-03 已處理完成
+2025/07/08 19:53:26：**Observer RT 2014-04 開始處理
+2025/07/08 19:53:26：** 2014-04股票清單長度：150
+2025/07/08 19:53:40：本月處理資料筆數：150
+2025/07/08 19:53:40：📢 Observer RT 2014-04 已處理完成
+2025/07/08 19:53:40：**Observer RT 2014-05 開始處理
+2025/07/08 19:53:40：** 2014-05股票清單長度：150
+2025/07/08 19:53:53：本月處理資料筆數：150
+2025/07/08 19:53:53：📢 Observer RT 2014-05 已處理完成
+2025/07/08 19:53:53：**Observer RT 2014-06 開始處理
+2025/07/08 19:53:53：** 2014-06股票清單長度：150
+2025/07/08 19:54:07：本月處理資料筆數：150
+2025/07/08 19:54:07：📢 Observer RT 2014-06 已處理完成
+2025/07/08 19:54:07：**Observer RT 2014-07 開始處理
+2025/07/08 19:54:07：** 2014-07股票清單長度：150
+2025/07/08 19:54:25：本月處理資料筆數：150
+2025/07/08 19:54:25：📢 Observer RT 2014-07 已處理完成
+2025/07/08 19:54:25：**Observer RT 2014-08 開始處理
+2025/07/08 19:54:25：** 2014-08股票清單長度：150
+2025/07/08 19:54:50：本月處理資料筆數：150
+2025/07/08 19:54:50：📢 Observer RT 2014-08 已處理完成
+2025/07/08 19:54:50：**Observer RT 2014-09 開始處理
+2025/07/08 19:54:50：** 2014-09股票清單長度：150
+2025/07/08 19:55:14：本月處理資料筆數：150
+2025/07/08 19:55:14：📢 Observer RT 2014-09 已處理完成
+2025/07/08 19:55:14：**Observer RT 2014-10 開始處理
+2025/07/08 19:55:14：** 2014-10股票清單長度：150
+2025/07/08 19:55:29：本月處理資料筆數：150
+2025/07/08 19:55:29：📢 Observer RT 2014-10 已處理完成
+2025/07/08 19:55:29：**Observer RT 2014-11 開始處理
+2025/07/08 19:55:29：** 2014-11股票清單長度：150
+2025/07/08 19:55:45：本月處理資料筆數：150
+2025/07/08 19:55:45：📢 Observer RT 2014-11 已處理完成
+2025/07/08 19:55:45：**Observer RT 2014-12 開始處理
+2025/07/08 19:55:45：** 2014-12股票清單長度：150
+2025/07/08 19:55:58：本月處理資料筆數：150
+2025/07/08 19:55:58：📢 Observer RT 2014-12 已處理完成
+2025/07/08 19:55:58：✅ 整合完成！檔案輸出：
+..\data\analysis\momentumNew/oPeriod6_hPeriod6/observerReturnList201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:520: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:550: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+2025/07/08 19:55:58：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod6_hPeriod6/observerReturnList201001_201412-rank.csv
+2025/07/08 19:55:58：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod6_hPeriod6/winner_loser-201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:579: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:580: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2015 ~ 2015 合併資料筆數：86113
+        date stock_id  close
+0 2015-01-05     1101  20.19
+1 2015-01-06     1101  19.83
+2 2015-01-07     1101  19.76
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:679: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date2"] = start_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:680: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = SD_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:681: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date2"] = end_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:682: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = ED_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:685: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:686: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:689: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+2025/07/08 19:55:59：✅ 已完成後續報酬計算，輸出至：..\data\analysis\momentumNew\oPeriod6_hPeriod6\afterwardReturn-201001_201412.csv
+2025/07/08 19:55:59：✅ 統計已完成，檔案輸出：..\data\analysis\momentumNew\oPeriod6_hPeriod6\afterwardReturn-201001_201412-static.csv
+2025/07/08 19:55:59：✅ 已輸出新檔案：..\data\analysis\momentumNew\oPeriod6_hPeriod6\afterwardReturn-201001_201412-static2.csv
+2025/07/08 19:55:59：✅ 已輸出結果：..\data\analysis\momentumNew\oPeriod6_hPeriod6\t_test_results-201001_201412.csv
+2025/07/08 19:55:59：⚙️ momentumNew.py Finish
+
+2025/07/08 19:55:59：⚙️ 參數設定：2010/01/01~2014/12/31/Period(o、h):6、9
+2025/07/08 19:55:59：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/08 19:55:59：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+讀取檔案：..\data\analysis\summary\closePrice_2010.csv，筆數：80517
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2010 ~ 2011 合併資料筆數：162229
+        date stock_id  close
+0 2010-01-04     1101  12.18
+1 2010-01-05     1101  12.61
+2 2010-01-06     1101  12.88
+2025/07/08 19:56:00：**Observer RT 2010-01 開始處理
+2025/07/08 19:56:00：** 2010-01股票清單長度：150
+⚠️ 20106 Stock 3009 沒有end_month_df的資料
+2025/07/08 19:56:12：本月處理資料筆數：149
+2025/07/08 19:56:12：📢 Observer RT 2010-01 已處理完成
+2025/07/08 19:56:12：**Observer RT 2010-02 開始處理
+2025/07/08 19:56:12：** 2010-02股票清單長度：150
+⚠️ 20107 Stock 2350 沒有end_month_df的資料
+⚠️ 20107 Stock 3009 沒有end_month_df的資料
+2025/07/08 19:56:34：本月處理資料筆數：148
+2025/07/08 19:56:34：📢 Observer RT 2010-02 已處理完成
+2025/07/08 19:56:34：**Observer RT 2010-03 開始處理
+2025/07/08 19:56:34：** 2010-03股票清單長度：150
+⚠️ 20108 Stock 2350 沒有end_month_df的資料
+⚠️ 20108 Stock 3009 沒有end_month_df的資料
+2025/07/08 19:56:52：本月處理資料筆數：148
+2025/07/08 19:56:52：📢 Observer RT 2010-03 已處理完成
+2025/07/08 19:56:52：**Observer RT 2010-04 開始處理
+2025/07/08 19:56:52：** 2010-04股票清單長度：150
+⚠️ 20109 Stock 2350 沒有end_month_df的資料
+2025/07/08 19:57:10：本月處理資料筆數：149
+2025/07/08 19:57:10：📢 Observer RT 2010-04 已處理完成
+2025/07/08 19:57:10：**Observer RT 2010-05 開始處理
+2025/07/08 19:57:10：** 2010-05股票清單長度：150
+⚠️ 201010 Stock 2350 沒有end_month_df的資料
+2025/07/08 19:57:25：本月處理資料筆數：149
+2025/07/08 19:57:25：📢 Observer RT 2010-05 已處理完成
+2025/07/08 19:57:25：**Observer RT 2010-06 開始處理
+2025/07/08 19:57:25：** 2010-06股票清單長度：150
+⚠️ 201011 Stock 2350 沒有end_month_df的資料
+2025/07/08 19:57:41：本月處理資料筆數：149
+2025/07/08 19:57:41：📢 Observer RT 2010-06 已處理完成
+2025/07/08 19:57:41：**Observer RT 2010-07 開始處理
+2025/07/08 19:57:41：** 2010-07股票清單長度：150
+2025/07/08 19:57:55：本月處理資料筆數：150
+2025/07/08 19:57:55：📢 Observer RT 2010-07 已處理完成
+2025/07/08 19:57:55：**Observer RT 2010-08 開始處理
+2025/07/08 19:57:55：** 2010-08股票清單長度：150
+⚠️ 20111 Stock 2403 沒有end_month_df的資料
+2025/07/08 19:58:10：本月處理資料筆數：149
+2025/07/08 19:58:10：📢 Observer RT 2010-08 已處理完成
+2025/07/08 19:58:10：**Observer RT 2010-09 開始處理
+2025/07/08 19:58:10：** 2010-09股票清單長度：150
+⚠️ 20112 Stock 2403 沒有end_month_df的資料
+2025/07/08 19:58:19：本月處理資料筆數：149
+2025/07/08 19:58:19：📢 Observer RT 2010-09 已處理完成
+2025/07/08 19:58:19：**Observer RT 2010-10 開始處理
+2025/07/08 19:58:19：** 2010-10股票清單長度：150
+⚠️ 20113 Stock 2403 沒有end_month_df的資料
+⚠️ 2010-10 Stock3673 沒有this_month的資料
+2025/07/08 19:58:23：本月處理資料筆數：148
+2025/07/08 19:58:23：📢 Observer RT 2010-10 已處理完成
+2025/07/08 19:58:23：**Observer RT 2010-11 開始處理
+2025/07/08 19:58:23：** 2010-11股票清單長度：150
+2025/07/08 19:58:27：本月處理資料筆數：150
+2025/07/08 19:58:27：📢 Observer RT 2010-11 已處理完成
+2025/07/08 19:58:27：**Observer RT 2010-12 開始處理
+2025/07/08 19:58:27：** 2010-12股票清單長度：150
+2025/07/08 19:58:41：本月處理資料筆數：150
+2025/07/08 19:58:41：📢 Observer RT 2010-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2011 ~ 2012 合併資料筆數：165965
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+2025/07/08 19:58:43：**Observer RT 2011-01 開始處理
+2025/07/08 19:58:43：** 2011-01股票清單長度：150
+2025/07/08 19:59:07：本月處理資料筆數：150
+2025/07/08 19:59:07：📢 Observer RT 2011-01 已處理完成
+2025/07/08 19:59:07：**Observer RT 2011-02 開始處理
+2025/07/08 19:59:07：** 2011-02股票清單長度：150
+2025/07/08 19:59:28：本月處理資料筆數：150
+2025/07/08 19:59:28：📢 Observer RT 2011-02 已處理完成
+2025/07/08 19:59:28：**Observer RT 2011-03 開始處理
+2025/07/08 19:59:28：** 2011-03股票清單長度：150
+2025/07/08 19:59:44：本月處理資料筆數：150
+2025/07/08 19:59:44：📢 Observer RT 2011-03 已處理完成
+2025/07/08 19:59:44：**Observer RT 2011-04 開始處理
+2025/07/08 19:59:44：** 2011-04股票清單長度：150
+2025/07/08 19:59:57：本月處理資料筆數：150
+2025/07/08 19:59:57：📢 Observer RT 2011-04 已處理完成
+2025/07/08 19:59:57：**Observer RT 2011-05 開始處理
+2025/07/08 19:59:57：** 2011-05股票清單長度：150
+⚠️ 201110 Stock 2854 沒有end_month_df的資料
+2025/07/08 20:00:10：本月處理資料筆數：149
+2025/07/08 20:00:10：📢 Observer RT 2011-05 已處理完成
+2025/07/08 20:00:10：**Observer RT 2011-06 開始處理
+2025/07/08 20:00:10：** 2011-06股票清單長度：150
+⚠️ 201111 Stock 2854 沒有end_month_df的資料
+2025/07/08 20:00:28：本月處理資料筆數：149
+2025/07/08 20:00:28：📢 Observer RT 2011-06 已處理完成
+2025/07/08 20:00:28：**Observer RT 2011-07 開始處理
+2025/07/08 20:00:28：** 2011-07股票清單長度：150
+⚠️ 201112 Stock 2854 沒有end_month_df的資料
+⚠️ 201112 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:00:48：本月處理資料筆數：148
+2025/07/08 20:00:48：📢 Observer RT 2011-07 已處理完成
+2025/07/08 20:00:48：**Observer RT 2011-08 開始處理
+2025/07/08 20:00:48：** 2011-08股票清單長度：150
+⚠️ 20121 Stock 2854 沒有end_month_df的資料
+⚠️ 20121 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:01:05：本月處理資料筆數：148
+2025/07/08 20:01:05：📢 Observer RT 2011-08 已處理完成
+2025/07/08 20:01:05：**Observer RT 2011-09 開始處理
+2025/07/08 20:01:05：** 2011-09股票清單長度：150
+⚠️ 20122 Stock 2854 沒有end_month_df的資料
+⚠️ 20122 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:01:24：本月處理資料筆數：148
+2025/07/08 20:01:24：📢 Observer RT 2011-09 已處理完成
+2025/07/08 20:01:24：**Observer RT 2011-10 開始處理
+2025/07/08 20:01:24：** 2011-10股票清單長度：150
+⚠️ 20123 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:01:39：本月處理資料筆數：149
+2025/07/08 20:01:39：📢 Observer RT 2011-10 已處理完成
+2025/07/08 20:01:39：**Observer RT 2011-11 開始處理
+2025/07/08 20:01:39：** 2011-11股票清單長度：150
+⚠️ 20124 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:01:54：本月處理資料筆數：149
+2025/07/08 20:01:54：📢 Observer RT 2011-11 已處理完成
+2025/07/08 20:01:54：**Observer RT 2011-12 開始處理
+2025/07/08 20:01:54：** 2011-12股票清單長度：150
+2025/07/08 20:02:09：本月處理資料筆數：150
+2025/07/08 20:02:09：📢 Observer RT 2011-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2012 ~ 2013 合併資料筆數：169009
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+2025/07/08 20:02:09：**Observer RT 2012-01 開始處理
+2025/07/08 20:02:09：** 2012-01股票清單長度：150
+2025/07/08 20:02:32：本月處理資料筆數：150
+2025/07/08 20:02:32：📢 Observer RT 2012-01 已處理完成
+2025/07/08 20:02:32：**Observer RT 2012-02 開始處理
+2025/07/08 20:02:32：** 2012-02股票清單長度：150
+2025/07/08 20:02:55：本月處理資料筆數：150
+2025/07/08 20:02:55：📢 Observer RT 2012-02 已處理完成
+2025/07/08 20:02:55：**Observer RT 2012-03 開始處理
+2025/07/08 20:02:55：** 2012-03股票清單長度：150
+2025/07/08 20:03:13：本月處理資料筆數：150
+2025/07/08 20:03:13：📢 Observer RT 2012-03 已處理完成
+2025/07/08 20:03:13：**Observer RT 2012-04 開始處理
+2025/07/08 20:03:13：** 2012-04股票清單長度：150
+2025/07/08 20:03:30：本月處理資料筆數：150
+2025/07/08 20:03:30：📢 Observer RT 2012-04 已處理完成
+2025/07/08 20:03:30：**Observer RT 2012-05 開始處理
+2025/07/08 20:03:30：** 2012-05股票清單長度：150
+2025/07/08 20:03:46：本月處理資料筆數：150
+2025/07/08 20:03:46：📢 Observer RT 2012-05 已處理完成
+2025/07/08 20:03:46：**Observer RT 2012-06 開始處理
+2025/07/08 20:03:46：** 2012-06股票清單長度：150
+2025/07/08 20:04:02：本月處理資料筆數：150
+2025/07/08 20:04:02：📢 Observer RT 2012-06 已處理完成
+2025/07/08 20:04:02：**Observer RT 2012-07 開始處理
+2025/07/08 20:04:02：** 2012-07股票清單長度：150
+2025/07/08 20:04:17：本月處理資料筆數：150
+2025/07/08 20:04:17：📢 Observer RT 2012-07 已處理完成
+2025/07/08 20:04:17：**Observer RT 2012-08 開始處理
+2025/07/08 20:04:17：** 2012-08股票清單長度：150
+2025/07/08 20:04:41：本月處理資料筆數：150
+2025/07/08 20:04:41：📢 Observer RT 2012-08 已處理完成
+2025/07/08 20:04:41：**Observer RT 2012-09 開始處理
+2025/07/08 20:04:41：** 2012-09股票清單長度：150
+2025/07/08 20:04:45：本月處理資料筆數：150
+2025/07/08 20:04:45：📢 Observer RT 2012-09 已處理完成
+2025/07/08 20:04:45：**Observer RT 2012-10 開始處理
+2025/07/08 20:04:45：** 2012-10股票清單長度：150
+2025/07/08 20:04:48：本月處理資料筆數：150
+2025/07/08 20:04:48：📢 Observer RT 2012-10 已處理完成
+2025/07/08 20:04:48：**Observer RT 2012-11 開始處理
+2025/07/08 20:04:48：** 2012-11股票清單長度：150
+2025/07/08 20:05:07：本月處理資料筆數：150
+2025/07/08 20:05:07：📢 Observer RT 2012-11 已處理完成
+2025/07/08 20:05:07：**Observer RT 2012-12 開始處理
+2025/07/08 20:05:07：** 2012-12股票清單長度：150
+2025/07/08 20:05:23：本月處理資料筆數：150
+2025/07/08 20:05:23：📢 Observer RT 2012-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2013 ~ 2014 合併資料筆數：171340
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+2025/07/08 20:05:24：**Observer RT 2013-01 開始處理
+2025/07/08 20:05:24：** 2013-01股票清單長度：150
+2025/07/08 20:05:39：本月處理資料筆數：150
+2025/07/08 20:05:39：📢 Observer RT 2013-01 已處理完成
+2025/07/08 20:05:39：**Observer RT 2013-02 開始處理
+2025/07/08 20:05:39：** 2013-02股票清單長度：150
+2025/07/08 20:05:54：本月處理資料筆數：150
+2025/07/08 20:05:54：📢 Observer RT 2013-02 已處理完成
+2025/07/08 20:05:54：**Observer RT 2013-03 開始處理
+2025/07/08 20:05:54：** 2013-03股票清單長度：150
+⚠️ 20138 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:06:09：本月處理資料筆數：149
+2025/07/08 20:06:09：📢 Observer RT 2013-03 已處理完成
+2025/07/08 20:06:09：**Observer RT 2013-04 開始處理
+2025/07/08 20:06:09：** 2013-04股票清單長度：150
+⚠️ 20139 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:06:29：本月處理資料筆數：149
+2025/07/08 20:06:29：📢 Observer RT 2013-04 已處理完成
+2025/07/08 20:06:29：**Observer RT 2013-05 開始處理
+2025/07/08 20:06:29：** 2013-05股票清單長度：150
+⚠️ 201310 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:06:50：本月處理資料筆數：149
+2025/07/08 20:06:50：📢 Observer RT 2013-05 已處理完成
+2025/07/08 20:06:50：**Observer RT 2013-06 開始處理
+2025/07/08 20:06:50：** 2013-06股票清單長度：150
+⚠️ 201311 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:07:10：本月處理資料筆數：149
+2025/07/08 20:07:10：📢 Observer RT 2013-06 已處理完成
+2025/07/08 20:07:10：**Observer RT 2013-07 開始處理
+2025/07/08 20:07:10：** 2013-07股票清單長度：150
+⚠️ 201312 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:07:25：本月處理資料筆數：149
+2025/07/08 20:07:25：📢 Observer RT 2013-07 已處理完成
+2025/07/08 20:07:25：**Observer RT 2013-08 開始處理
+2025/07/08 20:07:25：** 2013-08股票清單長度：150
+2025/07/08 20:07:30：本月處理資料筆數：150
+2025/07/08 20:07:30：📢 Observer RT 2013-08 已處理完成
+2025/07/08 20:07:30：**Observer RT 2013-09 開始處理
+2025/07/08 20:07:30：** 2013-09股票清單長度：150
+⚠️ 20142 Stock 3697 沒有end_month_df的資料
+2025/07/08 20:07:34：本月處理資料筆數：149
+2025/07/08 20:07:34：📢 Observer RT 2013-09 已處理完成
+2025/07/08 20:07:34：**Observer RT 2013-10 開始處理
+2025/07/08 20:07:34：** 2013-10股票清單長度：150
+⚠️ 20143 Stock 3697 沒有end_month_df的資料
+⚠️ 20143 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:07:38：本月處理資料筆數：148
+2025/07/08 20:07:38：📢 Observer RT 2013-10 已處理完成
+2025/07/08 20:07:38：**Observer RT 2013-11 開始處理
+2025/07/08 20:07:38：** 2013-11股票清單長度：150
+⚠️ 20144 Stock 3697 沒有end_month_df的資料
+⚠️ 20144 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:07:42：本月處理資料筆數：148
+2025/07/08 20:07:42：📢 Observer RT 2013-11 已處理完成
+2025/07/08 20:07:42：**Observer RT 2013-12 開始處理
+2025/07/08 20:07:42：** 2013-12股票清單長度：150
+⚠️ 20145 Stock 3697 沒有end_month_df的資料
+⚠️ 20145 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:07:46：本月處理資料筆數：148
+2025/07/08 20:07:46：📢 Observer RT 2013-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2014 ~ 2015 合併資料筆數：172697
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+2025/07/08 20:07:46：**Observer RT 2014-01 開始處理
+2025/07/08 20:07:46：** 2014-01股票清單長度：150
+⚠️ 20146 Stock 3697 沒有end_month_df的資料
+⚠️ 20146 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:07:50：本月處理資料筆數：148
+2025/07/08 20:07:50：📢 Observer RT 2014-01 已處理完成
+2025/07/08 20:07:50：**Observer RT 2014-02 開始處理
+2025/07/08 20:07:50：** 2014-02股票清單長度：150
+⚠️ 20147 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:07:54：本月處理資料筆數：149
+2025/07/08 20:07:54：📢 Observer RT 2014-02 已處理完成
+2025/07/08 20:07:54：**Observer RT 2014-03 開始處理
+2025/07/08 20:07:54：** 2014-03股票清單長度：150
+2025/07/08 20:07:58：本月處理資料筆數：150
+2025/07/08 20:07:58：📢 Observer RT 2014-03 已處理完成
+2025/07/08 20:07:58：**Observer RT 2014-04 開始處理
+2025/07/08 20:07:58：** 2014-04股票清單長度：150
+2025/07/08 20:08:03：本月處理資料筆數：150
+2025/07/08 20:08:03：📢 Observer RT 2014-04 已處理完成
+2025/07/08 20:08:03：**Observer RT 2014-05 開始處理
+2025/07/08 20:08:03：** 2014-05股票清單長度：150
+2025/07/08 20:08:08：本月處理資料筆數：150
+2025/07/08 20:08:08：📢 Observer RT 2014-05 已處理完成
+2025/07/08 20:08:08：**Observer RT 2014-06 開始處理
+2025/07/08 20:08:08：** 2014-06股票清單長度：150
+2025/07/08 20:08:12：本月處理資料筆數：150
+2025/07/08 20:08:12：📢 Observer RT 2014-06 已處理完成
+2025/07/08 20:08:12：**Observer RT 2014-07 開始處理
+2025/07/08 20:08:12：** 2014-07股票清單長度：150
+2025/07/08 20:08:17：本月處理資料筆數：150
+2025/07/08 20:08:17：📢 Observer RT 2014-07 已處理完成
+2025/07/08 20:08:17：**Observer RT 2014-08 開始處理
+2025/07/08 20:08:17：** 2014-08股票清單長度：150
+2025/07/08 20:08:21：本月處理資料筆數：150
+2025/07/08 20:08:21：📢 Observer RT 2014-08 已處理完成
+2025/07/08 20:08:21：**Observer RT 2014-09 開始處理
+2025/07/08 20:08:21：** 2014-09股票清單長度：150
+2025/07/08 20:08:25：本月處理資料筆數：150
+2025/07/08 20:08:25：📢 Observer RT 2014-09 已處理完成
+2025/07/08 20:08:25：**Observer RT 2014-10 開始處理
+2025/07/08 20:08:25：** 2014-10股票清單長度：150
+2025/07/08 20:08:29：本月處理資料筆數：150
+2025/07/08 20:08:29：📢 Observer RT 2014-10 已處理完成
+2025/07/08 20:08:29：**Observer RT 2014-11 開始處理
+2025/07/08 20:08:29：** 2014-11股票清單長度：150
+2025/07/08 20:08:33：本月處理資料筆數：150
+2025/07/08 20:08:33：📢 Observer RT 2014-11 已處理完成
+2025/07/08 20:08:33：**Observer RT 2014-12 開始處理
+2025/07/08 20:08:33：** 2014-12股票清單長度：150
+2025/07/08 20:08:38：本月處理資料筆數：150
+2025/07/08 20:08:38：📢 Observer RT 2014-12 已處理完成
+2025/07/08 20:08:38：✅ 整合完成！檔案輸出：
+..\data\analysis\momentumNew/oPeriod6_hPeriod9/observerReturnList201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:520: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:550: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+2025/07/08 20:08:38：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod6_hPeriod9/observerReturnList201001_201412-rank.csv
+2025/07/08 20:08:38：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod6_hPeriod9/winner_loser-201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:579: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:580: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2015 ~ 2015 合併資料筆數：86113
+        date stock_id  close
+0 2015-01-05     1101  20.19
+1 2015-01-06     1101  19.83
+2 2015-01-07     1101  19.76
+讀取檔案：..\data\analysis\summary\closePrice_2016.csv，筆數：86258
+closePrice：年份 2016 ~ 2016 合併資料筆數：86258
+        date stock_id  close
+0 2016-01-04     1101  13.11
+1 2016-01-05     1101  13.24
+2 2016-01-06     1101  13.06
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:679: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date2"] = start_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:680: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = SD_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:681: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date2"] = end_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:682: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = ED_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:685: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:686: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:689: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+2025/07/08 20:08:38：✅ 已完成後續報酬計算，輸出至：..\data\analysis\momentumNew\oPeriod6_hPeriod9\afterwardReturn-201001_201412.csv
+2025/07/08 20:08:38：✅ 統計已完成，檔案輸出：..\data\analysis\momentumNew\oPeriod6_hPeriod9\afterwardReturn-201001_201412-static.csv
+2025/07/08 20:08:38：✅ 已輸出新檔案：..\data\analysis\momentumNew\oPeriod6_hPeriod9\afterwardReturn-201001_201412-static2.csv
+2025/07/08 20:08:38：✅ 已輸出結果：..\data\analysis\momentumNew\oPeriod6_hPeriod9\t_test_results-201001_201412.csv
+2025/07/08 20:08:38：⚙️ momentumNew.py Finish
+
+2025/07/08 20:08:38：⚙️ 參數設定：2010/01/01~2014/12/31/Period(o、h):9、6
+2025/07/08 20:08:38：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/08 20:08:38：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+讀取檔案：..\data\analysis\summary\closePrice_2010.csv，筆數：80517
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2010 ~ 2011 合併資料筆數：162229
+        date stock_id  close
+0 2010-01-04     1101  12.18
+1 2010-01-05     1101  12.61
+2 2010-01-06     1101  12.88
+2025/07/08 20:08:39：**Observer RT 2010-01 開始處理
+2025/07/08 20:08:39：** 2010-01股票清單長度：150
+⚠️ 20109 Stock 2350 沒有end_month_df的資料
+⚠️ 20109 Stock 3009 沒有end_month_df的資料
+2025/07/08 20:08:43：本月處理資料筆數：148
+2025/07/08 20:08:43：📢 Observer RT 2010-01 已處理完成
+2025/07/08 20:08:43：**Observer RT 2010-02 開始處理
+2025/07/08 20:08:43：** 2010-02股票清單長度：150
+⚠️ 201010 Stock 2350 沒有end_month_df的資料
+⚠️ 201010 Stock 3009 沒有end_month_df的資料
+2025/07/08 20:08:46：本月處理資料筆數：148
+2025/07/08 20:08:46：📢 Observer RT 2010-02 已處理完成
+2025/07/08 20:08:46：**Observer RT 2010-03 開始處理
+2025/07/08 20:08:46：** 2010-03股票清單長度：150
+⚠️ 201011 Stock 2350 沒有end_month_df的資料
+⚠️ 201011 Stock 3009 沒有end_month_df的資料
+2025/07/08 20:08:50：本月處理資料筆數：148
+2025/07/08 20:08:50：📢 Observer RT 2010-03 已處理完成
+2025/07/08 20:08:50：**Observer RT 2010-04 開始處理
+2025/07/08 20:08:50：** 2010-04股票清單長度：150
+⚠️ 201012 Stock 2350 沒有end_month_df的資料
+2025/07/08 20:08:55：本月處理資料筆數：149
+2025/07/08 20:08:55：📢 Observer RT 2010-04 已處理完成
+2025/07/08 20:08:55：**Observer RT 2010-05 開始處理
+2025/07/08 20:08:55：** 2010-05股票清單長度：150
+⚠️ 20111 Stock 2350 沒有end_month_df的資料
+2025/07/08 20:09:00：本月處理資料筆數：149
+2025/07/08 20:09:00：📢 Observer RT 2010-05 已處理完成
+2025/07/08 20:09:00：**Observer RT 2010-06 開始處理
+2025/07/08 20:09:00：** 2010-06股票清單長度：150
+⚠️ 20112 Stock 2350 沒有end_month_df的資料
+2025/07/08 20:09:04：本月處理資料筆數：149
+2025/07/08 20:09:04：📢 Observer RT 2010-06 已處理完成
+2025/07/08 20:09:04：**Observer RT 2010-07 開始處理
+2025/07/08 20:09:04：** 2010-07股票清單長度：150
+2025/07/08 20:09:08：本月處理資料筆數：150
+2025/07/08 20:09:08：📢 Observer RT 2010-07 已處理完成
+2025/07/08 20:09:08：**Observer RT 2010-08 開始處理
+2025/07/08 20:09:08：** 2010-08股票清單長度：150
+⚠️ 20114 Stock 2403 沒有end_month_df的資料
+2025/07/08 20:09:12：本月處理資料筆數：149
+2025/07/08 20:09:12：📢 Observer RT 2010-08 已處理完成
+2025/07/08 20:09:12：**Observer RT 2010-09 開始處理
+2025/07/08 20:09:12：** 2010-09股票清單長度：150
+⚠️ 20115 Stock 2403 沒有end_month_df的資料
+2025/07/08 20:09:16：本月處理資料筆數：149
+2025/07/08 20:09:16：📢 Observer RT 2010-09 已處理完成
+2025/07/08 20:09:16：**Observer RT 2010-10 開始處理
+2025/07/08 20:09:16：** 2010-10股票清單長度：150
+⚠️ 20116 Stock 2403 沒有end_month_df的資料
+⚠️ 2010-10 Stock3673 沒有this_month的資料
+2025/07/08 20:09:20：本月處理資料筆數：148
+2025/07/08 20:09:20：📢 Observer RT 2010-10 已處理完成
+2025/07/08 20:09:20：**Observer RT 2010-11 開始處理
+2025/07/08 20:09:20：** 2010-11股票清單長度：150
+2025/07/08 20:09:24：本月處理資料筆數：150
+2025/07/08 20:09:24：📢 Observer RT 2010-11 已處理完成
+2025/07/08 20:09:24：**Observer RT 2010-12 開始處理
+2025/07/08 20:09:24：** 2010-12股票清單長度：150
+2025/07/08 20:09:28：本月處理資料筆數：150
+2025/07/08 20:09:28：📢 Observer RT 2010-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2011 ~ 2012 合併資料筆數：165965
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+2025/07/08 20:09:28：**Observer RT 2011-01 開始處理
+2025/07/08 20:09:28：** 2011-01股票清單長度：150
+2025/07/08 20:09:32：本月處理資料筆數：150
+2025/07/08 20:09:32：📢 Observer RT 2011-01 已處理完成
+2025/07/08 20:09:32：**Observer RT 2011-02 開始處理
+2025/07/08 20:09:32：** 2011-02股票清單長度：150
+⚠️ 201110 Stock 2854 沒有end_month_df的資料
+2025/07/08 20:09:36：本月處理資料筆數：149
+2025/07/08 20:09:36：📢 Observer RT 2011-02 已處理完成
+2025/07/08 20:09:36：**Observer RT 2011-03 開始處理
+2025/07/08 20:09:36：** 2011-03股票清單長度：150
+⚠️ 201111 Stock 2854 沒有end_month_df的資料
+2025/07/08 20:09:40：本月處理資料筆數：149
+2025/07/08 20:09:40：📢 Observer RT 2011-03 已處理完成
+2025/07/08 20:09:40：**Observer RT 2011-04 開始處理
+2025/07/08 20:09:40：** 2011-04股票清單長度：150
+⚠️ 201112 Stock 2854 沒有end_month_df的資料
+⚠️ 201112 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:09:44：本月處理資料筆數：148
+2025/07/08 20:09:44：📢 Observer RT 2011-04 已處理完成
+2025/07/08 20:09:44：**Observer RT 2011-05 開始處理
+2025/07/08 20:09:44：** 2011-05股票清單長度：150
+⚠️ 20121 Stock 2854 沒有end_month_df的資料
+⚠️ 20121 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:09:48：本月處理資料筆數：148
+2025/07/08 20:09:48：📢 Observer RT 2011-05 已處理完成
+2025/07/08 20:09:48：**Observer RT 2011-06 開始處理
+2025/07/08 20:09:48：** 2011-06股票清單長度：150
+⚠️ 20122 Stock 2854 沒有end_month_df的資料
+⚠️ 20122 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:09:52：本月處理資料筆數：148
+2025/07/08 20:09:52：📢 Observer RT 2011-06 已處理完成
+2025/07/08 20:09:52：**Observer RT 2011-07 開始處理
+2025/07/08 20:09:52：** 2011-07股票清單長度：150
+⚠️ 20123 Stock 2854 沒有end_month_df的資料
+⚠️ 20123 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:09:56：本月處理資料筆數：148
+2025/07/08 20:09:56：📢 Observer RT 2011-07 已處理完成
+2025/07/08 20:09:56：**Observer RT 2011-08 開始處理
+2025/07/08 20:09:56：** 2011-08股票清單長度：150
+⚠️ 20124 Stock 2854 沒有end_month_df的資料
+⚠️ 20124 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:10:01：本月處理資料筆數：148
+2025/07/08 20:10:01：📢 Observer RT 2011-08 已處理完成
+2025/07/08 20:10:01：**Observer RT 2011-09 開始處理
+2025/07/08 20:10:01：** 2011-09股票清單長度：150
+⚠️ 20125 Stock 2854 沒有end_month_df的資料
+⚠️ 20125 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:10:05：本月處理資料筆數：148
+2025/07/08 20:10:05：📢 Observer RT 2011-09 已處理完成
+2025/07/08 20:10:05：**Observer RT 2011-10 開始處理
+2025/07/08 20:10:05：** 2011-10股票清單長度：150
+⚠️ 20126 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:10:09：本月處理資料筆數：149
+2025/07/08 20:10:09：📢 Observer RT 2011-10 已處理完成
+2025/07/08 20:10:09：**Observer RT 2011-11 開始處理
+2025/07/08 20:10:09：** 2011-11股票清單長度：150
+⚠️ 20127 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:10:13：本月處理資料筆數：149
+2025/07/08 20:10:13：📢 Observer RT 2011-11 已處理完成
+2025/07/08 20:10:13：**Observer RT 2011-12 開始處理
+2025/07/08 20:10:13：** 2011-12股票清單長度：150
+2025/07/08 20:10:17：本月處理資料筆數：150
+2025/07/08 20:10:17：📢 Observer RT 2011-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2012 ~ 2013 合併資料筆數：169009
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+2025/07/08 20:10:17：**Observer RT 2012-01 開始處理
+2025/07/08 20:10:17：** 2012-01股票清單長度：150
+2025/07/08 20:10:21：本月處理資料筆數：150
+2025/07/08 20:10:21：📢 Observer RT 2012-01 已處理完成
+2025/07/08 20:10:21：**Observer RT 2012-02 開始處理
+2025/07/08 20:10:21：** 2012-02股票清單長度：150
+2025/07/08 20:10:25：本月處理資料筆數：150
+2025/07/08 20:10:25：📢 Observer RT 2012-02 已處理完成
+2025/07/08 20:10:25：**Observer RT 2012-03 開始處理
+2025/07/08 20:10:25：** 2012-03股票清單長度：150
+2025/07/08 20:10:29：本月處理資料筆數：150
+2025/07/08 20:10:29：📢 Observer RT 2012-03 已處理完成
+2025/07/08 20:10:29：**Observer RT 2012-04 開始處理
+2025/07/08 20:10:29：** 2012-04股票清單長度：150
+2025/07/08 20:10:33：本月處理資料筆數：150
+2025/07/08 20:10:33：📢 Observer RT 2012-04 已處理完成
+2025/07/08 20:10:33：**Observer RT 2012-05 開始處理
+2025/07/08 20:10:33：** 2012-05股票清單長度：150
+2025/07/08 20:10:38：本月處理資料筆數：150
+2025/07/08 20:10:38：📢 Observer RT 2012-05 已處理完成
+2025/07/08 20:10:38：**Observer RT 2012-06 開始處理
+2025/07/08 20:10:38：** 2012-06股票清單長度：150
+2025/07/08 20:10:42：本月處理資料筆數：150
+2025/07/08 20:10:42：📢 Observer RT 2012-06 已處理完成
+2025/07/08 20:10:42：**Observer RT 2012-07 開始處理
+2025/07/08 20:10:42：** 2012-07股票清單長度：150
+2025/07/08 20:10:46：本月處理資料筆數：150
+2025/07/08 20:10:46：📢 Observer RT 2012-07 已處理完成
+2025/07/08 20:10:46：**Observer RT 2012-08 開始處理
+2025/07/08 20:10:46：** 2012-08股票清單長度：150
+2025/07/08 20:10:50：本月處理資料筆數：150
+2025/07/08 20:10:50：📢 Observer RT 2012-08 已處理完成
+2025/07/08 20:10:50：**Observer RT 2012-09 開始處理
+2025/07/08 20:10:50：** 2012-09股票清單長度：150
+2025/07/08 20:10:54：本月處理資料筆數：150
+2025/07/08 20:10:54：📢 Observer RT 2012-09 已處理完成
+2025/07/08 20:10:54：**Observer RT 2012-10 開始處理
+2025/07/08 20:10:54：** 2012-10股票清單長度：150
+2025/07/08 20:10:58：本月處理資料筆數：150
+2025/07/08 20:10:58：📢 Observer RT 2012-10 已處理完成
+2025/07/08 20:10:58：**Observer RT 2012-11 開始處理
+2025/07/08 20:10:58：** 2012-11股票清單長度：150
+2025/07/08 20:11:02：本月處理資料筆數：150
+2025/07/08 20:11:02：📢 Observer RT 2012-11 已處理完成
+2025/07/08 20:11:02：**Observer RT 2012-12 開始處理
+2025/07/08 20:11:02：** 2012-12股票清單長度：150
+⚠️ 20138 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:06：本月處理資料筆數：149
+2025/07/08 20:11:06：📢 Observer RT 2012-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2013 ~ 2014 合併資料筆數：171340
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+2025/07/08 20:11:06：**Observer RT 2013-01 開始處理
+2025/07/08 20:11:06：** 2013-01股票清單長度：150
+⚠️ 20139 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:11：本月處理資料筆數：149
+2025/07/08 20:11:11：📢 Observer RT 2013-01 已處理完成
+2025/07/08 20:11:11：**Observer RT 2013-02 開始處理
+2025/07/08 20:11:11：** 2013-02股票清單長度：150
+⚠️ 201310 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:15：本月處理資料筆數：149
+2025/07/08 20:11:15：📢 Observer RT 2013-02 已處理完成
+2025/07/08 20:11:15：**Observer RT 2013-03 開始處理
+2025/07/08 20:11:15：** 2013-03股票清單長度：150
+⚠️ 201311 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:19：本月處理資料筆數：149
+2025/07/08 20:11:19：📢 Observer RT 2013-03 已處理完成
+2025/07/08 20:11:19：**Observer RT 2013-04 開始處理
+2025/07/08 20:11:19：** 2013-04股票清單長度：150
+⚠️ 201312 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:23：本月處理資料筆數：149
+2025/07/08 20:11:23：📢 Observer RT 2013-04 已處理完成
+2025/07/08 20:11:23：**Observer RT 2013-05 開始處理
+2025/07/08 20:11:23：** 2013-05股票清單長度：150
+⚠️ 20141 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:27：本月處理資料筆數：149
+2025/07/08 20:11:27：📢 Observer RT 2013-05 已處理完成
+2025/07/08 20:11:27：**Observer RT 2013-06 開始處理
+2025/07/08 20:11:27：** 2013-06股票清單長度：150
+⚠️ 20142 Stock 3697 沒有end_month_df的資料
+⚠️ 20142 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:11:32：本月處理資料筆數：148
+2025/07/08 20:11:32：📢 Observer RT 2013-06 已處理完成
+2025/07/08 20:11:32：**Observer RT 2013-07 開始處理
+2025/07/08 20:11:32：** 2013-07股票清單長度：150
+⚠️ 20143 Stock 3697 沒有end_month_df的資料
+⚠️ 20143 Stock 8008 沒有end_month_df的資料
+⚠️ 20143 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:11:36：本月處理資料筆數：147
+2025/07/08 20:11:36：📢 Observer RT 2013-07 已處理完成
+2025/07/08 20:11:36：**Observer RT 2013-08 開始處理
+2025/07/08 20:11:36：** 2013-08股票清單長度：150
+⚠️ 20144 Stock 3697 沒有end_month_df的資料
+⚠️ 20144 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:11:40：本月處理資料筆數：148
+2025/07/08 20:11:40：📢 Observer RT 2013-08 已處理完成
+2025/07/08 20:11:40：**Observer RT 2013-09 開始處理
+2025/07/08 20:11:40：** 2013-09股票清單長度：150
+⚠️ 20145 Stock 3697 沒有end_month_df的資料
+⚠️ 20145 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:11:44：本月處理資料筆數：148
+2025/07/08 20:11:44：📢 Observer RT 2013-09 已處理完成
+2025/07/08 20:11:44：**Observer RT 2013-10 開始處理
+2025/07/08 20:11:44：** 2013-10股票清單長度：150
+⚠️ 20146 Stock 3697 沒有end_month_df的資料
+⚠️ 20146 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:11:48：本月處理資料筆數：148
+2025/07/08 20:11:48：📢 Observer RT 2013-10 已處理完成
+2025/07/08 20:11:48：**Observer RT 2013-11 開始處理
+2025/07/08 20:11:48：** 2013-11股票清單長度：150
+⚠️ 20147 Stock 3697 沒有end_month_df的資料
+⚠️ 20147 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:11:52：本月處理資料筆數：148
+2025/07/08 20:11:52：📢 Observer RT 2013-11 已處理完成
+2025/07/08 20:11:52：**Observer RT 2013-12 開始處理
+2025/07/08 20:11:52：** 2013-12股票清單長度：150
+⚠️ 20148 Stock 3697 沒有end_month_df的資料
+⚠️ 20148 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:11:57：本月處理資料筆數：148
+2025/07/08 20:11:57：📢 Observer RT 2013-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2014 ~ 2015 合併資料筆數：172697
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+2025/07/08 20:11:57：**Observer RT 2014-01 開始處理
+2025/07/08 20:11:57：** 2014-01股票清單長度：150
+⚠️ 20149 Stock 3697 沒有end_month_df的資料
+⚠️ 20149 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:12:01：本月處理資料筆數：148
+2025/07/08 20:12:01：📢 Observer RT 2014-01 已處理完成
+2025/07/08 20:12:01：**Observer RT 2014-02 開始處理
+2025/07/08 20:12:01：** 2014-02股票清單長度：150
+⚠️ 201410 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:12:05：本月處理資料筆數：149
+2025/07/08 20:12:05：📢 Observer RT 2014-02 已處理完成
+2025/07/08 20:12:05：**Observer RT 2014-03 開始處理
+2025/07/08 20:12:05：** 2014-03股票清單長度：150
+2025/07/08 20:12:09：本月處理資料筆數：150
+2025/07/08 20:12:09：📢 Observer RT 2014-03 已處理完成
+2025/07/08 20:12:09：**Observer RT 2014-04 開始處理
+2025/07/08 20:12:09：** 2014-04股票清單長度：150
+2025/07/08 20:12:14：本月處理資料筆數：150
+2025/07/08 20:12:14：📢 Observer RT 2014-04 已處理完成
+2025/07/08 20:12:14：**Observer RT 2014-05 開始處理
+2025/07/08 20:12:14：** 2014-05股票清單長度：150
+2025/07/08 20:12:18：本月處理資料筆數：150
+2025/07/08 20:12:18：📢 Observer RT 2014-05 已處理完成
+2025/07/08 20:12:18：**Observer RT 2014-06 開始處理
+2025/07/08 20:12:18：** 2014-06股票清單長度：150
+2025/07/08 20:12:22：本月處理資料筆數：150
+2025/07/08 20:12:22：📢 Observer RT 2014-06 已處理完成
+2025/07/08 20:12:22：**Observer RT 2014-07 開始處理
+2025/07/08 20:12:22：** 2014-07股票清單長度：150
+2025/07/08 20:12:26：本月處理資料筆數：150
+2025/07/08 20:12:26：📢 Observer RT 2014-07 已處理完成
+2025/07/08 20:12:26：**Observer RT 2014-08 開始處理
+2025/07/08 20:12:26：** 2014-08股票清單長度：150
+2025/07/08 20:12:30：本月處理資料筆數：150
+2025/07/08 20:12:30：📢 Observer RT 2014-08 已處理完成
+2025/07/08 20:12:30：**Observer RT 2014-09 開始處理
+2025/07/08 20:12:30：** 2014-09股票清單長度：150
+2025/07/08 20:12:35：本月處理資料筆數：150
+2025/07/08 20:12:35：📢 Observer RT 2014-09 已處理完成
+2025/07/08 20:12:35：**Observer RT 2014-10 開始處理
+2025/07/08 20:12:35：** 2014-10股票清單長度：150
+2025/07/08 20:12:39：本月處理資料筆數：150
+2025/07/08 20:12:39：📢 Observer RT 2014-10 已處理完成
+2025/07/08 20:12:39：**Observer RT 2014-11 開始處理
+2025/07/08 20:12:39：** 2014-11股票清單長度：150
+2025/07/08 20:12:43：本月處理資料筆數：150
+2025/07/08 20:12:43：📢 Observer RT 2014-11 已處理完成
+2025/07/08 20:12:43：**Observer RT 2014-12 開始處理
+2025/07/08 20:12:43：** 2014-12股票清單長度：150
+2025/07/08 20:12:47：本月處理資料筆數：150
+2025/07/08 20:12:47：📢 Observer RT 2014-12 已處理完成
+2025/07/08 20:12:47：✅ 整合完成！檔案輸出：
+..\data\analysis\momentumNew/oPeriod9_hPeriod6/observerReturnList201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:520: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:550: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+2025/07/08 20:12:47：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod9_hPeriod6/observerReturnList201001_201412-rank.csv
+2025/07/08 20:12:47：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod9_hPeriod6/winner_loser-201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:579: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:580: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2015 ~ 2015 合併資料筆數：86113
+        date stock_id  close
+0 2015-01-05     1101  20.19
+1 2015-01-06     1101  19.83
+2 2015-01-07     1101  19.76
+讀取檔案：..\data\analysis\summary\closePrice_2016.csv，筆數：86258
+closePrice：年份 2016 ~ 2016 合併資料筆數：86258
+        date stock_id  close
+0 2016-01-04     1101  13.11
+1 2016-01-05     1101  13.24
+2 2016-01-06     1101  13.06
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:679: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date2"] = start_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:680: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = SD_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:681: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date2"] = end_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:682: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = ED_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:685: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:686: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:689: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+2025/07/08 20:12:48：✅ 已完成後續報酬計算，輸出至：..\data\analysis\momentumNew\oPeriod9_hPeriod6\afterwardReturn-201001_201412.csv
+2025/07/08 20:12:48：✅ 統計已完成，檔案輸出：..\data\analysis\momentumNew\oPeriod9_hPeriod6\afterwardReturn-201001_201412-static.csv
+2025/07/08 20:12:48：✅ 已輸出新檔案：..\data\analysis\momentumNew\oPeriod9_hPeriod6\afterwardReturn-201001_201412-static2.csv
+2025/07/08 20:12:48：✅ 已輸出結果：..\data\analysis\momentumNew\oPeriod9_hPeriod6\t_test_results-201001_201412.csv
+2025/07/08 20:12:48：⚙️ momentumNew.py Finish
+
+2025/07/08 20:12:48：⚙️ 參數設定：2010/01/01~2014/12/31/Period(o、h):9、9
+2025/07/08 20:12:48：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/08 20:12:48：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+讀取檔案：..\data\analysis\summary\closePrice_2010.csv，筆數：80517
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2010 ~ 2011 合併資料筆數：162229
+        date stock_id  close
+0 2010-01-04     1101  12.18
+1 2010-01-05     1101  12.61
+2 2010-01-06     1101  12.88
+2025/07/08 20:12:48：**Observer RT 2010-01 開始處理
+2025/07/08 20:12:48：** 2010-01股票清單長度：150
+⚠️ 20109 Stock 2350 沒有end_month_df的資料
+⚠️ 20109 Stock 3009 沒有end_month_df的資料
+2025/07/08 20:12:52：本月處理資料筆數：148
+2025/07/08 20:12:52：📢 Observer RT 2010-01 已處理完成
+2025/07/08 20:12:52：**Observer RT 2010-02 開始處理
+2025/07/08 20:12:52：** 2010-02股票清單長度：150
+⚠️ 201010 Stock 2350 沒有end_month_df的資料
+⚠️ 201010 Stock 3009 沒有end_month_df的資料
+2025/07/08 20:12:56：本月處理資料筆數：148
+2025/07/08 20:12:56：📢 Observer RT 2010-02 已處理完成
+2025/07/08 20:12:56：**Observer RT 2010-03 開始處理
+2025/07/08 20:12:56：** 2010-03股票清單長度：150
+⚠️ 201011 Stock 2350 沒有end_month_df的資料
+⚠️ 201011 Stock 3009 沒有end_month_df的資料
+2025/07/08 20:13:00：本月處理資料筆數：148
+2025/07/08 20:13:00：📢 Observer RT 2010-03 已處理完成
+2025/07/08 20:13:00：**Observer RT 2010-04 開始處理
+2025/07/08 20:13:00：** 2010-04股票清單長度：150
+⚠️ 201012 Stock 2350 沒有end_month_df的資料
+2025/07/08 20:13:04：本月處理資料筆數：149
+2025/07/08 20:13:04：📢 Observer RT 2010-04 已處理完成
+2025/07/08 20:13:04：**Observer RT 2010-05 開始處理
+2025/07/08 20:13:04：** 2010-05股票清單長度：150
+⚠️ 20111 Stock 2350 沒有end_month_df的資料
+2025/07/08 20:13:08：本月處理資料筆數：149
+2025/07/08 20:13:08：📢 Observer RT 2010-05 已處理完成
+2025/07/08 20:13:08：**Observer RT 2010-06 開始處理
+2025/07/08 20:13:08：** 2010-06股票清單長度：150
+⚠️ 20112 Stock 2350 沒有end_month_df的資料
+2025/07/08 20:13:12：本月處理資料筆數：149
+2025/07/08 20:13:12：📢 Observer RT 2010-06 已處理完成
+2025/07/08 20:13:12：**Observer RT 2010-07 開始處理
+2025/07/08 20:13:12：** 2010-07股票清單長度：150
+2025/07/08 20:13:15：本月處理資料筆數：150
+2025/07/08 20:13:15：📢 Observer RT 2010-07 已處理完成
+2025/07/08 20:13:15：**Observer RT 2010-08 開始處理
+2025/07/08 20:13:15：** 2010-08股票清單長度：150
+⚠️ 20114 Stock 2403 沒有end_month_df的資料
+2025/07/08 20:13:19：本月處理資料筆數：149
+2025/07/08 20:13:19：📢 Observer RT 2010-08 已處理完成
+2025/07/08 20:13:19：**Observer RT 2010-09 開始處理
+2025/07/08 20:13:19：** 2010-09股票清單長度：150
+⚠️ 20115 Stock 2403 沒有end_month_df的資料
+2025/07/08 20:13:23：本月處理資料筆數：149
+2025/07/08 20:13:23：📢 Observer RT 2010-09 已處理完成
+2025/07/08 20:13:23：**Observer RT 2010-10 開始處理
+2025/07/08 20:13:23：** 2010-10股票清單長度：150
+⚠️ 20116 Stock 2403 沒有end_month_df的資料
+⚠️ 2010-10 Stock3673 沒有this_month的資料
+2025/07/08 20:13:27：本月處理資料筆數：148
+2025/07/08 20:13:27：📢 Observer RT 2010-10 已處理完成
+2025/07/08 20:13:27：**Observer RT 2010-11 開始處理
+2025/07/08 20:13:27：** 2010-11股票清單長度：150
+2025/07/08 20:13:31：本月處理資料筆數：150
+2025/07/08 20:13:31：📢 Observer RT 2010-11 已處理完成
+2025/07/08 20:13:31：**Observer RT 2010-12 開始處理
+2025/07/08 20:13:31：** 2010-12股票清單長度：150
+2025/07/08 20:13:35：本月處理資料筆數：150
+2025/07/08 20:13:35：📢 Observer RT 2010-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2011 ~ 2012 合併資料筆數：165965
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+2025/07/08 20:13:36：**Observer RT 2011-01 開始處理
+2025/07/08 20:13:36：** 2011-01股票清單長度：150
+2025/07/08 20:13:40：本月處理資料筆數：150
+2025/07/08 20:13:40：📢 Observer RT 2011-01 已處理完成
+2025/07/08 20:13:40：**Observer RT 2011-02 開始處理
+2025/07/08 20:13:40：** 2011-02股票清單長度：150
+⚠️ 201110 Stock 2854 沒有end_month_df的資料
+2025/07/08 20:13:44：本月處理資料筆數：149
+2025/07/08 20:13:44：📢 Observer RT 2011-02 已處理完成
+2025/07/08 20:13:44：**Observer RT 2011-03 開始處理
+2025/07/08 20:13:44：** 2011-03股票清單長度：150
+⚠️ 201111 Stock 2854 沒有end_month_df的資料
+2025/07/08 20:13:48：本月處理資料筆數：149
+2025/07/08 20:13:48：📢 Observer RT 2011-03 已處理完成
+2025/07/08 20:13:48：**Observer RT 2011-04 開始處理
+2025/07/08 20:13:48：** 2011-04股票清單長度：150
+⚠️ 201112 Stock 2854 沒有end_month_df的資料
+⚠️ 201112 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:13:52：本月處理資料筆數：148
+2025/07/08 20:13:52：📢 Observer RT 2011-04 已處理完成
+2025/07/08 20:13:52：**Observer RT 2011-05 開始處理
+2025/07/08 20:13:52：** 2011-05股票清單長度：150
+⚠️ 20121 Stock 2854 沒有end_month_df的資料
+⚠️ 20121 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:13:56：本月處理資料筆數：148
+2025/07/08 20:13:56：📢 Observer RT 2011-05 已處理完成
+2025/07/08 20:13:56：**Observer RT 2011-06 開始處理
+2025/07/08 20:13:56：** 2011-06股票清單長度：150
+⚠️ 20122 Stock 2854 沒有end_month_df的資料
+⚠️ 20122 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:14:00：本月處理資料筆數：148
+2025/07/08 20:14:00：📢 Observer RT 2011-06 已處理完成
+2025/07/08 20:14:00：**Observer RT 2011-07 開始處理
+2025/07/08 20:14:00：** 2011-07股票清單長度：150
+⚠️ 20123 Stock 2854 沒有end_month_df的資料
+⚠️ 20123 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:14:04：本月處理資料筆數：148
+2025/07/08 20:14:04：📢 Observer RT 2011-07 已處理完成
+2025/07/08 20:14:04：**Observer RT 2011-08 開始處理
+2025/07/08 20:14:04：** 2011-08股票清單長度：150
+⚠️ 20124 Stock 2854 沒有end_month_df的資料
+⚠️ 20124 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:14:08：本月處理資料筆數：148
+2025/07/08 20:14:08：📢 Observer RT 2011-08 已處理完成
+2025/07/08 20:14:08：**Observer RT 2011-09 開始處理
+2025/07/08 20:14:08：** 2011-09股票清單長度：150
+⚠️ 20125 Stock 2854 沒有end_month_df的資料
+⚠️ 20125 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:14:12：本月處理資料筆數：148
+2025/07/08 20:14:12：📢 Observer RT 2011-09 已處理完成
+2025/07/08 20:14:12：**Observer RT 2011-10 開始處理
+2025/07/08 20:14:12：** 2011-10股票清單長度：150
+⚠️ 20126 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:14:17：本月處理資料筆數：149
+2025/07/08 20:14:17：📢 Observer RT 2011-10 已處理完成
+2025/07/08 20:14:17：**Observer RT 2011-11 開始處理
+2025/07/08 20:14:17：** 2011-11股票清單長度：150
+⚠️ 20127 Stock 5854 沒有end_month_df的資料
+2025/07/08 20:14:21：本月處理資料筆數：149
+2025/07/08 20:14:21：📢 Observer RT 2011-11 已處理完成
+2025/07/08 20:14:21：**Observer RT 2011-12 開始處理
+2025/07/08 20:14:21：** 2011-12股票清單長度：150
+2025/07/08 20:14:25：本月處理資料筆數：150
+2025/07/08 20:14:25：📢 Observer RT 2011-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2012 ~ 2013 合併資料筆數：169009
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+2025/07/08 20:14:25：**Observer RT 2012-01 開始處理
+2025/07/08 20:14:25：** 2012-01股票清單長度：150
+2025/07/08 20:14:29：本月處理資料筆數：150
+2025/07/08 20:14:29：📢 Observer RT 2012-01 已處理完成
+2025/07/08 20:14:29：**Observer RT 2012-02 開始處理
+2025/07/08 20:14:29：** 2012-02股票清單長度：150
+2025/07/08 20:14:33：本月處理資料筆數：150
+2025/07/08 20:14:33：📢 Observer RT 2012-02 已處理完成
+2025/07/08 20:14:33：**Observer RT 2012-03 開始處理
+2025/07/08 20:14:33：** 2012-03股票清單長度：150
+2025/07/08 20:14:37：本月處理資料筆數：150
+2025/07/08 20:14:37：📢 Observer RT 2012-03 已處理完成
+2025/07/08 20:14:37：**Observer RT 2012-04 開始處理
+2025/07/08 20:14:37：** 2012-04股票清單長度：150
+2025/07/08 20:14:41：本月處理資料筆數：150
+2025/07/08 20:14:41：📢 Observer RT 2012-04 已處理完成
+2025/07/08 20:14:41：**Observer RT 2012-05 開始處理
+2025/07/08 20:14:41：** 2012-05股票清單長度：150
+2025/07/08 20:14:45：本月處理資料筆數：150
+2025/07/08 20:14:45：📢 Observer RT 2012-05 已處理完成
+2025/07/08 20:14:45：**Observer RT 2012-06 開始處理
+2025/07/08 20:14:45：** 2012-06股票清單長度：150
+2025/07/08 20:14:50：本月處理資料筆數：150
+2025/07/08 20:14:50：📢 Observer RT 2012-06 已處理完成
+2025/07/08 20:14:50：**Observer RT 2012-07 開始處理
+2025/07/08 20:14:50：** 2012-07股票清單長度：150
+2025/07/08 20:14:54：本月處理資料筆數：150
+2025/07/08 20:14:54：📢 Observer RT 2012-07 已處理完成
+2025/07/08 20:14:54：**Observer RT 2012-08 開始處理
+2025/07/08 20:14:54：** 2012-08股票清單長度：150
+2025/07/08 20:14:58：本月處理資料筆數：150
+2025/07/08 20:14:58：📢 Observer RT 2012-08 已處理完成
+2025/07/08 20:14:58：**Observer RT 2012-09 開始處理
+2025/07/08 20:14:58：** 2012-09股票清單長度：150
+2025/07/08 20:15:02：本月處理資料筆數：150
+2025/07/08 20:15:02：📢 Observer RT 2012-09 已處理完成
+2025/07/08 20:15:02：**Observer RT 2012-10 開始處理
+2025/07/08 20:15:02：** 2012-10股票清單長度：150
+2025/07/08 20:15:06：本月處理資料筆數：150
+2025/07/08 20:15:06：📢 Observer RT 2012-10 已處理完成
+2025/07/08 20:15:06：**Observer RT 2012-11 開始處理
+2025/07/08 20:15:06：** 2012-11股票清單長度：150
+2025/07/08 20:15:10：本月處理資料筆數：150
+2025/07/08 20:15:10：📢 Observer RT 2012-11 已處理完成
+2025/07/08 20:15:10：**Observer RT 2012-12 開始處理
+2025/07/08 20:15:10：** 2012-12股票清單長度：150
+⚠️ 20138 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:14：本月處理資料筆數：149
+2025/07/08 20:15:14：📢 Observer RT 2012-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2013 ~ 2014 合併資料筆數：171340
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+2025/07/08 20:15:14：**Observer RT 2013-01 開始處理
+2025/07/08 20:15:14：** 2013-01股票清單長度：150
+⚠️ 20139 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:18：本月處理資料筆數：149
+2025/07/08 20:15:18：📢 Observer RT 2013-01 已處理完成
+2025/07/08 20:15:18：**Observer RT 2013-02 開始處理
+2025/07/08 20:15:18：** 2013-02股票清單長度：150
+⚠️ 201310 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:23：本月處理資料筆數：149
+2025/07/08 20:15:23：📢 Observer RT 2013-02 已處理完成
+2025/07/08 20:15:23：**Observer RT 2013-03 開始處理
+2025/07/08 20:15:23：** 2013-03股票清單長度：150
+⚠️ 201311 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:27：本月處理資料筆數：149
+2025/07/08 20:15:27：📢 Observer RT 2013-03 已處理完成
+2025/07/08 20:15:27：**Observer RT 2013-04 開始處理
+2025/07/08 20:15:27：** 2013-04股票清單長度：150
+⚠️ 201312 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:31：本月處理資料筆數：149
+2025/07/08 20:15:31：📢 Observer RT 2013-04 已處理完成
+2025/07/08 20:15:31：**Observer RT 2013-05 開始處理
+2025/07/08 20:15:31：** 2013-05股票清單長度：150
+⚠️ 20141 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:35：本月處理資料筆數：149
+2025/07/08 20:15:35：📢 Observer RT 2013-05 已處理完成
+2025/07/08 20:15:35：**Observer RT 2013-06 開始處理
+2025/07/08 20:15:35：** 2013-06股票清單長度：150
+⚠️ 20142 Stock 3697 沒有end_month_df的資料
+⚠️ 20142 Stock 8008 沒有end_month_df的資料
+2025/07/08 20:15:39：本月處理資料筆數：148
+2025/07/08 20:15:39：📢 Observer RT 2013-06 已處理完成
+2025/07/08 20:15:39：**Observer RT 2013-07 開始處理
+2025/07/08 20:15:39：** 2013-07股票清單長度：150
+⚠️ 20143 Stock 3697 沒有end_month_df的資料
+⚠️ 20143 Stock 8008 沒有end_month_df的資料
+⚠️ 20143 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:15:43：本月處理資料筆數：147
+2025/07/08 20:15:43：📢 Observer RT 2013-07 已處理完成
+2025/07/08 20:15:43：**Observer RT 2013-08 開始處理
+2025/07/08 20:15:43：** 2013-08股票清單長度：150
+⚠️ 20144 Stock 3697 沒有end_month_df的資料
+⚠️ 20144 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:15:48：本月處理資料筆數：148
+2025/07/08 20:15:48：📢 Observer RT 2013-08 已處理完成
+2025/07/08 20:15:48：**Observer RT 2013-09 開始處理
+2025/07/08 20:15:48：** 2013-09股票清單長度：150
+⚠️ 20145 Stock 3697 沒有end_month_df的資料
+⚠️ 20145 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:15:52：本月處理資料筆數：148
+2025/07/08 20:15:52：📢 Observer RT 2013-09 已處理完成
+2025/07/08 20:15:52：**Observer RT 2013-10 開始處理
+2025/07/08 20:15:52：** 2013-10股票清單長度：150
+⚠️ 20146 Stock 3697 沒有end_month_df的資料
+⚠️ 20146 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:15:56：本月處理資料筆數：148
+2025/07/08 20:15:56：📢 Observer RT 2013-10 已處理完成
+2025/07/08 20:15:56：**Observer RT 2013-11 開始處理
+2025/07/08 20:15:56：** 2013-11股票清單長度：150
+⚠️ 20147 Stock 3697 沒有end_month_df的資料
+⚠️ 20147 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:16:00：本月處理資料筆數：148
+2025/07/08 20:16:00：📢 Observer RT 2013-11 已處理完成
+2025/07/08 20:16:00：**Observer RT 2013-12 開始處理
+2025/07/08 20:16:00：** 2013-12股票清單長度：150
+⚠️ 20148 Stock 3697 沒有end_month_df的資料
+⚠️ 20148 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:16:04：本月處理資料筆數：148
+2025/07/08 20:16:04：📢 Observer RT 2013-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2014 ~ 2015 合併資料筆數：172697
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+2025/07/08 20:16:05：**Observer RT 2014-01 開始處理
+2025/07/08 20:16:05：** 2014-01股票清單長度：150
+⚠️ 20149 Stock 3697 沒有end_month_df的資料
+⚠️ 20149 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:16:09：本月處理資料筆數：148
+2025/07/08 20:16:09：📢 Observer RT 2014-01 已處理完成
+2025/07/08 20:16:09：**Observer RT 2014-02 開始處理
+2025/07/08 20:16:09：** 2014-02股票清單長度：150
+⚠️ 201410 Stock 8078 沒有end_month_df的資料
+2025/07/08 20:16:13：本月處理資料筆數：149
+2025/07/08 20:16:13：📢 Observer RT 2014-02 已處理完成
+2025/07/08 20:16:13：**Observer RT 2014-03 開始處理
+2025/07/08 20:16:13：** 2014-03股票清單長度：150
+2025/07/08 20:16:17：本月處理資料筆數：150
+2025/07/08 20:16:17：📢 Observer RT 2014-03 已處理完成
+2025/07/08 20:16:17：**Observer RT 2014-04 開始處理
+2025/07/08 20:16:17：** 2014-04股票清單長度：150
+2025/07/08 20:16:21：本月處理資料筆數：150
+2025/07/08 20:16:21：📢 Observer RT 2014-04 已處理完成
+2025/07/08 20:16:21：**Observer RT 2014-05 開始處理
+2025/07/08 20:16:21：** 2014-05股票清單長度：150
+2025/07/08 20:16:26：本月處理資料筆數：150
+2025/07/08 20:16:26：📢 Observer RT 2014-05 已處理完成
+2025/07/08 20:16:26：**Observer RT 2014-06 開始處理
+2025/07/08 20:16:26：** 2014-06股票清單長度：150
+2025/07/08 20:16:30：本月處理資料筆數：150
+2025/07/08 20:16:30：📢 Observer RT 2014-06 已處理完成
+2025/07/08 20:16:30：**Observer RT 2014-07 開始處理
+2025/07/08 20:16:30：** 2014-07股票清單長度：150
+2025/07/08 20:16:34：本月處理資料筆數：150
+2025/07/08 20:16:34：📢 Observer RT 2014-07 已處理完成
+2025/07/08 20:16:34：**Observer RT 2014-08 開始處理
+2025/07/08 20:16:34：** 2014-08股票清單長度：150
+2025/07/08 20:16:38：本月處理資料筆數：150
+2025/07/08 20:16:38：📢 Observer RT 2014-08 已處理完成
+2025/07/08 20:16:38：**Observer RT 2014-09 開始處理
+2025/07/08 20:16:38：** 2014-09股票清單長度：150
+2025/07/08 20:16:42：本月處理資料筆數：150
+2025/07/08 20:16:42：📢 Observer RT 2014-09 已處理完成
+2025/07/08 20:16:42：**Observer RT 2014-10 開始處理
+2025/07/08 20:16:42：** 2014-10股票清單長度：150
+2025/07/08 20:16:47：本月處理資料筆數：150
+2025/07/08 20:16:47：📢 Observer RT 2014-10 已處理完成
+2025/07/08 20:16:47：**Observer RT 2014-11 開始處理
+2025/07/08 20:16:47：** 2014-11股票清單長度：150
+2025/07/08 20:16:51：本月處理資料筆數：150
+2025/07/08 20:16:51：📢 Observer RT 2014-11 已處理完成
+2025/07/08 20:16:51：**Observer RT 2014-12 開始處理
+2025/07/08 20:16:51：** 2014-12股票清單長度：150
+2025/07/08 20:16:55：本月處理資料筆數：150
+2025/07/08 20:16:55：📢 Observer RT 2014-12 已處理完成
+2025/07/08 20:16:55：✅ 整合完成！檔案輸出：
+..\data\analysis\momentumNew/oPeriod9_hPeriod9/observerReturnList201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:520: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:550: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+2025/07/08 20:16:55：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod9_hPeriod9/observerReturnList201001_201412-rank.csv
+2025/07/08 20:16:55：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod9_hPeriod9/winner_loser-201001_201412.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:579: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:580: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2015 ~ 2015 合併資料筆數：86113
+        date stock_id  close
+0 2015-01-05     1101  20.19
+1 2015-01-06     1101  19.83
+2 2015-01-07     1101  19.76
+讀取檔案：..\data\analysis\summary\closePrice_2016.csv，筆數：86258
+closePrice：年份 2016 ~ 2016 合併資料筆數：86258
+        date stock_id  close
+0 2016-01-04     1101  13.11
+1 2016-01-05     1101  13.24
+2 2016-01-06     1101  13.06
+end_date2 is None
+ED_close2 is None
+end_date2 is None
+ED_close2 is None
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:679: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date2"] = start_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:680: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = SD_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:681: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date2"] = end_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:682: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = ED_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:685: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:686: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:689: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+2025/07/08 20:16:55：✅ 已完成後續報酬計算，輸出至：..\data\analysis\momentumNew\oPeriod9_hPeriod9\afterwardReturn-201001_201412.csv
+2025/07/08 20:16:55：✅ 統計已完成，檔案輸出：..\data\analysis\momentumNew\oPeriod9_hPeriod9\afterwardReturn-201001_201412-static.csv
+2025/07/08 20:16:55：✅ 已輸出新檔案：..\data\analysis\momentumNew\oPeriod9_hPeriod9\afterwardReturn-201001_201412-static2.csv
+2025/07/08 20:16:55：✅ 已輸出結果：..\data\analysis\momentumNew\oPeriod9_hPeriod9\t_test_results-201001_201412.csv
+2025/07/08 20:16:55：⚙️ momentumNew.py Finish
+

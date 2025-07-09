@@ -1,14 +1,1948 @@
 
-2025/07/07 23:09:06：⚙️ momentumNew.py Run
-2025/07/07 23:09:06：⚙️ 參數設定：2012/01/01~2015/02/27/Period(o、h):3、3
-2025/07/07 23:09:06：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012.csv
-2025/07/07 23:09:06：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
-2025/07/07 23:09:06：☑️ 檔案已存在：..\data\analysis\momentumNew/oPeriod3_hPeriod3/observerReturnList201201_201502.csv
-2025/07/07 23:09:06：☑️ 檔案已存在：..\data\analysis\momentumNew/oPeriod3_hPeriod3/observerReturnList201201_201502-rank.csv
-2025/07/07 23:09:06：☑️ 檔案已存在：..\data\analysis\momentumNew/oPeriod3_hPeriod3/winner_loser-201201_201502.csv
-2025/07/07 23:09:06：☑️ 檔案已存在：..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201201_201502.csv
-2025/07/07 23:09:06：☑️ 檔案已存在：..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201201_201502-static.csv
-2025/07/07 23:09:06：☑️ 檔案已存在：..\data\analysis\momentumNew\oPeriod3_hPeriod3\afterwardReturn-201201_201502-static2.csv
-2025/07/07 23:09:06：✅ 已輸出結果：..\data\analysis\momentumNew\oPeriod3_hPeriod3\t_test_results-201201_201502.csv
-2025/07/07 23:09:06：⚙️ momentumNew.py Finish
+2025/07/10 07:50:59：⚙️ momentumNew.py Run
+2025/07/10 07:50:59：⚙️ 參數設定：2010/01/01~2014/12/31/Period(o、h):3、3
+2025/07/10 07:50:59：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/10 07:50:59：☑️ 已讀入既有檔案：..\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+2025/07/10 07:50:59：📢 開始製作..\data\analysis\momentumNew/oPeriod3_hPeriod3/201001_201412/01-observerReturnList.csv
+讀取檔案：..\data\analysis\summary\closePrice_2010.csv，筆數：80517
+closePrice：年份 2010 ~ 2010 合併資料筆數：80517
+        date stock_id  close
+0 2010-01-04     1101  12.18
+1 2010-01-05     1101  12.61
+2 2010-01-06     1101  12.88
+2025/07/10 07:50:59：**Observer RT 2010-01 開始處理
+2025/07/10 07:50:59：** 2010-01股票清單長度：150
+2025/07/10 07:51:01：本月處理資料筆數：150
+2025/07/10 07:51:01：📢 Observer RT 2010-01 已處理完成
+2025/07/10 07:51:01：**Observer RT 2010-02 開始處理
+2025/07/10 07:51:01：** 2010-02股票清單長度：150
+⚠️ 20104 Stock 3009 沒有end_month_df的資料
+2025/07/10 07:51:03：本月處理資料筆數：149
+2025/07/10 07:51:03：📢 Observer RT 2010-02 已處理完成
+2025/07/10 07:51:03：**Observer RT 2010-03 開始處理
+2025/07/10 07:51:03：** 2010-03股票清單長度：150
+⚠️ 20105 Stock 3009 沒有end_month_df的資料
+2025/07/10 07:51:05：本月處理資料筆數：149
+2025/07/10 07:51:05：📢 Observer RT 2010-03 已處理完成
+2025/07/10 07:51:05：**Observer RT 2010-04 開始處理
+2025/07/10 07:51:05：** 2010-04股票清單長度：150
+2025/07/10 07:51:07：本月處理資料筆數：150
+2025/07/10 07:51:07：📢 Observer RT 2010-04 已處理完成
+2025/07/10 07:51:07：**Observer RT 2010-05 開始處理
+2025/07/10 07:51:07：** 2010-05股票清單長度：150
+⚠️ 20107 Stock 2350 沒有end_month_df的資料
+2025/07/10 07:51:09：本月處理資料筆數：149
+2025/07/10 07:51:09：📢 Observer RT 2010-05 已處理完成
+2025/07/10 07:51:09：**Observer RT 2010-06 開始處理
+2025/07/10 07:51:09：** 2010-06股票清單長度：150
+⚠️ 20108 Stock 2350 沒有end_month_df的資料
+2025/07/10 07:51:11：本月處理資料筆數：149
+2025/07/10 07:51:11：📢 Observer RT 2010-06 已處理完成
+2025/07/10 07:51:11：**Observer RT 2010-07 開始處理
+2025/07/10 07:51:11：** 2010-07股票清單長度：150
+2025/07/10 07:51:13：本月處理資料筆數：150
+2025/07/10 07:51:13：📢 Observer RT 2010-07 已處理完成
+2025/07/10 07:51:13：**Observer RT 2010-08 開始處理
+2025/07/10 07:51:13：** 2010-08股票清單長度：150
+2025/07/10 07:51:14：本月處理資料筆數：150
+2025/07/10 07:51:14：📢 Observer RT 2010-08 已處理完成
+2025/07/10 07:51:14：**Observer RT 2010-09 開始處理
+2025/07/10 07:51:14：** 2010-09股票清單長度：150
+2025/07/10 07:51:17：本月處理資料筆數：150
+2025/07/10 07:51:17：📢 Observer RT 2010-09 已處理完成
+2025/07/10 07:51:17：**Observer RT 2010-10 開始處理
+2025/07/10 07:51:17：** 2010-10股票清單長度：150
+⚠️ 201012 Stock 2403 沒有end_month_df的資料
+⚠️ 2010-10 Stock3673 沒有this_month的資料
+2025/07/10 07:51:18：本月處理資料筆數：148
+2025/07/10 07:51:18：📢 Observer RT 2010-10 已處理完成
+2025/07/10 07:51:18：**Observer RT 2010-11 開始處理
+2025/07/10 07:51:18：** 2010-11股票清單長度：150
+⚠️ 20111 Stock 1101 沒有end_month_df的資料
+⚠️ 20111 Stock 1102 沒有end_month_df的資料
+⚠️ 20111 Stock 1216 沒有end_month_df的資料
+⚠️ 20111 Stock 1227 沒有end_month_df的資料
+⚠️ 20111 Stock 1301 沒有end_month_df的資料
+⚠️ 20111 Stock 1303 沒有end_month_df的資料
+⚠️ 20111 Stock 1304 沒有end_month_df的資料
+⚠️ 20111 Stock 1313 沒有end_month_df的資料
+⚠️ 20111 Stock 1314 沒有end_month_df的資料
+⚠️ 20111 Stock 1319 沒有end_month_df的資料
+⚠️ 20111 Stock 1326 沒有end_month_df的資料
+⚠️ 20111 Stock 1402 沒有end_month_df的資料
+⚠️ 20111 Stock 1409 沒有end_month_df的資料
+⚠️ 20111 Stock 1434 沒有end_month_df的資料
+⚠️ 20111 Stock 1440 沒有end_month_df的資料
+⚠️ 20111 Stock 1504 沒有end_month_df的資料
+⚠️ 20111 Stock 1605 沒有end_month_df的資料
+⚠️ 20111 Stock 1704 沒有end_month_df的資料
+⚠️ 20111 Stock 1710 沒有end_month_df的資料
+⚠️ 20111 Stock 1717 沒有end_month_df的資料
+⚠️ 20111 Stock 1718 沒有end_month_df的資料
+⚠️ 20111 Stock 1722 沒有end_month_df的資料
+⚠️ 20111 Stock 1723 沒有end_month_df的資料
+⚠️ 20111 Stock 1802 沒有end_month_df的資料
+⚠️ 20111 Stock 1907 沒有end_month_df的資料
+⚠️ 20111 Stock 2002 沒有end_month_df的資料
+⚠️ 20111 Stock 2006 沒有end_month_df的資料
+⚠️ 20111 Stock 2015 沒有end_month_df的資料
+⚠️ 20111 Stock 2049 沒有end_month_df的資料
+⚠️ 20111 Stock 2101 沒有end_month_df的資料
+⚠️ 20111 Stock 2103 沒有end_month_df的資料
+⚠️ 20111 Stock 2105 沒有end_month_df的資料
+⚠️ 20111 Stock 2201 沒有end_month_df的資料
+⚠️ 20111 Stock 2204 沒有end_month_df的資料
+⚠️ 20111 Stock 2207 沒有end_month_df的資料
+⚠️ 20111 Stock 2227 沒有end_month_df的資料
+⚠️ 20111 Stock 2301 沒有end_month_df的資料
+⚠️ 20111 Stock 2303 沒有end_month_df的資料
+⚠️ 20111 Stock 2308 沒有end_month_df的資料
+⚠️ 20111 Stock 2311 沒有end_month_df的資料
+⚠️ 20111 Stock 2317 沒有end_month_df的資料
+⚠️ 20111 Stock 2323 沒有end_month_df的資料
+⚠️ 20111 Stock 2324 沒有end_month_df的資料
+⚠️ 20111 Stock 2325 沒有end_month_df的資料
+⚠️ 20111 Stock 2327 沒有end_month_df的資料
+⚠️ 20111 Stock 2328 沒有end_month_df的資料
+⚠️ 20111 Stock 2330 沒有end_month_df的資料
+⚠️ 20111 Stock 2337 沒有end_month_df的資料
+⚠️ 20111 Stock 2344 沒有end_month_df的資料
+⚠️ 20111 Stock 2347 沒有end_month_df的資料
+⚠️ 20111 Stock 2349 沒有end_month_df的資料
+⚠️ 20111 Stock 2352 沒有end_month_df的資料
+⚠️ 20111 Stock 2353 沒有end_month_df的資料
+⚠️ 20111 Stock 2354 沒有end_month_df的資料
+⚠️ 20111 Stock 2356 沒有end_month_df的資料
+⚠️ 20111 Stock 2357 沒有end_month_df的資料
+⚠️ 20111 Stock 2360 沒有end_month_df的資料
+⚠️ 20111 Stock 2362 沒有end_month_df的資料
+⚠️ 20111 Stock 2371 沒有end_month_df的資料
+⚠️ 20111 Stock 2374 沒有end_month_df的資料
+⚠️ 20111 Stock 2379 沒有end_month_df的資料
+⚠️ 20111 Stock 2382 沒有end_month_df的資料
+⚠️ 20111 Stock 2384 沒有end_month_df的資料
+⚠️ 20111 Stock 2385 沒有end_month_df的資料
+⚠️ 20111 Stock 2388 沒有end_month_df的資料
+⚠️ 20111 Stock 2392 沒有end_month_df的資料
+⚠️ 20111 Stock 2393 沒有end_month_df的資料
+⚠️ 20111 Stock 2395 沒有end_month_df的資料
+⚠️ 20111 Stock 2408 沒有end_month_df的資料
+⚠️ 20111 Stock 2409 沒有end_month_df的資料
+⚠️ 20111 Stock 2412 沒有end_month_df的資料
+⚠️ 20111 Stock 2448 沒有end_month_df的資料
+⚠️ 20111 Stock 2451 沒有end_month_df的資料
+⚠️ 20111 Stock 2454 沒有end_month_df的資料
+⚠️ 20111 Stock 2474 沒有end_month_df的資料
+⚠️ 20111 Stock 2475 沒有end_month_df的資料
+⚠️ 20111 Stock 2498 沒有end_month_df的資料
+⚠️ 20111 Stock 2501 沒有end_month_df的資料
+⚠️ 20111 Stock 2504 沒有end_month_df的資料
+⚠️ 20111 Stock 2511 沒有end_month_df的資料
+⚠️ 20111 Stock 2542 沒有end_month_df的資料
+⚠️ 20111 Stock 2545 沒有end_month_df的資料
+⚠️ 20111 Stock 2547 沒有end_month_df的資料
+⚠️ 20111 Stock 2548 沒有end_month_df的資料
+⚠️ 20111 Stock 2603 沒有end_month_df的資料
+⚠️ 20111 Stock 2606 沒有end_month_df的資料
+⚠️ 20111 Stock 2607 沒有end_month_df的資料
+⚠️ 20111 Stock 2609 沒有end_month_df的資料
+⚠️ 20111 Stock 2610 沒有end_month_df的資料
+⚠️ 20111 Stock 2615 沒有end_month_df的資料
+⚠️ 20111 Stock 2618 沒有end_month_df的資料
+⚠️ 20111 Stock 2707 沒有end_month_df的資料
+⚠️ 20111 Stock 2723 沒有end_month_df的資料
+⚠️ 20111 Stock 2801 沒有end_month_df的資料
+⚠️ 20111 Stock 2823 沒有end_month_df的資料
+⚠️ 20111 Stock 2833 沒有end_month_df的資料
+⚠️ 20111 Stock 2834 沒有end_month_df的資料
+⚠️ 20111 Stock 2845 沒有end_month_df的資料
+⚠️ 20111 Stock 2849 沒有end_month_df的資料
+⚠️ 20111 Stock 2854 沒有end_month_df的資料
+⚠️ 20111 Stock 2855 沒有end_month_df的資料
+⚠️ 20111 Stock 2880 沒有end_month_df的資料
+⚠️ 20111 Stock 2881 沒有end_month_df的資料
+⚠️ 20111 Stock 2882 沒有end_month_df的資料
+⚠️ 20111 Stock 2883 沒有end_month_df的資料
+⚠️ 20111 Stock 2884 沒有end_month_df的資料
+⚠️ 20111 Stock 2885 沒有end_month_df的資料
+⚠️ 20111 Stock 2886 沒有end_month_df的資料
+⚠️ 20111 Stock 2887 沒有end_month_df的資料
+⚠️ 20111 Stock 2888 沒有end_month_df的資料
+⚠️ 20111 Stock 2889 沒有end_month_df的資料
+⚠️ 20111 Stock 2890 沒有end_month_df的資料
+⚠️ 20111 Stock 2891 沒有end_month_df的資料
+⚠️ 20111 Stock 2892 沒有end_month_df的資料
+⚠️ 20111 Stock 2903 沒有end_month_df的資料
+⚠️ 20111 Stock 2912 沒有end_month_df的資料
+⚠️ 20111 Stock 2915 沒有end_month_df的資料
+⚠️ 20111 Stock 3008 沒有end_month_df的資料
+⚠️ 20111 Stock 3034 沒有end_month_df的資料
+⚠️ 20111 Stock 3037 沒有end_month_df的資料
+⚠️ 20111 Stock 3044 沒有end_month_df的資料
+⚠️ 20111 Stock 3045 沒有end_month_df的資料
+⚠️ 20111 Stock 3189 沒有end_month_df的資料
+⚠️ 20111 Stock 3231 沒有end_month_df的資料
+⚠️ 20111 Stock 3474 沒有end_month_df的資料
+⚠️ 20111 Stock 3481 沒有end_month_df的資料
+⚠️ 20111 Stock 3514 沒有end_month_df的資料
+⚠️ 20111 Stock 3532 沒有end_month_df的資料
+⚠️ 20111 Stock 3622 沒有end_month_df的資料
+⚠️ 20111 Stock 3673 沒有end_month_df的資料
+⚠️ 20111 Stock 3702 沒有end_month_df的資料
+⚠️ 20111 Stock 4725 沒有end_month_df的資料
+⚠️ 20111 Stock 4904 沒有end_month_df的資料
+⚠️ 20111 Stock 4938 沒有end_month_df的資料
+⚠️ 20111 Stock 5522 沒有end_month_df的資料
+⚠️ 20111 Stock 5854 沒有end_month_df的資料
+⚠️ 20111 Stock 6005 沒有end_month_df的資料
+⚠️ 20111 Stock 6116 沒有end_month_df的資料
+⚠️ 20111 Stock 6239 沒有end_month_df的資料
+⚠️ 20111 Stock 6286 沒有end_month_df的資料
+⚠️ 20111 Stock 6505 沒有end_month_df的資料
+⚠️ 20111 Stock 8008 沒有end_month_df的資料
+⚠️ 20111 Stock 8046 沒有end_month_df的資料
+⚠️ 20111 Stock 9904 沒有end_month_df的資料
+⚠️ 20111 Stock 9907 沒有end_month_df的資料
+⚠️ 20111 Stock 9917 沒有end_month_df的資料
+⚠️ 20111 Stock 9921 沒有end_month_df的資料
+⚠️ 20111 Stock 9933 沒有end_month_df的資料
+⚠️ 20111 Stock 9940 沒有end_month_df的資料
+⚠️ 20111 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:51:20：本月處理資料筆數：0
+2025/07/10 07:51:20：⚠️ No Observer RT Data 2010-11 
+2025/07/10 07:51:20：📢 Observer RT 2010-11 已處理完成
+2025/07/10 07:51:20：**Observer RT 2010-12 開始處理
+2025/07/10 07:51:20：** 2010-12股票清單長度：150
+⚠️ 20112 Stock 1101 沒有end_month_df的資料
+⚠️ 20112 Stock 1102 沒有end_month_df的資料
+⚠️ 20112 Stock 1216 沒有end_month_df的資料
+⚠️ 20112 Stock 1227 沒有end_month_df的資料
+⚠️ 20112 Stock 1301 沒有end_month_df的資料
+⚠️ 20112 Stock 1303 沒有end_month_df的資料
+⚠️ 20112 Stock 1304 沒有end_month_df的資料
+⚠️ 20112 Stock 1313 沒有end_month_df的資料
+⚠️ 20112 Stock 1314 沒有end_month_df的資料
+⚠️ 20112 Stock 1319 沒有end_month_df的資料
+⚠️ 20112 Stock 1326 沒有end_month_df的資料
+⚠️ 20112 Stock 1402 沒有end_month_df的資料
+⚠️ 20112 Stock 1409 沒有end_month_df的資料
+⚠️ 20112 Stock 1434 沒有end_month_df的資料
+⚠️ 20112 Stock 1440 沒有end_month_df的資料
+⚠️ 20112 Stock 1504 沒有end_month_df的資料
+⚠️ 20112 Stock 1590 沒有end_month_df的資料
+⚠️ 20112 Stock 1605 沒有end_month_df的資料
+⚠️ 20112 Stock 1704 沒有end_month_df的資料
+⚠️ 20112 Stock 1710 沒有end_month_df的資料
+⚠️ 20112 Stock 1717 沒有end_month_df的資料
+⚠️ 20112 Stock 1722 沒有end_month_df的資料
+⚠️ 20112 Stock 1723 沒有end_month_df的資料
+⚠️ 20112 Stock 1802 沒有end_month_df的資料
+⚠️ 20112 Stock 1907 沒有end_month_df的資料
+⚠️ 20112 Stock 2002 沒有end_month_df的資料
+⚠️ 20112 Stock 2006 沒有end_month_df的資料
+⚠️ 20112 Stock 2014 沒有end_month_df的資料
+⚠️ 20112 Stock 2015 沒有end_month_df的資料
+⚠️ 20112 Stock 2049 沒有end_month_df的資料
+⚠️ 20112 Stock 2101 沒有end_month_df的資料
+⚠️ 20112 Stock 2103 沒有end_month_df的資料
+⚠️ 20112 Stock 2105 沒有end_month_df的資料
+⚠️ 20112 Stock 2201 沒有end_month_df的資料
+⚠️ 20112 Stock 2204 沒有end_month_df的資料
+⚠️ 20112 Stock 2207 沒有end_month_df的資料
+⚠️ 20112 Stock 2227 沒有end_month_df的資料
+⚠️ 20112 Stock 2301 沒有end_month_df的資料
+⚠️ 20112 Stock 2303 沒有end_month_df的資料
+⚠️ 20112 Stock 2308 沒有end_month_df的資料
+⚠️ 20112 Stock 2311 沒有end_month_df的資料
+⚠️ 20112 Stock 2317 沒有end_month_df的資料
+⚠️ 20112 Stock 2324 沒有end_month_df的資料
+⚠️ 20112 Stock 2325 沒有end_month_df的資料
+⚠️ 20112 Stock 2327 沒有end_month_df的資料
+⚠️ 20112 Stock 2328 沒有end_month_df的資料
+⚠️ 20112 Stock 2330 沒有end_month_df的資料
+⚠️ 20112 Stock 2337 沒有end_month_df的資料
+⚠️ 20112 Stock 2344 沒有end_month_df的資料
+⚠️ 20112 Stock 2347 沒有end_month_df的資料
+⚠️ 20112 Stock 2352 沒有end_month_df的資料
+⚠️ 20112 Stock 2353 沒有end_month_df的資料
+⚠️ 20112 Stock 2354 沒有end_month_df的資料
+⚠️ 20112 Stock 2356 沒有end_month_df的資料
+⚠️ 20112 Stock 2357 沒有end_month_df的資料
+⚠️ 20112 Stock 2360 沒有end_month_df的資料
+⚠️ 20112 Stock 2362 沒有end_month_df的資料
+⚠️ 20112 Stock 2371 沒有end_month_df的資料
+⚠️ 20112 Stock 2379 沒有end_month_df的資料
+⚠️ 20112 Stock 2382 沒有end_month_df的資料
+⚠️ 20112 Stock 2384 沒有end_month_df的資料
+⚠️ 20112 Stock 2385 沒有end_month_df的資料
+⚠️ 20112 Stock 2388 沒有end_month_df的資料
+⚠️ 20112 Stock 2392 沒有end_month_df的資料
+⚠️ 20112 Stock 2393 沒有end_month_df的資料
+⚠️ 20112 Stock 2395 沒有end_month_df的資料
+⚠️ 20112 Stock 2408 沒有end_month_df的資料
+⚠️ 20112 Stock 2409 沒有end_month_df的資料
+⚠️ 20112 Stock 2412 沒有end_month_df的資料
+⚠️ 20112 Stock 2448 沒有end_month_df的資料
+⚠️ 20112 Stock 2451 沒有end_month_df的資料
+⚠️ 20112 Stock 2454 沒有end_month_df的資料
+⚠️ 20112 Stock 2474 沒有end_month_df的資料
+⚠️ 20112 Stock 2475 沒有end_month_df的資料
+⚠️ 20112 Stock 2498 沒有end_month_df的資料
+⚠️ 20112 Stock 2501 沒有end_month_df的資料
+⚠️ 20112 Stock 2504 沒有end_month_df的資料
+⚠️ 20112 Stock 2511 沒有end_month_df的資料
+⚠️ 20112 Stock 2542 沒有end_month_df的資料
+⚠️ 20112 Stock 2545 沒有end_month_df的資料
+⚠️ 20112 Stock 2547 沒有end_month_df的資料
+⚠️ 20112 Stock 2548 沒有end_month_df的資料
+⚠️ 20112 Stock 2603 沒有end_month_df的資料
+⚠️ 20112 Stock 2606 沒有end_month_df的資料
+⚠️ 20112 Stock 2607 沒有end_month_df的資料
+⚠️ 20112 Stock 2609 沒有end_month_df的資料
+⚠️ 20112 Stock 2610 沒有end_month_df的資料
+⚠️ 20112 Stock 2615 沒有end_month_df的資料
+⚠️ 20112 Stock 2618 沒有end_month_df的資料
+⚠️ 20112 Stock 2707 沒有end_month_df的資料
+⚠️ 20112 Stock 2723 沒有end_month_df的資料
+⚠️ 20112 Stock 2801 沒有end_month_df的資料
+⚠️ 20112 Stock 2823 沒有end_month_df的資料
+⚠️ 20112 Stock 2833 沒有end_month_df的資料
+⚠️ 20112 Stock 2834 沒有end_month_df的資料
+⚠️ 20112 Stock 2845 沒有end_month_df的資料
+⚠️ 20112 Stock 2847 沒有end_month_df的資料
+⚠️ 20112 Stock 2849 沒有end_month_df的資料
+⚠️ 20112 Stock 2854 沒有end_month_df的資料
+⚠️ 20112 Stock 2855 沒有end_month_df的資料
+⚠️ 20112 Stock 2880 沒有end_month_df的資料
+⚠️ 20112 Stock 2881 沒有end_month_df的資料
+⚠️ 20112 Stock 2882 沒有end_month_df的資料
+⚠️ 20112 Stock 2883 沒有end_month_df的資料
+⚠️ 20112 Stock 2884 沒有end_month_df的資料
+⚠️ 20112 Stock 2885 沒有end_month_df的資料
+⚠️ 20112 Stock 2886 沒有end_month_df的資料
+⚠️ 20112 Stock 2887 沒有end_month_df的資料
+⚠️ 20112 Stock 2888 沒有end_month_df的資料
+⚠️ 20112 Stock 2889 沒有end_month_df的資料
+⚠️ 20112 Stock 2890 沒有end_month_df的資料
+⚠️ 20112 Stock 2891 沒有end_month_df的資料
+⚠️ 20112 Stock 2892 沒有end_month_df的資料
+⚠️ 20112 Stock 2903 沒有end_month_df的資料
+⚠️ 20112 Stock 2912 沒有end_month_df的資料
+⚠️ 20112 Stock 2915 沒有end_month_df的資料
+⚠️ 20112 Stock 3008 沒有end_month_df的資料
+⚠️ 20112 Stock 3034 沒有end_month_df的資料
+⚠️ 20112 Stock 3037 沒有end_month_df的資料
+⚠️ 20112 Stock 3044 沒有end_month_df的資料
+⚠️ 20112 Stock 3045 沒有end_month_df的資料
+⚠️ 20112 Stock 3189 沒有end_month_df的資料
+⚠️ 20112 Stock 3231 沒有end_month_df的資料
+⚠️ 20112 Stock 3406 沒有end_month_df的資料
+⚠️ 20112 Stock 3474 沒有end_month_df的資料
+⚠️ 20112 Stock 3481 沒有end_month_df的資料
+⚠️ 20112 Stock 3514 沒有end_month_df的資料
+⚠️ 20112 Stock 3532 沒有end_month_df的資料
+⚠️ 20112 Stock 3622 沒有end_month_df的資料
+⚠️ 20112 Stock 3673 沒有end_month_df的資料
+⚠️ 20112 Stock 3697 沒有end_month_df的資料
+⚠️ 20112 Stock 3702 沒有end_month_df的資料
+⚠️ 20112 Stock 4725 沒有end_month_df的資料
+⚠️ 20112 Stock 4904 沒有end_month_df的資料
+⚠️ 20112 Stock 4938 沒有end_month_df的資料
+⚠️ 20112 Stock 5522 沒有end_month_df的資料
+⚠️ 20112 Stock 5854 沒有end_month_df的資料
+⚠️ 20112 Stock 6005 沒有end_month_df的資料
+⚠️ 20112 Stock 6116 沒有end_month_df的資料
+⚠️ 20112 Stock 6176 沒有end_month_df的資料
+⚠️ 20112 Stock 6239 沒有end_month_df的資料
+⚠️ 20112 Stock 6286 沒有end_month_df的資料
+⚠️ 20112 Stock 6505 沒有end_month_df的資料
+⚠️ 20112 Stock 8008 沒有end_month_df的資料
+⚠️ 20112 Stock 8046 沒有end_month_df的資料
+⚠️ 20112 Stock 9904 沒有end_month_df的資料
+⚠️ 20112 Stock 9907 沒有end_month_df的資料
+⚠️ 20112 Stock 9917 沒有end_month_df的資料
+⚠️ 20112 Stock 9921 沒有end_month_df的資料
+⚠️ 20112 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:51:23：本月處理資料筆數：0
+2025/07/10 07:51:23：⚠️ No Observer RT Data 2010-12 
+2025/07/10 07:51:23：📢 Observer RT 2010-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2011 ~ 2011 合併資料筆數：81712
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+2025/07/10 07:51:23：**Observer RT 2011-01 開始處理
+2025/07/10 07:51:23：** 2011-01股票清單長度：150
+2025/07/10 07:51:25：本月處理資料筆數：150
+2025/07/10 07:51:25：📢 Observer RT 2011-01 已處理完成
+2025/07/10 07:51:25：**Observer RT 2011-02 開始處理
+2025/07/10 07:51:25：** 2011-02股票清單長度：150
+2025/07/10 07:51:26：本月處理資料筆數：150
+2025/07/10 07:51:26：📢 Observer RT 2011-02 已處理完成
+2025/07/10 07:51:26：**Observer RT 2011-03 開始處理
+2025/07/10 07:51:26：** 2011-03股票清單長度：150
+2025/07/10 07:51:28：本月處理資料筆數：150
+2025/07/10 07:51:28：📢 Observer RT 2011-03 已處理完成
+2025/07/10 07:51:28：**Observer RT 2011-04 開始處理
+2025/07/10 07:51:28：** 2011-04股票清單長度：150
+2025/07/10 07:51:30：本月處理資料筆數：150
+2025/07/10 07:51:30：📢 Observer RT 2011-04 已處理完成
+2025/07/10 07:51:30：**Observer RT 2011-05 開始處理
+2025/07/10 07:51:30：** 2011-05股票清單長度：150
+2025/07/10 07:51:32：本月處理資料筆數：150
+2025/07/10 07:51:32：📢 Observer RT 2011-05 已處理完成
+2025/07/10 07:51:32：**Observer RT 2011-06 開始處理
+2025/07/10 07:51:32：** 2011-06股票清單長度：150
+2025/07/10 07:51:34：本月處理資料筆數：150
+2025/07/10 07:51:34：📢 Observer RT 2011-06 已處理完成
+2025/07/10 07:51:34：**Observer RT 2011-07 開始處理
+2025/07/10 07:51:34：** 2011-07股票清單長度：150
+2025/07/10 07:51:36：本月處理資料筆數：150
+2025/07/10 07:51:36：📢 Observer RT 2011-07 已處理完成
+2025/07/10 07:51:36：**Observer RT 2011-08 開始處理
+2025/07/10 07:51:36：** 2011-08股票清單長度：150
+⚠️ 201110 Stock 2854 沒有end_month_df的資料
+2025/07/10 07:51:38：本月處理資料筆數：149
+2025/07/10 07:51:38：📢 Observer RT 2011-08 已處理完成
+2025/07/10 07:51:38：**Observer RT 2011-09 開始處理
+2025/07/10 07:51:38：** 2011-09股票清單長度：150
+⚠️ 201111 Stock 2854 沒有end_month_df的資料
+2025/07/10 07:51:40：本月處理資料筆數：149
+2025/07/10 07:51:40：📢 Observer RT 2011-09 已處理完成
+2025/07/10 07:51:40：**Observer RT 2011-10 開始處理
+2025/07/10 07:51:40：** 2011-10股票清單長度：150
+⚠️ 201112 Stock 5854 沒有end_month_df的資料
+2025/07/10 07:51:42：本月處理資料筆數：149
+2025/07/10 07:51:42：📢 Observer RT 2011-10 已處理完成
+2025/07/10 07:51:42：**Observer RT 2011-11 開始處理
+2025/07/10 07:51:42：** 2011-11股票清單長度：150
+⚠️ 20121 Stock 1101 沒有end_month_df的資料
+⚠️ 20121 Stock 1102 沒有end_month_df的資料
+⚠️ 20121 Stock 1216 沒有end_month_df的資料
+⚠️ 20121 Stock 1227 沒有end_month_df的資料
+⚠️ 20121 Stock 1301 沒有end_month_df的資料
+⚠️ 20121 Stock 1303 沒有end_month_df的資料
+⚠️ 20121 Stock 1304 沒有end_month_df的資料
+⚠️ 20121 Stock 1314 沒有end_month_df的資料
+⚠️ 20121 Stock 1326 沒有end_month_df的資料
+⚠️ 20121 Stock 1402 沒有end_month_df的資料
+⚠️ 20121 Stock 1434 沒有end_month_df的資料
+⚠️ 20121 Stock 1440 沒有end_month_df的資料
+⚠️ 20121 Stock 1504 沒有end_month_df的資料
+⚠️ 20121 Stock 1507 沒有end_month_df的資料
+⚠️ 20121 Stock 1590 沒有end_month_df的資料
+⚠️ 20121 Stock 1605 沒有end_month_df的資料
+⚠️ 20121 Stock 1704 沒有end_month_df的資料
+⚠️ 20121 Stock 1710 沒有end_month_df的資料
+⚠️ 20121 Stock 1717 沒有end_month_df的資料
+⚠️ 20121 Stock 1722 沒有end_month_df的資料
+⚠️ 20121 Stock 1723 沒有end_month_df的資料
+⚠️ 20121 Stock 1789 沒有end_month_df的資料
+⚠️ 20121 Stock 1802 沒有end_month_df的資料
+⚠️ 20121 Stock 1907 沒有end_month_df的資料
+⚠️ 20121 Stock 2002 沒有end_month_df的資料
+⚠️ 20121 Stock 2006 沒有end_month_df的資料
+⚠️ 20121 Stock 2015 沒有end_month_df的資料
+⚠️ 20121 Stock 2049 沒有end_month_df的資料
+⚠️ 20121 Stock 2101 沒有end_month_df的資料
+⚠️ 20121 Stock 2103 沒有end_month_df的資料
+⚠️ 20121 Stock 2105 沒有end_month_df的資料
+⚠️ 20121 Stock 2106 沒有end_month_df的資料
+⚠️ 20121 Stock 2201 沒有end_month_df的資料
+⚠️ 20121 Stock 2204 沒有end_month_df的資料
+⚠️ 20121 Stock 2207 沒有end_month_df的資料
+⚠️ 20121 Stock 2208 沒有end_month_df的資料
+⚠️ 20121 Stock 2227 沒有end_month_df的資料
+⚠️ 20121 Stock 2301 沒有end_month_df的資料
+⚠️ 20121 Stock 2303 沒有end_month_df的資料
+⚠️ 20121 Stock 2308 沒有end_month_df的資料
+⚠️ 20121 Stock 2311 沒有end_month_df的資料
+⚠️ 20121 Stock 2317 沒有end_month_df的資料
+⚠️ 20121 Stock 2324 沒有end_month_df的資料
+⚠️ 20121 Stock 2325 沒有end_month_df的資料
+⚠️ 20121 Stock 2327 沒有end_month_df的資料
+⚠️ 20121 Stock 2330 沒有end_month_df的資料
+⚠️ 20121 Stock 2337 沒有end_month_df的資料
+⚠️ 20121 Stock 2344 沒有end_month_df的資料
+⚠️ 20121 Stock 2347 沒有end_month_df的資料
+⚠️ 20121 Stock 2353 沒有end_month_df的資料
+⚠️ 20121 Stock 2354 沒有end_month_df的資料
+⚠️ 20121 Stock 2356 沒有end_month_df的資料
+⚠️ 20121 Stock 2357 沒有end_month_df的資料
+⚠️ 20121 Stock 2360 沒有end_month_df的資料
+⚠️ 20121 Stock 2362 沒有end_month_df的資料
+⚠️ 20121 Stock 2371 沒有end_month_df的資料
+⚠️ 20121 Stock 2379 沒有end_month_df的資料
+⚠️ 20121 Stock 2382 沒有end_month_df的資料
+⚠️ 20121 Stock 2384 沒有end_month_df的資料
+⚠️ 20121 Stock 2385 沒有end_month_df的資料
+⚠️ 20121 Stock 2388 沒有end_month_df的資料
+⚠️ 20121 Stock 2392 沒有end_month_df的資料
+⚠️ 20121 Stock 2393 沒有end_month_df的資料
+⚠️ 20121 Stock 2395 沒有end_month_df的資料
+⚠️ 20121 Stock 2409 沒有end_month_df的資料
+⚠️ 20121 Stock 2412 沒有end_month_df的資料
+⚠️ 20121 Stock 2448 沒有end_month_df的資料
+⚠️ 20121 Stock 2450 沒有end_month_df的資料
+⚠️ 20121 Stock 2451 沒有end_month_df的資料
+⚠️ 20121 Stock 2454 沒有end_month_df的資料
+⚠️ 20121 Stock 2474 沒有end_month_df的資料
+⚠️ 20121 Stock 2498 沒有end_month_df的資料
+⚠️ 20121 Stock 2501 沒有end_month_df的資料
+⚠️ 20121 Stock 2504 沒有end_month_df的資料
+⚠️ 20121 Stock 2511 沒有end_month_df的資料
+⚠️ 20121 Stock 2542 沒有end_month_df的資料
+⚠️ 20121 Stock 2545 沒有end_month_df的資料
+⚠️ 20121 Stock 2547 沒有end_month_df的資料
+⚠️ 20121 Stock 2548 沒有end_month_df的資料
+⚠️ 20121 Stock 2603 沒有end_month_df的資料
+⚠️ 20121 Stock 2606 沒有end_month_df的資料
+⚠️ 20121 Stock 2607 沒有end_month_df的資料
+⚠️ 20121 Stock 2609 沒有end_month_df的資料
+⚠️ 20121 Stock 2610 沒有end_month_df的資料
+⚠️ 20121 Stock 2615 沒有end_month_df的資料
+⚠️ 20121 Stock 2618 沒有end_month_df的資料
+⚠️ 20121 Stock 2707 沒有end_month_df的資料
+⚠️ 20121 Stock 2723 沒有end_month_df的資料
+⚠️ 20121 Stock 2801 沒有end_month_df的資料
+⚠️ 20121 Stock 2809 沒有end_month_df的資料
+⚠️ 20121 Stock 2812 沒有end_month_df的資料
+⚠️ 20121 Stock 2823 沒有end_month_df的資料
+⚠️ 20121 Stock 2834 沒有end_month_df的資料
+⚠️ 20121 Stock 2838 沒有end_month_df的資料
+⚠️ 20121 Stock 2845 沒有end_month_df的資料
+⚠️ 20121 Stock 2847 沒有end_month_df的資料
+⚠️ 20121 Stock 2849 沒有end_month_df的資料
+⚠️ 20121 Stock 2855 沒有end_month_df的資料
+⚠️ 20121 Stock 2880 沒有end_month_df的資料
+⚠️ 20121 Stock 2881 沒有end_month_df的資料
+⚠️ 20121 Stock 2882 沒有end_month_df的資料
+⚠️ 20121 Stock 2883 沒有end_month_df的資料
+⚠️ 20121 Stock 2884 沒有end_month_df的資料
+⚠️ 20121 Stock 2885 沒有end_month_df的資料
+⚠️ 20121 Stock 2886 沒有end_month_df的資料
+⚠️ 20121 Stock 2887 沒有end_month_df的資料
+⚠️ 20121 Stock 2888 沒有end_month_df的資料
+⚠️ 20121 Stock 2889 沒有end_month_df的資料
+⚠️ 20121 Stock 2890 沒有end_month_df的資料
+⚠️ 20121 Stock 2891 沒有end_month_df的資料
+⚠️ 20121 Stock 2892 沒有end_month_df的資料
+⚠️ 20121 Stock 2903 沒有end_month_df的資料
+⚠️ 20121 Stock 2905 沒有end_month_df的資料
+⚠️ 20121 Stock 2912 沒有end_month_df的資料
+⚠️ 20121 Stock 2915 沒有end_month_df的資料
+⚠️ 20121 Stock 3008 沒有end_month_df的資料
+⚠️ 20121 Stock 3034 沒有end_month_df的資料
+⚠️ 20121 Stock 3037 沒有end_month_df的資料
+⚠️ 20121 Stock 3044 沒有end_month_df的資料
+⚠️ 20121 Stock 3045 沒有end_month_df的資料
+⚠️ 20121 Stock 3189 沒有end_month_df的資料
+⚠️ 20121 Stock 3231 沒有end_month_df的資料
+⚠️ 20121 Stock 3474 沒有end_month_df的資料
+⚠️ 20121 Stock 3481 沒有end_month_df的資料
+⚠️ 20121 Stock 3532 沒有end_month_df的資料
+⚠️ 20121 Stock 3673 沒有end_month_df的資料
+⚠️ 20121 Stock 3697 沒有end_month_df的資料
+⚠️ 20121 Stock 3702 沒有end_month_df的資料
+⚠️ 20121 Stock 4725 沒有end_month_df的資料
+⚠️ 20121 Stock 4904 沒有end_month_df的資料
+⚠️ 20121 Stock 4938 沒有end_month_df的資料
+⚠️ 20121 Stock 5522 沒有end_month_df的資料
+⚠️ 20121 Stock 5854 沒有end_month_df的資料
+⚠️ 20121 Stock 6005 沒有end_month_df的資料
+⚠️ 20121 Stock 6176 沒有end_month_df的資料
+⚠️ 20121 Stock 6239 沒有end_month_df的資料
+⚠️ 20121 Stock 6285 沒有end_month_df的資料
+⚠️ 20121 Stock 6286 沒有end_month_df的資料
+⚠️ 20121 Stock 6505 沒有end_month_df的資料
+⚠️ 20121 Stock 8008 沒有end_month_df的資料
+⚠️ 20121 Stock 8046 沒有end_month_df的資料
+⚠️ 20121 Stock 8078 沒有end_month_df的資料
+⚠️ 20121 Stock 8422 沒有end_month_df的資料
+⚠️ 20121 Stock 9904 沒有end_month_df的資料
+⚠️ 20121 Stock 9907 沒有end_month_df的資料
+⚠️ 20121 Stock 9914 沒有end_month_df的資料
+⚠️ 20121 Stock 9917 沒有end_month_df的資料
+⚠️ 20121 Stock 9921 沒有end_month_df的資料
+⚠️ 20121 Stock 9933 沒有end_month_df的資料
+⚠️ 20121 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:51:44：本月處理資料筆數：0
+2025/07/10 07:51:44：⚠️ No Observer RT Data 2011-11 
+2025/07/10 07:51:44：📢 Observer RT 2011-11 已處理完成
+2025/07/10 07:51:44：**Observer RT 2011-12 開始處理
+2025/07/10 07:51:44：** 2011-12股票清單長度：150
+⚠️ 20122 Stock 1101 沒有end_month_df的資料
+⚠️ 20122 Stock 1102 沒有end_month_df的資料
+⚠️ 20122 Stock 1201 沒有end_month_df的資料
+⚠️ 20122 Stock 1216 沒有end_month_df的資料
+⚠️ 20122 Stock 1227 沒有end_month_df的資料
+⚠️ 20122 Stock 1301 沒有end_month_df的資料
+⚠️ 20122 Stock 1303 沒有end_month_df的資料
+⚠️ 20122 Stock 1304 沒有end_month_df的資料
+⚠️ 20122 Stock 1314 沒有end_month_df的資料
+⚠️ 20122 Stock 1319 沒有end_month_df的資料
+⚠️ 20122 Stock 1326 沒有end_month_df的資料
+⚠️ 20122 Stock 1402 沒有end_month_df的資料
+⚠️ 20122 Stock 1434 沒有end_month_df的資料
+⚠️ 20122 Stock 1504 沒有end_month_df的資料
+⚠️ 20122 Stock 1507 沒有end_month_df的資料
+⚠️ 20122 Stock 1590 沒有end_month_df的資料
+⚠️ 20122 Stock 1605 沒有end_month_df的資料
+⚠️ 20122 Stock 1704 沒有end_month_df的資料
+⚠️ 20122 Stock 1710 沒有end_month_df的資料
+⚠️ 20122 Stock 1717 沒有end_month_df的資料
+⚠️ 20122 Stock 1722 沒有end_month_df的資料
+⚠️ 20122 Stock 1723 沒有end_month_df的資料
+⚠️ 20122 Stock 1789 沒有end_month_df的資料
+⚠️ 20122 Stock 1802 沒有end_month_df的資料
+⚠️ 20122 Stock 1907 沒有end_month_df的資料
+⚠️ 20122 Stock 2002 沒有end_month_df的資料
+⚠️ 20122 Stock 2006 沒有end_month_df的資料
+⚠️ 20122 Stock 2015 沒有end_month_df的資料
+⚠️ 20122 Stock 2049 沒有end_month_df的資料
+⚠️ 20122 Stock 2101 沒有end_month_df的資料
+⚠️ 20122 Stock 2103 沒有end_month_df的資料
+⚠️ 20122 Stock 2105 沒有end_month_df的資料
+⚠️ 20122 Stock 2106 沒有end_month_df的資料
+⚠️ 20122 Stock 2201 沒有end_month_df的資料
+⚠️ 20122 Stock 2204 沒有end_month_df的資料
+⚠️ 20122 Stock 2207 沒有end_month_df的資料
+⚠️ 20122 Stock 2208 沒有end_month_df的資料
+⚠️ 20122 Stock 2227 沒有end_month_df的資料
+⚠️ 20122 Stock 2301 沒有end_month_df的資料
+⚠️ 20122 Stock 2303 沒有end_month_df的資料
+⚠️ 20122 Stock 2308 沒有end_month_df的資料
+⚠️ 20122 Stock 2311 沒有end_month_df的資料
+⚠️ 20122 Stock 2317 沒有end_month_df的資料
+⚠️ 20122 Stock 2324 沒有end_month_df的資料
+⚠️ 20122 Stock 2325 沒有end_month_df的資料
+⚠️ 20122 Stock 2327 沒有end_month_df的資料
+⚠️ 20122 Stock 2330 沒有end_month_df的資料
+⚠️ 20122 Stock 2337 沒有end_month_df的資料
+⚠️ 20122 Stock 2347 沒有end_month_df的資料
+⚠️ 20122 Stock 2353 沒有end_month_df的資料
+⚠️ 20122 Stock 2354 沒有end_month_df的資料
+⚠️ 20122 Stock 2356 沒有end_month_df的資料
+⚠️ 20122 Stock 2357 沒有end_month_df的資料
+⚠️ 20122 Stock 2360 沒有end_month_df的資料
+⚠️ 20122 Stock 2362 沒有end_month_df的資料
+⚠️ 20122 Stock 2371 沒有end_month_df的資料
+⚠️ 20122 Stock 2379 沒有end_month_df的資料
+⚠️ 20122 Stock 2382 沒有end_month_df的資料
+⚠️ 20122 Stock 2384 沒有end_month_df的資料
+⚠️ 20122 Stock 2385 沒有end_month_df的資料
+⚠️ 20122 Stock 2388 沒有end_month_df的資料
+⚠️ 20122 Stock 2392 沒有end_month_df的資料
+⚠️ 20122 Stock 2393 沒有end_month_df的資料
+⚠️ 20122 Stock 2395 沒有end_month_df的資料
+⚠️ 20122 Stock 2409 沒有end_month_df的資料
+⚠️ 20122 Stock 2412 沒有end_month_df的資料
+⚠️ 20122 Stock 2448 沒有end_month_df的資料
+⚠️ 20122 Stock 2450 沒有end_month_df的資料
+⚠️ 20122 Stock 2451 沒有end_month_df的資料
+⚠️ 20122 Stock 2454 沒有end_month_df的資料
+⚠️ 20122 Stock 2474 沒有end_month_df的資料
+⚠️ 20122 Stock 2498 沒有end_month_df的資料
+⚠️ 20122 Stock 2501 沒有end_month_df的資料
+⚠️ 20122 Stock 2504 沒有end_month_df的資料
+⚠️ 20122 Stock 2511 沒有end_month_df的資料
+⚠️ 20122 Stock 2542 沒有end_month_df的資料
+⚠️ 20122 Stock 2548 沒有end_month_df的資料
+⚠️ 20122 Stock 2603 沒有end_month_df的資料
+⚠️ 20122 Stock 2606 沒有end_month_df的資料
+⚠️ 20122 Stock 2609 沒有end_month_df的資料
+⚠️ 20122 Stock 2610 沒有end_month_df的資料
+⚠️ 20122 Stock 2615 沒有end_month_df的資料
+⚠️ 20122 Stock 2618 沒有end_month_df的資料
+⚠️ 20122 Stock 2707 沒有end_month_df的資料
+⚠️ 20122 Stock 2723 沒有end_month_df的資料
+⚠️ 20122 Stock 2801 沒有end_month_df的資料
+⚠️ 20122 Stock 2809 沒有end_month_df的資料
+⚠️ 20122 Stock 2812 沒有end_month_df的資料
+⚠️ 20122 Stock 2823 沒有end_month_df的資料
+⚠️ 20122 Stock 2834 沒有end_month_df的資料
+⚠️ 20122 Stock 2838 沒有end_month_df的資料
+⚠️ 20122 Stock 2845 沒有end_month_df的資料
+⚠️ 20122 Stock 2847 沒有end_month_df的資料
+⚠️ 20122 Stock 2849 沒有end_month_df的資料
+⚠️ 20122 Stock 2855 沒有end_month_df的資料
+⚠️ 20122 Stock 2880 沒有end_month_df的資料
+⚠️ 20122 Stock 2881 沒有end_month_df的資料
+⚠️ 20122 Stock 2882 沒有end_month_df的資料
+⚠️ 20122 Stock 2883 沒有end_month_df的資料
+⚠️ 20122 Stock 2884 沒有end_month_df的資料
+⚠️ 20122 Stock 2885 沒有end_month_df的資料
+⚠️ 20122 Stock 2886 沒有end_month_df的資料
+⚠️ 20122 Stock 2887 沒有end_month_df的資料
+⚠️ 20122 Stock 2887C 沒有end_month_df的資料
+⚠️ 20122 Stock 2888 沒有end_month_df的資料
+⚠️ 20122 Stock 2889 沒有end_month_df的資料
+⚠️ 20122 Stock 2890 沒有end_month_df的資料
+⚠️ 20122 Stock 2891 沒有end_month_df的資料
+⚠️ 20122 Stock 2892 沒有end_month_df的資料
+⚠️ 20122 Stock 2903 沒有end_month_df的資料
+⚠️ 20122 Stock 2905 沒有end_month_df的資料
+⚠️ 20122 Stock 2912 沒有end_month_df的資料
+⚠️ 20122 Stock 2915 沒有end_month_df的資料
+⚠️ 20122 Stock 3008 沒有end_month_df的資料
+⚠️ 20122 Stock 3034 沒有end_month_df的資料
+⚠️ 20122 Stock 3037 沒有end_month_df的資料
+⚠️ 20122 Stock 3044 沒有end_month_df的資料
+⚠️ 20122 Stock 3045 沒有end_month_df的資料
+⚠️ 20122 Stock 3189 沒有end_month_df的資料
+⚠️ 20122 Stock 3231 沒有end_month_df的資料
+⚠️ 20122 Stock 3474 沒有end_month_df的資料
+⚠️ 20122 Stock 3481 沒有end_month_df的資料
+⚠️ 20122 Stock 3532 沒有end_month_df的資料
+⚠️ 20122 Stock 3673 沒有end_month_df的資料
+⚠️ 20122 Stock 3697 沒有end_month_df的資料
+⚠️ 20122 Stock 3702 沒有end_month_df的資料
+⚠️ 20122 Stock 4725 沒有end_month_df的資料
+⚠️ 20122 Stock 4904 沒有end_month_df的資料
+⚠️ 20122 Stock 4938 沒有end_month_df的資料
+⚠️ 20122 Stock 4958 沒有end_month_df的資料
+⚠️ 20122 Stock 5522 沒有end_month_df的資料
+⚠️ 20122 Stock 5871 沒有end_month_df的資料
+⚠️ 20122 Stock 5880 沒有end_month_df的資料
+⚠️ 20122 Stock 6005 沒有end_month_df的資料
+⚠️ 20122 Stock 6176 沒有end_month_df的資料
+⚠️ 20122 Stock 6239 沒有end_month_df的資料
+⚠️ 20122 Stock 6286 沒有end_month_df的資料
+⚠️ 20122 Stock 6505 沒有end_month_df的資料
+⚠️ 20122 Stock 8008 沒有end_month_df的資料
+⚠️ 20122 Stock 8046 沒有end_month_df的資料
+⚠️ 20122 Stock 8078 沒有end_month_df的資料
+⚠️ 20122 Stock 8422 沒有end_month_df的資料
+⚠️ 20122 Stock 9904 沒有end_month_df的資料
+⚠️ 20122 Stock 9907 沒有end_month_df的資料
+⚠️ 20122 Stock 9914 沒有end_month_df的資料
+⚠️ 20122 Stock 9917 沒有end_month_df的資料
+⚠️ 20122 Stock 9921 沒有end_month_df的資料
+⚠️ 20122 Stock 9933 沒有end_month_df的資料
+⚠️ 20122 Stock 9940 沒有end_month_df的資料
+⚠️ 20122 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:51:46：本月處理資料筆數：0
+2025/07/10 07:51:46：⚠️ No Observer RT Data 2011-12 
+2025/07/10 07:51:46：📢 Observer RT 2011-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2012 ~ 2012 合併資料筆數：84253
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+2025/07/10 07:51:46：**Observer RT 2012-01 開始處理
+2025/07/10 07:51:46：** 2012-01股票清單長度：150
+2025/07/10 07:51:48：本月處理資料筆數：150
+2025/07/10 07:51:48：📢 Observer RT 2012-01 已處理完成
+2025/07/10 07:51:48：**Observer RT 2012-02 開始處理
+2025/07/10 07:51:48：** 2012-02股票清單長度：150
+2025/07/10 07:51:50：本月處理資料筆數：150
+2025/07/10 07:51:50：📢 Observer RT 2012-02 已處理完成
+2025/07/10 07:51:50：**Observer RT 2012-03 開始處理
+2025/07/10 07:51:50：** 2012-03股票清單長度：150
+2025/07/10 07:51:52：本月處理資料筆數：150
+2025/07/10 07:51:52：📢 Observer RT 2012-03 已處理完成
+2025/07/10 07:51:52：**Observer RT 2012-04 開始處理
+2025/07/10 07:51:52：** 2012-04股票清單長度：150
+2025/07/10 07:51:54：本月處理資料筆數：150
+2025/07/10 07:51:54：📢 Observer RT 2012-04 已處理完成
+2025/07/10 07:51:54：**Observer RT 2012-05 開始處理
+2025/07/10 07:51:54：** 2012-05股票清單長度：150
+2025/07/10 07:51:56：本月處理資料筆數：150
+2025/07/10 07:51:56：📢 Observer RT 2012-05 已處理完成
+2025/07/10 07:51:56：**Observer RT 2012-06 開始處理
+2025/07/10 07:51:56：** 2012-06股票清單長度：150
+2025/07/10 07:51:58：本月處理資料筆數：150
+2025/07/10 07:51:58：📢 Observer RT 2012-06 已處理完成
+2025/07/10 07:51:58：**Observer RT 2012-07 開始處理
+2025/07/10 07:51:58：** 2012-07股票清單長度：150
+2025/07/10 07:52:00：本月處理資料筆數：150
+2025/07/10 07:52:00：📢 Observer RT 2012-07 已處理完成
+2025/07/10 07:52:00：**Observer RT 2012-08 開始處理
+2025/07/10 07:52:00：** 2012-08股票清單長度：150
+2025/07/10 07:52:02：本月處理資料筆數：150
+2025/07/10 07:52:02：📢 Observer RT 2012-08 已處理完成
+2025/07/10 07:52:02：**Observer RT 2012-09 開始處理
+2025/07/10 07:52:02：** 2012-09股票清單長度：150
+2025/07/10 07:52:04：本月處理資料筆數：150
+2025/07/10 07:52:04：📢 Observer RT 2012-09 已處理完成
+2025/07/10 07:52:04：**Observer RT 2012-10 開始處理
+2025/07/10 07:52:04：** 2012-10股票清單長度：150
+2025/07/10 07:52:05：本月處理資料筆數：150
+2025/07/10 07:52:05：📢 Observer RT 2012-10 已處理完成
+2025/07/10 07:52:05：**Observer RT 2012-11 開始處理
+2025/07/10 07:52:05：** 2012-11股票清單長度：150
+⚠️ 20131 Stock 1101 沒有end_month_df的資料
+⚠️ 20131 Stock 1102 沒有end_month_df的資料
+⚠️ 20131 Stock 1216 沒有end_month_df的資料
+⚠️ 20131 Stock 1227 沒有end_month_df的資料
+⚠️ 20131 Stock 1234 沒有end_month_df的資料
+⚠️ 20131 Stock 1301 沒有end_month_df的資料
+⚠️ 20131 Stock 1303 沒有end_month_df的資料
+⚠️ 20131 Stock 1304 沒有end_month_df的資料
+⚠️ 20131 Stock 1314 沒有end_month_df的資料
+⚠️ 20131 Stock 1326 沒有end_month_df的資料
+⚠️ 20131 Stock 1402 沒有end_month_df的資料
+⚠️ 20131 Stock 1434 沒有end_month_df的資料
+⚠️ 20131 Stock 1440 沒有end_month_df的資料
+⚠️ 20131 Stock 1476 沒有end_month_df的資料
+⚠️ 20131 Stock 1503 沒有end_month_df的資料
+⚠️ 20131 Stock 1504 沒有end_month_df的資料
+⚠️ 20131 Stock 1507 沒有end_month_df的資料
+⚠️ 20131 Stock 1590 沒有end_month_df的資料
+⚠️ 20131 Stock 1605 沒有end_month_df的資料
+⚠️ 20131 Stock 1704 沒有end_month_df的資料
+⚠️ 20131 Stock 1710 沒有end_month_df的資料
+⚠️ 20131 Stock 1717 沒有end_month_df的資料
+⚠️ 20131 Stock 1722 沒有end_month_df的資料
+⚠️ 20131 Stock 1723 沒有end_month_df的資料
+⚠️ 20131 Stock 1789 沒有end_month_df的資料
+⚠️ 20131 Stock 1802 沒有end_month_df的資料
+⚠️ 20131 Stock 1907 沒有end_month_df的資料
+⚠️ 20131 Stock 2002 沒有end_month_df的資料
+⚠️ 20131 Stock 2006 沒有end_month_df的資料
+⚠️ 20131 Stock 2015 沒有end_month_df的資料
+⚠️ 20131 Stock 2049 沒有end_month_df的資料
+⚠️ 20131 Stock 2101 沒有end_month_df的資料
+⚠️ 20131 Stock 2103 沒有end_month_df的資料
+⚠️ 20131 Stock 2105 沒有end_month_df的資料
+⚠️ 20131 Stock 2106 沒有end_month_df的資料
+⚠️ 20131 Stock 2201 沒有end_month_df的資料
+⚠️ 20131 Stock 2204 沒有end_month_df的資料
+⚠️ 20131 Stock 2207 沒有end_month_df的資料
+⚠️ 20131 Stock 2227 沒有end_month_df的資料
+⚠️ 20131 Stock 2301 沒有end_month_df的資料
+⚠️ 20131 Stock 2303 沒有end_month_df的資料
+⚠️ 20131 Stock 2308 沒有end_month_df的資料
+⚠️ 20131 Stock 2311 沒有end_month_df的資料
+⚠️ 20131 Stock 2317 沒有end_month_df的資料
+⚠️ 20131 Stock 2324 沒有end_month_df的資料
+⚠️ 20131 Stock 2325 沒有end_month_df的資料
+⚠️ 20131 Stock 2327 沒有end_month_df的資料
+⚠️ 20131 Stock 2330 沒有end_month_df的資料
+⚠️ 20131 Stock 2337 沒有end_month_df的資料
+⚠️ 20131 Stock 2347 沒有end_month_df的資料
+⚠️ 20131 Stock 2353 沒有end_month_df的資料
+⚠️ 20131 Stock 2354 沒有end_month_df的資料
+⚠️ 20131 Stock 2356 沒有end_month_df的資料
+⚠️ 20131 Stock 2357 沒有end_month_df的資料
+⚠️ 20131 Stock 2360 沒有end_month_df的資料
+⚠️ 20131 Stock 2362 沒有end_month_df的資料
+⚠️ 20131 Stock 2379 沒有end_month_df的資料
+⚠️ 20131 Stock 2382 沒有end_month_df的資料
+⚠️ 20131 Stock 2384 沒有end_month_df的資料
+⚠️ 20131 Stock 2385 沒有end_month_df的資料
+⚠️ 20131 Stock 2392 沒有end_month_df的資料
+⚠️ 20131 Stock 2395 沒有end_month_df的資料
+⚠️ 20131 Stock 2408 沒有end_month_df的資料
+⚠️ 20131 Stock 2409 沒有end_month_df的資料
+⚠️ 20131 Stock 2412 沒有end_month_df的資料
+⚠️ 20131 Stock 2448 沒有end_month_df的資料
+⚠️ 20131 Stock 2449 沒有end_month_df的資料
+⚠️ 20131 Stock 2450 沒有end_month_df的資料
+⚠️ 20131 Stock 2451 沒有end_month_df的資料
+⚠️ 20131 Stock 2454 沒有end_month_df的資料
+⚠️ 20131 Stock 2474 沒有end_month_df的資料
+⚠️ 20131 Stock 2489 沒有end_month_df的資料
+⚠️ 20131 Stock 2498 沒有end_month_df的資料
+⚠️ 20131 Stock 2501 沒有end_month_df的資料
+⚠️ 20131 Stock 2511 沒有end_month_df的資料
+⚠️ 20131 Stock 2542 沒有end_month_df的資料
+⚠️ 20131 Stock 2545 沒有end_month_df的資料
+⚠️ 20131 Stock 2603 沒有end_month_df的資料
+⚠️ 20131 Stock 2606 沒有end_month_df的資料
+⚠️ 20131 Stock 2607 沒有end_month_df的資料
+⚠️ 20131 Stock 2608 沒有end_month_df的資料
+⚠️ 20131 Stock 2609 沒有end_month_df的資料
+⚠️ 20131 Stock 2610 沒有end_month_df的資料
+⚠️ 20131 Stock 2615 沒有end_month_df的資料
+⚠️ 20131 Stock 2618 沒有end_month_df的資料
+⚠️ 20131 Stock 2707 沒有end_month_df的資料
+⚠️ 20131 Stock 2723 沒有end_month_df的資料
+⚠️ 20131 Stock 2727 沒有end_month_df的資料
+⚠️ 20131 Stock 2801 沒有end_month_df的資料
+⚠️ 20131 Stock 2809 沒有end_month_df的資料
+⚠️ 20131 Stock 2812 沒有end_month_df的資料
+⚠️ 20131 Stock 2823 沒有end_month_df的資料
+⚠️ 20131 Stock 2834 沒有end_month_df的資料
+⚠️ 20131 Stock 2838 沒有end_month_df的資料
+⚠️ 20131 Stock 2845 沒有end_month_df的資料
+⚠️ 20131 Stock 2847 沒有end_month_df的資料
+⚠️ 20131 Stock 2849 沒有end_month_df的資料
+⚠️ 20131 Stock 2855 沒有end_month_df的資料
+⚠️ 20131 Stock 2880 沒有end_month_df的資料
+⚠️ 20131 Stock 2881 沒有end_month_df的資料
+⚠️ 20131 Stock 2882 沒有end_month_df的資料
+⚠️ 20131 Stock 2883 沒有end_month_df的資料
+⚠️ 20131 Stock 2884 沒有end_month_df的資料
+⚠️ 20131 Stock 2885 沒有end_month_df的資料
+⚠️ 20131 Stock 2886 沒有end_month_df的資料
+⚠️ 20131 Stock 2887 沒有end_month_df的資料
+⚠️ 20131 Stock 2888 沒有end_month_df的資料
+⚠️ 20131 Stock 2889 沒有end_month_df的資料
+⚠️ 20131 Stock 2890 沒有end_month_df的資料
+⚠️ 20131 Stock 2891 沒有end_month_df的資料
+⚠️ 20131 Stock 2892 沒有end_month_df的資料
+⚠️ 20131 Stock 2903 沒有end_month_df的資料
+⚠️ 20131 Stock 2912 沒有end_month_df的資料
+⚠️ 20131 Stock 2915 沒有end_month_df的資料
+⚠️ 20131 Stock 3008 沒有end_month_df的資料
+⚠️ 20131 Stock 3034 沒有end_month_df的資料
+⚠️ 20131 Stock 3037 沒有end_month_df的資料
+⚠️ 20131 Stock 3044 沒有end_month_df的資料
+⚠️ 20131 Stock 3045 沒有end_month_df的資料
+⚠️ 20131 Stock 3149 沒有end_month_df的資料
+⚠️ 20131 Stock 3189 沒有end_month_df的資料
+⚠️ 20131 Stock 3231 沒有end_month_df的資料
+⚠️ 20131 Stock 3406 沒有end_month_df的資料
+⚠️ 20131 Stock 3481 沒有end_month_df的資料
+⚠️ 20131 Stock 3532 沒有end_month_df的資料
+⚠️ 20131 Stock 3673 沒有end_month_df的資料
+⚠️ 20131 Stock 3697 沒有end_month_df的資料
+⚠️ 20131 Stock 3702 沒有end_month_df的資料
+⚠️ 20131 Stock 4904 沒有end_month_df的資料
+⚠️ 20131 Stock 4938 沒有end_month_df的資料
+⚠️ 20131 Stock 4958 沒有end_month_df的資料
+⚠️ 20131 Stock 5522 沒有end_month_df的資料
+⚠️ 20131 Stock 5871 沒有end_month_df的資料
+⚠️ 20131 Stock 5880 沒有end_month_df的資料
+⚠️ 20131 Stock 6005 沒有end_month_df的資料
+⚠️ 20131 Stock 6176 沒有end_month_df的資料
+⚠️ 20131 Stock 6239 沒有end_month_df的資料
+⚠️ 20131 Stock 6269 沒有end_month_df的資料
+⚠️ 20131 Stock 6286 沒有end_month_df的資料
+⚠️ 20131 Stock 6505 沒有end_month_df的資料
+⚠️ 20131 Stock 8008 沒有end_month_df的資料
+⚠️ 20131 Stock 8046 沒有end_month_df的資料
+⚠️ 20131 Stock 8422 沒有end_month_df的資料
+⚠️ 20131 Stock 9904 沒有end_month_df的資料
+⚠️ 20131 Stock 9907 沒有end_month_df的資料
+⚠️ 20131 Stock 9914 沒有end_month_df的資料
+⚠️ 20131 Stock 9917 沒有end_month_df的資料
+⚠️ 20131 Stock 9921 沒有end_month_df的資料
+⚠️ 20131 Stock 9933 沒有end_month_df的資料
+⚠️ 20131 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:52:08：本月處理資料筆數：0
+2025/07/10 07:52:08：⚠️ No Observer RT Data 2012-11 
+2025/07/10 07:52:08：📢 Observer RT 2012-11 已處理完成
+2025/07/10 07:52:08：**Observer RT 2012-12 開始處理
+2025/07/10 07:52:08：** 2012-12股票清單長度：150
+⚠️ 20132 Stock 1101 沒有end_month_df的資料
+⚠️ 20132 Stock 1102 沒有end_month_df的資料
+⚠️ 20132 Stock 1216 沒有end_month_df的資料
+⚠️ 20132 Stock 1227 沒有end_month_df的資料
+⚠️ 20132 Stock 1234 沒有end_month_df的資料
+⚠️ 20132 Stock 1301 沒有end_month_df的資料
+⚠️ 20132 Stock 1303 沒有end_month_df的資料
+⚠️ 20132 Stock 1304 沒有end_month_df的資料
+⚠️ 20132 Stock 1314 沒有end_month_df的資料
+⚠️ 20132 Stock 1326 沒有end_month_df的資料
+⚠️ 20132 Stock 1402 沒有end_month_df的資料
+⚠️ 20132 Stock 1434 沒有end_month_df的資料
+⚠️ 20132 Stock 1440 沒有end_month_df的資料
+⚠️ 20132 Stock 1476 沒有end_month_df的資料
+⚠️ 20132 Stock 1504 沒有end_month_df的資料
+⚠️ 20132 Stock 1507 沒有end_month_df的資料
+⚠️ 20132 Stock 1590 沒有end_month_df的資料
+⚠️ 20132 Stock 1605 沒有end_month_df的資料
+⚠️ 20132 Stock 1704 沒有end_month_df的資料
+⚠️ 20132 Stock 1710 沒有end_month_df的資料
+⚠️ 20132 Stock 1717 沒有end_month_df的資料
+⚠️ 20132 Stock 1722 沒有end_month_df的資料
+⚠️ 20132 Stock 1723 沒有end_month_df的資料
+⚠️ 20132 Stock 1789 沒有end_month_df的資料
+⚠️ 20132 Stock 1802 沒有end_month_df的資料
+⚠️ 20132 Stock 1907 沒有end_month_df的資料
+⚠️ 20132 Stock 2002 沒有end_month_df的資料
+⚠️ 20132 Stock 2006 沒有end_month_df的資料
+⚠️ 20132 Stock 2015 沒有end_month_df的資料
+⚠️ 20132 Stock 2049 沒有end_month_df的資料
+⚠️ 20132 Stock 2101 沒有end_month_df的資料
+⚠️ 20132 Stock 2103 沒有end_month_df的資料
+⚠️ 20132 Stock 2105 沒有end_month_df的資料
+⚠️ 20132 Stock 2106 沒有end_month_df的資料
+⚠️ 20132 Stock 2201 沒有end_month_df的資料
+⚠️ 20132 Stock 2204 沒有end_month_df的資料
+⚠️ 20132 Stock 2207 沒有end_month_df的資料
+⚠️ 20132 Stock 2227 沒有end_month_df的資料
+⚠️ 20132 Stock 2301 沒有end_month_df的資料
+⚠️ 20132 Stock 2303 沒有end_month_df的資料
+⚠️ 20132 Stock 2308 沒有end_month_df的資料
+⚠️ 20132 Stock 2311 沒有end_month_df的資料
+⚠️ 20132 Stock 2317 沒有end_month_df的資料
+⚠️ 20132 Stock 2324 沒有end_month_df的資料
+⚠️ 20132 Stock 2325 沒有end_month_df的資料
+⚠️ 20132 Stock 2327 沒有end_month_df的資料
+⚠️ 20132 Stock 2330 沒有end_month_df的資料
+⚠️ 20132 Stock 2337 沒有end_month_df的資料
+⚠️ 20132 Stock 2347 沒有end_month_df的資料
+⚠️ 20132 Stock 2353 沒有end_month_df的資料
+⚠️ 20132 Stock 2354 沒有end_month_df的資料
+⚠️ 20132 Stock 2356 沒有end_month_df的資料
+⚠️ 20132 Stock 2357 沒有end_month_df的資料
+⚠️ 20132 Stock 2360 沒有end_month_df的資料
+⚠️ 20132 Stock 2362 沒有end_month_df的資料
+⚠️ 20132 Stock 2379 沒有end_month_df的資料
+⚠️ 20132 Stock 2382 沒有end_month_df的資料
+⚠️ 20132 Stock 2384 沒有end_month_df的資料
+⚠️ 20132 Stock 2385 沒有end_month_df的資料
+⚠️ 20132 Stock 2392 沒有end_month_df的資料
+⚠️ 20132 Stock 2395 沒有end_month_df的資料
+⚠️ 20132 Stock 2408 沒有end_month_df的資料
+⚠️ 20132 Stock 2409 沒有end_month_df的資料
+⚠️ 20132 Stock 2412 沒有end_month_df的資料
+⚠️ 20132 Stock 2448 沒有end_month_df的資料
+⚠️ 20132 Stock 2449 沒有end_month_df的資料
+⚠️ 20132 Stock 2450 沒有end_month_df的資料
+⚠️ 20132 Stock 2451 沒有end_month_df的資料
+⚠️ 20132 Stock 2454 沒有end_month_df的資料
+⚠️ 20132 Stock 2474 沒有end_month_df的資料
+⚠️ 20132 Stock 2498 沒有end_month_df的資料
+⚠️ 20132 Stock 2501 沒有end_month_df的資料
+⚠️ 20132 Stock 2511 沒有end_month_df的資料
+⚠️ 20132 Stock 2542 沒有end_month_df的資料
+⚠️ 20132 Stock 2545 沒有end_month_df的資料
+⚠️ 20132 Stock 2603 沒有end_month_df的資料
+⚠️ 20132 Stock 2606 沒有end_month_df的資料
+⚠️ 20132 Stock 2607 沒有end_month_df的資料
+⚠️ 20132 Stock 2608 沒有end_month_df的資料
+⚠️ 20132 Stock 2609 沒有end_month_df的資料
+⚠️ 20132 Stock 2610 沒有end_month_df的資料
+⚠️ 20132 Stock 2615 沒有end_month_df的資料
+⚠️ 20132 Stock 2618 沒有end_month_df的資料
+⚠️ 20132 Stock 2707 沒有end_month_df的資料
+⚠️ 20132 Stock 2723 沒有end_month_df的資料
+⚠️ 20132 Stock 2727 沒有end_month_df的資料
+⚠️ 20132 Stock 2801 沒有end_month_df的資料
+⚠️ 20132 Stock 2809 沒有end_month_df的資料
+⚠️ 20132 Stock 2812 沒有end_month_df的資料
+⚠️ 20132 Stock 2823 沒有end_month_df的資料
+⚠️ 20132 Stock 2834 沒有end_month_df的資料
+⚠️ 20132 Stock 2838 沒有end_month_df的資料
+⚠️ 20132 Stock 2845 沒有end_month_df的資料
+⚠️ 20132 Stock 2847 沒有end_month_df的資料
+⚠️ 20132 Stock 2849 沒有end_month_df的資料
+⚠️ 20132 Stock 2855 沒有end_month_df的資料
+⚠️ 20132 Stock 2867 沒有end_month_df的資料
+⚠️ 20132 Stock 2880 沒有end_month_df的資料
+⚠️ 20132 Stock 2881 沒有end_month_df的資料
+⚠️ 20132 Stock 2882 沒有end_month_df的資料
+⚠️ 20132 Stock 2883 沒有end_month_df的資料
+⚠️ 20132 Stock 2884 沒有end_month_df的資料
+⚠️ 20132 Stock 2885 沒有end_month_df的資料
+⚠️ 20132 Stock 2886 沒有end_month_df的資料
+⚠️ 20132 Stock 2887 沒有end_month_df的資料
+⚠️ 20132 Stock 2888 沒有end_month_df的資料
+⚠️ 20132 Stock 2889 沒有end_month_df的資料
+⚠️ 20132 Stock 2890 沒有end_month_df的資料
+⚠️ 20132 Stock 2891 沒有end_month_df的資料
+⚠️ 20132 Stock 2892 沒有end_month_df的資料
+⚠️ 20132 Stock 2903 沒有end_month_df的資料
+⚠️ 20132 Stock 2912 沒有end_month_df的資料
+⚠️ 20132 Stock 2915 沒有end_month_df的資料
+⚠️ 20132 Stock 2923 沒有end_month_df的資料
+⚠️ 20132 Stock 3008 沒有end_month_df的資料
+⚠️ 20132 Stock 3034 沒有end_month_df的資料
+⚠️ 20132 Stock 3037 沒有end_month_df的資料
+⚠️ 20132 Stock 3044 沒有end_month_df的資料
+⚠️ 20132 Stock 3045 沒有end_month_df的資料
+⚠️ 20132 Stock 3149 沒有end_month_df的資料
+⚠️ 20132 Stock 3189 沒有end_month_df的資料
+⚠️ 20132 Stock 3231 沒有end_month_df的資料
+⚠️ 20132 Stock 3481 沒有end_month_df的資料
+⚠️ 20132 Stock 3532 沒有end_month_df的資料
+⚠️ 20132 Stock 3673 沒有end_month_df的資料
+⚠️ 20132 Stock 3697 沒有end_month_df的資料
+⚠️ 20132 Stock 3702 沒有end_month_df的資料
+⚠️ 20132 Stock 4904 沒有end_month_df的資料
+⚠️ 20132 Stock 4938 沒有end_month_df的資料
+⚠️ 20132 Stock 4958 沒有end_month_df的資料
+⚠️ 20132 Stock 5522 沒有end_month_df的資料
+⚠️ 20132 Stock 5534 沒有end_month_df的資料
+⚠️ 20132 Stock 5871 沒有end_month_df的資料
+⚠️ 20132 Stock 5880 沒有end_month_df的資料
+⚠️ 20132 Stock 6005 沒有end_month_df的資料
+⚠️ 20132 Stock 6176 沒有end_month_df的資料
+⚠️ 20132 Stock 6239 沒有end_month_df的資料
+⚠️ 20132 Stock 6269 沒有end_month_df的資料
+⚠️ 20132 Stock 6286 沒有end_month_df的資料
+⚠️ 20132 Stock 6505 沒有end_month_df的資料
+⚠️ 20132 Stock 8008 沒有end_month_df的資料
+⚠️ 20132 Stock 8046 沒有end_month_df的資料
+⚠️ 20132 Stock 8422 沒有end_month_df的資料
+⚠️ 20132 Stock 9904 沒有end_month_df的資料
+⚠️ 20132 Stock 9907 沒有end_month_df的資料
+⚠️ 20132 Stock 9914 沒有end_month_df的資料
+⚠️ 20132 Stock 9917 沒有end_month_df的資料
+⚠️ 20132 Stock 9921 沒有end_month_df的資料
+⚠️ 20132 Stock 9933 沒有end_month_df的資料
+⚠️ 20132 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:52:10：本月處理資料筆數：0
+2025/07/10 07:52:10：⚠️ No Observer RT Data 2012-12 
+2025/07/10 07:52:10：📢 Observer RT 2012-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2013 ~ 2013 合併資料筆數：84756
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+2025/07/10 07:52:10：**Observer RT 2013-01 開始處理
+2025/07/10 07:52:10：** 2013-01股票清單長度：150
+2025/07/10 07:52:12：本月處理資料筆數：150
+2025/07/10 07:52:12：📢 Observer RT 2013-01 已處理完成
+2025/07/10 07:52:12：**Observer RT 2013-02 開始處理
+2025/07/10 07:52:12：** 2013-02股票清單長度：150
+2025/07/10 07:52:14：本月處理資料筆數：150
+2025/07/10 07:52:14：📢 Observer RT 2013-02 已處理完成
+2025/07/10 07:52:14：**Observer RT 2013-03 開始處理
+2025/07/10 07:52:14：** 2013-03股票清單長度：150
+2025/07/10 07:52:16：本月處理資料筆數：150
+2025/07/10 07:52:16：📢 Observer RT 2013-03 已處理完成
+2025/07/10 07:52:16：**Observer RT 2013-04 開始處理
+2025/07/10 07:52:16：** 2013-04股票清單長度：150
+2025/07/10 07:52:18：本月處理資料筆數：150
+2025/07/10 07:52:18：📢 Observer RT 2013-04 已處理完成
+2025/07/10 07:52:18：**Observer RT 2013-05 開始處理
+2025/07/10 07:52:18：** 2013-05股票清單長度：150
+2025/07/10 07:52:20：本月處理資料筆數：150
+2025/07/10 07:52:20：📢 Observer RT 2013-05 已處理完成
+2025/07/10 07:52:20：**Observer RT 2013-06 開始處理
+2025/07/10 07:52:20：** 2013-06股票清單長度：150
+⚠️ 20138 Stock 8008 沒有end_month_df的資料
+2025/07/10 07:52:22：本月處理資料筆數：149
+2025/07/10 07:52:22：📢 Observer RT 2013-06 已處理完成
+2025/07/10 07:52:22：**Observer RT 2013-07 開始處理
+2025/07/10 07:52:22：** 2013-07股票清單長度：150
+⚠️ 20139 Stock 8008 沒有end_month_df的資料
+2025/07/10 07:52:24：本月處理資料筆數：149
+2025/07/10 07:52:24：📢 Observer RT 2013-07 已處理完成
+2025/07/10 07:52:24：**Observer RT 2013-08 開始處理
+2025/07/10 07:52:24：** 2013-08股票清單長度：150
+2025/07/10 07:52:26：本月處理資料筆數：150
+2025/07/10 07:52:26：📢 Observer RT 2013-08 已處理完成
+2025/07/10 07:52:26：**Observer RT 2013-09 開始處理
+2025/07/10 07:52:26：** 2013-09股票清單長度：150
+2025/07/10 07:52:28：本月處理資料筆數：150
+2025/07/10 07:52:28：📢 Observer RT 2013-09 已處理完成
+2025/07/10 07:52:28：**Observer RT 2013-10 開始處理
+2025/07/10 07:52:28：** 2013-10股票清單長度：150
+2025/07/10 07:52:29：本月處理資料筆數：150
+2025/07/10 07:52:29：📢 Observer RT 2013-10 已處理完成
+2025/07/10 07:52:29：**Observer RT 2013-11 開始處理
+2025/07/10 07:52:29：** 2013-11股票清單長度：150
+⚠️ 20141 Stock 1101 沒有end_month_df的資料
+⚠️ 20141 Stock 1102 沒有end_month_df的資料
+⚠️ 20141 Stock 1201 沒有end_month_df的資料
+⚠️ 20141 Stock 1216 沒有end_month_df的資料
+⚠️ 20141 Stock 1227 沒有end_month_df的資料
+⚠️ 20141 Stock 1301 沒有end_month_df的資料
+⚠️ 20141 Stock 1303 沒有end_month_df的資料
+⚠️ 20141 Stock 1314 沒有end_month_df的資料
+⚠️ 20141 Stock 1319 沒有end_month_df的資料
+⚠️ 20141 Stock 1326 沒有end_month_df的資料
+⚠️ 20141 Stock 1402 沒有end_month_df的資料
+⚠️ 20141 Stock 1434 沒有end_month_df的資料
+⚠️ 20141 Stock 1440 沒有end_month_df的資料
+⚠️ 20141 Stock 1476 沒有end_month_df的資料
+⚠️ 20141 Stock 1477 沒有end_month_df的資料
+⚠️ 20141 Stock 1504 沒有end_month_df的資料
+⚠️ 20141 Stock 1507 沒有end_month_df的資料
+⚠️ 20141 Stock 1590 沒有end_month_df的資料
+⚠️ 20141 Stock 1605 沒有end_month_df的資料
+⚠️ 20141 Stock 1704 沒有end_month_df的資料
+⚠️ 20141 Stock 1710 沒有end_month_df的資料
+⚠️ 20141 Stock 1717 沒有end_month_df的資料
+⚠️ 20141 Stock 1722 沒有end_month_df的資料
+⚠️ 20141 Stock 1723 沒有end_month_df的資料
+⚠️ 20141 Stock 1789 沒有end_month_df的資料
+⚠️ 20141 Stock 1802 沒有end_month_df的資料
+⚠️ 20141 Stock 1907 沒有end_month_df的資料
+⚠️ 20141 Stock 2002 沒有end_month_df的資料
+⚠️ 20141 Stock 2006 沒有end_month_df的資料
+⚠️ 20141 Stock 2015 沒有end_month_df的資料
+⚠️ 20141 Stock 2049 沒有end_month_df的資料
+⚠️ 20141 Stock 2059 沒有end_month_df的資料
+⚠️ 20141 Stock 2101 沒有end_month_df的資料
+⚠️ 20141 Stock 2103 沒有end_month_df的資料
+⚠️ 20141 Stock 2105 沒有end_month_df的資料
+⚠️ 20141 Stock 2106 沒有end_month_df的資料
+⚠️ 20141 Stock 2201 沒有end_month_df的資料
+⚠️ 20141 Stock 2204 沒有end_month_df的資料
+⚠️ 20141 Stock 2206 沒有end_month_df的資料
+⚠️ 20141 Stock 2207 沒有end_month_df的資料
+⚠️ 20141 Stock 2227 沒有end_month_df的資料
+⚠️ 20141 Stock 2301 沒有end_month_df的資料
+⚠️ 20141 Stock 2303 沒有end_month_df的資料
+⚠️ 20141 Stock 2308 沒有end_month_df的資料
+⚠️ 20141 Stock 2311 沒有end_month_df的資料
+⚠️ 20141 Stock 2317 沒有end_month_df的資料
+⚠️ 20141 Stock 2324 沒有end_month_df的資料
+⚠️ 20141 Stock 2325 沒有end_month_df的資料
+⚠️ 20141 Stock 2330 沒有end_month_df的資料
+⚠️ 20141 Stock 2337 沒有end_month_df的資料
+⚠️ 20141 Stock 2344 沒有end_month_df的資料
+⚠️ 20141 Stock 2347 沒有end_month_df的資料
+⚠️ 20141 Stock 2353 沒有end_month_df的資料
+⚠️ 20141 Stock 2354 沒有end_month_df的資料
+⚠️ 20141 Stock 2356 沒有end_month_df的資料
+⚠️ 20141 Stock 2357 沒有end_month_df的資料
+⚠️ 20141 Stock 2362 沒有end_month_df的資料
+⚠️ 20141 Stock 2379 沒有end_month_df的資料
+⚠️ 20141 Stock 2382 沒有end_month_df的資料
+⚠️ 20141 Stock 2385 沒有end_month_df的資料
+⚠️ 20141 Stock 2392 沒有end_month_df的資料
+⚠️ 20141 Stock 2395 沒有end_month_df的資料
+⚠️ 20141 Stock 2408 沒有end_month_df的資料
+⚠️ 20141 Stock 2409 沒有end_month_df的資料
+⚠️ 20141 Stock 2412 沒有end_month_df的資料
+⚠️ 20141 Stock 2448 沒有end_month_df的資料
+⚠️ 20141 Stock 2450 沒有end_month_df的資料
+⚠️ 20141 Stock 2451 沒有end_month_df的資料
+⚠️ 20141 Stock 2454 沒有end_month_df的資料
+⚠️ 20141 Stock 2474 沒有end_month_df的資料
+⚠️ 20141 Stock 2498 沒有end_month_df的資料
+⚠️ 20141 Stock 2501 沒有end_month_df的資料
+⚠️ 20141 Stock 2511 沒有end_month_df的資料
+⚠️ 20141 Stock 2542 沒有end_month_df的資料
+⚠️ 20141 Stock 2548 沒有end_month_df的資料
+⚠️ 20141 Stock 2603 沒有end_month_df的資料
+⚠️ 20141 Stock 2606 沒有end_month_df的資料
+⚠️ 20141 Stock 2609 沒有end_month_df的資料
+⚠️ 20141 Stock 2610 沒有end_month_df的資料
+⚠️ 20141 Stock 2615 沒有end_month_df的資料
+⚠️ 20141 Stock 2618 沒有end_month_df的資料
+⚠️ 20141 Stock 2707 沒有end_month_df的資料
+⚠️ 20141 Stock 2723 沒有end_month_df的資料
+⚠️ 20141 Stock 2727 沒有end_month_df的資料
+⚠️ 20141 Stock 2801 沒有end_month_df的資料
+⚠️ 20141 Stock 2809 沒有end_month_df的資料
+⚠️ 20141 Stock 2812 沒有end_month_df的資料
+⚠️ 20141 Stock 2823 沒有end_month_df的資料
+⚠️ 20141 Stock 2833 沒有end_month_df的資料
+⚠️ 20141 Stock 2834 沒有end_month_df的資料
+⚠️ 20141 Stock 2838 沒有end_month_df的資料
+⚠️ 20141 Stock 2845 沒有end_month_df的資料
+⚠️ 20141 Stock 2849 沒有end_month_df的資料
+⚠️ 20141 Stock 2867 沒有end_month_df的資料
+⚠️ 20141 Stock 2880 沒有end_month_df的資料
+⚠️ 20141 Stock 2881 沒有end_month_df的資料
+⚠️ 20141 Stock 2882 沒有end_month_df的資料
+⚠️ 20141 Stock 2883 沒有end_month_df的資料
+⚠️ 20141 Stock 2884 沒有end_month_df的資料
+⚠️ 20141 Stock 2885 沒有end_month_df的資料
+⚠️ 20141 Stock 2886 沒有end_month_df的資料
+⚠️ 20141 Stock 2887 沒有end_month_df的資料
+⚠️ 20141 Stock 2888 沒有end_month_df的資料
+⚠️ 20141 Stock 2889 沒有end_month_df的資料
+⚠️ 20141 Stock 2890 沒有end_month_df的資料
+⚠️ 20141 Stock 2891 沒有end_month_df的資料
+⚠️ 20141 Stock 2892 沒有end_month_df的資料
+⚠️ 20141 Stock 2903 沒有end_month_df的資料
+⚠️ 20141 Stock 2912 沒有end_month_df的資料
+⚠️ 20141 Stock 2915 沒有end_month_df的資料
+⚠️ 20141 Stock 2923 沒有end_month_df的資料
+⚠️ 20141 Stock 3008 沒有end_month_df的資料
+⚠️ 20141 Stock 3034 沒有end_month_df的資料
+⚠️ 20141 Stock 3037 沒有end_month_df的資料
+⚠️ 20141 Stock 3044 沒有end_month_df的資料
+⚠️ 20141 Stock 3045 沒有end_month_df的資料
+⚠️ 20141 Stock 3060 沒有end_month_df的資料
+⚠️ 20141 Stock 3189 沒有end_month_df的資料
+⚠️ 20141 Stock 3231 沒有end_month_df的資料
+⚠️ 20141 Stock 3474 沒有end_month_df的資料
+⚠️ 20141 Stock 3481 沒有end_month_df的資料
+⚠️ 20141 Stock 3576 沒有end_month_df的資料
+⚠️ 20141 Stock 3673 沒有end_month_df的資料
+⚠️ 20141 Stock 3682 沒有end_month_df的資料
+⚠️ 20141 Stock 3697 沒有end_month_df的資料
+⚠️ 20141 Stock 3702 沒有end_month_df的資料
+⚠️ 20141 Stock 4904 沒有end_month_df的資料
+⚠️ 20141 Stock 4938 沒有end_month_df的資料
+⚠️ 20141 Stock 4958 沒有end_month_df的資料
+⚠️ 20141 Stock 5264 沒有end_month_df的資料
+⚠️ 20141 Stock 5522 沒有end_month_df的資料
+⚠️ 20141 Stock 5534 沒有end_month_df的資料
+⚠️ 20141 Stock 5871 沒有end_month_df的資料
+⚠️ 20141 Stock 5880 沒有end_month_df的資料
+⚠️ 20141 Stock 6005 沒有end_month_df的資料
+⚠️ 20141 Stock 6116 沒有end_month_df的資料
+⚠️ 20141 Stock 6176 沒有end_month_df的資料
+⚠️ 20141 Stock 6239 沒有end_month_df的資料
+⚠️ 20141 Stock 6271 沒有end_month_df的資料
+⚠️ 20141 Stock 6505 沒有end_month_df的資料
+⚠️ 20141 Stock 8078 沒有end_month_df的資料
+⚠️ 20141 Stock 9904 沒有end_month_df的資料
+⚠️ 20141 Stock 9907 沒有end_month_df的資料
+⚠️ 20141 Stock 9910 沒有end_month_df的資料
+⚠️ 20141 Stock 9914 沒有end_month_df的資料
+⚠️ 20141 Stock 9917 沒有end_month_df的資料
+⚠️ 20141 Stock 9921 沒有end_month_df的資料
+⚠️ 20141 Stock 9933 沒有end_month_df的資料
+⚠️ 20141 Stock 9940 沒有end_month_df的資料
+⚠️ 20141 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:52:32：本月處理資料筆數：0
+2025/07/10 07:52:32：⚠️ No Observer RT Data 2013-11 
+2025/07/10 07:52:32：📢 Observer RT 2013-11 已處理完成
+2025/07/10 07:52:32：**Observer RT 2013-12 開始處理
+2025/07/10 07:52:32：** 2013-12股票清單長度：150
+⚠️ 20142 Stock 1101 沒有end_month_df的資料
+⚠️ 20142 Stock 1102 沒有end_month_df的資料
+⚠️ 20142 Stock 1201 沒有end_month_df的資料
+⚠️ 20142 Stock 1216 沒有end_month_df的資料
+⚠️ 20142 Stock 1227 沒有end_month_df的資料
+⚠️ 20142 Stock 1301 沒有end_month_df的資料
+⚠️ 20142 Stock 1303 沒有end_month_df的資料
+⚠️ 20142 Stock 1314 沒有end_month_df的資料
+⚠️ 20142 Stock 1319 沒有end_month_df的資料
+⚠️ 20142 Stock 1326 沒有end_month_df的資料
+⚠️ 20142 Stock 1402 沒有end_month_df的資料
+⚠️ 20142 Stock 1434 沒有end_month_df的資料
+⚠️ 20142 Stock 1440 沒有end_month_df的資料
+⚠️ 20142 Stock 1476 沒有end_month_df的資料
+⚠️ 20142 Stock 1477 沒有end_month_df的資料
+⚠️ 20142 Stock 1504 沒有end_month_df的資料
+⚠️ 20142 Stock 1507 沒有end_month_df的資料
+⚠️ 20142 Stock 1590 沒有end_month_df的資料
+⚠️ 20142 Stock 1605 沒有end_month_df的資料
+⚠️ 20142 Stock 1704 沒有end_month_df的資料
+⚠️ 20142 Stock 1710 沒有end_month_df的資料
+⚠️ 20142 Stock 1717 沒有end_month_df的資料
+⚠️ 20142 Stock 1722 沒有end_month_df的資料
+⚠️ 20142 Stock 1723 沒有end_month_df的資料
+⚠️ 20142 Stock 1789 沒有end_month_df的資料
+⚠️ 20142 Stock 1802 沒有end_month_df的資料
+⚠️ 20142 Stock 1907 沒有end_month_df的資料
+⚠️ 20142 Stock 2002 沒有end_month_df的資料
+⚠️ 20142 Stock 2006 沒有end_month_df的資料
+⚠️ 20142 Stock 2015 沒有end_month_df的資料
+⚠️ 20142 Stock 2049 沒有end_month_df的資料
+⚠️ 20142 Stock 2059 沒有end_month_df的資料
+⚠️ 20142 Stock 2101 沒有end_month_df的資料
+⚠️ 20142 Stock 2103 沒有end_month_df的資料
+⚠️ 20142 Stock 2105 沒有end_month_df的資料
+⚠️ 20142 Stock 2106 沒有end_month_df的資料
+⚠️ 20142 Stock 2201 沒有end_month_df的資料
+⚠️ 20142 Stock 2204 沒有end_month_df的資料
+⚠️ 20142 Stock 2206 沒有end_month_df的資料
+⚠️ 20142 Stock 2207 沒有end_month_df的資料
+⚠️ 20142 Stock 2227 沒有end_month_df的資料
+⚠️ 20142 Stock 2301 沒有end_month_df的資料
+⚠️ 20142 Stock 2303 沒有end_month_df的資料
+⚠️ 20142 Stock 2308 沒有end_month_df的資料
+⚠️ 20142 Stock 2311 沒有end_month_df的資料
+⚠️ 20142 Stock 2317 沒有end_month_df的資料
+⚠️ 20142 Stock 2324 沒有end_month_df的資料
+⚠️ 20142 Stock 2325 沒有end_month_df的資料
+⚠️ 20142 Stock 2330 沒有end_month_df的資料
+⚠️ 20142 Stock 2344 沒有end_month_df的資料
+⚠️ 20142 Stock 2347 沒有end_month_df的資料
+⚠️ 20142 Stock 2353 沒有end_month_df的資料
+⚠️ 20142 Stock 2354 沒有end_month_df的資料
+⚠️ 20142 Stock 2356 沒有end_month_df的資料
+⚠️ 20142 Stock 2357 沒有end_month_df的資料
+⚠️ 20142 Stock 2362 沒有end_month_df的資料
+⚠️ 20142 Stock 2379 沒有end_month_df的資料
+⚠️ 20142 Stock 2382 沒有end_month_df的資料
+⚠️ 20142 Stock 2385 沒有end_month_df的資料
+⚠️ 20142 Stock 2392 沒有end_month_df的資料
+⚠️ 20142 Stock 2393 沒有end_month_df的資料
+⚠️ 20142 Stock 2395 沒有end_month_df的資料
+⚠️ 20142 Stock 2408 沒有end_month_df的資料
+⚠️ 20142 Stock 2409 沒有end_month_df的資料
+⚠️ 20142 Stock 2412 沒有end_month_df的資料
+⚠️ 20142 Stock 2439 沒有end_month_df的資料
+⚠️ 20142 Stock 2448 沒有end_month_df的資料
+⚠️ 20142 Stock 2451 沒有end_month_df的資料
+⚠️ 20142 Stock 2454 沒有end_month_df的資料
+⚠️ 20142 Stock 2474 沒有end_month_df的資料
+⚠️ 20142 Stock 2498 沒有end_month_df的資料
+⚠️ 20142 Stock 2501 沒有end_month_df的資料
+⚠️ 20142 Stock 2542 沒有end_month_df的資料
+⚠️ 20142 Stock 2548 沒有end_month_df的資料
+⚠️ 20142 Stock 2603 沒有end_month_df的資料
+⚠️ 20142 Stock 2606 沒有end_month_df的資料
+⚠️ 20142 Stock 2609 沒有end_month_df的資料
+⚠️ 20142 Stock 2610 沒有end_month_df的資料
+⚠️ 20142 Stock 2615 沒有end_month_df的資料
+⚠️ 20142 Stock 2618 沒有end_month_df的資料
+⚠️ 20142 Stock 2707 沒有end_month_df的資料
+⚠️ 20142 Stock 2723 沒有end_month_df的資料
+⚠️ 20142 Stock 2727 沒有end_month_df的資料
+⚠️ 20142 Stock 2801 沒有end_month_df的資料
+⚠️ 20142 Stock 2809 沒有end_month_df的資料
+⚠️ 20142 Stock 2812 沒有end_month_df的資料
+⚠️ 20142 Stock 2823 沒有end_month_df的資料
+⚠️ 20142 Stock 2833 沒有end_month_df的資料
+⚠️ 20142 Stock 2834 沒有end_month_df的資料
+⚠️ 20142 Stock 2838 沒有end_month_df的資料
+⚠️ 20142 Stock 2845 沒有end_month_df的資料
+⚠️ 20142 Stock 2849 沒有end_month_df的資料
+⚠️ 20142 Stock 2867 沒有end_month_df的資料
+⚠️ 20142 Stock 2880 沒有end_month_df的資料
+⚠️ 20142 Stock 2881 沒有end_month_df的資料
+⚠️ 20142 Stock 2882 沒有end_month_df的資料
+⚠️ 20142 Stock 2883 沒有end_month_df的資料
+⚠️ 20142 Stock 2884 沒有end_month_df的資料
+⚠️ 20142 Stock 2885 沒有end_month_df的資料
+⚠️ 20142 Stock 2886 沒有end_month_df的資料
+⚠️ 20142 Stock 2887 沒有end_month_df的資料
+⚠️ 20142 Stock 2888 沒有end_month_df的資料
+⚠️ 20142 Stock 2889 沒有end_month_df的資料
+⚠️ 20142 Stock 2890 沒有end_month_df的資料
+⚠️ 20142 Stock 2891 沒有end_month_df的資料
+⚠️ 20142 Stock 2892 沒有end_month_df的資料
+⚠️ 20142 Stock 2903 沒有end_month_df的資料
+⚠️ 20142 Stock 2912 沒有end_month_df的資料
+⚠️ 20142 Stock 2915 沒有end_month_df的資料
+⚠️ 20142 Stock 2923 沒有end_month_df的資料
+⚠️ 20142 Stock 3008 沒有end_month_df的資料
+⚠️ 20142 Stock 3034 沒有end_month_df的資料
+⚠️ 20142 Stock 3037 沒有end_month_df的資料
+⚠️ 20142 Stock 3044 沒有end_month_df的資料
+⚠️ 20142 Stock 3045 沒有end_month_df的資料
+⚠️ 20142 Stock 3060 沒有end_month_df的資料
+⚠️ 20142 Stock 3189 沒有end_month_df的資料
+⚠️ 20142 Stock 3231 沒有end_month_df的資料
+⚠️ 20142 Stock 3474 沒有end_month_df的資料
+⚠️ 20142 Stock 3481 沒有end_month_df的資料
+⚠️ 20142 Stock 3576 沒有end_month_df的資料
+⚠️ 20142 Stock 3673 沒有end_month_df的資料
+⚠️ 20142 Stock 3682 沒有end_month_df的資料
+⚠️ 20142 Stock 3697 沒有end_month_df的資料
+⚠️ 20142 Stock 3702 沒有end_month_df的資料
+⚠️ 20142 Stock 4137 沒有end_month_df的資料
+⚠️ 20142 Stock 4904 沒有end_month_df的資料
+⚠️ 20142 Stock 4938 沒有end_month_df的資料
+⚠️ 20142 Stock 4958 沒有end_month_df的資料
+⚠️ 20142 Stock 5264 沒有end_month_df的資料
+⚠️ 20142 Stock 5522 沒有end_month_df的資料
+⚠️ 20142 Stock 5871 沒有end_month_df的資料
+⚠️ 20142 Stock 5880 沒有end_month_df的資料
+⚠️ 20142 Stock 6005 沒有end_month_df的資料
+⚠️ 20142 Stock 6116 沒有end_month_df的資料
+⚠️ 20142 Stock 6176 沒有end_month_df的資料
+⚠️ 20142 Stock 6239 沒有end_month_df的資料
+⚠️ 20142 Stock 6271 沒有end_month_df的資料
+⚠️ 20142 Stock 6285 沒有end_month_df的資料
+⚠️ 20142 Stock 6505 沒有end_month_df的資料
+⚠️ 20142 Stock 8078 沒有end_month_df的資料
+⚠️ 20142 Stock 9904 沒有end_month_df的資料
+⚠️ 20142 Stock 9907 沒有end_month_df的資料
+⚠️ 20142 Stock 9910 沒有end_month_df的資料
+⚠️ 20142 Stock 9914 沒有end_month_df的資料
+⚠️ 20142 Stock 9917 沒有end_month_df的資料
+⚠️ 20142 Stock 9921 沒有end_month_df的資料
+⚠️ 20142 Stock 9933 沒有end_month_df的資料
+⚠️ 20142 Stock 9940 沒有end_month_df的資料
+⚠️ 20142 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:52:34：本月處理資料筆數：0
+2025/07/10 07:52:34：⚠️ No Observer RT Data 2013-12 
+2025/07/10 07:52:34：📢 Observer RT 2013-12 已處理完成
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2014 ~ 2014 合併資料筆數：86584
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+2025/07/10 07:52:34：**Observer RT 2014-01 開始處理
+2025/07/10 07:52:34：** 2014-01股票清單長度：150
+⚠️ 20143 Stock 3697 沒有end_month_df的資料
+⚠️ 20143 Stock 8078 沒有end_month_df的資料
+2025/07/10 07:52:36：本月處理資料筆數：148
+2025/07/10 07:52:36：📢 Observer RT 2014-01 已處理完成
+2025/07/10 07:52:36：**Observer RT 2014-02 開始處理
+2025/07/10 07:52:36：** 2014-02股票清單長度：150
+⚠️ 20144 Stock 8078 沒有end_month_df的資料
+2025/07/10 07:52:38：本月處理資料筆數：149
+2025/07/10 07:52:38：📢 Observer RT 2014-02 已處理完成
+2025/07/10 07:52:38：**Observer RT 2014-03 開始處理
+2025/07/10 07:52:38：** 2014-03股票清單長度：150
+2025/07/10 07:52:40：本月處理資料筆數：150
+2025/07/10 07:52:40：📢 Observer RT 2014-03 已處理完成
+2025/07/10 07:52:40：**Observer RT 2014-04 開始處理
+2025/07/10 07:52:40：** 2014-04股票清單長度：150
+2025/07/10 07:52:42：本月處理資料筆數：150
+2025/07/10 07:52:42：📢 Observer RT 2014-04 已處理完成
+2025/07/10 07:52:42：**Observer RT 2014-05 開始處理
+2025/07/10 07:52:42：** 2014-05股票清單長度：150
+2025/07/10 07:52:44：本月處理資料筆數：150
+2025/07/10 07:52:44：📢 Observer RT 2014-05 已處理完成
+2025/07/10 07:52:44：**Observer RT 2014-06 開始處理
+2025/07/10 07:52:44：** 2014-06股票清單長度：150
+2025/07/10 07:52:46：本月處理資料筆數：150
+2025/07/10 07:52:46：📢 Observer RT 2014-06 已處理完成
+2025/07/10 07:52:46：**Observer RT 2014-07 開始處理
+2025/07/10 07:52:46：** 2014-07股票清單長度：150
+2025/07/10 07:52:48：本月處理資料筆數：150
+2025/07/10 07:52:48：📢 Observer RT 2014-07 已處理完成
+2025/07/10 07:52:48：**Observer RT 2014-08 開始處理
+2025/07/10 07:52:48：** 2014-08股票清單長度：150
+2025/07/10 07:52:50：本月處理資料筆數：150
+2025/07/10 07:52:50：📢 Observer RT 2014-08 已處理完成
+2025/07/10 07:52:50：**Observer RT 2014-09 開始處理
+2025/07/10 07:52:50：** 2014-09股票清單長度：150
+2025/07/10 07:52:52：本月處理資料筆數：150
+2025/07/10 07:52:52：📢 Observer RT 2014-09 已處理完成
+2025/07/10 07:52:52：**Observer RT 2014-10 開始處理
+2025/07/10 07:52:52：** 2014-10股票清單長度：150
+2025/07/10 07:52:54：本月處理資料筆數：150
+2025/07/10 07:52:54：📢 Observer RT 2014-10 已處理完成
+2025/07/10 07:52:54：**Observer RT 2014-11 開始處理
+2025/07/10 07:52:54：** 2014-11股票清單長度：150
+⚠️ 20151 Stock 1101 沒有end_month_df的資料
+⚠️ 20151 Stock 1102 沒有end_month_df的資料
+⚠️ 20151 Stock 1216 沒有end_month_df的資料
+⚠️ 20151 Stock 1227 沒有end_month_df的資料
+⚠️ 20151 Stock 1301 沒有end_month_df的資料
+⚠️ 20151 Stock 1303 沒有end_month_df的資料
+⚠️ 20151 Stock 1326 沒有end_month_df的資料
+⚠️ 20151 Stock 1402 沒有end_month_df的資料
+⚠️ 20151 Stock 1434 沒有end_month_df的資料
+⚠️ 20151 Stock 1440 沒有end_month_df的資料
+⚠️ 20151 Stock 1476 沒有end_month_df的資料
+⚠️ 20151 Stock 1477 沒有end_month_df的資料
+⚠️ 20151 Stock 1504 沒有end_month_df的資料
+⚠️ 20151 Stock 1507 沒有end_month_df的資料
+⚠️ 20151 Stock 1590 沒有end_month_df的資料
+⚠️ 20151 Stock 1605 沒有end_month_df的資料
+⚠️ 20151 Stock 1717 沒有end_month_df的資料
+⚠️ 20151 Stock 1722 沒有end_month_df的資料
+⚠️ 20151 Stock 1723 沒有end_month_df的資料
+⚠️ 20151 Stock 1789 沒有end_month_df的資料
+⚠️ 20151 Stock 1802 沒有end_month_df的資料
+⚠️ 20151 Stock 2002 沒有end_month_df的資料
+⚠️ 20151 Stock 2006 沒有end_month_df的資料
+⚠️ 20151 Stock 2015 沒有end_month_df的資料
+⚠️ 20151 Stock 2049 沒有end_month_df的資料
+⚠️ 20151 Stock 2059 沒有end_month_df的資料
+⚠️ 20151 Stock 2101 沒有end_month_df的資料
+⚠️ 20151 Stock 2103 沒有end_month_df的資料
+⚠️ 20151 Stock 2105 沒有end_month_df的資料
+⚠️ 20151 Stock 2106 沒有end_month_df的資料
+⚠️ 20151 Stock 2201 沒有end_month_df的資料
+⚠️ 20151 Stock 2204 沒有end_month_df的資料
+⚠️ 20151 Stock 2206 沒有end_month_df的資料
+⚠️ 20151 Stock 2207 沒有end_month_df的資料
+⚠️ 20151 Stock 2227 沒有end_month_df的資料
+⚠️ 20151 Stock 2231 沒有end_month_df的資料
+⚠️ 20151 Stock 2301 沒有end_month_df的資料
+⚠️ 20151 Stock 2303 沒有end_month_df的資料
+⚠️ 20151 Stock 2308 沒有end_month_df的資料
+⚠️ 20151 Stock 2311 沒有end_month_df的資料
+⚠️ 20151 Stock 2317 沒有end_month_df的資料
+⚠️ 20151 Stock 2324 沒有end_month_df的資料
+⚠️ 20151 Stock 2325 沒有end_month_df的資料
+⚠️ 20151 Stock 2327 沒有end_month_df的資料
+⚠️ 20151 Stock 2330 沒有end_month_df的資料
+⚠️ 20151 Stock 2337 沒有end_month_df的資料
+⚠️ 20151 Stock 2344 沒有end_month_df的資料
+⚠️ 20151 Stock 2347 沒有end_month_df的資料
+⚠️ 20151 Stock 2352 沒有end_month_df的資料
+⚠️ 20151 Stock 2353 沒有end_month_df的資料
+⚠️ 20151 Stock 2354 沒有end_month_df的資料
+⚠️ 20151 Stock 2356 沒有end_month_df的資料
+⚠️ 20151 Stock 2357 沒有end_month_df的資料
+⚠️ 20151 Stock 2360 沒有end_month_df的資料
+⚠️ 20151 Stock 2362 沒有end_month_df的資料
+⚠️ 20151 Stock 2376 沒有end_month_df的資料
+⚠️ 20151 Stock 2377 沒有end_month_df的資料
+⚠️ 20151 Stock 2379 沒有end_month_df的資料
+⚠️ 20151 Stock 2382 沒有end_month_df的資料
+⚠️ 20151 Stock 2385 沒有end_month_df的資料
+⚠️ 20151 Stock 2392 沒有end_month_df的資料
+⚠️ 20151 Stock 2393 沒有end_month_df的資料
+⚠️ 20151 Stock 2395 沒有end_month_df的資料
+⚠️ 20151 Stock 2408 沒有end_month_df的資料
+⚠️ 20151 Stock 2409 沒有end_month_df的資料
+⚠️ 20151 Stock 2412 沒有end_month_df的資料
+⚠️ 20151 Stock 2448 沒有end_month_df的資料
+⚠️ 20151 Stock 2449 沒有end_month_df的資料
+⚠️ 20151 Stock 2451 沒有end_month_df的資料
+⚠️ 20151 Stock 2454 沒有end_month_df的資料
+⚠️ 20151 Stock 2474 沒有end_month_df的資料
+⚠️ 20151 Stock 2498 沒有end_month_df的資料
+⚠️ 20151 Stock 2501 沒有end_month_df的資料
+⚠️ 20151 Stock 2542 沒有end_month_df的資料
+⚠️ 20151 Stock 2603 沒有end_month_df的資料
+⚠️ 20151 Stock 2606 沒有end_month_df的資料
+⚠️ 20151 Stock 2609 沒有end_month_df的資料
+⚠️ 20151 Stock 2610 沒有end_month_df的資料
+⚠️ 20151 Stock 2615 沒有end_month_df的資料
+⚠️ 20151 Stock 2618 沒有end_month_df的資料
+⚠️ 20151 Stock 2634 沒有end_month_df的資料
+⚠️ 20151 Stock 2707 沒有end_month_df的資料
+⚠️ 20151 Stock 2723 沒有end_month_df的資料
+⚠️ 20151 Stock 2727 沒有end_month_df的資料
+⚠️ 20151 Stock 2801 沒有end_month_df的資料
+⚠️ 20151 Stock 2809 沒有end_month_df的資料
+⚠️ 20151 Stock 2812 沒有end_month_df的資料
+⚠️ 20151 Stock 2823 沒有end_month_df的資料
+⚠️ 20151 Stock 2834 沒有end_month_df的資料
+⚠️ 20151 Stock 2838 沒有end_month_df的資料
+⚠️ 20151 Stock 2845 沒有end_month_df的資料
+⚠️ 20151 Stock 2847 沒有end_month_df的資料
+⚠️ 20151 Stock 2849 沒有end_month_df的資料
+⚠️ 20151 Stock 2867 沒有end_month_df的資料
+⚠️ 20151 Stock 2880 沒有end_month_df的資料
+⚠️ 20151 Stock 2881 沒有end_month_df的資料
+⚠️ 20151 Stock 2882 沒有end_month_df的資料
+⚠️ 20151 Stock 2883 沒有end_month_df的資料
+⚠️ 20151 Stock 2884 沒有end_month_df的資料
+⚠️ 20151 Stock 2885 沒有end_month_df的資料
+⚠️ 20151 Stock 2886 沒有end_month_df的資料
+⚠️ 20151 Stock 2887 沒有end_month_df的資料
+⚠️ 20151 Stock 2888 沒有end_month_df的資料
+⚠️ 20151 Stock 2889 沒有end_month_df的資料
+⚠️ 20151 Stock 2890 沒有end_month_df的資料
+⚠️ 20151 Stock 2891 沒有end_month_df的資料
+⚠️ 20151 Stock 2892 沒有end_month_df的資料
+⚠️ 20151 Stock 2903 沒有end_month_df的資料
+⚠️ 20151 Stock 2912 沒有end_month_df的資料
+⚠️ 20151 Stock 2915 沒有end_month_df的資料
+⚠️ 20151 Stock 2923 沒有end_month_df的資料
+⚠️ 20151 Stock 3008 沒有end_month_df的資料
+⚠️ 20151 Stock 3034 沒有end_month_df的資料
+⚠️ 20151 Stock 3037 沒有end_month_df的資料
+⚠️ 20151 Stock 3044 沒有end_month_df的資料
+⚠️ 20151 Stock 3045 沒有end_month_df的資料
+⚠️ 20151 Stock 3060 沒有end_month_df的資料
+⚠️ 20151 Stock 3189 沒有end_month_df的資料
+⚠️ 20151 Stock 3231 沒有end_month_df的資料
+⚠️ 20151 Stock 3474 沒有end_month_df的資料
+⚠️ 20151 Stock 3481 沒有end_month_df的資料
+⚠️ 20151 Stock 3532 沒有end_month_df的資料
+⚠️ 20151 Stock 3576 沒有end_month_df的資料
+⚠️ 20151 Stock 3673 沒有end_month_df的資料
+⚠️ 20151 Stock 3682 沒有end_month_df的資料
+⚠️ 20151 Stock 3702 沒有end_month_df的資料
+⚠️ 20151 Stock 4904 沒有end_month_df的資料
+⚠️ 20151 Stock 4938 沒有end_month_df的資料
+⚠️ 20151 Stock 4958 沒有end_month_df的資料
+⚠️ 20151 Stock 5264 沒有end_month_df的資料
+⚠️ 20151 Stock 5522 沒有end_month_df的資料
+⚠️ 20151 Stock 5871 沒有end_month_df的資料
+⚠️ 20151 Stock 5880 沒有end_month_df的資料
+⚠️ 20151 Stock 6005 沒有end_month_df的資料
+⚠️ 20151 Stock 6116 沒有end_month_df的資料
+⚠️ 20151 Stock 6176 沒有end_month_df的資料
+⚠️ 20151 Stock 6239 沒有end_month_df的資料
+⚠️ 20151 Stock 6286 沒有end_month_df的資料
+⚠️ 20151 Stock 6505 沒有end_month_df的資料
+⚠️ 20151 Stock 8046 沒有end_month_df的資料
+⚠️ 20151 Stock 8150 沒有end_month_df的資料
+⚠️ 20151 Stock 9904 沒有end_month_df的資料
+⚠️ 20151 Stock 9907 沒有end_month_df的資料
+⚠️ 20151 Stock 9910 沒有end_month_df的資料
+⚠️ 20151 Stock 9914 沒有end_month_df的資料
+⚠️ 20151 Stock 9917 沒有end_month_df的資料
+⚠️ 20151 Stock 9921 沒有end_month_df的資料
+⚠️ 20151 Stock 9933 沒有end_month_df的資料
+⚠️ 20151 Stock 9940 沒有end_month_df的資料
+⚠️ 20151 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:52:56：本月處理資料筆數：0
+2025/07/10 07:52:56：⚠️ No Observer RT Data 2014-11 
+2025/07/10 07:52:56：📢 Observer RT 2014-11 已處理完成
+2025/07/10 07:52:56：**Observer RT 2014-12 開始處理
+2025/07/10 07:52:56：** 2014-12股票清單長度：150
+⚠️ 20152 Stock 1101 沒有end_month_df的資料
+⚠️ 20152 Stock 1102 沒有end_month_df的資料
+⚠️ 20152 Stock 1216 沒有end_month_df的資料
+⚠️ 20152 Stock 1227 沒有end_month_df的資料
+⚠️ 20152 Stock 1301 沒有end_month_df的資料
+⚠️ 20152 Stock 1303 沒有end_month_df的資料
+⚠️ 20152 Stock 1314 沒有end_month_df的資料
+⚠️ 20152 Stock 1326 沒有end_month_df的資料
+⚠️ 20152 Stock 1402 沒有end_month_df的資料
+⚠️ 20152 Stock 1434 沒有end_month_df的資料
+⚠️ 20152 Stock 1440 沒有end_month_df的資料
+⚠️ 20152 Stock 1476 沒有end_month_df的資料
+⚠️ 20152 Stock 1477 沒有end_month_df的資料
+⚠️ 20152 Stock 1504 沒有end_month_df的資料
+⚠️ 20152 Stock 1507 沒有end_month_df的資料
+⚠️ 20152 Stock 1590 沒有end_month_df的資料
+⚠️ 20152 Stock 1605 沒有end_month_df的資料
+⚠️ 20152 Stock 1717 沒有end_month_df的資料
+⚠️ 20152 Stock 1722 沒有end_month_df的資料
+⚠️ 20152 Stock 1723 沒有end_month_df的資料
+⚠️ 20152 Stock 1789 沒有end_month_df的資料
+⚠️ 20152 Stock 1802 沒有end_month_df的資料
+⚠️ 20152 Stock 2002 沒有end_month_df的資料
+⚠️ 20152 Stock 2006 沒有end_month_df的資料
+⚠️ 20152 Stock 2015 沒有end_month_df的資料
+⚠️ 20152 Stock 2049 沒有end_month_df的資料
+⚠️ 20152 Stock 2059 沒有end_month_df的資料
+⚠️ 20152 Stock 2101 沒有end_month_df的資料
+⚠️ 20152 Stock 2103 沒有end_month_df的資料
+⚠️ 20152 Stock 2105 沒有end_month_df的資料
+⚠️ 20152 Stock 2106 沒有end_month_df的資料
+⚠️ 20152 Stock 2201 沒有end_month_df的資料
+⚠️ 20152 Stock 2204 沒有end_month_df的資料
+⚠️ 20152 Stock 2206 沒有end_month_df的資料
+⚠️ 20152 Stock 2207 沒有end_month_df的資料
+⚠️ 20152 Stock 2227 沒有end_month_df的資料
+⚠️ 20152 Stock 2301 沒有end_month_df的資料
+⚠️ 20152 Stock 2303 沒有end_month_df的資料
+⚠️ 20152 Stock 2308 沒有end_month_df的資料
+⚠️ 20152 Stock 2311 沒有end_month_df的資料
+⚠️ 20152 Stock 2317 沒有end_month_df的資料
+⚠️ 20152 Stock 2324 沒有end_month_df的資料
+⚠️ 20152 Stock 2325 沒有end_month_df的資料
+⚠️ 20152 Stock 2327 沒有end_month_df的資料
+⚠️ 20152 Stock 2330 沒有end_month_df的資料
+⚠️ 20152 Stock 2337 沒有end_month_df的資料
+⚠️ 20152 Stock 2344 沒有end_month_df的資料
+⚠️ 20152 Stock 2347 沒有end_month_df的資料
+⚠️ 20152 Stock 2352 沒有end_month_df的資料
+⚠️ 20152 Stock 2353 沒有end_month_df的資料
+⚠️ 20152 Stock 2354 沒有end_month_df的資料
+⚠️ 20152 Stock 2356 沒有end_month_df的資料
+⚠️ 20152 Stock 2357 沒有end_month_df的資料
+⚠️ 20152 Stock 2360 沒有end_month_df的資料
+⚠️ 20152 Stock 2362 沒有end_month_df的資料
+⚠️ 20152 Stock 2376 沒有end_month_df的資料
+⚠️ 20152 Stock 2377 沒有end_month_df的資料
+⚠️ 20152 Stock 2379 沒有end_month_df的資料
+⚠️ 20152 Stock 2382 沒有end_month_df的資料
+⚠️ 20152 Stock 2385 沒有end_month_df的資料
+⚠️ 20152 Stock 2392 沒有end_month_df的資料
+⚠️ 20152 Stock 2393 沒有end_month_df的資料
+⚠️ 20152 Stock 2395 沒有end_month_df的資料
+⚠️ 20152 Stock 2408 沒有end_month_df的資料
+⚠️ 20152 Stock 2409 沒有end_month_df的資料
+⚠️ 20152 Stock 2412 沒有end_month_df的資料
+⚠️ 20152 Stock 2448 沒有end_month_df的資料
+⚠️ 20152 Stock 2449 沒有end_month_df的資料
+⚠️ 20152 Stock 2451 沒有end_month_df的資料
+⚠️ 20152 Stock 2454 沒有end_month_df的資料
+⚠️ 20152 Stock 2474 沒有end_month_df的資料
+⚠️ 20152 Stock 2498 沒有end_month_df的資料
+⚠️ 20152 Stock 2501 沒有end_month_df的資料
+⚠️ 20152 Stock 2542 沒有end_month_df的資料
+⚠️ 20152 Stock 2603 沒有end_month_df的資料
+⚠️ 20152 Stock 2606 沒有end_month_df的資料
+⚠️ 20152 Stock 2609 沒有end_month_df的資料
+⚠️ 20152 Stock 2610 沒有end_month_df的資料
+⚠️ 20152 Stock 2615 沒有end_month_df的資料
+⚠️ 20152 Stock 2618 沒有end_month_df的資料
+⚠️ 20152 Stock 2634 沒有end_month_df的資料
+⚠️ 20152 Stock 2707 沒有end_month_df的資料
+⚠️ 20152 Stock 2723 沒有end_month_df的資料
+⚠️ 20152 Stock 2801 沒有end_month_df的資料
+⚠️ 20152 Stock 2809 沒有end_month_df的資料
+⚠️ 20152 Stock 2812 沒有end_month_df的資料
+⚠️ 20152 Stock 2823 沒有end_month_df的資料
+⚠️ 20152 Stock 2834 沒有end_month_df的資料
+⚠️ 20152 Stock 2838 沒有end_month_df的資料
+⚠️ 20152 Stock 2845 沒有end_month_df的資料
+⚠️ 20152 Stock 2847 沒有end_month_df的資料
+⚠️ 20152 Stock 2849 沒有end_month_df的資料
+⚠️ 20152 Stock 2867 沒有end_month_df的資料
+⚠️ 20152 Stock 2880 沒有end_month_df的資料
+⚠️ 20152 Stock 2881 沒有end_month_df的資料
+⚠️ 20152 Stock 2882 沒有end_month_df的資料
+⚠️ 20152 Stock 2883 沒有end_month_df的資料
+⚠️ 20152 Stock 2884 沒有end_month_df的資料
+⚠️ 20152 Stock 2885 沒有end_month_df的資料
+⚠️ 20152 Stock 2886 沒有end_month_df的資料
+⚠️ 20152 Stock 2887 沒有end_month_df的資料
+⚠️ 20152 Stock 2888 沒有end_month_df的資料
+⚠️ 20152 Stock 2889 沒有end_month_df的資料
+⚠️ 20152 Stock 2890 沒有end_month_df的資料
+⚠️ 20152 Stock 2891 沒有end_month_df的資料
+⚠️ 20152 Stock 2892 沒有end_month_df的資料
+⚠️ 20152 Stock 2903 沒有end_month_df的資料
+⚠️ 20152 Stock 2912 沒有end_month_df的資料
+⚠️ 20152 Stock 2915 沒有end_month_df的資料
+⚠️ 20152 Stock 2923 沒有end_month_df的資料
+⚠️ 20152 Stock 3008 沒有end_month_df的資料
+⚠️ 20152 Stock 3034 沒有end_month_df的資料
+⚠️ 20152 Stock 3037 沒有end_month_df的資料
+⚠️ 20152 Stock 3044 沒有end_month_df的資料
+⚠️ 20152 Stock 3045 沒有end_month_df的資料
+⚠️ 20152 Stock 3060 沒有end_month_df的資料
+⚠️ 20152 Stock 3189 沒有end_month_df的資料
+⚠️ 20152 Stock 3231 沒有end_month_df的資料
+⚠️ 20152 Stock 3474 沒有end_month_df的資料
+⚠️ 20152 Stock 3481 沒有end_month_df的資料
+⚠️ 20152 Stock 3532 沒有end_month_df的資料
+⚠️ 20152 Stock 3576 沒有end_month_df的資料
+⚠️ 20152 Stock 3673 沒有end_month_df的資料
+⚠️ 20152 Stock 3682 沒有end_month_df的資料
+⚠️ 20152 Stock 3702 沒有end_month_df的資料
+⚠️ 20152 Stock 4904 沒有end_month_df的資料
+⚠️ 20152 Stock 4938 沒有end_month_df的資料
+⚠️ 20152 Stock 4958 沒有end_month_df的資料
+⚠️ 20152 Stock 5264 沒有end_month_df的資料
+⚠️ 20152 Stock 5522 沒有end_month_df的資料
+⚠️ 20152 Stock 5871 沒有end_month_df的資料
+⚠️ 20152 Stock 5880 沒有end_month_df的資料
+⚠️ 20152 Stock 6005 沒有end_month_df的資料
+⚠️ 20152 Stock 6116 沒有end_month_df的資料
+⚠️ 20152 Stock 6176 沒有end_month_df的資料
+⚠️ 20152 Stock 6239 沒有end_month_df的資料
+⚠️ 20152 Stock 6286 沒有end_month_df的資料
+⚠️ 20152 Stock 6505 沒有end_month_df的資料
+⚠️ 20152 Stock 8046 沒有end_month_df的資料
+⚠️ 20152 Stock 8150 沒有end_month_df的資料
+⚠️ 20152 Stock 8454 沒有end_month_df的資料
+⚠️ 20152 Stock 9904 沒有end_month_df的資料
+⚠️ 20152 Stock 9907 沒有end_month_df的資料
+⚠️ 20152 Stock 9910 沒有end_month_df的資料
+⚠️ 20152 Stock 9914 沒有end_month_df的資料
+⚠️ 20152 Stock 9917 沒有end_month_df的資料
+⚠️ 20152 Stock 9921 沒有end_month_df的資料
+⚠️ 20152 Stock 9933 沒有end_month_df的資料
+⚠️ 20152 Stock 9940 沒有end_month_df的資料
+⚠️ 20152 Stock 9945 沒有end_month_df的資料
+2025/07/10 07:52:58：本月處理資料筆數：0
+2025/07/10 07:52:58：⚠️ No Observer RT Data 2014-12 
+2025/07/10 07:52:58：📢 Observer RT 2014-12 已處理完成
+2025/07/10 07:52:58：✅ 整合完成！檔案輸出：
+..\data\analysis\momentumNew/oPeriod3_hPeriod3/201001_201412/01-observerReturnList.csv
+2025/07/10 07:52:58：📢 開始製作..\data\analysis\momentumNew/oPeriod3_hPeriod3/201001_201412/02-observerReturnList_rank.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:533: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:563: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  result_df = result_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+2025/07/10 07:52:59：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod3_hPeriod3/201001_201412/02-observerReturnList_rank.csv
+2025/07/10 07:52:59：📢 開始製作..\data\analysis\momentumNew/oPeriod3_hPeriod3/201001_201412/03-winner_loser.csv
+2025/07/10 07:52:59：✅ 已輸出檔案：..\data\analysis\momentumNew/oPeriod3_hPeriod3/201001_201412/03-winner_loser.csv
+2025/07/10 07:52:59：📢 開始製作..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\04-afterwardReturn.csv
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:597: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:598: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+讀取檔案：..\data\analysis\summary\closePrice_2010.csv，筆數：80517
+closePrice：年份 2010 ~ 2010 合併資料筆數：80517
+        date stock_id  close
+0 2010-01-04     1101  12.18
+1 2010-01-05     1101  12.61
+2 2010-01-06     1101  12.88
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2011 ~ 2011 合併資料筆數：81712
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+⚠️start_date2 is None
+SD_close2 is None
+end_date2 is None
+ED_close2 is None
+讀取檔案：..\data\analysis\summary\closePrice_2011.csv，筆數：81712
+closePrice：年份 2011 ~ 2011 合併資料筆數：81712
+        date stock_id  close
+0 2011-01-03     1101  12.85
+1 2011-01-04     1101  12.75
+2 2011-01-05     1101  12.46
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2012 ~ 2012 合併資料筆數：84253
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+讀取檔案：..\data\analysis\summary\closePrice_2012.csv，筆數：84253
+closePrice：年份 2012 ~ 2012 合併資料筆數：84253
+        date stock_id  close
+0 2012-01-02     1101  13.93
+1 2012-01-03     1101  14.21
+2 2012-01-04     1101  14.29
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2013 ~ 2013 合併資料筆數：84756
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+讀取檔案：..\data\analysis\summary\closePrice_2013.csv，筆數：84756
+closePrice：年份 2013 ~ 2013 合併資料筆數：84756
+        date stock_id  close
+0 2013-01-02     1101  16.54
+1 2013-01-03     1101  16.47
+2 2013-01-04     1101  16.54
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2014 ~ 2014 合併資料筆數：86584
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+end_date2 is None
+ED_close2 is None
+讀取檔案：..\data\analysis\summary\closePrice_2014.csv，筆數：86584
+closePrice：年份 2014 ~ 2014 合併資料筆數：86584
+        date stock_id  close
+0 2014-01-02     1101  20.25
+1 2014-01-03     1101  19.87
+2 2014-01-06     1101  19.45
+end_date2 is None
+ED_close2 is None
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2015 ~ 2015 合併資料筆數：86113
+        date stock_id  close
+0 2015-01-05     1101  20.19
+1 2015-01-06     1101  19.83
+2 2015-01-07     1101  19.76
+讀取檔案：..\data\analysis\summary\closePrice_2015.csv，筆數：86113
+closePrice：年份 2015 ~ 2015 合併資料筆數：86113
+        date stock_id  close
+0 2015-01-05     1101  20.19
+1 2015-01-06     1101  19.83
+2 2015-01-07     1101  19.76
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:697: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["start_date2"] = start_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:698: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = SD_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:699: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["end_date2"] = end_date2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:700: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = ED_close2_list
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:703: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:704: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py:707: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+2025/07/10 07:53:13：✅ 已完成後續報酬計算，輸出至：..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\04-afterwardReturn.csv
+2025/07/10 07:53:13：📢 開始製作..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\05-afterwardReturn_static.csv
+2025/07/10 07:53:13：✅ 統計已完成，檔案輸出：..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\05-afterwardReturn_static.csv
+2025/07/10 07:53:13：📢 開始製作..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\06-afterwardReturn_static2.csv
+2025/07/10 07:53:13：✅ 已輸出新檔案：..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\06-afterwardReturn_static2.csv
+2025/07/10 07:53:13：📢 開始製作..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\07-t_test.csv
+2025/07/10 07:53:13：✅ 已輸出結果：..\data\analysis\momentumNew\oPeriod3_hPeriod3\201001_201412\07-t_test.csv
+2025/07/10 07:53:13：⚙️ momentumNew.py Finish
 
