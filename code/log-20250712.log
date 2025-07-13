@@ -1,0 +1,78 @@
+
+2025/07/12 10:54:18：⚙️ momentumNew.py Run
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py", line 80, in <module>
+    file_list = os.listdir(outputDir)
+                ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] �t�Χ䤣����w�����|�C: '..\\data\\analysis\\summary'
+2025/07/12 10:54:18：⚙️ 參數設定：2015/01/01~2019/12/31/Period(o、h):3、3
+
+2025/07/12 10:57:37：⚙️ momentumNew.py Run
+2025/07/12 10:57:37：⚙️ 參數設定：2015/01/01~2019/12/31/Period(o、h):3、3
+2025/07/12 10:57:37：☑️ 已讀入既有檔案：C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/12 10:57:37：☑️ 已讀入既有檔案：C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+2025/07/12 10:57:37：📢 開始製作C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew/oPeriod3_hPeriod3/201501_201912/01-observerReturnList.csv
+2025/07/12 10:57:37：📢 Observer RT偵測並讀取進度：201508
+檔案不存在：..\data\analysis\summary\closePrice_2015.csv
+檔案不存在：..\data\analysis\summary\closePrice_2016.csv
+closePrice：年份 2015 ~ 2016 合併資料筆數：0
+Empty DataFrame
+Columns: []
+Index: []
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py", line 365, in <module>
+    close_df = utils.getCloseDf(curY, closeDfYears)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\common\utils.py", line 80, in getCloseDf
+    close_df.to_csv(f"{base_dir}/closePrice_tmp.csv")
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\core\generic.py", line 3986, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\common.py", line 749, in get_handle
+    check_parent_directory(str(handle))
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\common.py", line 616, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: '..\data\analysis\summary'
+
+2025/07/12 10:58:43：⚙️ momentumNew.py Run
+2025/07/12 10:58:43：⚙️ 參數設定：2015/01/01~2019/12/31/Period(o、h):3、3
+2025/07/12 10:58:43：☑️ 已讀入既有檔案：C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary/TWMV_mean-201001_202012.csv
+2025/07/12 10:58:43：☑️ 已讀入既有檔案：C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary/TWMV_mean-201001_202012-rank150.csv
+2025/07/12 10:58:43：📢 開始製作C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew/oPeriod3_hPeriod3/201501_201912/01-observerReturnList.csv
+2025/07/12 10:58:43：📢 Observer RT偵測並讀取進度：201508
+檔案不存在：..\data\analysis\summary\closePrice_2015.csv
+檔案不存在：..\data\analysis\summary\closePrice_2016.csv
+closePrice：年份 2015 ~ 2016 合併資料筆數：0
+Empty DataFrame
+Columns: []
+Index: []
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\momentumNew.py", line 365, in <module>
+    close_df = utils.getCloseDf(curY, closeDfYears)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Desktop\Han\�ǲ�\���ĵ���\���R�{��\code\common\utils.py", line 80, in getCloseDf
+    close_df.to_csv(f"{base_dir}/closePrice_tmp.csv")
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\core\generic.py", line 3986, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\common.py", line 749, in get_handle
+    check_parent_directory(str(handle))
+  File "C:\Users\USER\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pandas\io\common.py", line 616, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: '..\data\analysis\summary'
