@@ -75,7 +75,7 @@ def getCloseDf(sYear: str , searchY: int) -> pd.DataFrame:
         close_df = pd.DataFrame()
 
     print(f"closePrice：年份 {sYear} ~ {int(sYear) + searchY - 1} 合併資料筆數：{len(close_df)}")
-    print(close_df.head(3))
+    # print(close_df.head(3))
     ## for test
     close_df.to_csv(f"{base_dir}/closePrice_tmp.csv")
     return close_df
