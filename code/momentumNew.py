@@ -62,136 +62,22 @@ for oPeriod in oPeriods:
 
         ### 取出每個月前n大市值的名單
         dataExist = False
-        maxIncludeRank = 150
-        output_path = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxIncludeRank}.csv'
-        if os.path.exists(output_path):
-            dfTWMVrank = pd.read_csv(output_path)
-            utils.ptMsg("☑️ 檔案已存在：" + output_path)
-            dataExist = True
-        else:
-            # 查看有沒有範圍更廣的資料區間
-            file_list = os.listdir(outputDir)
+        maxIncludeRank = 0 # 選取所有股票
+        dfTWMVrank = anaData.twMarketValueSpeRankList(stockList, sDt, eDt, maxIncludeRank)
+ 
+        ### 撈取FindMind的調整後股價資料  => DONE
+        outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
+        stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
+        utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
 
-            # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm-rankXXX.csv
-            pattern = re.compile(rf"^TWMV_mean-(\d{{6}})_(\d{{6}})-rank{maxIncludeRank}\.csv$")
+        runDataResult = finMind.twStockDailyPriceAdj(stockList, sDt, eDt)
+        if not runDataResult:
+            sys.exit()
 
-            # 找符合的檔案
-            matching_files = [f for f in file_list if pattern.match(f)]
-            if matching_files:
-                for f in matching_files:
-                    timeRange = utils.getSdtEdt(f)
-                    sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    if sDtInRange and dDtInRange:
-                        dfTWMVrank = pd.read_csv(f'{outputDir}/{f}')
-                        utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}')   
-                        dataExist = True
-                        break    
-
-        if not dataExist:
-            # 篩選 rank <= maxIncludeRank
-            dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= maxIncludeRank]
-
-            # 輸出篩選結果
-            dfTWMVrank.to_csv(output_path, index=False, encoding='utf-8')
-            utils.ptMsg("✅ 檔案存取成功：", output_path)
-
-        # ### 撈取FindMind的調整後股價資料  => DONE
-        # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
-        # stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
-        # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
-        # for stock_id in stockList:
-        #     outputFile = f'{outputDir}/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}/TWDPadj-{stock_id}.csv'
-        #     if os.path.exists(outputFile):
-        #         utils.ptMsg("☑️ 檔案已存在：", outputFile)
-        #     else:
-        #         os.makedirs(os.path.dirname(outputFile), exist_ok=True)  # 確保資料夾存在
-        #         try:
-        #             # 嘗試一次抓全部資料
-        #             dfSDA = api.taiwan_stock_daily_adj(
-        #                 stock_id=stock_id,
-        #                 start_date=sDt.strftime("%Y-%m-%d"),
-        #                 end_date=eDt.strftime("%Y-%m-%d")
-        #             )
-        #             # 如果沒報錯就直接存檔
-        #             dfSDA.to_csv(outputFile, index=False, encoding='utf-8-sig')
-        #             utils.ptMsg("✅ 檔案存取成功：", outputFile)
-        #         except Exception as e:
-        #             utils.ptMsg(f"⚠️ 一次抓取失敗：{stock_id}，錯誤訊息：{e}")
-        #             # 分段再試
-        #             try:
-        #                 # 分成兩段
-        #                 midDt = sDt + timedelta(days=365 * 5)
-        #                 utils.ptMsg(f"➡️ 嘗試分段抓取 {stock_id} 第1段：{sDt.date()} ~ {midDt.date()}")
-        #                 dfSDA1 = api.taiwan_stock_daily_adj(
-        #                     stock_id=stock_id,
-        #                     start_date=sDt.strftime("%Y-%m-%d"),
-        #                     end_date=midDt.strftime("%Y-%m-%d")
-        #                 )
-        #                 utils.ptMsg(f"➡️ 嘗試分段抓取 {stock_id} 第2段：{(midDt + timedelta(days=1)).date()} ~ {eDt.date()}")
-        #                 dfSDA2 = api.taiwan_stock_daily_adj(
-        #                     stock_id=stock_id,
-        #                     start_date=(midDt + timedelta(days=1)).strftime("%Y-%m-%d"),
-        #                     end_date=eDt.strftime("%Y-%m-%d")
-        #                 )
-        #                 # 合併兩段
-        #                 dfSDA = pd.concat([dfSDA1, dfSDA2], ignore_index=True)
-        #                 # 儲存
-        #                 dfSDA.to_csv(outputFile, index=False, encoding='utf-8-sig')
-        #                 utils.ptMsg("✅ 分段抓取並合併成功：", outputFile)
-
-        #             except Exception as e2:
-        #                 utils.ptMsg(f"❌ 分段抓取失敗：{stock_id}，錯誤訊息：{e2}")
-        #                 # 不要 raise，直接繼續跑下一支
-        #                 continue
-
-        # ### 將收盤價按年整理 => DONE
-        # # 年度範圍
-        # startYear = int(sDt.strftime("%Y"))
-        # endYear = int(eDt.strftime("%Y"))
-
-        # # 資料來源和目標資料夾
-        # source_folder = Path(r"..\data\FinMind\TW\DailyPriceAdj\20100101-20201231")
-        # target_folder = Path(r"..\data\analysis\summary")
-        # target_folder.mkdir(parents=True, exist_ok=True)
-
-        # # 預先建立年份的空清單
-        # year_data_dict = {year: [] for year in range(startYear, endYear + 1)}
-
-        # # 取得所有 csv
-        # csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
-        # utils.ptMsg("📢 即將處理的股價資料檔案數：", len(csv_files))
-
-        # # 遍歷所有檔案
-        # for file in csv_files:
-        #     utils.ptMsg("讀取檔案：", file.name)
-        #     df = pd.read_csv(file)
-
-        #     # 只取 date, stock_id, close
-        #     df = df.loc[:, ["date", "stock_id", "close"]]
-
-        #     # 將日期轉成 datetime
-        #     df["date"] = pd.to_datetime(df["date"])
-
-        #     # 按行分配到對應年份
-        #     for year in range(startYear, endYear + 1):
-        #         # 篩選該年份的資料
-        #         df_year = df[df["date"].dt.year == year]
-        #         if not df_year.empty:
-        #             year_data_dict[year].append(df_year)
-
-        # # 輸出每年檔案
-        # for year in range(startYear, endYear + 1):
-        #     if year_data_dict[year]:
-        #         year_df = pd.concat(year_data_dict[year], ignore_index=True)
-        #         output_file = target_folder / f"closePrice_{year}.csv"
-        #         if os.path.exists(output_file):
-        #             utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
-        #         else:
-        #             year_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-        #             utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
-        #     else:
-        #         utils.ptMsg(f"⚠️ 沒有資料：{year}")
+        ### 將收盤價按年整理
+        runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
+        if not runDataResult:
+            sys.exit()
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0

@@ -17,9 +17,12 @@ storageDir_summary =  f"{storageDir}/summary"
 
 # 撈取各股票市值各月平均資料
 def twMarketValueMean(stockList:list, sDt:datetime, eDt:datetime) -> pd.DataFrame:
-    finMind.twMarketValue(stockList, sDt, eDt)
     
     dfTWMVmean = None
+    runDataResult = finMind.runTwMarketValue(stockList, sDt, eDt)
+    if not runDataResult:
+        return dfTWMVmean
+
     output_path = f"{storageDir_summary}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
     dataExist = False
     if os.path.exists(output_path):
@@ -121,12 +124,17 @@ def twMarketValueMean(stockList:list, sDt:datetime, eDt:datetime) -> pd.DataFram
 
     return dfTWMVmean
 
+
 # 每個月前n大市值的名單
-def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank:int):
-    twMarketValueMean(stockList, sDt, eDt)
+def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank:int=0) -> pd.DataFrame:
+    dfTWMVmean = twMarketValueMean(stockList, sDt, eDt)
     
+    if maxRank <= 0:
+        return dfTWMVmean      
+
     dfTWMVrank = None
-    output_path = f'{storageDir_summary}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxRank}.csv'
+    outputDir = storageDir_summary
+    output_path = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxRank}.csv'
     dataExist = False
     
     if os.path.exists(output_path):
@@ -138,7 +146,7 @@ def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank
         file_list = os.listdir(outputDir)
 
         # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm-rankXXX.csv
-        pattern = re.compile(rf"^TWMV_mean-(\d{{6}})_(\d{{6}})-rank{maxIncludeRank}\.csv$")
+        pattern = re.compile(rf"^TWMV_mean-(\d{{6}})_(\d{{6}})-rank{maxRank}\.csv$")
 
         # 找符合的檔案
         matching_files = [f for f in file_list if pattern.match(f)]
@@ -155,8 +163,67 @@ def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank
 
     if not dataExist:
         # 篩選 rank <= maxIncludeRank
-        dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= maxIncludeRank]
+        dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= maxRank]
 
         # 輸出篩選結果
         dfTWMVrank.to_csv(output_path, index=False, encoding='utf-8')
         utils.ptMsg("✅ 檔案存取成功：", output_path)
+
+    return dfTWMVrank
+
+# 將收盤價按年整理
+def runTwClosePriceByYear(sDt:datetime, eDt:datetime) -> bool:
+    result = True
+
+    try:
+        # 年度範圍
+        startYear = int(sDt.strftime("%Y"))
+        endYear = int(eDt.strftime("%Y"))
+
+        # 資料來源和目標資料夾
+        source_folder = Path(f"../data/FinMind/TW/DailyPriceAdj/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}")
+        target_folder = Path(storageDir_summary)
+        target_folder.mkdir(parents=True, exist_ok=True)
+
+        # 預先建立年份的空清單
+        year_data_dict = {year: [] for year in range(startYear, endYear + 1)}
+
+        # 取得所有 csv
+        csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
+        utils.ptMsg("📢 即將處理的股價資料檔案數：", len(csv_files))
+
+        # 遍歷所有檔案
+        for file in csv_files:
+            utils.ptMsg("讀取檔案：", file.name)
+            df = pd.read_csv(file)
+
+            # 只取 date, stock_id, close
+            df = df.loc[:, ["date", "stock_id", "close"]]
+
+            # 將日期轉成 datetime
+            df["date"] = pd.to_datetime(df["date"])
+
+            # 按行分配到對應年份
+            for year in range(startYear, endYear + 1):
+                # 篩選該年份的資料
+                df_year = df[df["date"].dt.year == year]
+                if not df_year.empty:
+                    year_data_dict[year].append(df_year)
+
+        # 輸出每年檔案
+        for year in range(startYear, endYear + 1):
+            if year_data_dict[year]:
+                year_df = pd.concat(year_data_dict[year], ignore_index=True)
+                output_file = target_folder / f"closePrice_{year}.csv"
+                if os.path.exists(output_file):
+                    utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
+                else:
+                    year_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+                    utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
+            else:
+                utils.ptMsg(f"⚠️ 沒有資料：{year}")
+    except Exception as e:
+        utils.ptMsg(f"發生錯誤：{e}")
+        return False
+
+    return result
