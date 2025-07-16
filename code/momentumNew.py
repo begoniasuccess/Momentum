@@ -23,8 +23,13 @@ print("")
 utils.ptMsg("⚙️ momentumNew.py Run")
 
 ### 策略參數設定
-sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
+switchs = []
+
+# sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
+# eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
+
+sDt = datetime.strptime('2000/01/01', "%Y/%m/%d") # Start Date
+eDt = datetime.strptime('2009/12/31', "%Y/%m/%d") # End Date
 
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
@@ -33,10 +38,10 @@ token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyOD
 api.login_by_token(api_token=token)
 
 planType = "A" # A 
-oPeriods = [3, 6, 9 ,12] # Observer Period
-hPeriods = [3, 6, 9 ,12] # Holding Period
-# oPeriods = [3] # Observer Period
-# hPeriods = [6] # Holding Period
+# oPeriods = [3, 6, 9 ,12] # Observer Period
+# hPeriods = [3, 6, 9 ,12] # Holding Period
+oPeriods = [3] # Observer Period
+hPeriods = [6] # Holding Period
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")

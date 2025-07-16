@@ -26,5 +26,5 @@ api = DataLoader()
 df = api.taiwan_stock_info() # 台股總覽
 df.to_csv("taiwan_stock_info.csv", index=False, encoding='utf-8-sig')   
 
-df = api.taiwan_stock_delisting() # 
+df = api.taiwan_stock_delisting() # 下市資訊
 df.to_csv("taiwan_stock_delisting.csv", index=False, encoding='utf-8-sig')   
