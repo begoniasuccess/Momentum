@@ -9,6 +9,8 @@ import sys
 import glob
 from scipy import stats
 from common import utils
+from common import finMind
+from common import anaData
 import re
 from pandas.errors import EmptyDataError
 import itertools
@@ -46,131 +48,17 @@ for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
 
-        ###### 備齊本策略的資料源 e
         dataExist = False
-        # ### 撈取市值資料  => DONE
-        # outputDir = r'..\data\FinMind\TW\MarketValue' + f'/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
+        
+        ###### 備齊本策略的資料源
 
-        # ## 取得上市股票列表 (create by finTwseList.py)
-        # stockListSrc = f"C:/Users/USER/Desktop/Han/學習/金融策略/分析程式/data/analysis/summary/taiwan_stock_info-twse.csv" 
-        # dfSI = pd.read_csv(stockListSrc)
-        # stockList = dfSI['stock_id'].drop_duplicates().tolist()
-        # utils.ptMsg("📢 即將撈取[市值歷史]資料，股票清單的長度為：", len(stockList))
-
-        # for stock_id in stockList:
-        #     outputFile = f'{outputDir}/TWMV-{stock_id}.csv'
-        #     if os.path.exists(outputFile):
-        #         utils.ptMsg("☑️ 檔案已存在：", outputFile)
-        #     else:
-        #         os.makedirs(os.path.dirname(outputFile), exist_ok=True) # 確保資料夾存在
-        #         dfMV = api.taiwan_stock_market_value(
-        #             stock_id=stock_id,
-        #             start_date=sDt.strftime("%Y-%m-%d"),
-        #             end_date=eDt.strftime("%Y-%m-%d")
-        #         )
-        #         dfMV.to_csv(outputFile, index=False, encoding='utf-8-sig')
-        #         utils.ptMsg("✅ 檔案存取成功：", outputFile)
-
-
-        ### 算出每個月各股票的平均市值
-        dataExist = False
+        ## 取得上市櫃股票列表
+        dfSI = finMind.twStockInfoNoEmerging(False)
+        stockList = dfSI['stock_id'].drop_duplicates().tolist()
+        
+        ### 撈取市值平均資料
+        dfTWMVmean = anaData.twMarketValueMean(stockList, sDt, eDt)
         outputDir = r'..\data\analysis\summary'
-        output_path = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
-        if os.path.exists(output_path):
-            dfTWMVmean = pd.read_csv(output_path)
-            utils.ptMsg("☑️ 檔案已存在：" + output_path)    
-            dataExist = True
-        else:
-            # 查看有沒有範圍更廣的資料區間
-            file_list = os.listdir(outputDir)
-
-            # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm.csv
-            pattern = re.compile(r"^TWMV_mean-(\d{6})_(\d{6})\.csv$")
-
-            # 找符合的檔案
-            matching_files = [f for f in file_list if pattern.match(f)]
-            if matching_files:
-                for f in matching_files:
-                    timeRange = utils.getSdtEdt(f)
-                    sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    if sDtInRange and dDtInRange:
-                        dfTWMVmean = pd.read_csv(f'{outputDir}/{f}')
-                        utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}')   
-                        dataExist = True
-                        break
-
-        if not dataExist:
-            # 資料夾路徑
-            marketValDataDir = f'C:/Users/USER/Desktop/Han/學習/金融策略/分析程式/data/FinMind/TW/MarketValue/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
-            marketValFolder = Path(marketValDataDir)
-
-            # 找到所有 CSV 檔案
-            TWMVfiles = list(marketValFolder.glob('*.csv'))
-            utils.ptMsg("找到的檔案：", TWMVfiles)
-
-            # 存放所有檔案的結果
-            marketValMeans = []
-
-            for aTWMVfile in TWMVfiles:
-                # 檢查檔案大小
-                if aTWMVfile.stat().st_size == 0:
-                    utils.ptMsg(f"檔案 {aTWMVfile} 是空的，跳過")
-                    continue
-
-                # 讀入資料
-                try:
-                    dfTWMVmean = pd.read_csv(aTWMVfile)
-                except pd.errors.EmptyDataError:
-                    utils.ptMsg(f"檔案 {aTWMVfile} 無資料，跳過")
-                    continue
-
-                if dfTWMVmean.empty:
-                    utils.ptMsg(f"檔案 {aTWMVfile} 內容為空，跳過")
-                    continue
-
-                if 'market_value' not in dfTWMVmean.columns:
-                    utils.ptMsg(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
-                    continue
-                    
-                # 排除 market_value == 0
-                dfTWMVmean = dfTWMVmean[dfTWMVmean['market_value'] != 0]
-                
-                # 轉成 datetime
-                dfTWMVmean['date'] = pd.to_datetime(dfTWMVmean['date'])
-                
-                # 產生 year_month 欄位 (YYYY-MM)
-                dfTWMVmean['year_month'] = dfTWMVmean['date'].dt.strftime('%Y-%m')
-                
-                # 以 year_month 分組計算平均
-                grouped = dfTWMVmean.groupby('year_month')['market_value'].mean().reset_index()
-                
-                # 加上 stock_id (每檔資料都是同一個 stock_id)
-                stock_id = dfTWMVmean['stock_id'].iloc[0]
-                grouped['stock_id'] = stock_id
-                
-                # 改欄位順序
-                grouped = grouped[['stock_id', 'year_month', 'market_value']]
-                
-                # 改欄位名稱
-                grouped = grouped.rename(columns={'market_value': 'mean_market_value'})
-                
-                # 加到總表
-                marketValMeans.append(grouped)
-
-            # 合併所有結果
-            dfTWMVmean = pd.concat(marketValMeans, ignore_index=True)
-
-            # 依 year_month 分組，計算排名 (1=最大)
-            dfTWMVmean['rank'] = dfTWMVmean.groupby('year_month')['mean_market_value'] \
-                        .rank(method='min', ascending=False)
-
-            # 輸出含排名的完整資料
-            dfTWMVmean.to_csv(output_path, index=False, encoding='utf-8')
-
-            # 輸出成CSV
-            dfTWMVmean.to_csv(output_path, index=False, encoding='utf-8')
-            utils.ptMsg("✅ 檔案存取成功：", output_path)
 
         ### 取出每個月前n大市值的名單
         dataExist = False

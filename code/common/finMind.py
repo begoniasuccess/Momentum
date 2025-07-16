@@ -1,8 +1,9 @@
-import requests
-import pandas as pd
-from FinMind.data import DataLoader
 import sys
 import os
+from datetime import datetime
+import pandas as pd
+from FinMind.data import DataLoader
+from common import utils
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -14,6 +15,7 @@ api.login_by_token(api_token=token)
 
 storageDir = "../data/FinMind"
 os.makedirs(storageDir, exist_ok=True)
+
 storageDir_twStockInfo =  f"{storageDir}/TW/StockInfo"
 os.makedirs(storageDir_twStockInfo, exist_ok=True)
 
@@ -23,7 +25,7 @@ def twStockInfo(includeCateHistory:bool=False) -> pd.DataFrame:
     output_file = f"{storageDir_twStockInfo}/stock_info.csv"
     if os.path.exists(output_file):
         df = pd.read_csv(output_file)
-        print(f"Data exist: {output_file}")
+        print(f"☑️ Data exist: {output_file}")
     else:        
         df = api.taiwan_stock_info() # 台股總覽
         df['date'] = pd.to_datetime(df['date'], errors='coerce') 
@@ -46,7 +48,7 @@ def twStockInfoTwse(includeCateHistory:bool=False) -> pd.DataFrame:
     output_file = f"{storageDir_twStockInfo}/stock_info-twse.csv"
     if os.path.exists(output_file):
         df = pd.read_csv(output_file)
-        print(f"Data exist: {output_file}")
+        print(f"☑️ Data exist: {output_file}")
     else:        
         df = twStockInfo(includeCateHistory)
         
@@ -67,7 +69,7 @@ def twStockInfoNoEmerging(includeCateHistory:bool=False) -> pd.DataFrame:
     output_file = f"{storageDir_twStockInfo}/stock_info-no_emerging.csv"
     if os.path.exists(output_file):
         df_twse_filtered = pd.read_csv(output_file)
-        print(f"Data exist: {output_file}")
+        print(f"☑️ Data exist: {output_file}")
     else:          
         df = twStockInfo(includeCateHistory)
         
@@ -81,3 +83,29 @@ def twStockInfoNoEmerging(includeCateHistory:bool=False) -> pd.DataFrame:
 
         df_twse_filtered.to_csv(output_file, index=False, encoding='utf-8-sig')
     return df_twse_filtered
+
+storageDir_twMarketValue =  f"{storageDir}/TW/MarketValue"
+os.makedirs(storageDir_twMarketValue, exist_ok=True)
+
+# 撈取各股票市值資料
+def twMarketValue(stockList:list, sDt:datetime, eDt:datetime):
+    utils.ptMsg("📢 即將撈取[市值歷史]資料，股票清單的長度為：", len(stockList))
+    
+    outputDir = f"{storageDir_twMarketValue}/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}"
+    for stock_id in stockList:
+        outputFile = f'{outputDir}/TWMV-{stock_id}.csv'
+        if os.path.exists(outputFile):
+            utils.ptMsg("☑️ 檔案已存在：", outputFile)
+        else:
+            os.makedirs(os.path.dirname(outputFile), exist_ok=True) # 確保資料夾存在
+            dfMV = api.taiwan_stock_market_value(
+                stock_id=stock_id,
+                start_date=sDt.strftime("%Y-%m-%d"),
+                end_date=eDt.strftime("%Y-%m-%d")
+            )
+            dfMV.to_csv(outputFile, index=False, encoding='utf-8-sig')
+            utils.ptMsg("✅ 檔案存取成功：", outputFile)
+    utils.ptMsg("📢 [市值歷史]資料撈取結束。")
+
+
+
