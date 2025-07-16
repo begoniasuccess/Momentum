@@ -49,7 +49,7 @@ for oPeriod in oPeriods:
         ###### 備齊本策略的資料源 e
         dataExist = False
         # ### 撈取市值資料  => DONE
-        # outputDir = r'C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\FinMind\TW\MarketValue' + f'/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
+        # outputDir = r'..\data\FinMind\TW\MarketValue' + f'/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
 
         # ## 取得上市股票列表 (create by finTwseList.py)
         # stockListSrc = f"C:/Users/USER/Desktop/Han/學習/金融策略/分析程式/data/analysis/summary/taiwan_stock_info-twse.csv" 
@@ -74,7 +74,7 @@ for oPeriod in oPeriods:
 
         ### 算出每個月各股票的平均市值
         dataExist = False
-        outputDir = r'C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary'
+        outputDir = r'..\data\analysis\summary'
         output_path = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv'
         if os.path.exists(output_path):
             dfTWMVmean = pd.read_csv(output_path)
@@ -209,7 +209,7 @@ for oPeriod in oPeriods:
             utils.ptMsg("✅ 檔案存取成功：", output_path)
 
         # ### 撈取FindMind的調整後股價資料  => DONE
-        # outputDir = r'C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\FinMind\TW\DailyPriceAdj'
+        # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
         # stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
         # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
         # for stock_id in stockList:
@@ -263,8 +263,8 @@ for oPeriod in oPeriods:
         # endYear = int(eDt.strftime("%Y"))
 
         # # 資料來源和目標資料夾
-        # source_folder = Path(r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\FinMind\TW\DailyPriceAdj\20100101-20201231")
-        # target_folder = Path(r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary")
+        # source_folder = Path(r"..\data\FinMind\TW\DailyPriceAdj\20100101-20201231")
+        # target_folder = Path(r"..\data\analysis\summary")
         # target_folder.mkdir(parents=True, exist_ok=True)
 
         # # 預先建立年份的空清單
@@ -307,7 +307,7 @@ for oPeriod in oPeriods:
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = r'C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = r'..\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
         def getOutputCsvPath(target_folder, filePrefixIdx, csvName):        
             os.makedirs(target_folder, exist_ok=True) 
             outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
@@ -602,7 +602,7 @@ for oPeriod in oPeriods:
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
 
-            price_folder = Path(r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\summary")
+            price_folder = Path(r"..\data\analysis\summary")
 
             # 把日期字串轉成 datetime
             filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
