@@ -14,6 +14,8 @@ api.login_by_token(api_token=token)
 # 
 def getTwStockInfo(includeCateHistory:bool=False) -> pd.DataFrame:
     df = api.taiwan_stock_info() # 台股總覽
+    df['date'] = pd.to_datetime(df['date'], errors='coerce') 
+    df = df[df['date'].notna()] 
     if not includeCateHistory:
         # 確保 date 欄位是 datetime 格式
         df['date'] = pd.to_datetime(df['date'])
@@ -23,7 +25,6 @@ def getTwStockInfo(includeCateHistory:bool=False) -> pd.DataFrame:
 
         # 依照 stock_id 排序（可選）
         df = latest_df.sort_values(by='stock_id')
-        print(df.head(3))
     return df
 
 # 撈取上市清單

@@ -4,4 +4,4 @@ from common import utils
 from common import finMind
 
 twStock = finMind.getTwStockInfoNoEmerging()
-print(twStock.head(10))
+twStock.to_csv("test.csv", index=False, encoding='utf-8-sig')
