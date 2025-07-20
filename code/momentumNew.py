@@ -58,14 +58,13 @@ for oPeriod in oPeriods:
         
         ### 撈取市值平均資料
         dfTWMVmean = anaData.twMarketValueMean(stockList, sDt, eDt)
-        outputDir = r'..\data\analysis\summary'
 
         ### 取出每個月前n大市值的名單
         dataExist = False
         maxIncludeRank = 0 # 選取所有股票
         dfTWMVrank = anaData.twMarketValueSpeRankList(stockList, sDt, eDt, maxIncludeRank)
  
-        ### 撈取FindMind的調整後股價資料  => DONE
+        ### 撈取FindMind的調整後股價資料
         outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
         stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
         utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
