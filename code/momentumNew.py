@@ -17,7 +17,7 @@ import itertools
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-# python -u momentumNew.py 2>&1 | Tee-Object -FilePath terminal_log.txt -Append
+# python -u momentumNew.py 2>&1 | Tee-Object -FilePath ../log/terminal_log.txt -Append
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
@@ -30,8 +30,8 @@ switchs = []
 # sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
 # eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
 
-sDt = datetime.strptime('2000/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2009/12/31', "%Y/%m/%d") # End Date
+sDt = datetime.strptime('2005/01/01', "%Y/%m/%d") # Start Date
+eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
 
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
@@ -70,7 +70,7 @@ for oPeriod in oPeriods:
         stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
         utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
 
-        runDataResult = finMind.twStockDailyPriceAdj(stockList, sDt, eDt)
+        runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
         if not runDataResult:
             sys.exit()
 
@@ -78,6 +78,8 @@ for oPeriod in oPeriods:
         runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
         if not runDataResult:
             sys.exit()
+
+        sys.exit() # 先抓資料
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
