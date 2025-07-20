@@ -88,7 +88,7 @@ storageDir_twMarketValue =  f"{storageDir}/TW/MarketValue"
 os.makedirs(storageDir_twMarketValue, exist_ok=True)
 
 # 撈取各股票市值資料（逐年存檔）
-def runTwMarketValue_yearly(stockList: list, sDt: datetime, eDt: datetime) -> bool:
+def runTwMarketValue(stockList: list, sDt: datetime, eDt: datetime) -> bool:
     result = True
     try:
         utils.ptMsg("📢 即將撈取[市值歷史]資料（逐年存檔），股票清單長度：", len(stockList))
@@ -140,7 +140,7 @@ storageDir_twDailyPriceAdj =  f"{storageDir}/TW/DailyPriceAdj"
 os.makedirs(storageDir_twStockInfo, exist_ok=True)
 
 # 撈取股票每日調整後價格（逐年存檔）
-def runTwStockDailyPriceAdj_yearly(stockList: list, sDt: datetime, eDt: datetime) -> bool:
+def runTwStockDailyPriceAdj(stockList: list, sDt: datetime, eDt: datetime) -> bool:
     result = True
     try:
         utils.ptMsg("📢 即將撈取[歷史修正股價]資料（逐年存檔），股票清單長度：", len(stockList))

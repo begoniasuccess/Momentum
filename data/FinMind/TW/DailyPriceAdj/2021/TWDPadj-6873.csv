@@ -1,0 +1,3 @@
+date,stock_id,Trading_Volume,Trading_money,open,max,min,close,spread,Trading_turnover
+2021-12-29,6873,523975,41424874,70.9,72.41,68.66,69.46,-2.32,299
+2021-12-30,6873,760228,57953320,70.68,71.07,63.47,63.92,-5.54,364

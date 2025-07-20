@@ -15,113 +15,190 @@ os.makedirs(storageDir, exist_ok=True)
 
 storageDir_summary =  f"{storageDir}/summary"
 
-# 撈取各股票市值各月平均資料
-def twMarketValueMean(stockList:list, sDt:datetime, eDt:datetime) -> pd.DataFrame:
-    
-    dfTWMVmean = None
+# # 計算各股票市值各月平均資料
+# def twMarketValueMean(stockList:list, sDt:datetime, eDt:datetime) -> pd.DataFrame:
+#     dfTWMVmean = None
+#     runDataResult = finMind.runTwMarketValue(stockList, sDt, eDt)
+#     if not runDataResult:
+#         return dfTWMVmean
+
+#     output_path = f"{storageDir_summary}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
+#     dataExist = False
+#     if os.path.exists(output_path):
+#         dfTWMVmean = pd.read_csv(output_path)
+#         utils.ptMsg("☑️ 檔案已存在：" + output_path)   
+#         dataExist = True 
+#     else:
+#         outputDir = os.path.dirname(output_path)
+#         # 查看有沒有範圍更廣的資料區間
+#         file_list = os.listdir(outputDir)
+
+#         # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm.csv
+#         pattern = re.compile(r"^TWMV_mean-(\d{6})_(\d{6})\.csv$")
+
+#         # 找符合的檔案
+#         matching_files = [f for f in file_list if pattern.match(f)]
+#         if matching_files:
+#             for f in matching_files:
+#                 timeRange = utils.getSdtEdt(f)
+#                 sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+#                 dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+#                 if sDtInRange and dDtInRange:
+#                     dfTWMVmean = pd.read_csv(f'{outputDir}/{f}')
+#                     utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}') 
+#                     dataExist = True  
+#                     break
+                
+#     if not dataExist:
+#         # 資料夾路徑
+#         marketValDataDir = f'{storageDir_twMarketValue}/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
+#         marketValFolder = Path(marketValDataDir)
+
+#         # 找到所有 CSV 檔案
+#         TWMVfiles = list(marketValFolder.glob('*.csv'))
+#         utils.ptMsg("找到的檔案：", TWMVfiles)
+
+#         # 存放所有檔案的結果
+#         marketValMeans = []
+
+#         for aTWMVfile in TWMVfiles:
+#             # 檢查檔案大小
+#             if aTWMVfile.stat().st_size == 0:
+#                 utils.ptMsg(f"檔案 {aTWMVfile} 是空的，跳過")
+#                 continue
+
+#             # 讀入資料
+#             try:
+#                 dfTWMVmean = pd.read_csv(aTWMVfile)
+#             except pd.errors.EmptyDataError:
+#                 utils.ptMsg(f"檔案 {aTWMVfile} 無資料，跳過")
+#                 continue
+
+#             if dfTWMVmean.empty:
+#                 utils.ptMsg(f"檔案 {aTWMVfile} 內容為空，跳過")
+#                 continue
+
+#             if 'market_value' not in dfTWMVmean.columns:
+#                 utils.ptMsg(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
+#                 continue
+                
+#             # 排除 market_value == 0
+#             dfTWMVmean = dfTWMVmean[dfTWMVmean['market_value'] != 0]
+            
+#             # 轉成 datetime
+#             dfTWMVmean['date'] = pd.to_datetime(dfTWMVmean['date'])
+            
+#             # 產生 year_month 欄位 (YYYY-MM)
+#             dfTWMVmean['year_month'] = dfTWMVmean['date'].dt.strftime('%Y-%m')
+            
+#             # 以 year_month 分組計算平均
+#             grouped = dfTWMVmean.groupby('year_month')['market_value'].mean().reset_index()
+            
+#             # 加上 stock_id (每檔資料都是同一個 stock_id)
+#             stock_id = dfTWMVmean['stock_id'].iloc[0]
+#             grouped['stock_id'] = stock_id
+            
+#             # 改欄位順序
+#             grouped = grouped[['stock_id', 'year_month', 'market_value']]
+            
+#             # 改欄位名稱
+#             grouped = grouped.rename(columns={'market_value': 'mean_market_value'})
+            
+#             # 加到總表
+#             marketValMeans.append(grouped)
+
+#         # 合併所有結果
+#         dfTWMVmean = pd.concat(marketValMeans, ignore_index=True)
+
+#         # 依 year_month 分組，計算排名 (1=最大)
+#         dfTWMVmean['rank'] = dfTWMVmean.groupby('year_month')['mean_market_value'] \
+#                     .rank(method='min', ascending=False)
+
+#         # 輸出含排名的完整資料
+#         dfTWMVmean.to_csv(output_path, index=False, encoding='utf-8')
+
+#         # 輸出成CSV
+#         dfTWMVmean.to_csv(output_path, index=False, encoding='utf-8')
+#         utils.ptMsg("✅ 檔案存取成功：", output_path)
+
+#     return dfTWMVmean
+
+def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataFrame:
     runDataResult = finMind.runTwMarketValue(stockList, sDt, eDt)
     if not runDataResult:
-        return dfTWMVmean
+        return None
 
-    output_path = f"{storageDir_summary}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}.csv"
-    dataExist = False
-    if os.path.exists(output_path):
-        dfTWMVmean = pd.read_csv(output_path)
-        utils.ptMsg("☑️ 檔案已存在：" + output_path)   
-        dataExist = True 
-    else:
-        outputDir = os.path.dirname(output_path)
-        # 查看有沒有範圍更廣的資料區間
-        file_list = os.listdir(outputDir)
+    utils.ptMsg("📢 即將逐月計算與存檔 [平均市值 + 排名] 資料：")
 
-        # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm.csv
-        pattern = re.compile(r"^TWMV_mean-(\d{6})_(\d{6})\.csv$")
+    marketValDataDir = Path(storageDir_twMarketValue)
+    summaryDir = Path(storageDir_summary)
 
-        # 找符合的檔案
-        matching_files = [f for f in file_list if pattern.match(f)]
-        if matching_files:
-            for f in matching_files:
-                timeRange = utils.getSdtEdt(f)
-                sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                if sDtInRange and dDtInRange:
-                    dfTWMVmean = pd.read_csv(f'{outputDir}/{f}')
-                    utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}') 
-                    dataExist = True  
-                    break
-                
-    if not dataExist:
-        # 資料夾路徑
-        marketValDataDir = f'{storageDir_twMarketValue}/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}'
-        marketValFolder = Path(marketValDataDir)
+    summaryFrames = []
 
-        # 找到所有 CSV 檔案
-        TWMVfiles = list(marketValFolder.glob('*.csv'))
-        utils.ptMsg("找到的檔案：", TWMVfiles)
+    current_month = sDt.replace(day=1)
+    end_month = eDt.replace(day=1)
 
-        # 存放所有檔案的結果
-        marketValMeans = []
+    while current_month <= end_month:
+        year_folder = marketValDataDir / str(current_month.year)
+        month_str = current_month.strftime('%Y%m')
 
-        for aTWMVfile in TWMVfiles:
-            # 檢查檔案大小
-            if aTWMVfile.stat().st_size == 0:
-                utils.ptMsg(f"檔案 {aTWMVfile} 是空的，跳過")
+        monthly_results = []
+
+        for stock_id in stockList:
+            csv_file = year_folder / f"{month_str}/TWMV-{stock_id}.csv"
+
+            if not csv_file.exists() or csv_file.stat().st_size == 0:
                 continue
 
-            # 讀入資料
             try:
-                dfTWMVmean = pd.read_csv(aTWMVfile)
-            except pd.errors.EmptyDataError:
-                utils.ptMsg(f"檔案 {aTWMVfile} 無資料，跳過")
+                dfTWMV = pd.read_csv(csv_file)
+            except Exception as e:
+                utils.ptMsg(f"⚠️ 檔案讀取失敗：{csv_file}，原因：{e}")
                 continue
 
-            if dfTWMVmean.empty:
-                utils.ptMsg(f"檔案 {aTWMVfile} 內容為空，跳過")
+            if dfTWMV.empty or 'market_value' not in dfTWMV.columns:
                 continue
 
-            if 'market_value' not in dfTWMVmean.columns:
-                utils.ptMsg(f"檔案 {aTWMVfile} 缺少 market_value 欄位，跳過")
+            dfTWMV = dfTWMV[dfTWMV['market_value'] != 0]
+            if dfTWMV.empty:
                 continue
-                
-            # 排除 market_value == 0
-            dfTWMVmean = dfTWMVmean[dfTWMVmean['market_value'] != 0]
-            
-            # 轉成 datetime
-            dfTWMVmean['date'] = pd.to_datetime(dfTWMVmean['date'])
-            
-            # 產生 year_month 欄位 (YYYY-MM)
-            dfTWMVmean['year_month'] = dfTWMVmean['date'].dt.strftime('%Y-%m')
-            
-            # 以 year_month 分組計算平均
-            grouped = dfTWMVmean.groupby('year_month')['market_value'].mean().reset_index()
-            
-            # 加上 stock_id (每檔資料都是同一個 stock_id)
-            stock_id = dfTWMVmean['stock_id'].iloc[0]
-            grouped['stock_id'] = stock_id
-            
-            # 改欄位順序
-            grouped = grouped[['stock_id', 'year_month', 'market_value']]
-            
-            # 改欄位名稱
-            grouped = grouped.rename(columns={'market_value': 'mean_market_value'})
-            
-            # 加到總表
-            marketValMeans.append(grouped)
 
-        # 合併所有結果
-        dfTWMVmean = pd.concat(marketValMeans, ignore_index=True)
+            dfTWMV['date'] = pd.to_datetime(dfTWMV['date'])
+            dfTWMV['year_month'] = dfTWMV['date'].dt.strftime('%Y-%m')
 
-        # 依 year_month 分組，計算排名 (1=最大)
-        dfTWMVmean['rank'] = dfTWMVmean.groupby('year_month')['mean_market_value'] \
-                    .rank(method='min', ascending=False)
+            avg_value = dfTWMV['market_value'].mean()
 
-        # 輸出含排名的完整資料
-        dfTWMVmean.to_csv(output_path, index=False, encoding='utf-8')
+            monthly_results.append({
+                'stock_id': stock_id,
+                'year_month': dfTWMV['year_month'].iloc[0],
+                'mean_market_value': avg_value
+            })
 
-        # 輸出成CSV
-        dfTWMVmean.to_csv(output_path, index=False, encoding='utf-8')
-        utils.ptMsg("✅ 檔案存取成功：", output_path)
+        if monthly_results:
+            dfMonth = pd.DataFrame(monthly_results)
+            dfMonth['rank'] = dfMonth['mean_market_value'].rank(method='min', ascending=False)
 
+            # 儲存當月結果
+            month_summary_folder = summaryDir / str(current_month.year)
+            month_summary_folder.mkdir(parents=True, exist_ok=True)
+            output_file = month_summary_folder / f"TWMV_mean-{month_str}.csv"
+
+            dfMonth.to_csv(output_file, index=False, encoding='utf-8-sig')
+            utils.ptMsg(f"✅ 月份 {month_str} 統計完成並儲存：{output_file}")
+
+            summaryFrames.append(dfMonth)
+
+        # 下一個月
+        next_month = current_month.month % 12 + 1
+        next_year = current_month.year + (current_month.month // 12)
+        current_month = current_month.replace(year=next_year, month=next_month, day=1)
+
+    if not summaryFrames:
+        utils.ptMsg("❌ 沒有任何月份成功處理。")
+        return None
+
+    # 最後合併所有月份結果
+    dfTWMVmean = pd.concat(summaryFrames, ignore_index=True)
     return dfTWMVmean
 
 
