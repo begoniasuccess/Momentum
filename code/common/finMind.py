@@ -49,6 +49,7 @@ def twStockInfoTwse(includeCateHistory:bool=False) -> pd.DataFrame:
     if os.path.exists(output_file):
         df = pd.read_csv(output_file)
         print(f"☑️ Data exist: {output_file}")
+        return df
     else:        
         df = twStockInfo(includeCateHistory)
         

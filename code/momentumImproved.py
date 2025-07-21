@@ -31,7 +31,7 @@ switchs = []
 # eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
 
 sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2014/12/31', "%Y/%m/%d") # End Date
+eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
 
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
@@ -40,10 +40,11 @@ token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyOD
 api.login_by_token(api_token=token)
 
 planType = "A" # A 
-# oPeriods = [3, 6, 9 ,12] # Observer Period
-# hPeriods = [3, 6, 9 ,12] # Holding Period
-oPeriods = [3] # Observer Period
-hPeriods = [6] # Holding Period
+oPeriods = [3, 6, 9 ,12] # Observer Period
+hPeriods = [3, 6, 9 ,12] # Holding Period
+
+# oPeriods = [3] # Observer Period
+# hPeriods = [6] # Holding Period
 
 minClosePrice = 10
 for oPeriod in oPeriods:
@@ -53,31 +54,32 @@ for oPeriod in oPeriods:
         dataExist = False
         
         ###### 備齊本策略的資料源
+        prepareData = False
+        if prepareData:            
+            ## 取得上市櫃股票列表
+            dfSI = finMind.twStockInfoNoEmerging(False)
+            stockList = dfSI['stock_id'].drop_duplicates().tolist()
+            
+            ### 撈取FindMind的調整後股價資料
+            outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
+            utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+            runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+            if not runDataResult:
+                sys.exit()
 
-        ## 取得上市櫃股票列表
-        dfSI = finMind.twStockInfoNoEmerging(False)
-        stockList = dfSI['stock_id'].drop_duplicates().tolist()
-        
-        # ### 撈取FindMind的調整後股價資料
-        # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
-        # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
-        # runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
-        # if not runDataResult:
-        #     sys.exit()
+            ### 計算每月平均股價，並且過濾出大於minCloseMinPrice股價的清單
+            runDataResult = anaData.runAdjPriceMeanByMonth(sDt, eDt, minCloseMinPrice)
+            if not runDataResult:
+                sys.exit()
+            
+            ### 將收盤價按月整理
+            runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
+            if not runDataResult:
+                sys.exit()
 
-        # ### 計算每月平均股價，並且過濾出大於minCloseMinPrice股價的清單
-        # runDataResult = anaData.runAdjPriceMeanByMonth(sDt, eDt, minCloseMinPrice)
-        # if not runDataResult:
-        #     sys.exit()
-        
-        # ### 將收盤價按月整理
-        # runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
-        # if not runDataResult:
-        #     sys.exit()
-
-        # runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
-        # if not runDataResult:
-        #     sys.exit()
+            runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
+            if not runDataResult:
+                sys.exit()
         
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
@@ -387,7 +389,6 @@ for oPeriod in oPeriods:
 
             utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
-        sys.exit()
 
         ### 計算持有期的報酬
         filePrefixIdx = filePrefixIdx + 1
@@ -411,15 +412,16 @@ for oPeriod in oPeriods:
             ED_close2_list = []
 
             close_df_sd2 = None
-            close_df_sd2_y_pre = None
-            close_df_sd2_y = None
+            close_df_sd2_ym_pre = None
+            close_df_sd2_ym = None
 
             close_df_ed2 = None
-            close_df_ed2_y_pre = None
-            close_df_ed2_y = None
+            close_df_ed2_ym_pre = None
+            close_df_ed2_ym = None
 
             # 處理每一列 
             for idx, row in filtered_df.iterrows():
+                # print(f"row = ", row)
                 stock_id = str(row["stock_id"])
 
                 # =============== start_date2 ==============
@@ -427,14 +429,21 @@ for oPeriod in oPeriods:
                 sd2_year = sd2_month.year
                 sd2_month_num = sd2_month.month
 
-                close_df_sd2_y = sd2_month.strftime("%Y")
-                if (close_df_sd2 is None) or (int(close_df_sd2_y) != int(close_df_sd2_y_pre)):
-                    close_df_sd2 = utils.getCloseDf(close_df_sd2_y, 1)
-                    close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
-                    close_df_sd2_y_pre = close_df_sd2_y
+                close_df_sd2_ym = sd2_month.strftime("%Y%m")
+                if (close_df_sd2 is None) or (int(close_df_sd2_ym) != int(close_df_sd2_ym_pre)):
+                    # close_df_sd2 = utils.getCloseDf(close_df_sd2_ym, 1)
+                    srcFile = f"../data/analysis/summary/closePrice/closePrice_{close_df_sd2_ym}.csv"
+                    try:
+                        close_df_sd2 = pd.read_csv(srcFile)
+                        close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
+                    except Exception as error:
+                        utils.ptMsg(f"❌ closePrice_{close_df_sd2_ym}.csv讀取錯誤，填入 None，{error}")
+                        start_date2 = None
+                        SD_close2 = None                    
+                    close_df_sd2_ym_pre = close_df_sd2_ym
 
                 if close_df_sd2.empty:
-                    utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_sd2_y}.csv，填入 None")
+                    utils.ptMsg(f"❌ closePrice_{close_df_sd2_ym}.csv內容空白，填入 None")
                     start_date2 = None
                     SD_close2 = None
                 else:
@@ -452,10 +461,10 @@ for oPeriod in oPeriods:
 
                     start_date2_list.append(start_date2)
                     SD_close2_list.append(SD_close2)
-                    if start_date2 is None:
-                        print("⚠️start_date2 is None")
-                    if SD_close2 is None:
-                        print("SD_close2 is None")
+                    # if start_date2 is None:
+                    #     print(f"⚠️ start_date2 is None")
+                    # if SD_close2 is None:
+                    #     print(f"⚠️ SD_close2 is None")
 
                     # print("close_df_sd2", close_df_sd2)
                     # print("close_df_sd2_y_pre", close_df_sd2_y_pre)
@@ -467,17 +476,22 @@ for oPeriod in oPeriods:
                     ed2_year = ed2_month.year
                     ed2_month_num = ed2_month.month
 
-                    close_df_ed2_y = ed2_month.strftime("%Y")
-                    if (close_df_ed2 is None) or (int(close_df_ed2_y) != int(close_df_ed2_y_pre)):
-                        if int(close_df_ed2_y) == int(close_df_sd2_y):
-                            close_df_ed2 = close_df_sd2
-                        else:
-                            close_df_ed2 = utils.getCloseDf(close_df_ed2_y, 1)
+                    close_df_ed2_ym = ed2_month.strftime("%Y%m")
+                    if (close_df_ed2 is None) or (int(close_df_ed2_ym) != int(close_df_ed2_ym_pre)):                        
+                        # close_df_ed2 = utils.getCloseDf(close_df_ed2_ym, 1)
+                        srcFile = f"../data/analysis/summary/closePrice/closePrice_{close_df_ed2_ym}.csv"
+                        try:
+                            close_df_ed2 = pd.read_csv(srcFile)
                             close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
-                        close_df_ed2_y_pre = close_df_ed2_y
+                        except Exception as error:
+                            utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv讀取錯誤，填入 None，{error}")
+                            end_date2 = None
+                            ED_close2 = None              
+                        close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
+                        close_df_ed2_ym_pre = close_df_ed2_ym
 
                     if close_df_ed2.empty:
-                        utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_ed2_y}.csv，填入 None")
+                        utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv內容空白，填入 None")
                         end_date2 = None
                         ED_close2 = None
                     else:
@@ -495,10 +509,10 @@ for oPeriod in oPeriods:
 
                         end_date2_list.append(end_date2)
                         ED_close2_list.append(ED_close2)
-                        if end_date2 is None:
-                            print("end_date2 is None")
-                        if ED_close2 is None:
-                            print("ED_close2 is None")
+                        # if end_date2 is None:
+                        #     print("end_date2 is None")
+                        # if ED_close2 is None:
+                        #     print("ED_close2 is None")
 
             # 新增欄位
             filtered_df["start_date2"] = start_date2_list

@@ -44,6 +44,7 @@ planType = "A" # A
 # hPeriods = [3, 6, 9 ,12] # Holding Period
 oPeriods = [3] # Observer Period
 hPeriods = [6] # Holding Period
+maxIncludeRank = 150
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -51,32 +52,29 @@ for oPeriod in oPeriods:
         dataExist = False
         
         ###### 備齊本策略的資料源
-
         ## 取得上市櫃股票列表
-        dfSI = finMind.twStockInfoNoEmerging(False)
+        dfSI = finMind.twStockInfoTwse(False)
         stockList = dfSI['stock_id'].drop_duplicates().tolist()
         
-        ### 撈取市值平均資料
-        dfTWMVmean = anaData.twMarketValueMean(stockList, sDt, eDt)
-
         ### 取出每個月前n大市值的名單
         dataExist = False
-        maxIncludeRank = 0 # 選取所有股票
         dfTWMVrank = anaData.twMarketValueSpeRankList(stockList, sDt, eDt, maxIncludeRank)
- 
-        ### 撈取FindMind的調整後股價資料
-        outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
-        stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
-        utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+        
+        prepareDatas = True
+        if prepareDatas:    
+            ### 撈取FindMind的調整後股價資料
+            outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
+            stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
+            utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
 
-        runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
-        if not runDataResult:
-            sys.exit()
+            runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+            if not runDataResult:
+                sys.exit()
 
-        ### 將收盤價按年整理
-        runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
-        if not runDataResult:
-            sys.exit()
+            ### 將收盤價按年整理
+            runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
+            if not runDataResult:
+                sys.exit()
 
         sys.exit() # 先抓資料
 
