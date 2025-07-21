@@ -359,7 +359,7 @@ def runTwClosePriceByMonth(sDt: datetime, eDt: datetime) -> bool:
 
     try:
         # 準備目標資料夾
-        target_folder = Path(storageDir_summary)
+        target_folder = Path(storageDir_summary + "/closePirce")
         target_folder.mkdir(parents=True, exist_ok=True)
 
         # 年度範圍
