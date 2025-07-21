@@ -31,7 +31,7 @@ switchs = []
 # eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
 
 sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
+eDt = datetime.strptime('2014/12/31', "%Y/%m/%d") # End Date
 
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
@@ -79,12 +79,6 @@ for oPeriod in oPeriods:
         # if not runDataResult:
         #     sys.exit()
         
-        runDataResult = anaData.fliterColsePirceByMonth(sDt, eDt, minClosePrice)
-        if not runDataResult:
-            sys.exit()
-
-        sys.exit() # 先抓資料
-
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
         target_folder = r'..\data\analysis\momentumImproved' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
@@ -137,9 +131,8 @@ for oPeriod in oPeriods:
                 progressDt = datetime.strptime(progressYM, "%Y%m")
                 cur_dt = progressDt + relativedelta(months=1)
                 
-            close_df = None
-            close_df_year = "0"
-            closeDfYears = (oPeriod) // 12 + 2
+            close_df_start = None
+            close_df_end = None
 
             # 逐月迭代
             exist_y_str = None    
@@ -151,39 +144,39 @@ for oPeriod in oPeriods:
                     break
 
                 curY = cur_dt.strftime("%Y")
+                end_dt = cur_dt + relativedelta(months=oPeriod - 1)
+        
+                ym_str = cur_dt.strftime('%Y-%m')
+                utils.ptMsg("**Observer RT " + ym_str + " 開始處理")                
+                try:
+                    close_df_path = f"../data/summary/filterByAdjMean/over{minClosePrice}/closePrice_{cur_dt.strftime('%Y%m')}.csv"
+                    close_df_start = pd.read_csv(close_df_path)
 
-                # 讀取近n(closeDfYears)年收盤價資料    
-                if (close_df is None) or (int(close_df_year) != int(curY)):            
-                    close_df = utils.getCloseDf(curY, closeDfYears)
-                    close_df_year = cur_dt.strftime("%Y")
+                    close_df_path = f"../data/summary/filterByAdjMean/over{minClosePrice}/closePrice_{end_dt.strftime('%Y%m')}.csv"
+                    close_df_end = pd.read_csv(close_df_path)
+                except Exception as error:
+                    utils.ptMsg(f"⚠️ 尋找close_df失敗，錯誤：{error}")
+                    sys.exit()
+                    # continue
 
                 result_rows = []
                 
-                ym_str = cur_dt.strftime('%Y-%m')
-                utils.ptMsg("**Observer RT " + ym_str + " 開始處理")
-
                 # (a) 找當月股票清單
-                y_str = cur_dt.strftime('%Y')
-                if (exist_y_str != y_str):
-                    candidateSrc = f"../data/analysis/summary/adjPriceMeanByMonth/{y_str}_meanOver{minClosePrice}.csv"
-                    if not os.path.exists(candidateSrc):
-                        utils.ptMsg(f"⚠️ 必要檔案 {candidateSrc} 不存在，請除錯！")
-                        sys.exit()
-                    candidateList = pd.read_csv(candidateSrc)
-                    exist_y_str = y_str
-                month_stocks = candidateList[candidateList['year_month'] == ym_str]['stock_id'].unique()
+                close_df_start['date'] = pd.to_datetime(close_df_start['date'])
+                df_month  = close_df_start[(close_df_start['date'].dt.year == cur_dt.year) & (close_df_start['date'].dt.month == cur_dt.month)]
+                month_stocks = df_month['stock_id'].drop_duplicates().tolist()
                 utils.ptMsg("** " + ym_str + "股票清單長度：" + str(len(month_stocks)))
                 
                 for stock in month_stocks:
                     # (b) 找該股票當月第一個交易日
                     # reset_index方便篩選
-                    sub_df = close_df.reset_index()
+                    sub_df_start = close_df_start.reset_index()
                     mask = (
-                        (sub_df['stock_id'] == stock) &
-                        (sub_df['date'].dt.year == cur_dt.year) &
-                        (sub_df['date'].dt.month == cur_dt.month)
+                        (sub_df_start['stock_id'] == stock) &
+                        (sub_df_start['date'].dt.year == cur_dt.year) &
+                        (sub_df_start['date'].dt.month == cur_dt.month)
                     )
-                    this_month = sub_df[mask].sort_values('date')
+                    this_month = sub_df_start[mask].sort_values('date')
                     # print("this_month=")
                     # print(this_month.head(2))
                     if this_month.empty:
@@ -196,14 +189,14 @@ for oPeriod in oPeriods:
                     start_date = start_row['date']
                     SD_close = start_row['close']
                     
-                    # (c) 找end_date  
-                    end_dt = cur_dt + relativedelta(months=oPeriod - 1)           
+                    # (c) 找end_date
+                    sub_df_end = close_df_end.reset_index()             
                     mask_end = (
-                        (sub_df['stock_id'] == stock) &
-                        (sub_df['date'].dt.year == end_dt.year) &
-                        (sub_df['date'].dt.month == end_dt.month)
+                        (sub_df_end['stock_id'] == stock) &
+                        (sub_df_end['date'].dt.year == end_dt.year) &
+                        (sub_df_end['date'].dt.month == end_dt.month)
                     )
-                    end_dt_df = sub_df[mask_end].sort_values('date')
+                    end_dt_df = sub_df_end[mask_end].sort_values('date')
                     if end_dt_df.empty:
                         print(f"⚠️ {str(end_dt.year) + str(end_dt.month)} Stock {stock} 沒有end_dt_df的資料")
                         # print("*** sub_df=")
