@@ -1,3 +1,4 @@
+import shutil
 import math
 from FinMind.data import DataLoader
 import pandas as pd
@@ -55,6 +56,29 @@ for oPeriod in oPeriods:
         ## 取得上市櫃股票列表
         dfSI = finMind.twStockInfoTwse(False)
         stockList = dfSI['stock_id'].drop_duplicates().tolist()
+
+        base_folder = Path("../data/FinMind/TW/MarketValue")
+        valid_stock_set = set(str(sid) for sid in stockList)
+
+        for year in range(2010, 2025):
+            year_folder = base_folder / str(year)
+            if not year_folder.exists():
+                continue
+
+            no_use_folder = year_folder / "no_use"
+            no_use_folder.mkdir(exist_ok=True)
+
+            for file in year_folder.glob("TWMV-*.csv"):
+                stock_id = file.stem.replace("TWMV-", "")
+                if stock_id not in valid_stock_set:
+                    target_file = no_use_folder / file.name
+                    print(f"📦 移動檔案：{file} -> {target_file}")
+                    try:
+                        shutil.move(str(file), str(target_file))
+                    except Exception as e:
+                        print(f"⚠️ 無法移動 {file}，原因：{e}")
+
+        sys.exit()
         
         ### 取出每個月前n大市值的名單
         dataExist = False

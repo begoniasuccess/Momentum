@@ -147,7 +147,7 @@ def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataF
         monthly_results = []
 
         for stock_id in stockList:
-            csv_file = year_folder / f"{month_str}/TWMV-{stock_id}.csv"
+            csv_file = year_folder / f"TWMV-{stock_id}.csv"
 
             if not csv_file.exists() or csv_file.stat().st_size == 0:
                 continue

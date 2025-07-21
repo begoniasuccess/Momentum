@@ -40,10 +40,10 @@ token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyOD
 api.login_by_token(api_token=token)
 
 planType = "A" # A 
-oPeriods = [3, 6, 9 ,12] # Observer Period
+# oPeriods = [3, 6, 9 ,12] # Observer Period
 hPeriods = [3, 6, 9 ,12] # Holding Period
 
-# oPeriods = [3] # Observer Period
+oPeriods = [3] # Observer Period
 # hPeriods = [6] # Holding Period
 
 minClosePrice = 10
