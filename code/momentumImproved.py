@@ -45,7 +45,7 @@ planType = "A" # A
 oPeriods = [3] # Observer Period
 hPeriods = [6] # Holding Period
 
-minCloseMinPrice = 8
+minClosePrice = 10
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -70,8 +70,16 @@ for oPeriod in oPeriods:
         # if not runDataResult:
         #     sys.exit()
         
-        ### 將收盤價按月整理
-        runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
+        # ### 將收盤價按月整理
+        # runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
+        # if not runDataResult:
+        #     sys.exit()
+
+        # runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
+        # if not runDataResult:
+        #     sys.exit()
+        
+        runDataResult = anaData.fliterColsePirceByMonth(sDt, eDt, minClosePrice)
         if not runDataResult:
             sys.exit()
 
@@ -157,7 +165,7 @@ for oPeriod in oPeriods:
                 # (a) 找當月股票清單
                 y_str = cur_dt.strftime('%Y')
                 if (exist_y_str != y_str):
-                    candidateSrc = f"../data/analysis/summary/adjPriceMeanByMonth/{y_str}_meanOver{minCloseMinPrice}.csv"
+                    candidateSrc = f"../data/analysis/summary/adjPriceMeanByMonth/{y_str}_meanOver{minClosePrice}.csv"
                     if not os.path.exists(candidateSrc):
                         utils.ptMsg(f"⚠️ 必要檔案 {candidateSrc} 不存在，請除錯！")
                         sys.exit()
