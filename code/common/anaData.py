@@ -248,6 +248,54 @@ def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank
 
     return dfTWMVrank
 
+
+# 每個月前n%市值的名單 TODO！！！
+def twMarketValueTopList(stockList:list, sDt:datetime, eDt:datetime, topPercent:int=0) -> pd.DataFrame:
+    dfTWMVmean = twMarketValueMean(stockList, sDt, eDt)
+    
+    if topPercent <= 0:
+        return dfTWMVmean      
+
+    dfTWMVrank = None
+    outputDir = storageDir_summary
+    output_path = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-top{topPercent}.csv'
+    dataExist = False
+    
+    if os.path.exists(output_path):
+        dfTWMVrank = pd.read_csv(output_path)
+        utils.ptMsg("☑️ 檔案已存在：" + output_path)
+        dataExist = True
+    else:
+        # 查看有沒有範圍更廣的資料區間
+        file_list = os.listdir(outputDir)
+
+        # 正則表達式：匹配 TWMV_mean-yyyymm_yyyymm-rankXXX.csv
+        pattern = re.compile(rf"^TWMV_mean-(\d{{6}})_(\d{{6}})-top{topPercent}\.csv$")
+
+        # 找符合的檔案
+        matching_files = [f for f in file_list if pattern.match(f)]
+        if matching_files:
+            for f in matching_files:
+                timeRange = utils.getSdtEdt(f)
+                sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+                dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+                if sDtInRange and dDtInRange:
+                    dfTWMVrank = pd.read_csv(f'{outputDir}/{f}')
+                    utils.ptMsg("☑️ 已讀入既有檔案：" + f'{outputDir}/{f}')   
+                    dataExist = True
+                    break    
+
+    if not dataExist:
+        # 篩選 rank <= maxIncludeRank
+        dfTWMVrank = dfTWMVmean[dfTWMVmean['rank'] <= maxRank]
+
+        # 輸出篩選結果
+        dfTWMVrank.to_csv(output_path, index=False, encoding='utf-8')
+        utils.ptMsg("✅ 檔案存取成功：", output_path)
+
+    return dfTWMVrank
+
+
 # 將收盤價按年整理
 def runTwClosePriceByYear(sDt:datetime, eDt:datetime) -> bool:
     result = True

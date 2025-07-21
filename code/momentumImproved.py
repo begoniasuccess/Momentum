@@ -45,7 +45,7 @@ planType = "A" # A
 oPeriods = [3] # Observer Period
 hPeriods = [6] # Holding Period
 
-minCloseMinPrice = 30
+minCloseMinPrice = 8
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -58,22 +58,22 @@ for oPeriod in oPeriods:
         dfSI = finMind.twStockInfoNoEmerging(False)
         stockList = dfSI['stock_id'].drop_duplicates().tolist()
         
-        # ### 撈取FindMind的調整後股價資料
-        # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
-        # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
-        # runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
-        # if not runDataResult:
-        #     sys.exit()
+        ### 撈取FindMind的調整後股價資料
+        outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
+        utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+        runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+        if not runDataResult:
+            sys.exit()
 
-        ### 計算每月平均股價，並且過濾出大於30股價的清單
+        ### 計算每月平均股價，並且過濾出大於minCloseMinPrice股價的清單
         runDataResult = anaData.runAdjPriceMeanByMonth(sDt, eDt, minCloseMinPrice)
         if not runDataResult:
             sys.exit()
         
-        ### 將收盤價按月整理
-        runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
-        if not runDataResult:
-            sys.exit()
+        # ### 將收盤價按月整理
+        # runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
+        # if not runDataResult:
+        #     sys.exit()
 
         sys.exit() # 先抓資料
 
