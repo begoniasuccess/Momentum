@@ -145,15 +145,19 @@ for oPeriod in oPeriods:
 
                 curY = cur_dt.strftime("%Y")
                 end_dt = cur_dt + relativedelta(months=oPeriod - 1)
-        
+                
                 ym_str = cur_dt.strftime('%Y-%m')
                 utils.ptMsg("**Observer RT " + ym_str + " 開始處理")                
                 try:
-                    close_df_path = f"../data/summary/filterByAdjMean/over{minClosePrice}/closePrice_{cur_dt.strftime('%Y%m')}.csv"
+                    ym_name = cur_dt.strftime('%Y%m')
+                    close_df_path = f"../data/analysis/summary/closePrice/closePrice_{ym_name}.csv"
                     close_df_start = pd.read_csv(close_df_path)
-
-                    close_df_path = f"../data/summary/filterByAdjMean/over{minClosePrice}/closePrice_{end_dt.strftime('%Y%m')}.csv"
+                    close_df_start['date'] = pd.to_datetime(close_df_start['date'], errors='coerce')
+                    
+                    ym_name = end_dt.strftime('%Y%m')
+                    close_df_path = f"../data/analysis/summary/closePrice/closePrice_{ym_name}.csv"
                     close_df_end = pd.read_csv(close_df_path)
+                    close_df_end['date'] = pd.to_datetime(close_df_end['date'], errors='coerce')
                 except Exception as error:
                     utils.ptMsg(f"⚠️ 尋找close_df失敗，錯誤：{error}")
                     sys.exit()
@@ -162,9 +166,18 @@ for oPeriod in oPeriods:
                 result_rows = []
                 
                 # (a) 找當月股票清單
-                close_df_start['date'] = pd.to_datetime(close_df_start['date'])
-                df_month  = close_df_start[(close_df_start['date'].dt.year == cur_dt.year) & (close_df_start['date'].dt.month == cur_dt.month)]
-                month_stocks = df_month['stock_id'].drop_duplicates().tolist()
+                y_str = cur_dt.strftime('%Y')
+                if (exist_y_str != y_str):
+                    candidateSrc = f"../data/analysis/summary/adjPriceMeanByMonth/{y_str}_meanOver{minClosePrice}.csv"
+                    if not os.path.exists(candidateSrc):
+                        utils.ptMsg(f"⚠️ 必要檔案 {candidateSrc} 不存在，請除錯！")
+                        sys.exit()
+                    candidateList = pd.read_csv(candidateSrc)
+                    # print(candidateList.head())
+                    exist_y_str = y_str
+                month_stocks = candidateList[
+                    candidateList['year_month'].astype(str) == cur_dt.strftime("%Y%m")
+                ]['stock_id'].unique()
                 utils.ptMsg("** " + ym_str + "股票清單長度：" + str(len(month_stocks)))
                 
                 for stock in month_stocks:
@@ -281,7 +294,6 @@ for oPeriod in oPeriods:
                     except EmptyDataError:
                         print("檔案格式不正確，用空 DataFrame")
                         result_df = pd.DataFrame()
-            
         
         ### 增加各種rank相關欄位
         filePrefixIdx = filePrefixIdx + 1
@@ -374,6 +386,8 @@ for oPeriod in oPeriods:
             filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
             utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
+
+        sys.exit()
 
         ### 計算持有期的報酬
         filePrefixIdx = filePrefixIdx + 1
