@@ -6,6 +6,7 @@ from common import utils
 from common import finMind
 import re
 from pathlib import Path
+from collections import defaultdict
 
 storageDir_twMarketValue =  f"../data/FinMind/TW/MarketValue"
 os.makedirs(storageDir_twMarketValue, exist_ok=True)
@@ -201,7 +202,6 @@ def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataF
     dfTWMVmean = pd.concat(summaryFrames, ignore_index=True)
     return dfTWMVmean
 
-
 # 每個月前n大市值的名單
 def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank:int=0) -> pd.DataFrame:
     dfTWMVmean = twMarketValueMean(stockList, sDt, eDt)
@@ -304,3 +304,146 @@ def runTwClosePriceByYear(sDt:datetime, eDt:datetime) -> bool:
         return False
 
     return result
+
+# 將收盤價按月整理
+def runTwClosePriceByMonth(sDt: datetime, eDt: datetime) -> bool:
+    result = True
+
+    try:
+        # 準備目標資料夾
+        target_folder = Path(storageDir_summary)
+        target_folder.mkdir(parents=True, exist_ok=True)
+
+        # 年度範圍
+        start_year = sDt.year
+        end_year = eDt.year
+
+        for year in range(start_year, end_year + 1):
+            source_folder = Path(f"../data/FinMind/TW/DailyPriceAdj/{year}")
+            csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
+            utils.ptMsg(f"📅 處理年度：{year}，股票檔案數：{len(csv_files)}")
+
+            # 建立當年內所有月份的暫存區
+            month_data_dict = defaultdict(list)
+
+            for file in csv_files:
+                utils.ptMsg("讀取檔案：", file.name)
+                df = pd.read_csv(file)
+                df = df.loc[:, ["date", "stock_id", "close"]]
+                df["date"] = pd.to_datetime(df["date"])
+
+                # 將資料依年月分類
+                df["yyyymm"] = df["date"].dt.strftime("%Y%m")
+                for yyyymm, group in df.groupby("yyyymm"):
+                    # 檢查是否在日期範圍內
+                    group_date = pd.to_datetime(yyyymm + "01")
+                    if not (sDt <= group_date <= eDt):
+                        continue
+                    month_data_dict[yyyymm].append(group.drop(columns="yyyymm"))
+
+            # 將當年各月份資料輸出
+            for yyyymm, data_list in month_data_dict.items():
+                output_file = target_folder / f"closePrice_{yyyymm}.csv"
+
+                if output_file.exists():
+                    utils.ptMsg(f"⏩ 檔案已存在，跳過：{output_file}")
+                    continue
+
+                month_df = pd.concat(data_list, ignore_index=True)
+                month_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+                utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
+
+    except Exception as e:
+        utils.ptMsg(f"發生錯誤：{e}")
+        return False
+
+    return result
+
+# 計算每月平均收盤價（以年為單位存檔）
+def runAdjPriceMeanByMonth(sDt: datetime, eDt: datetime, filterMeanClose: int=0) -> bool:
+    result = True
+    try:
+        baseDataDir = Path("../data/FinMind/TW/DailyPriceAdj")
+        outputDir = Path("../data/analysis/summary/adjPriceMeanByMonth")
+        outputDir.mkdir(parents=True, exist_ok=True)
+
+        cur_year = sDt.year
+        end_year = eDt.year
+
+        while cur_year <= end_year:
+            year_folder = baseDataDir / str(cur_year)
+            if not year_folder.exists():
+                utils.ptMsg(f"⚠️ 缺少資料夾：{year_folder}，跳過 {cur_year}")
+                cur_year += 1
+                continue
+
+            allFiles = list(year_folder.glob("TWDPadj-*.csv"))
+            if not allFiles:
+                utils.ptMsg(f"⚠️ 無股價檔案：{year_folder}，跳過 {cur_year}")
+                cur_year += 1
+                continue
+
+            monthlyResults = []
+
+            for file in allFiles:
+                try:
+                    df = pd.read_csv(file)
+
+                    if df.empty or 'close' not in df.columns or 'date' not in df.columns:
+                        utils.ptMsg(f"⚠️ 檔案無效，跳過：{file}")
+                        continue
+
+                    # 清理資料
+                    df = df[['date', 'stock_id', 'close']].dropna()
+
+                    # 排除極端值（例如負數或極端大值）
+                    df = df[(df['close'] > 0) & (df['close'] < 1e5)]
+
+                    if df.empty:
+                        utils.ptMsg(f"⚠️ 清理後無有效資料，跳過：{file}")
+                        continue
+
+                    df['date'] = pd.to_datetime(df['date'], errors='coerce')
+                    df = df.dropna(subset=['date'])
+
+                    df['year_month'] = df['date'].dt.strftime('%Y%m')
+
+                    stock_id = str(df['stock_id'].iloc[0])
+
+                    # 月平均計算
+                    grouped = df.groupby('year_month')['close'].mean().reset_index()
+                    grouped['stock_id'] = stock_id
+                    grouped = grouped[['year_month', 'stock_id', 'close']]
+                    grouped = grouped.rename(columns={'close': 'mean_close'})
+
+                    monthlyResults.append(grouped)
+
+                except Exception as e:
+                    utils.ptMsg(f"⚠️ 檔案處理失敗：{file}，錯誤：{e}")
+                    continue
+
+            if monthlyResults:
+                dfYear = pd.concat(monthlyResults, ignore_index=True)
+                output_file = outputDir / f"{cur_year}.csv"
+                dfYear.to_csv(output_file, index=False, encoding='utf-8-sig')
+                utils.ptMsg(f"✅ {cur_year} 年資料統計完成，存檔：{output_file}")
+
+                if filterMeanClose > 0:
+                # 過濾出 mean_close > filterMeanClose 的資料
+                    df_filtered = dfYear[dfYear['mean_close'] > filterMeanClose]
+
+                    # 另存為檔案
+                    output_file = outputDir / f"{cur_year}_meanOver{filterMeanClose}.csv"
+                    df_filtered.to_csv(output_file, index=False, encoding='utf-8-sig')
+                    utils.ptMsg(f"✅ 過濾mean_close > 30以的資料，存檔：{output_file}")
+            else:
+                utils.ptMsg(f"⚠️ {cur_year} 年無任何有效資料，未輸出檔案。")
+
+            cur_year += 1
+
+    except Exception as e:
+        utils.ptMsg(f"❌ 發生錯誤：{e}")
+        return False
+
+    return result
+

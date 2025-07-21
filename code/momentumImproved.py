@@ -17,7 +17,7 @@ import itertools
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-# python -u momentumImproved.py 2>&1 | Tee-Object -FilePath ../log/terminal_log.txt -Append
+# python -u momentumImproved.py 2>&1 | Tee-Object -FilePath ../log/terminal.log -Append
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
@@ -28,7 +28,7 @@ utils.ptMsg("⚙️ momentumImproved.py Run")
 switchs = []
 
 # sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-# eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
+# eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
 
 sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
 eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
@@ -44,6 +44,8 @@ planType = "A" # A
 # hPeriods = [3, 6, 9 ,12] # Holding Period
 oPeriods = [3] # Observer Period
 hPeriods = [6] # Holding Period
+
+minCloseMinPrice = 30
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -56,16 +58,20 @@ for oPeriod in oPeriods:
         dfSI = finMind.twStockInfoNoEmerging(False)
         stockList = dfSI['stock_id'].drop_duplicates().tolist()
         
-        ### 撈取FindMind的調整後股價資料
-        outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
-        utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+        # ### 撈取FindMind的調整後股價資料
+        # outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
+        # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+        # runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+        # if not runDataResult:
+        #     sys.exit()
 
-        runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+        ### 計算每月平均股價，並且過濾出大於30股價的清單
+        runDataResult = anaData.runAdjPriceMeanByMonth(sDt, eDt, minCloseMinPrice)
         if not runDataResult:
             sys.exit()
-
-        ### 將收盤價按年整理
-        runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
+        
+        ### 將收盤價按月整理
+        runDataResult = anaData.runTwClosePriceByMonth(sDt, eDt)
         if not runDataResult:
             sys.exit()
 
@@ -127,7 +133,8 @@ for oPeriod in oPeriods:
             close_df_year = "0"
             closeDfYears = (oPeriod) // 12 + 2
 
-            # 逐月迭代    
+            # 逐月迭代
+            exist_y_str = None    
             while cur_dt <= eDt:
                 ### 如果end_dt2超過資料範圍 就結束搜尋
                 end_dt2 = cur_dt + relativedelta(months=oPeriod + hPeriod)            
@@ -148,7 +155,15 @@ for oPeriod in oPeriods:
                 utils.ptMsg("**Observer RT " + ym_str + " 開始處理")
 
                 # (a) 找當月股票清單
-                month_stocks = dfTWMVrank[dfTWMVrank['year_month'] == ym_str]['stock_id'].unique()
+                y_str = cur_dt.strftime('%Y')
+                if (exist_y_str != y_str):
+                    candidateSrc = f"../data/analysis/summary/adjPriceMeanByMonth/{y_str}_meanOver{minCloseMinPrice}.csv"
+                    if not os.path.exists(candidateSrc):
+                        utils.ptMsg(f"⚠️ 必要檔案 {candidateSrc} 不存在，請除錯！")
+                        sys.exit()
+                    candidateList = pd.read_csv(candidateSrc)
+                    exist_y_str = y_str
+                month_stocks = candidateList[candidateList['year_month'] == ym_str]['stock_id'].unique()
                 utils.ptMsg("** " + ym_str + "股票清單長度：" + str(len(month_stocks)))
                 
                 for stock in month_stocks:
