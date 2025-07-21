@@ -376,8 +376,13 @@ def runTwClosePriceByMonth(sDt: datetime, eDt: datetime) -> bool:
 
             for file in csv_files:
                 utils.ptMsg("讀取檔案：", file.name)
-                df = pd.read_csv(file)
-                df = df.loc[:, ["date", "stock_id", "close"]]
+                try:
+                    df = pd.read_csv(file)
+                    df = df.loc[:, ["date", "stock_id", "close"]]    
+                except Exception as e1:
+                    utils.ptMsg(f"發生錯誤(1)：{e1}")
+                    continue
+                
                 df["date"] = pd.to_datetime(df["date"])
 
                 # 將資料依年月分類
