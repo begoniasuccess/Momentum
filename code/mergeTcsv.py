@@ -1,8 +1,11 @@
 import pandas as pd
 from pathlib import Path
 
+# project = "momentumNew"
+project = "momentumImproved"
+
 # 資料夾路徑
-root_folder = Path(r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew")
+root_folder = Path(f"../data/analysis/{project}")
 
 # 找到所有 07-t_test.csv
 all_files = list(root_folder.rglob("07-t_test.csv"))
@@ -32,6 +35,6 @@ for file in all_files:
     # 合併進總表
     final_df = pd.concat([final_df, df], ignore_index=True)
 
-savePath = r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew\mergeTtestResult\merged_t_test.csv"
+savePath = f"../data/analysis/{project}/mergeTtestResult/merged_t_test.csv"
 # 儲存
 final_df.to_csv(savePath, index=False)

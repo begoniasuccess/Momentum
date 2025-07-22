@@ -205,8 +205,16 @@ def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataF
 
 # 每個月前n大市值的名單
 def twMarketValueSpeRankList(stockList:list, sDt:datetime, eDt:datetime, maxRank:int=0) -> pd.DataFrame:
-    dfTWMVmean = twMarketValueMean(stockList, sDt, eDt)
+    outputDir = storageDir_summary
+    output_path = f'{outputDir}/TWMV_mean-{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}-rank{maxRank}.csv'
+    dataExist = False
     
+    if os.path.exists(output_path):
+        dfTWMVrank = pd.read_csv(output_path)
+        utils.ptMsg("☑️ 檔案已存在：" + output_path)
+        return dfTWMVrank
+    
+    dfTWMVmean = twMarketValueMean(stockList, sDt, eDt)    
     if maxRank <= 0:
         return dfTWMVmean      
 
@@ -295,10 +303,8 @@ def twMarketValueTopList(stockList:list, sDt:datetime, eDt:datetime, topPercent:
         utils.ptMsg("✅ 檔案存取成功：", output_path)
 
     return dfTWMVrank
-
-
 # 將收盤價按年整理
-def runTwClosePriceByYear(sDt:datetime, eDt:datetime) -> bool:
+def runTwClosePriceByYear(sDt: datetime, eDt: datetime) -> bool:
     result = True
 
     try:
@@ -306,53 +312,69 @@ def runTwClosePriceByYear(sDt:datetime, eDt:datetime) -> bool:
         startYear = int(sDt.strftime("%Y"))
         endYear = int(eDt.strftime("%Y"))
 
-        # 資料來源和目標資料夾
-        source_folder = Path(f"../data/FinMind/TW/DailyPriceAdj/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}")
+        # 目標資料夾
         target_folder = Path(storageDir_summary)
         target_folder.mkdir(parents=True, exist_ok=True)
 
         # 預先建立年份的空清單
         year_data_dict = {year: [] for year in range(startYear, endYear + 1)}
 
-        # 取得所有 csv
-        csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
-        utils.ptMsg("📢 即將處理的股價資料檔案數：", len(csv_files))
+        total_files = 0
 
-        # 遍歷所有檔案
-        for file in csv_files:
-            utils.ptMsg("讀取檔案：", file.name)
-            df = pd.read_csv(file)
+        for year in range(startYear, endYear + 1):
+            source_folder = Path(f"../data/FinMind/TW/DailyPriceAdj/{year}")
+            if not source_folder.exists():
+                utils.ptMsg(f"⚠️ 資料夾不存在：{source_folder}")
+                continue
 
-            # 只取 date, stock_id, close
-            df = df.loc[:, ["date", "stock_id", "close"]]
+            csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
+            utils.ptMsg(f"📢 {year}年 檔案數：", len(csv_files))
+            total_files += len(csv_files)
 
-            # 將日期轉成 datetime
-            df["date"] = pd.to_datetime(df["date"])
+            for file in csv_files:
+                utils.ptMsg("讀取檔案：", file.name)
+                try:
+                    df = pd.read_csv(file)
+                except pd.errors.EmptyDataError:
+                    utils.ptMsg(f"⚠️ 檔案為空，跳過：{file.name}")
+                    continue
 
-            # 按行分配到對應年份
-            for year in range(startYear, endYear + 1):
-                # 篩選該年份的資料
+                if df.empty:
+                    utils.ptMsg(f"⚠️ 檔案內容為空，跳過：{file.name}")
+                    continue
+
+                if not set(["date", "stock_id", "close"]).issubset(df.columns):
+                    utils.ptMsg(f"⚠️ 檔案欄位缺失，跳過：{file.name}")
+                    continue
+
+                df = df.loc[:, ["date", "stock_id", "close"]]
+                df["date"] = pd.to_datetime(df["date"], errors='coerce')
+                df = df.dropna(subset=["date"])
+
                 df_year = df[df["date"].dt.year == year]
                 if not df_year.empty:
                     year_data_dict[year].append(df_year)
 
-        # 輸出每年檔案
+        utils.ptMsg("📊 總處理檔案數：", total_files)
+
         for year in range(startYear, endYear + 1):
             if year_data_dict[year]:
                 year_df = pd.concat(year_data_dict[year], ignore_index=True)
                 output_file = target_folder / f"closePrice_{year}.csv"
-                if os.path.exists(output_file):
+                if output_file.exists():
                     utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
                 else:
                     year_df.to_csv(output_file, index=False, encoding="utf-8-sig")
                     utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
             else:
-                utils.ptMsg(f"⚠️ 沒有資料：{year}")
+                utils.ptMsg(f"⚠️ {year}年 沒有任何股價資料。")
+
     except Exception as e:
         utils.ptMsg(f"發生錯誤：{e}")
         return False
 
     return result
+
 
 # 將收盤價按月整理
 def runTwClosePriceByMonth(sDt: datetime, eDt: datetime) -> bool:

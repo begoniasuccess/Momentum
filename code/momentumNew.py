@@ -44,7 +44,7 @@ planType = "A" # A
 # oPeriods = [3, 6, 9 ,12] # Observer Period
 # hPeriods = [3, 6, 9 ,12] # Holding Period
 oPeriods = [3] # Observer Period
-hPeriods = [6] # Holding Period
+hPeriods = [3, 6] # Holding Period
 maxIncludeRank = 150
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
@@ -57,28 +57,28 @@ for oPeriod in oPeriods:
         dfSI = finMind.twStockInfoTwse(False)
         stockList = dfSI['stock_id'].drop_duplicates().tolist()
 
-        base_folder = Path("../data/FinMind/TW/MarketValue")
-        valid_stock_set = set(str(sid) for sid in stockList)
+        ## 移除多餘的市值資料
+        # base_folder = Path("../data/FinMind/TW/MarketValue")
+        # valid_stock_set = set(str(sid) for sid in stockList)
+        # for year in range(2010, 2025):
+        #     year_folder = base_folder / str(year)
+        #     if not year_folder.exists():
+        #         continue
 
-        for year in range(2010, 2025):
-            year_folder = base_folder / str(year)
-            if not year_folder.exists():
-                continue
+        #     no_use_folder = year_folder / "no_use"
+        #     no_use_folder.mkdir(exist_ok=True)
 
-            no_use_folder = year_folder / "no_use"
-            no_use_folder.mkdir(exist_ok=True)
+        #     for file in year_folder.glob("TWMV-*.csv"):
+        #         stock_id = file.stem.replace("TWMV-", "")
+        #         if stock_id not in valid_stock_set:
+        #             target_file = no_use_folder / file.name
+        #             print(f"📦 移動檔案：{file} -> {target_file}")
+        #             try:
+        #                 shutil.move(str(file), str(target_file))
+        #             except Exception as e:
+        #                 print(f"⚠️ 無法移動 {file}，原因：{e}")
 
-            for file in year_folder.glob("TWMV-*.csv"):
-                stock_id = file.stem.replace("TWMV-", "")
-                if stock_id not in valid_stock_set:
-                    target_file = no_use_folder / file.name
-                    print(f"📦 移動檔案：{file} -> {target_file}")
-                    try:
-                        shutil.move(str(file), str(target_file))
-                    except Exception as e:
-                        print(f"⚠️ 無法移動 {file}，原因：{e}")
-
-        sys.exit()
+        # sys.exit()
         
         ### 取出每個月前n大市值的名單
         dataExist = False
@@ -89,18 +89,18 @@ for oPeriod in oPeriods:
             ### 撈取FindMind的調整後股價資料
             outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
             stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
-            utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
+            # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
 
-            runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
-            if not runDataResult:
-                sys.exit()
+            # runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+            # if not runDataResult:
+            #     sys.exit()
 
             ### 將收盤價按年整理
-            runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
-            if not runDataResult:
-                sys.exit()
+            # runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
+            # if not runDataResult:
+            #     sys.exit()
 
-        sys.exit() # 先抓資料
+        # sys.exit() # 先抓資料
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
