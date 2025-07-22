@@ -27,11 +27,11 @@ utils.ptMsg("⚙️ momentumImproved.py Run")
 ### 策略參數設定
 switchs = []
 
-# sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-# eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
-
 sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
+eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
+
+# sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
+# eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
 
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
