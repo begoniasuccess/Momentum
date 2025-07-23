@@ -30,7 +30,7 @@ switchs = []
 # sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
 # eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
 
-sDt = datetime.strptime('2000/01/01', "%Y/%m/%d") # Start Date
+sDt = datetime.strptime('2005/01/01', "%Y/%m/%d") # Start Date
 eDt = datetime.strptime('2009/12/31', "%Y/%m/%d") # End Date
 
 ### FinMind api設定

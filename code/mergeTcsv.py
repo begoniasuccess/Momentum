@@ -1,24 +1,38 @@
 import pandas as pd
 from pathlib import Path
+import re
+import os
+from inputimeout import inputimeout, TimeoutOccurred
+import time
 
 # 資料夾路徑
-root_folder = Path(r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew")
+root_folder = Path(r"..\data\analysis\momentumNew")
 
 # 找到所有 07-t_test.csv
 all_files = list(root_folder.rglob("07-t_test.csv"))
 
 # 儲存最終整合結果
-final_df = pd.DataFrame()
+resultDic = {}
 
 for file in all_files:
+    # print(file) # ..\data\analysis\momentumNew\oPeriod12_hPeriod12\201001_201912\07-t_test.csv
+    
     # 讀取檔案
     df = pd.read_csv(file)
     
+    parts = file.parts # ('..', 'data', 'analysis', 'momentumNew', 'oPeriod12_hPeriod12', '201001_201912', '07-t_test.csv')
+    
+    # 根據時間區間(yyyymm_yyyymm)拆分csv做存檔
+    folder_ym = next((p for p in parts if re.match(r'^\d{6}_\d{6}$', p)), None) # 201001_201912
+    if folder_ym not in resultDic:
+        resultDic[folder_ym] = pd.DataFrame()
+    
     # 根據路徑取得 oPeriod 與 hPeriod
-    parts = file.parts
-    folder_name = [p for p in parts if "oPeriod" in p and "_hPeriod" in p]
-    if folder_name:
-        name_part = folder_name[0]
+    folder_period = [p for p in parts if "oPeriod" in p and "_hPeriod" in p] # oPeriod12_hPeriod12
+    
+    # print(folder_ym)
+    if folder_period:
+        name_part = folder_period[0]
         o_period = name_part.split("_")[0].replace("oPeriod", "")
         h_period = name_part.split("_")[1].replace("hPeriod", "")
     else:
@@ -30,8 +44,23 @@ for file in all_files:
     df["hPeriod"] = h_period
     
     # 合併進總表
-    final_df = pd.concat([final_df, df], ignore_index=True)
+    resultDic[folder_ym] = pd.concat([resultDic[folder_ym], df], ignore_index=True)
 
-savePath = r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumNew\mergeTtestResult\merged_t_test.csv"
-# 儲存
-final_df.to_csv(savePath, index=False)
+# print(resultDic)
+for timeRange in resultDic:
+    saveFolder = "../data/analysis/momentumNew/mergeTtestResult"
+    savePath = f"{saveFolder}/tTestReport-{timeRange}.csv"
+    
+    
+    inputTimeoutSecs = 5
+    # 檢查檔名是否已存在
+    while os.path.exists(savePath):
+        print(f"⚠️ 檔案已存在：{savePath}")
+        try:
+            suffix = inputimeout(prompt=f'請在{inputTimeoutSecs}秒內為檔名加入後綴詞（不加副檔名）：', timeout=inputTimeoutSecs)
+        except TimeoutOccurred:
+            suffix = ts_int = int(time.time())
+            print(f'⚠️ 用戶沒有輸入後綴，使用預設後綴詞：{suffix}')
+        savePath = f"{saveFolder}/tTestReport-{timeRange}-{suffix}.csv"
+        
+    resultDic[timeRange].to_csv(savePath, index=False)
