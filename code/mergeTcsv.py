@@ -86,3 +86,4 @@ for timeRange in resultDic:
         savePath = f"{saveFolder}/tTestReport-{timeRange}-{suffix}.csv"
         
     resultDic[timeRange].to_csv(savePath, index=False)
+    print(f"檔案 {savePath} 儲存完畢。")
