@@ -4,9 +4,30 @@ import re
 import os
 from inputimeout import inputimeout, TimeoutOccurred
 import time
+import sys
+
+projectOptions = {
+    "A":"momentumNew",
+    "B":"momentumImproved"
+}
+
+# 顯示選項
+print("")
+print("當前Momentum Project列表：")
+for key, ip in projectOptions.items():
+    print(f"{key}. {ip}")
+print("")
+choice = input("要處理的專案：").strip().upper()
+if choice in projectOptions:
+    project = projectOptions[choice]
+else:
+    print(f"選項有誤({choice})")
+    sys.exit()
+
+# project = "momentumNew"
 
 # 資料夾路徑
-root_folder = Path(r"..\data\analysis\momentumNew")
+root_folder = Path(f"../data/analysis/{project}")
 
 # 找到所有 07-t_test.csv
 all_files = list(root_folder.rglob("07-t_test.csv"))
@@ -48,9 +69,9 @@ for file in all_files:
 
 # print(resultDic)
 for timeRange in resultDic:
-    saveFolder = "../data/analysis/momentumNew/mergeTtestResult"
+    saveFolder = f"{root_folder}/mergeTtestResult"
+    os.makedirs(saveFolder, exist_ok=True)
     savePath = f"{saveFolder}/tTestReport-{timeRange}.csv"
-    
     
     inputTimeoutSecs = 5
     # 檢查檔名是否已存在
