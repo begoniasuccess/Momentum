@@ -28,6 +28,7 @@ else:
 
 # 資料夾路徑
 root_folder = Path(f"../data/analysis/{project}")
+root_folder = Path(f"../data/analysis/{project}")
 
 # 找到所有 07-t_test.csv
 all_files = list(root_folder.rglob("07-t_test.csv"))

@@ -1,6 +1,6 @@
 import sys
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from FinMind.data import DataLoader
 from common import utils
@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
 api = DataLoader()
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNy0xNiAxMDozNDowOCIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIyMTguMjEwLjIxOC40MSIsImV4cCI6MTc1MzIzODA0OH0.AIdZzqpwGXXngHyRTGHF2q4p5-tY4sNRi8Q_1Ur2lk4"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNy0yMCAxNzowMjo1MiIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIxMTQuMTM3LjQ3LjI0NCIsImV4cCI6MTc1MzYwNjk3Mn0.YQMjCeFBhgqjsYkspAhyUu1RYbSM7DvfSmjlZ6nXNew"
 api.login_by_token(api_token=token)
 
 storageDir = "../data/FinMind"
@@ -49,6 +49,7 @@ def twStockInfoTwse(includeCateHistory:bool=False) -> pd.DataFrame:
     if os.path.exists(output_file):
         df = pd.read_csv(output_file)
         print(f"☑️ Data exist: {output_file}")
+        return df
     else:        
         df = twStockInfo(includeCateHistory)
         
@@ -87,25 +88,101 @@ def twStockInfoNoEmerging(includeCateHistory:bool=False) -> pd.DataFrame:
 storageDir_twMarketValue =  f"{storageDir}/TW/MarketValue"
 os.makedirs(storageDir_twMarketValue, exist_ok=True)
 
-# 撈取各股票市值資料
-def twMarketValue(stockList:list, sDt:datetime, eDt:datetime):
-    utils.ptMsg("📢 即將撈取[市值歷史]資料，股票清單的長度為：", len(stockList))
-    
-    outputDir = f"{storageDir_twMarketValue}/{sDt.strftime("%Y%m%d")}-{eDt.strftime("%Y%m%d")}"
-    for stock_id in stockList:
-        outputFile = f'{outputDir}/TWMV-{stock_id}.csv'
-        if os.path.exists(outputFile):
-            utils.ptMsg("☑️ 檔案已存在：", outputFile)
-        else:
-            os.makedirs(os.path.dirname(outputFile), exist_ok=True) # 確保資料夾存在
-            dfMV = api.taiwan_stock_market_value(
-                stock_id=stock_id,
-                start_date=sDt.strftime("%Y-%m-%d"),
-                end_date=eDt.strftime("%Y-%m-%d")
-            )
-            dfMV.to_csv(outputFile, index=False, encoding='utf-8-sig')
-            utils.ptMsg("✅ 檔案存取成功：", outputFile)
-    utils.ptMsg("📢 [市值歷史]資料撈取結束。")
+# 撈取各股票市值資料（逐年存檔）
+def runTwMarketValue(stockList: list, sDt: datetime, eDt: datetime) -> bool:
+    result = True
+    try:
+        utils.ptMsg("📢 即將撈取[市值歷史]資料（逐年存檔），股票清單長度：", len(stockList))
 
+        outputDir = storageDir_twMarketValue
 
+        for stock_id in stockList:
+            cur_year = sDt.year
+            end_year = eDt.year
 
+            while cur_year <= end_year:
+                year_start = datetime(cur_year, 1, 1)
+                year_end = datetime(cur_year, 12, 31)
+                if year_end > eDt:
+                    year_end = eDt
+                if year_start < sDt:
+                    year_start = sDt
+
+                outputFile = f"{outputDir}/{cur_year}/TWMV-{stock_id}.csv"
+
+                if os.path.exists(outputFile):
+                    utils.ptMsg("☑️ 檔案已存在：", outputFile)
+                else:
+                    os.makedirs(os.path.dirname(outputFile), exist_ok=True)
+                    try:
+                        utils.ptMsg(f"➡️ 撈取 {stock_id} 年度：{cur_year}（{year_start.date()} ~ {year_end.date()}）")
+                        dfMV = api.taiwan_stock_market_value(
+                            stock_id=stock_id,
+                            start_date=year_start.strftime("%Y-%m-%d"),
+                            end_date=year_end.strftime("%Y-%m-%d")
+                        )
+                        dfMV.to_csv(outputFile, index=False, encoding='utf-8-sig')
+                        utils.ptMsg("✅ 檔案存取成功：", outputFile)
+                    except Exception as e:
+                        utils.ptMsg(f"❌ {stock_id} 年度 {cur_year} 抓取失敗，錯誤訊息：{e}")
+                        # 不 raise，繼續跑其他年度
+
+                cur_year += 1
+
+        utils.ptMsg("📢 [市值歷史]資料撈取結束。")
+
+    except Exception as e:
+        utils.ptMsg(f"發生錯誤：{e}")
+        return False
+
+    return result
+
+storageDir_twDailyPriceAdj =  f"{storageDir}/TW/DailyPriceAdj"
+os.makedirs(storageDir_twStockInfo, exist_ok=True)
+
+# 撈取股票每日調整後價格（逐年存檔）
+def runTwStockDailyPriceAdj(stockList: list, sDt: datetime, eDt: datetime) -> bool:
+    result = True
+    try:
+        utils.ptMsg("📢 即將撈取[歷史修正股價]資料（逐年存檔），股票清單長度：", len(stockList))
+        outputDir = storageDir_twDailyPriceAdj
+
+        for stock_id in stockList:
+            cur_year = sDt.year
+            end_year = eDt.year
+
+            while cur_year <= end_year:
+                year_start = datetime(cur_year, 1, 1)
+                year_end = datetime(cur_year, 12, 31)
+                # 確保不超過指定的 eDt
+                if year_end > eDt:
+                    year_end = eDt
+                if year_start < sDt:
+                    year_start = sDt
+
+                outputFile = f'{outputDir}/{cur_year}/TWDPadj-{stock_id}.csv'
+
+                if os.path.exists(outputFile):
+                    utils.ptMsg("☑️ 檔案已存在：", outputFile)
+                else:
+                    os.makedirs(os.path.dirname(outputFile), exist_ok=True)
+                    try:
+                        utils.ptMsg(f"➡️ 撈取 {stock_id} 年度：{cur_year}（{year_start.date()} ~ {year_end.date()}）")
+                        dfSDA = api.taiwan_stock_daily_adj(
+                            stock_id=stock_id,
+                            start_date=year_start.strftime("%Y-%m-%d"),
+                            end_date=year_end.strftime("%Y-%m-%d")
+                        )
+                        dfSDA.to_csv(outputFile, index=False, encoding='utf-8-sig')
+                        utils.ptMsg("✅ 檔案存取成功：", outputFile)
+                    except Exception as e:
+                        utils.ptMsg(f"❌ {stock_id} 年度 {cur_year} 抓取失敗，錯誤訊息：{e}")
+                        # 不要 raise，繼續抓下一年
+                cur_year += 1
+
+    except Exception as e:
+        utils.ptMsg(f"發生重大錯誤：{e}")
+        return False
+
+    return result
+            

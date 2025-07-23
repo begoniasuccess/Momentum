@@ -1,18 +1,13 @@
-import requests
-import pandas as pd
+import os
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+# $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
+# python -u test.py 2>&1 | Tee-Object -FilePath ../log/test.log -Append
+
 from common import utils
-from common import finMind
-from datetime import datetime, timedelta
-
-# test = finMind.twStockInfoTwse()
-# print(test)
-
-# test = finMind.twStockInfoNoEmerging()
-# print(test)
 
 
-sDt = datetime.strptime('2005/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2025/12/31', "%Y/%m/%d") # End Date
-
-test = finMind.twMarketValueMean(["1101", "2330"], sDt, eDt)
-print(test)
+folder = f"../data/FinMind/TW/DailyPriceAdj"
+utils.delete_empty_csv_files_recursive(folder)
