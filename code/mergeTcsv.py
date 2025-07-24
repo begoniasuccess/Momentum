@@ -74,7 +74,7 @@ for timeRange in resultDic:
     os.makedirs(saveFolder, exist_ok=True)
     savePath = f"{saveFolder}/tTestReport-{timeRange}.csv"
     
-    inputTimeoutSecs = 5
+    inputTimeoutSecs = 10
     # 檢查檔名是否已存在
     while os.path.exists(savePath):
         print(f"⚠️ 檔案已存在：{savePath}")
@@ -85,4 +85,46 @@ for timeRange in resultDic:
             print(f'⚠️ 用戶沒有輸入後綴，使用預設後綴詞：{suffix}')
         savePath = f"{saveFolder}/tTestReport-{timeRange}-{suffix}.csv"
         
-    resultDic[timeRange].to_csv(savePath, index=False)
+    df = resultDic[timeRange]    
+    df.to_csv(savePath, index=False)
+    print("✅ 輸出完成：" + savePath)
+
+    ### 輸出整理檔
+    remarks = ['loser', 'winner', 'winner - loser']
+    oPeriods = sorted(df['oPeriod'].unique())
+    hPeriods = sorted(df['hPeriod'].unique())
+
+    output_rows = []
+
+    for o in oPeriods:
+        for remark in remarks:
+            sub = df[(df['oPeriod'] == o) & (df['remark'] == remark)]
+
+            mean_row = [str(o), remark]
+            tstat_row = ['', '']
+
+            for h in hPeriods:
+                row = sub[sub['hPeriod'] == h]
+                if not row.empty:
+                    mean = row['mean'].values[0]
+                    t_stat = row['t_stat'].values[0]
+                    mean_row.append(f"{mean:.2%}")
+                    tstat_row.append(f"({t_stat:.2f})")
+                else:
+                    mean_row.append('')
+                    tstat_row.append('')
+
+            output_rows.append(mean_row)
+            output_rows.append(tstat_row)
+
+    columns = ['J=', 'K='] + [f'{h}' for h in hPeriods]
+    output_df = pd.DataFrame(output_rows, columns=columns)
+
+    # 輸出乾淨版 Excel（無格式）
+    filepath = Path(savePath)
+    savePath = f"{saveFolder}/{filepath.stem}_p.xlsx"
+    output_df.to_excel(savePath, index=False)
+    print("✅ 輸出完成：" + savePath)
+
+
+    
