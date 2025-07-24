@@ -23,10 +23,34 @@ if choice in projectOptions:
 else:
     print(f"選項有誤({choice})")
     sys.exit()
+import re
+import os
+from inputimeout import inputimeout, TimeoutOccurred
+import time
+import sys
+
+projectOptions = {
+    "A":"momentumNew",
+    "B":"momentumImproved"
+}
+
+# 顯示選項
+print("")
+print("當前Momentum Project列表：")
+for key, ip in projectOptions.items():
+    print(f"{key}. {ip}")
+print("")
+choice = input("要處理的專案：").strip().upper()
+if choice in projectOptions:
+    project = projectOptions[choice]
+else:
+    print(f"選項有誤({choice})")
+    sys.exit()
 
 # project = "momentumNew"
 
 # 資料夾路徑
+root_folder = Path(f"../data/analysis/{project}")
 root_folder = Path(f"../data/analysis/{project}")
 root_folder = Path(f"../data/analysis/{project}")
 
@@ -49,7 +73,19 @@ for file in all_files:
     if folder_ym not in resultDic:
         resultDic[folder_ym] = pd.DataFrame()
     
+    parts = file.parts # ('..', 'data', 'analysis', 'momentumNew', 'oPeriod12_hPeriod12', '201001_201912', '07-t_test.csv')
+    
+    # 根據時間區間(yyyymm_yyyymm)拆分csv做存檔
+    folder_ym = next((p for p in parts if re.match(r'^\d{6}_\d{6}$', p)), None) # 201001_201912
+    if folder_ym not in resultDic:
+        resultDic[folder_ym] = pd.DataFrame()
+    
     # 根據路徑取得 oPeriod 與 hPeriod
+    folder_period = [p for p in parts if "oPeriod" in p and "_hPeriod" in p] # oPeriod12_hPeriod12
+    
+    # print(folder_ym)
+    if folder_period:
+        name_part = folder_period[0]
     folder_period = [p for p in parts if "oPeriod" in p and "_hPeriod" in p] # oPeriod12_hPeriod12
     
     # print(folder_ym)
