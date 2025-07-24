@@ -84,6 +84,8 @@ for oPeriod in oPeriods:
         dataExist = False
         dfTWMVrank = anaData.twMarketValueSpeRankList(stockList, sDt, eDt, maxIncludeRank)
         
+        sys.exit()
+
         prepareDatas = True
         if prepareDatas:    
             ### 撈取FindMind的調整後股價資料
