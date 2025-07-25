@@ -78,7 +78,7 @@ def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataF
     df_all = pd.concat(all_data, ignore_index=True)
 
     # ✅ 處理資料：加上年月欄位、排除市值為 0 或負數
-    df_all['year_month'] = df_all['date'].dt.strftime('%Y%m')
+    df_all['year_month'] = df_all['date'].dt.strftime('%Y-%m')
     df_all = df_all[df_all['market_value'] > 0]
 
     # ✅ 計算平均市值
@@ -221,7 +221,7 @@ def runTwClosePriceByYear(stockList: list, sDt: datetime, eDt: datetime) -> bool
                 match = re.search(r"TWDPadj-([A-Za-z0-9]+)\.csv", file.name)
                 if match:
                     stock_id = match.group(1)
-                    if stock_id in stockList:
+                    if stock_id not in stockList:
                         continue
                 
                 try:

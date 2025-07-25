@@ -41,10 +41,10 @@ token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyOD
 api.login_by_token(api_token=token)
 
 planType = "A" # A 
-# oPeriods = [3, 6, 9 ,12] # Observer Period
-# hPeriods = [3, 6, 9 ,12] # Holding Period
-oPeriods = [3] # Observer Period
-hPeriods = [3, 9] # Holding Period
+oPeriods = [3, 6, 9 ,12] # Observer Period
+hPeriods = [3, 6, 9 ,12] # Holding Period
+# oPeriods = [3] # Observer Period
+# hPeriods = [3, 9] # Holding Period
 maxIncludeRank = 150
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
@@ -160,7 +160,7 @@ for oPeriod in oPeriods:
                 ### 如果end_dt2超過資料範圍 就結束搜尋
                 end_dt2 = cur_dt + relativedelta(months=oPeriod + hPeriod)            
                 if (end_dt2 > eDt):
-                    print(f"*** end_dt2({end_dt2.strftime("%Y%m")})已超過資料時間範圍，結束計算。")
+                    print(f"*** end_dt2({end_dt2.strftime("%Y-%m")})已超過資料時間範圍，結束計算。")
                     break
 
                 curY = cur_dt.strftime("%Y")
@@ -178,6 +178,9 @@ for oPeriod in oPeriods:
                 # (a) 找當月股票清單
                 month_stocks = dfTWMVrank[dfTWMVrank['year_month'] == ym_str]['stock_id'].unique()
                 utils.ptMsg("** " + ym_str + "股票清單長度：" + str(len(month_stocks)))
+                # print(month_stocks)
+                
+                # sys.exit()
                 
                 for stock in month_stocks:
                     # (b) 找該股票當月第一個交易日
