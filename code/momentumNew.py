@@ -44,7 +44,7 @@ planType = "A" # A
 # oPeriods = [3, 6, 9 ,12] # Observer Period
 # hPeriods = [3, 6, 9 ,12] # Holding Period
 oPeriods = [3] # Observer Period
-hPeriods = [3, 6] # Holding Period
+hPeriods = [3, 9] # Holding Period
 maxIncludeRank = 150
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
@@ -77,30 +77,25 @@ for oPeriod in oPeriods:
         #                 shutil.move(str(file), str(target_file))
         #             except Exception as e:
         #                 print(f"⚠️ 無法移動 {file}，原因：{e}")
-
-        # sys.exit()
         
         ### 取出每個月前n大市值的名單
         dataExist = False
         dfTWMVrank = anaData.twMarketValueSpeRankList(stockList, sDt, eDt, maxIncludeRank)
-        
-        sys.exit()
 
         prepareDatas = True
         if prepareDatas:    
             ### 撈取FindMind的調整後股價資料
             outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
             stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
-            # utils.ptMsg("📢 即將撈取[歷史修正股價]資料，股票清單的長度為：", len(stockList))
 
             # runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
             # if not runDataResult:
             #     sys.exit()
 
             ### 將收盤價按年整理
-            # runDataResult = anaData.runTwClosePriceByYear(sDt, eDt)
-            # if not runDataResult:
-            #     sys.exit()
+            runDataResult = anaData.runTwClosePriceByYear(stockList, sDt, eDt)
+            if not runDataResult:
+                sys.exit()
 
         # sys.exit() # 先抓資料
 

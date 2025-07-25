@@ -17,6 +17,9 @@ os.makedirs(storageDir, exist_ok=True)
 
 storageDir_summary =  f"{storageDir}/summary"
 
+storageDir_finMind = "../data/FinMind/TW"
+os.makedirs(storageDir_finMind, exist_ok=True)
+
 # 計算各股票市值各月平均資料
 def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataFrame:
     dfTWMVmean = None
@@ -80,6 +83,9 @@ def twMarketValueMean(stockList: list, sDt: datetime, eDt: datetime) -> pd.DataF
 
     # ✅ 計算平均市值
     dfTWMVmean = df_all.groupby(['stock_id', 'year_month'], as_index=False)['market_value'].mean()
+    
+    # ✅ 加入每月市值排名（越大越前）
+    dfTWMVmean['rank'] = dfTWMVmean.groupby('year_month')['market_value'].rank(ascending=False, method='min')
 
     # ✅ 儲存結果
     dfTWMVmean.to_csv(output_path, index=False)
@@ -179,26 +185,27 @@ def twMarketValueTopList(stockList:list, sDt:datetime, eDt:datetime, topPercent:
         utils.ptMsg("✅ 檔案存取成功：", output_path)
 
     return dfTWMVrank
+
 # 將收盤價按年整理
-def runTwClosePriceByYear(sDt: datetime, eDt: datetime) -> bool:
+def runTwClosePriceByYear(stockList: list, sDt: datetime, eDt: datetime) -> bool:
     result = True
 
     try:
-        # 年度範圍
         startYear = int(sDt.strftime("%Y"))
         endYear = int(eDt.strftime("%Y"))
 
-        # 目標資料夾
-        target_folder = Path(storageDir_summary)
+        target_folder = Path(storageDir_summary + "/closePrice")
         target_folder.mkdir(parents=True, exist_ok=True)
 
-        # 預先建立年份的空清單
         year_data_dict = {year: [] for year in range(startYear, endYear + 1)}
-
         total_files = 0
-
         for year in range(startYear, endYear + 1):
-            source_folder = Path(f"../data/FinMind/TW/DailyPriceAdj/{year}")
+            output_file = target_folder / f"closePrice_{year}.csv"
+            if output_file.exists():
+                utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
+                continue
+            
+            source_folder = Path(f"{storageDir_finMind}/DailyPriceAdj/{year}")
             if not source_folder.exists():
                 utils.ptMsg(f"⚠️ 資料夾不存在：{source_folder}")
                 continue
@@ -209,6 +216,14 @@ def runTwClosePriceByYear(sDt: datetime, eDt: datetime) -> bool:
 
             for file in csv_files:
                 utils.ptMsg("讀取檔案：", file.name)
+                
+                # 不是範圍內的股票不用整理
+                match = re.search(r"TWDPadj-([A-Za-z0-9]+)\.csv", file.name)
+                if match:
+                    stock_id = match.group(1)
+                    if stock_id in stockList:
+                        continue
+                
                 try:
                     df = pd.read_csv(file)
                 except pd.errors.EmptyDataError:
@@ -230,25 +245,16 @@ def runTwClosePriceByYear(sDt: datetime, eDt: datetime) -> bool:
                 df_year = df[df["date"].dt.year == year]
                 if not df_year.empty:
                     year_data_dict[year].append(df_year)
-
-        utils.ptMsg("📊 總處理檔案數：", total_files)
-
-        for year in range(startYear, endYear + 1):
-            if year_data_dict[year]:
-                year_df = pd.concat(year_data_dict[year], ignore_index=True)
-                output_file = target_folder / f"closePrice_{year}.csv"
-                if output_file.exists():
-                    utils.ptMsg(f"☑️ 檔案已存在：：{output_file}")
-                else:
-                    year_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-                    utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
-            else:
+            if not year_data_dict[year]:
                 utils.ptMsg(f"⚠️ {year}年 沒有任何股價資料。")
-
+                continue
+            year_df = pd.concat(year_data_dict[year], ignore_index=True)
+            year_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+            utils.ptMsg(f"✅ 檔案存取成功：{output_file}")
+        utils.ptMsg("📊 總處理檔案數：", total_files)
     except Exception as e:
         utils.ptMsg(f"發生錯誤：{e}")
         return False
-
     return result
 
 
@@ -266,7 +272,7 @@ def runTwClosePriceByMonth(sDt: datetime, eDt: datetime) -> bool:
         end_year = eDt.year
 
         for year in range(start_year, end_year + 1):
-            source_folder = Path(f"../data/FinMind/TW/DailyPriceAdj/{year}")
+            source_folder = Path(f"{storageDir_finMind}/DailyPriceAdj/{year}")
             csv_files = sorted(source_folder.glob("TWDPadj-*.csv"))
             utils.ptMsg(f"📅 處理年度：{year}，股票檔案數：{len(csv_files)}")
 

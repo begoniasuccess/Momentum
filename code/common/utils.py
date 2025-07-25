@@ -48,7 +48,7 @@ def getSdtEdt(filePath: str) -> dict[str, datetime]:
     return result
 
 def getCloseDf(sYear: str , searchY: int) -> pd.DataFrame:
-    base_dir = r'..\data\analysis\summary'
+    base_dir = f'../data/analysis/summary/closePrice'
     sYear_int = int(sYear)
     
     # 產生三年的檔案清單
