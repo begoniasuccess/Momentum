@@ -107,8 +107,8 @@ for timeRange in resultDic:
                 if not row.empty:
                     mean = row['mean'].values[0]
                     t_stat = row['t_stat'].values[0]
-                    mean_row.append(f"{mean:.2%}")
-                    tstat_row.append(f"({t_stat:.2f})")
+                    mean_row.append(f"{mean:.4f}")
+                    tstat_row.append(f"{t_stat:.4f}")
                 else:
                     mean_row.append('')
                     tstat_row.append('')
