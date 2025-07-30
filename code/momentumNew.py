@@ -1,9 +1,6 @@
-import shutil
-import math
-from FinMind.data import DataLoader
 import pandas as pd
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from pathlib import Path
 import sys
@@ -14,7 +11,7 @@ from common import finMind
 from common import anaData
 import re
 from pandas.errors import EmptyDataError
-import itertools
+import calendar
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
@@ -26,26 +23,23 @@ print("")
 utils.ptMsg("⚙️ momentumNew.py Run")
 
 ### 策略參數設定
-switchs = []
-
-# sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-# eDt = datetime.strptime('2019/12/31', "%Y/%m/%d") # End Date
-
-sDt = datetime.strptime('2010/01/01', "%Y/%m/%d") # Start Date
-eDt = datetime.strptime('2024/12/31', "%Y/%m/%d") # End Date
-
-### FinMind api設定
-apiUrl = "https://api.finmindtrade.com/api/v4/data"
-api = DataLoader()
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNi0yOCAxNToyODoxMSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIxMTQuMTM3LjIxOS4yMTEiLCJleHAiOjE3NTE3MDA0OTF9.u4s5jxRFBz2ojJ01n-8c6Jm2G0FAhtn1-gSMsaspZWE"
-api.login_by_token(api_token=token)
-
 planType = "A" # A 
+
+### 起始與結束年月
+start_ym = "2010/01" # 取月初
+end_ym = "2024/12" # 取月底
+
+start_year, start_month = map(int, start_ym.split('/'))
+end_year, end_month = map(int, end_ym.split('/'))
+sDt = datetime(start_year, start_month, 1)
+eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
+
 oPeriods = [3, 6, 9 ,12] # Observer Period
 hPeriods = [3, 6, 9 ,12] # Holding Period
-# oPeriods = [3] # Observer Period
-# hPeriods = [3, 9] # Holding Period
+
 maxIncludeRank = 150
+
+prepareDatas = True
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -82,15 +76,14 @@ for oPeriod in oPeriods:
         dataExist = False
         dfTWMVrank = anaData.twMarketValueSpeRankList(stockList, sDt, eDt, maxIncludeRank)
 
-        prepareDatas = True
         if prepareDatas:    
             ### 撈取FindMind的調整後股價資料
             outputDir = r'..\data\FinMind\TW\DailyPriceAdj'
             stockList = dfTWMVrank['stock_id'].drop_duplicates().tolist()
 
-            # runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
-            # if not runDataResult:
-            #     sys.exit()
+            runDataResult = finMind.runTwStockDailyPriceAdj(stockList, sDt, eDt)
+            if not runDataResult:
+                sys.exit()
 
             ### 將收盤價按年整理
             runDataResult = anaData.runTwClosePriceByYear(stockList, sDt, eDt)
@@ -513,6 +506,7 @@ for oPeriod in oPeriods:
 
             # 計算 return2
             filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+            
 
             # 移除中間欄位
             filtered_df = filtered_df.drop(columns=["start_date_dt", "end_date_dt"])
