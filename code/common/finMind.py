@@ -1,6 +1,6 @@
 import sys
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 from FinMind.data import DataLoader
 from common import utils

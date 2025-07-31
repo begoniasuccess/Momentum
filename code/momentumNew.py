@@ -25,7 +25,7 @@ utils.ptMsg("⚙️ momentumNew.py Run")
 ### 策略參數設定
 planType = "A" # A 
 
-### 起始與結束年月
+# 起始與結束年月
 start_ym = "2010/01" # 取月初
 end_ym = "2024/12" # 取月底
 

@@ -1,15 +1,9 @@
-from FinMind.data import DataLoader
 import pandas as pd
 import os
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
+from datetime import datetime
 from pathlib import Path
 import sys
-import glob
-from scipy import stats
-from common import utils
 import re
-from pandas.errors import EmptyDataError
 
 sys.stdout.reconfigure(encoding='utf-8')
 

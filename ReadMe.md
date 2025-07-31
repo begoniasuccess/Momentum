@@ -31,9 +31,11 @@
 	$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
 	# 運行主程式，且支援將terminal的訊息會存入文字檔log/terminal_log.txt
 	python -u momentumNew.py 2>&1 | Tee-Object -FilePath ../log/terminal_log.txt -Append
+
 	### [選項二] 直接運行，terminal的訊息不會存入文字檔
 	python momentumNew.py
 	```
+
 ### momentumNew.py運行注意事項
  - 本程式會用到[FinMind](https://finmindtrade.com/)提供的API，所以請注意程式中的token必須是有效的
 	```python
@@ -51,9 +53,9 @@
 	start_ym  =  "2010/01" # 取月初
 	end_ym  =  "2024/12" # 取月底
 	
-	### oPeriods代表觀察期間隔月數，hPeriods代表持有期間隔月數
-	oPeriods  = [3, 6, 9 ,12] # Observer Period
-	hPeriods  = [3, 6, 9 ,12] # Holding Period
+	### oPeriods代表觀察期月數，hPeriods代表持有期月數
+	oPeriods  = [3, 6, 9 ,12] # Observer Period，J
+	hPeriods  = [3, 6, 9 ,12] # Holding Period，K
 	
 	### 設定每個月的股票候選名單，要取月均市值前多少名(e.g.150)
 	maxIncludeRank  =  150	
@@ -66,32 +68,93 @@
 	### Future：尚未實作，未來會新增PanelA/B選項
 	planType  =  "A"	
 	```
- - 程式輸出結果判讀
-	 - 本程式的分析資料會存在**data/analysis/momentumNew**路徑底下
-	 - 資料夾的名稱會對應策略的參數，例如：
-		 - oPeriod3_hPeriod3 >> 201001_202412
-	 - 資料夾內存儲了各步驟分析的檔案，若有疑慮可分階段排查：
-	     - 01-observerReturnList.csv
-	     - 02-observerReturnList_rank.csv
-	     - 03-winner_loser.csv
-	     - 04-holdingReturnList.csv
-	     - 05-holdingReturnList_static.csv
-	     - 06-holdingReturnList_static2.csv
-	     - 07-t_test.csv
-     - 本程式支援存檔功能，某階段的檔案存在後，該程式重新運行到對應階段會直接讀檔，**不會刪檔重新運算**。
-     - 基於前項原因，若對運算邏輯進行修改，**請將對應階段及其後輸出的檔案刪除**後再重新運行。
-### 利用mergeTcsv.py整合t_test.csv檔案
+
+## 回測「月均股價大於y元」的策略報酬
+1. 主程式位置：**code/momentumImproved.py**
+2. 運行指令
+	```powershell
+	### code/底下執行
+	
+	### [選項一](建議)
+	# 指定powershell的編碼，每次重啟一個新的會話時都要運行
+	$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
+	# 運行主程式，且支援將terminal的訊息會存入文字檔log/terminal.log
+	python -u momentumImproved.py 2>&1 | Tee-Object -FilePath ../log/terminal.log -Append
+
+	### [選項二] 直接運行，terminal的訊息不會存入文字檔
+	python momentumImproved.py
+	```
+### momentumImproved.py運行注意事項
+ - 本程式會用到[FinMind](https://finmindtrade.com/)提供的API，所以請注意程式中的token必須是有效的
+	```python
+	### 檔案：code/common/finMind.py
+	### FinMind api設定
+	apiUrl  =  "https://api.finmindtrade.com/api/v4/data"
+	api  =  DataLoader()
+	token  =  "***此字串請填入自己的FinMind token***"
+	api.login_by_token(api_token=token)
+	```
+ -  程式內參數設定
+	```python
+	### 檔案：code/momentumImproved.py
+	### 定義此回測的股價資料起始與終止年月(首尾計入)
+	start_ym  =  "2010/01" # 取月初
+	end_ym  =  "2024/12" # 取月底
+	
+	### oPeriods代表觀察期月數，hPeriods代表持有期月數
+	oPeriods  = [3, 6, 9 ,12] # Observer Period，J
+	hPeriods  = [3, 6, 9 ,12] # Holding Period，K
+	
+	### 設定每個月的股票候選人，月平均收盤價必須要在y元以上(e.g.10)
+	minClosePrice = 10
+		
+	### 因為撈取FinMind資料費時且會大量消耗token的次數，
+	### 建議如果確認該次策略的資料皆已儲存完畢，
+	### 將此參數設為False，就可以略過下載/準備資料的步驟
+	prepareDatas  =  True
+
+	### Future：尚未實作，未來會新增PanelA/B選項
+	planType  =  "A"	
+	```
+
+## 程式輸出結果說明
+	- 本程式分析資料會分別存在下列資料夾底下：
+		**data/analysis/momentumNew**
+		**data/analysis/momentumImproved**
+	- 資料夾的名稱會對應策略的參數，例如：
+		- oPeriod3_hPeriod3 >> 201001_202412
+	- 資料夾內存儲了各步驟分析的檔案，若有疑慮可分階段排查：
+		- 01-observerReturnList.csv
+		- 02-observerReturnList_rank.csv
+		- 03-winner_loser.csv
+		- 04-holdingReturnList.csv
+		- 05-holdingReturnList_static.csv
+		- 06-holdingReturnList_static2.csv
+		- 07-t_test.csv
+	- 本程式支援存檔功能，某階段的檔案存在後，該程式重新運行到對應階段會直接讀檔，**不會刪檔重新運算**。
+	- 基於前項原因，若對運算邏輯進行修改，**請將對應階段及其後輸出的檔案刪除**後再重新運行。
+
+## 利用mergeTcsv.py整合不同J、K的t_test.csv檔案
 - 運行指令：
 	```powershell
 	### code/底下執行
 	python mergeTcsv.py
 	
-	### terminal出現的選項請選A
+	### terminal出現的選項對應要整合的資料
+	A # MomentumNew => 月均市值前x大(mvX)
+	B # MomentumImproved => 月均股價大於y元(overY)
 	```
 - 檔案輸出位置：
-	- 路徑：data/analysis/momentumNew/mergeTtestResult
+	- 路徑：data/analysis/{momentumNew 或 momentumImproved}/mergeTtestResult
 	- 檔案：
 		- tTestReport-yyyymm_yyyyymm.csv (csv資料)
 		- tTestReport-yyyymm_yyyyymm_p.xlsx (方便整理成論文中的圖)
 - ⚠️特別注意：
 	- 目前t_test.csv中的平均報酬率(mean)資料是簡單報酬率，但對應論文應該轉換為年化報酬率或平均月報酬率。這部分報表目前我是用Excel將mean轉換，尚未程式化，未來版本會補上。
+
+## 其他指令(可略過)
+	```powershell
+	## 偵測專案中的所有套件
+	python -m pip install pipreqs --upgrade
+	python -m pipreqs.pipreqs . --force
+	```

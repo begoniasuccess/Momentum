@@ -7,7 +7,6 @@ from common import finMind
 import re
 from pathlib import Path
 from collections import defaultdict
-from dateutil.relativedelta import relativedelta
 
 storageDir_twMarketValue =  f"../data/FinMind/TW/MarketValue"
 os.makedirs(storageDir_twMarketValue, exist_ok=True)
