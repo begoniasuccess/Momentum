@@ -23,7 +23,7 @@ print("")
 utils.ptMsg("⚙️ momentumNew.py Run")
 
 ### 策略參數設定
-planType = "A" # A 
+planTypes = ["A", "B"] 
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
@@ -39,7 +39,7 @@ hPeriods = [3, 6, 9 ,12] # Holding Period
 
 maxIncludeRank = 150
 
-prepareDatas = True
+prepareDatas = False
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -94,7 +94,7 @@ for oPeriod in oPeriods:
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder =  f'../data/analysis/momentumNew/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = r'..\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
         def getOutputCsvPath(target_folder, filePrefixIdx, csvName):        
             os.makedirs(target_folder, exist_ok=True) 
             outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
@@ -383,74 +383,74 @@ for oPeriod in oPeriods:
 
             utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
-        ### 計算持有期的報酬
-        filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList-{planType}"))
-        if os.path.exists(output_file):
-            filtered_df = pd.read_csv(output_file)
-            utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
-        else:
-            utils.ptMsg("📢 開始製作" + str(output_file))
+        for planType in planTypes:
+            ### 計算持有期的報酬
+            filePrefixIdx = filePrefixIdx + 1
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList-{planType}"))
+            if os.path.exists(output_file):
+                filtered_df = pd.read_csv(output_file)
+                utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
+            else:
+                utils.ptMsg("📢 開始製作" + str(output_file))
 
-            price_folder = Path(f"../data/analysis/summary")
+                price_folder = Path(f"../data/analysis/summary")
 
-            # 把日期字串轉成 datetime
-            filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
-            filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+                # 把日期字串轉成 datetime
+                filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
+                filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
 
-            # 用於儲存結果
-            start_date2_list = []
-            SD_close2_list = []
-            end_date2_list = []
-            ED_close2_list = []
+                # 用於儲存結果
+                start_date2_list = []
+                SD_close2_list = []
+                end_date2_list = []
+                ED_close2_list = []
 
-            close_df_sd2 = None
-            close_df_sd2_y_pre = None
-            close_df_sd2_y = None
+                close_df_sd2 = None
+                close_df_sd2_y_pre = None
+                close_df_sd2_y = None
 
-            close_df_ed2 = None
-            close_df_ed2_y_pre = None
-            close_df_ed2_y = None
+                close_df_ed2 = None
+                close_df_ed2_y_pre = None
+                close_df_ed2_y = None
 
-            # 處理每一列 
-            for idx, row in filtered_df.iterrows():
-                stock_id = str(row["stock_id"])
+                # 處理每一列 
+                for idx, row in filtered_df.iterrows():
+                    stock_id = str(row["stock_id"])
 
-                # =============== start_date2 ==============
-                sd2_month = row["end_date_dt"] + relativedelta(months=+1)
-                close_df_sd2_y = sd2_month.strftime("%Y")
-                if (close_df_sd2 is None) or (int(close_df_sd2_y) != int(close_df_sd2_y_pre)):
-                    close_df_sd2 = utils.getCloseDf(close_df_sd2_y, 1)
-                    close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
-                    close_df_sd2_y_pre = close_df_sd2_y
-
-                if close_df_sd2.empty:
-                    utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_sd2_y}.csv，填入 None")
+                    # =============== start_date2 ==============
                     start_date2 = None
                     SD_close2 = None
-                else:
-                    dataRow = None
-                    dataRow = utils.calHperiodDataRow(planType, close_df_sd2, stock_id, sd2_month)   
-                    
-                    if dataRow is not None:
-                        start_date2 = dataRow["date"]
-                        SD_close2 = dataRow["close"]
+                    sd2_month = row["end_date_dt"] + relativedelta(months=+1)
+
+                    # 組織查詢表
+                    close_df_sd2_y = sd2_month.strftime("%Y")
+                    if (close_df_sd2 is None) or (int(close_df_sd2_y) != int(close_df_sd2_y_pre)):
+                        close_df_sd2 = utils.getCloseDf(close_df_sd2_y, 1)
+                        close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
+                        close_df_sd2_y_pre = close_df_sd2_y
+
+                    if close_df_sd2.empty:
+                        utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_sd2_y}.csv，填入 None")
                     else:
-                        start_date2 = None
-                        SD_close2 = None
+                        sd2_dataRow = utils.getHperiodDataRow(planType, close_df_sd2, stock_id, sd2_month, 0)
+                        if sd2_dataRow is not None:
+                            start_date2 = sd2_dataRow["date"]
+                            SD_close2 = sd2_dataRow["close"]
 
                     start_date2_list.append(start_date2)
                     SD_close2_list.append(SD_close2)
                     if start_date2 is None:
-                        print("⚠️start_date2 is None")
-                    if SD_close2 is None:
-                        print("SD_close2 is None")
-
+                        print(f"⚠️[{stock_id}] start_date2 & SD_close2 is None")
+                        end_date2_list.append(None)
+                        ED_close2_list.append(None)
+                        continue
+                            
                     # =============== end_date2 ==============
+                    end_date2 = None
+                    ED_close2 = None
                     ed2_month = row["end_date_dt"] + relativedelta(months=+(hPeriod))
-                    ed2_year = ed2_month.year
-                    ed2_month_num = ed2_month.month
 
+                    # 組織查詢表
                     close_df_ed2_y = ed2_month.strftime("%Y")
                     if (close_df_ed2 is None) or (int(close_df_ed2_y) != int(close_df_ed2_y_pre)):
                         if int(close_df_ed2_y) == int(close_df_sd2_y):
@@ -462,163 +462,155 @@ for oPeriod in oPeriods:
 
                     if close_df_ed2.empty:
                         utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_ed2_y}.csv，填入 None")
-                        end_date2 = None
-                        ED_close2 = None
                     else:
-                        ed2_candidates = close_df_ed2[
-                            (close_df_ed2["stock_id"] == stock_id) &
-                            (close_df_ed2["date_dt"].dt.month == ed2_month_num)
-                        ]
-                        if not ed2_candidates.empty:
-                            ed2_last = ed2_candidates.sort_values("date_dt").iloc[-1]
-                            end_date2 = ed2_last["date"]
-                            ED_close2 = ed2_last["close"]
-                        else:
-                            end_date2 = None
-                            ED_close2 = None
+                        ed2_dataRow = utils.getHperiodDataRow(planType, close_df_sd2, stock_id, ed2_month, -1)
+  
+                        if ed2_dataRow is not None:
+                            end_date2 = ed2_dataRow["date"]
+                            ED_close2 = ed2_dataRow["close"]
 
-                        end_date2_list.append(end_date2)
-                        ED_close2_list.append(ED_close2)
-                        if end_date2 is None:
-                            print("end_date2 is None")
-                        if ED_close2 is None:
-                            print("ED_close2 is None")
+                    end_date2_list.append(end_date2)
+                    ED_close2_list.append(ED_close2)
+                    if end_date2 is None:
+                        print("end_date2 is None")
+                    if ED_close2 is None:
+                        print("ED_close2 is None")
 
-            # 新增欄位
-            filtered_df["start_date2"] = start_date2_list
-            filtered_df["SD_close2"] = SD_close2_list
-            filtered_df["end_date2"] = end_date2_list
-            filtered_df["ED_close2"] = ED_close2_list
+                # 新增欄位
+                filtered_df["start_date2"] = start_date2_list
+                filtered_df["SD_close2"] = SD_close2_list
+                filtered_df["end_date2"] = end_date2_list
+                filtered_df["ED_close2"] = ED_close2_list
 
-            # 轉數字
-            filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
-            filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+                # 轉數字
+                filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
+                filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
 
-            # 計算 return2
-            filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
-            
+                # 計算 return2
+                filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+                
 
-            # 移除中間欄位
-            filtered_df = filtered_df.drop(columns=["start_date_dt", "end_date_dt"])
+                # 移除中間欄位
+                filtered_df = filtered_df.drop(columns=["start_date_dt", "end_date_dt"])
 
-            # 存檔
-            output_file.parent.mkdir(parents=True, exist_ok=True)
-            filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+                # 存檔
+                output_file.parent.mkdir(parents=True, exist_ok=True)
+                filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
-            utils.ptMsg(f"✅ 已完成後續報酬計算，輸出至：{output_file}")
+                utils.ptMsg(f"✅ 已完成後續報酬計算，輸出至：{output_file}")
 
-        ### 統計持有期間平均報酬
-        filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static-{planType}"))
-        if os.path.exists(output_file):
-            grouped = pd.read_csv(output_file)
-            utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
-        else:
-            utils.ptMsg("📢 開始製作" + str(output_file))
-            # 確保 return2 是數字型態
-            filtered_df["return2"] = pd.to_numeric(filtered_df["return2"], errors="coerce")
+            ### 統計持有期間平均報酬
+            filePrefixIdx = filePrefixIdx + 1
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static-{planType}"))
+            if os.path.exists(output_file):
+                grouped = pd.read_csv(output_file)
+                utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
+            else:
+                utils.ptMsg("📢 開始製作" + str(output_file))
+                # 確保 return2 是數字型態
+                filtered_df["return2"] = pd.to_numeric(filtered_df["return2"], errors="coerce")
 
-            # 以 combination 和 remark 分組，計算每組的筆數(count)與平均(mean)
-            grouped = (
-                filtered_df.groupby(["combination", "remark"], dropna=False)
-                .agg(
-                    count=("return2", "count"),
-                    mean_return2=("return2", "mean")
+                # 以 combination 和 remark 分組，計算每組的筆數(count)與平均(mean)
+                grouped = (
+                    filtered_df.groupby(["combination", "remark"], dropna=False)
+                    .agg(
+                        count=("return2", "count"),
+                        mean_return2=("return2", "mean")
+                    )
+                    .reset_index()
                 )
-                .reset_index()
-            )
 
-            # 移除 mean_return2 為 NaN 的組
-            grouped = grouped.dropna(subset=["mean_return2"])
+                # 移除 mean_return2 為 NaN 的組
+                grouped = grouped.dropna(subset=["mean_return2"])
 
-            # 輸出結果
-            grouped.to_csv(output_file, index=False, encoding="utf-8-sig")
+                # 輸出結果
+                grouped.to_csv(output_file, index=False, encoding="utf-8-sig")
 
-            utils.ptMsg(f"✅ 統計已完成，檔案輸出：{output_file}")
+                utils.ptMsg(f"✅ 統計已完成，檔案輸出：{output_file}")
 
-        ### 計算winner - loser
-        filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static2-{planType}"))
-        if os.path.exists(output_file):
-            new_df = pd.read_csv(output_file)
-            utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
-        else:
-            utils.ptMsg("📢 開始製作" + str(output_file))
-            # 用於儲存新結果
-            rows = []
+            ### 計算winner - loser
+            filePrefixIdx = filePrefixIdx + 1
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static2-{planType}"))
+            if os.path.exists(output_file):
+                new_df = pd.read_csv(output_file)
+                utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
+            else:
+                utils.ptMsg("📢 開始製作" + str(output_file))
+                # 用於儲存新結果
+                rows = []
 
-            # 依 combination 分組
-            for comb, group in grouped.groupby("combination"):
-                # 先將原本的兩列放進去
-                for _, row in group.iterrows():
-                    rows.append(row.to_dict())
+                # 依 combination 分組
+                for comb, group in grouped.groupby("combination"):
+                    # 先將原本的兩列放進去
+                    for _, row in group.iterrows():
+                        rows.append(row.to_dict())
 
-                # 取得 winner 與 loser 的 mean_return2
-                winner_row = group[group["remark"] == "winner"]
-                loser_row = group[group["remark"] == "loser"]
+                    # 取得 winner 與 loser 的 mean_return2
+                    winner_row = group[group["remark"] == "winner"]
+                    loser_row = group[group["remark"] == "loser"]
 
-                if not winner_row.empty and not loser_row.empty:
-                    winner_mean = winner_row["mean_return2"].values[0]
-                    loser_mean = loser_row["mean_return2"].values[0]
-                    diff = winner_mean - loser_mean
+                    if not winner_row.empty and not loser_row.empty:
+                        winner_mean = winner_row["mean_return2"].values[0]
+                        loser_mean = loser_row["mean_return2"].values[0]
+                        diff = winner_mean - loser_mean
 
-                    # 新增一列資料
-                    rows.append({
-                        "combination": comb,
-                        "remark": "winner - loser",
-                        "count": "-",
-                        "mean_return2": diff
-                    })
+                        # 新增一列資料
+                        rows.append({
+                            "combination": comb,
+                            "remark": "winner - loser",
+                            "count": "-",
+                            "mean_return2": diff
+                        })
 
-            new_df = pd.DataFrame(rows)
-            new_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-            utils.ptMsg(f"✅ 已輸出新檔案：{output_file}")
+                new_df = pd.DataFrame(rows)
+                new_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+                utils.ptMsg(f"✅ 已輸出新檔案：{output_file}")
 
-        ### t-test
-        filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"t_test-{planType}"))
-        if os.path.exists(output_file):
-            utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
-        else:
-            utils.ptMsg("📢 開始製作" + str(output_file))
+            ### t-test
+            filePrefixIdx = filePrefixIdx + 1
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"t_test-{planType}"))
+            if os.path.exists(output_file):
+                utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
+            else:
+                utils.ptMsg("📢 開始製作" + str(output_file))
 
-            # 移除多餘逗號
-            new_df.columns = new_df.columns.str.strip()
+                # 移除多餘逗號
+                new_df.columns = new_df.columns.str.strip()
 
-            # print(new_df["mean_return2"].head(10))
-            # print(new_df["mean_return2"].dtype)
-            
-            results = []
+                # print(new_df["mean_return2"].head(10))
+                # print(new_df["mean_return2"].dtype)
+                
+                results = []
 
-            # 分組 t檢定
-            for remark in ["loser", "winner", "winner - loser"]:
-                # 取出該 remark 資料
-                values = new_df.loc[new_df["remark"] == remark, "mean_return2"].dropna().values
-                n = len(values)
-                if n > 1:
-                    t_stat, p_value = stats.ttest_1samp(values, popmean=0)
-                    mean = values.mean()
-                    results.append({
-                        "remark": remark,
-                        "n": n,
-                        "mean": mean,
-                        "t_stat": t_stat,
-                        "p_value": p_value
-                    })
-                else:
-                    results.append({
-                        "remark": remark,
-                        "n": n,
-                        "mean": values.mean() if n == 1 else None,
-                        "t_stat": None,
-                        "p_value": None
-                    })
-            
-            result_df = pd.DataFrame(results)
-            # utils.ptMsg(result_df)
+                # 分組 t檢定
+                for remark in ["loser", "winner", "winner - loser"]:
+                    # 取出該 remark 資料
+                    values = new_df.loc[new_df["remark"] == remark, "mean_return2"].dropna().values
+                    n = len(values)
+                    if n > 1:
+                        t_stat, p_value = stats.ttest_1samp(values, popmean=0)
+                        mean = values.mean()
+                        results.append({
+                            "remark": remark,
+                            "n": n,
+                            "mean": mean,
+                            "t_stat": t_stat,
+                            "p_value": p_value
+                        })
+                    else:
+                        results.append({
+                            "remark": remark,
+                            "n": n,
+                            "mean": values.mean() if n == 1 else None,
+                            "t_stat": None,
+                            "p_value": None
+                        })
+                
+                result_df = pd.DataFrame(results)
+                # utils.ptMsg(result_df)
 
-            result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
-            utils.ptMsg(f"✅ 已輸出結果：{output_file}")
+                result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+                utils.ptMsg(f"✅ 已輸出結果：{output_file}")
 
 
 # 結束訊息

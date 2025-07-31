@@ -131,8 +131,9 @@ def delete_empty_csv_files_recursive(folder_path, size_threshold=2*1024):
     print(f"\n總共檢查 {checked_files} 個檔案，刪除 {len(deleted_files)} 個空白或純換行檔案。")
     return deleted_files
 
-# 找出持有期對應的資料列
-def calHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseDt: datetime) -> pd.Series:
+
+# 找出 持有期-買入(0)賣出(-1)日期 對應的資料列
+def getHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseDt: datetime, iloc: int) -> pd.Series:
     ### Panel A
     if planType == 'A':
         candidates = closeDf[
@@ -141,9 +142,9 @@ def calHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseD
             (closeDf["date_dt"].dt.month == baseDt.month)
         ]
         if not candidates.empty:
-            return candidates.sort_values("date_dt").iloc[0]
+            return candidates.sort_values("date_dt").iloc[iloc]
 
-    ### Panel B
+    ## Panel B
     if planType == 'B':
         candidates = closeDf[
             (closeDf["stock_id"] == stock_id) &
@@ -152,6 +153,6 @@ def calHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseD
         ]
         
         if not candidates.empty:
-            return candidates.sort_values("date_dt").iloc[0]
+            return candidates.sort_values("date_dt").iloc[iloc]
         
     return None
