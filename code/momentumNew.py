@@ -94,7 +94,7 @@ for oPeriod in oPeriods:
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = r'..\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder =  f'../data/analysis/momentumNew/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
         def getOutputCsvPath(target_folder, filePrefixIdx, csvName):        
             os.makedirs(target_folder, exist_ok=True) 
             outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
@@ -385,7 +385,7 @@ for oPeriod in oPeriods:
 
         ### 計算持有期的報酬
         filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "holdingReturnList"))
+        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList-{planType}"))
         if os.path.exists(output_file):
             filtered_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
@@ -519,7 +519,7 @@ for oPeriod in oPeriods:
 
         ### 統計持有期間平均報酬
         filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "holdingReturnList_static"))
+        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static-{planType}"))
         if os.path.exists(output_file):
             grouped = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
@@ -548,7 +548,7 @@ for oPeriod in oPeriods:
 
         ### 計算winner - loser
         filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "holdingReturnList_static2"))
+        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static2-{planType}"))
         if os.path.exists(output_file):
             new_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
