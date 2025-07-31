@@ -392,7 +392,7 @@ for oPeriod in oPeriods:
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
 
-            price_folder = Path(r"..\data\analysis\summary")
+            price_folder = Path(f"../data/analysis/summary")
 
             # 把日期字串轉成 datetime
             filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
@@ -418,9 +418,6 @@ for oPeriod in oPeriods:
 
                 # =============== start_date2 ==============
                 sd2_month = row["end_date_dt"] + relativedelta(months=+1)
-                sd2_year = sd2_month.year
-                sd2_month_num = sd2_month.month
-
                 close_df_sd2_y = sd2_month.strftime("%Y")
                 if (close_df_sd2 is None) or (int(close_df_sd2_y) != int(close_df_sd2_y_pre)):
                     close_df_sd2 = utils.getCloseDf(close_df_sd2_y, 1)
@@ -432,14 +429,12 @@ for oPeriod in oPeriods:
                     start_date2 = None
                     SD_close2 = None
                 else:
-                    sd2_candidates = close_df_sd2[
-                        (close_df_sd2["stock_id"] == stock_id) &
-                        (close_df_sd2["date_dt"].dt.month == sd2_month_num)
-                    ]
-                    if not sd2_candidates.empty:
-                        sd2_first = sd2_candidates.sort_values("date_dt").iloc[0]
-                        start_date2 = sd2_first["date"]
-                        SD_close2 = sd2_first["close"]
+                    dataRow = None
+                    dataRow = utils.calHperiodDataRow(planType, close_df_sd2, stock_id, sd2_month)   
+                    
+                    if dataRow is not None:
+                        start_date2 = dataRow["date"]
+                        SD_close2 = dataRow["close"]
                     else:
                         start_date2 = None
                         SD_close2 = None
@@ -450,11 +445,6 @@ for oPeriod in oPeriods:
                         print("⚠️start_date2 is None")
                     if SD_close2 is None:
                         print("SD_close2 is None")
-
-                    # print("close_df_sd2", close_df_sd2)
-                    # print("close_df_sd2_y_pre", close_df_sd2_y_pre)
-                    # print("close_df_sd2_y", close_df_sd2_y)
-                    # print("filtered_df", filtered_df.head(3))
 
                     # =============== end_date2 ==============
                     ed2_month = row["end_date_dt"] + relativedelta(months=+(hPeriod))
@@ -586,7 +576,7 @@ for oPeriod in oPeriods:
 
         ### t-test
         filePrefixIdx = filePrefixIdx + 1
-        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "t_test"))
+        output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"t_test-{planType}"))
         if os.path.exists(output_file):
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
         else:

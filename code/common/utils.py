@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import sys
 import re
@@ -130,3 +130,28 @@ def delete_empty_csv_files_recursive(folder_path, size_threshold=2*1024):
 
     print(f"\n總共檢查 {checked_files} 個檔案，刪除 {len(deleted_files)} 個空白或純換行檔案。")
     return deleted_files
+
+# 找出持有期對應的資料列
+def calHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseDt: datetime) -> pd.Series:
+    ### Panel A
+    if planType == 'A':
+        candidates = closeDf[
+            (closeDf["stock_id"] == stock_id) &
+            (closeDf["date_dt"].dt.year == baseDt.year) &
+            (closeDf["date_dt"].dt.month == baseDt.month)
+        ]
+        if not candidates.empty:
+            return candidates.sort_values("date_dt").iloc[0]
+
+    ### Panel B
+    if planType == 'B':
+        candidates = closeDf[
+            (closeDf["stock_id"] == stock_id) &
+            (closeDf["date_dt"] >= baseDt) &
+            (closeDf["date_dt"] <= baseDt + timedelta(days=7))
+        ]
+        
+        if not candidates.empty:
+            return candidates.sort_values("date_dt").iloc[0]
+        
+    return None
