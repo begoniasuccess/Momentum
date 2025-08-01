@@ -133,6 +133,11 @@ def delete_empty_csv_files_recursive(folder_path, size_threshold=2*1024):
     print(f"\n總共檢查 {checked_files} 個檔案，刪除 {len(deleted_files)} 個空白或純換行檔案。")
     return deleted_files
 
+def getOutputCsvPath(target_folder, filePrefixIdx, csvName):        
+    os.makedirs(target_folder, exist_ok=True) 
+    outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
+    return outputPath
+
 def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
     dataRow = None
     candidates = closeDf[
@@ -158,7 +163,7 @@ def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, il
     return dataRow
 
 
-# 找出 持有期-買入(0)賣出(-1)日期 對應的資料列
+# 找出 持有期-買入賣出日期 對應的資料列
 def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
     ### Panel A
     if panelType == Panel.A:
@@ -175,7 +180,7 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
         candidates = closeDf[
             (closeDf["stock_id"] == stock_id) &
             (closeDf["date_dt"] >= baseDt) &
-            (closeDf["date_dt"] <= baseDt + timedelta(days=7))
+            (closeDf["date_dt"] <= baseDt + timedelta(days=14))
         ]
         
         if not candidates.empty:

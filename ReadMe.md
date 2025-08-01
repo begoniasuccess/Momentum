@@ -3,7 +3,7 @@
 
 本專案實作了 Jegadeesh & Titman (1993) 動能策略，並將樣本市場改為台股。可自訂回測區間、股票篩選條件與動能參數（排名區間、持有期間），輸出各期間報酬統計結果。
 
-- 根據「月均市值前x大-上市股票」與「月均股價前y大-上市+上櫃股票」門檻進行篩選
+- 根據「月均市值前x大(上市股票)」與「月均股價前y大(上市+上櫃股票)」門檻進行篩選
 	(x、y可自定義)
 - 可自定義 觀察期（J）與 持有期（K）
 - 使用 FinMind API 擷取台股歷史資料
@@ -71,8 +71,6 @@
 	### 將此參數設為False，就可以略過下載/準備資料的步驟
 	prepareDatas  =  True
 
-	### Future：尚未實作，未來會新增PanelA/B選項
-	planType  =  "A"	
 	```
 
 ## 回測「月均股價大於y元」的策略報酬
@@ -133,10 +131,14 @@
 		- 01-observerReturnList.csv
 		- 02-observerReturnList_rank.csv
 		- 03-winner_loser.csv
-		- 04-holdingReturnList.csv
-		- 05-holdingReturnList_static.csv
-		- 06-holdingReturnList_static2.csv
-		- 07-t_test.csv
+		- 04-holdingReturnList-A.csv
+		- 05-holdingReturnList_static-A.csv
+		- 06-holdingReturnList_static2-A.csv
+		- 07-t_test-A.csv
+		- 08-holdingReturnList-B.csv
+		- 09-holdingReturnList_static-B.csv
+		- 10-holdingReturnList_static2-B.csv
+		- 11-t_test-B.csv
 	- 本程式支援存檔功能，某階段的檔案存在後，該程式重新運行到對應階段會直接讀檔，**不會刪檔重新運算**。
 	- 基於前項原因，若對運算邏輯進行修改，**請將對應階段及其後輸出的檔案刪除**後再重新運行。
 
