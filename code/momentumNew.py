@@ -46,7 +46,7 @@ hPeriods = [9] # Holding Period
 
 maxIncludeRank = 150
 
-prepareDatas = True
+prepareDatas = False
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -184,7 +184,7 @@ for oPeriod in oPeriods:
                     sub_df = close_df.reset_index()
                     start_row = utils.getOperiodDataRow(stock, sub_df, cur_dt, Iloc.Fst)
                     if start_row is None:
-                        print(f"⚠️[{stock}-{cur_dt.strftime('%Y%m')}] 沒有 觀察期-買入 的資料，跳過。")
+                        print(f"⚠️ [{stock}-{cur_dt.strftime('%Y%m')}] 沒有 觀察期-買入 的資料，跳過。")
                         continue # 該月資料不完整，不寫入
                     
                     start_date = start_row['date']
@@ -194,7 +194,7 @@ for oPeriod in oPeriods:
                     end_dt = cur_dt + relativedelta(months=oPeriod - 1)
                     end_row = utils.getOperiodDataRow(stock, sub_df, end_dt, Iloc.Last)
                     if end_row is None:
-                        print(f"⚠️[{stock}-{end_dt.strftime('%Y%m')}] 沒有 觀察期-賣出 的資料，跳過。")
+                        print(f"⚠️ [{stock}-{end_dt.strftime('%Y%m')}] 沒有 觀察期-賣出 的資料，跳過。")
                         continue # 該月資料不完整，不寫入
                     
                     end_date = end_row['date']
@@ -424,7 +424,7 @@ for oPeriod in oPeriods:
                     start_date2_list.append(start_date2)
                     SD_close2_list.append(SD_close2)
                     if start_date2 is None:
-                        print(f"⚠️[{sd2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-買入 資料無法找到。")
+                        print(f"⚠️ [{sd2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-買入 資料無法找到。")
                         end_date2_list.append(None)
                         ED_close2_list.append(None)
                         continue
@@ -459,7 +459,7 @@ for oPeriod in oPeriods:
                     end_date2_list.append(end_date2)
                     ED_close2_list.append(ED_close2)
                     if end_date2 is None:
-                        print(f"⚠️[{ed2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-賣出 資料無法找到。")
+                        print(f"⚠️ [{ed2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-賣出 資料無法找到。")
 
                 # 新增欄位
                 filtered_df["start_date2"] = start_date2_list
