@@ -6,12 +6,16 @@ from pathlib import Path
 import sys
 import glob
 from scipy import stats
-from common import utils
-from common import finMind
-from common import anaData
+
 import re
 from pandas.errors import EmptyDataError
 import calendar
+
+from common import utils
+from common import finMind
+from common import anaData
+from common.constants import Panel
+from common.constants import Iloc
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
@@ -23,19 +27,22 @@ print("")
 utils.ptMsg("⚙️ momentumNew.py Run")
 
 ### 策略參數設定
-planTypes = ["A", "B"] 
+panelTypes = [Panel.A, Panel.B] 
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
-end_ym = "2024/12" # 取月底
+end_ym = "2019/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
 sDt = datetime(start_year, start_month, 1)
 eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
 
-oPeriods = [3, 6, 9 ,12] # Observer Period
-hPeriods = [3, 6, 9 ,12] # Holding Period
+# oPeriods = [3, 6, 9 ,12] # Observer Period
+# hPeriods = [3, 6, 9 ,12] # Holding Period
+
+oPeriods = [3] # Observer Period
+hPeriods = [9] # Holding Period
 
 maxIncludeRank = 150
 
@@ -146,21 +153,21 @@ for oPeriod in oPeriods:
                 
             close_df = None
             close_df_year = "0"
-            closeDfYears = (oPeriod) // 12 + 2
+            dfNum = (oPeriod) // 12 + 2
 
             # 逐月迭代    
             while cur_dt <= eDt:
                 ### 如果end_dt2超過資料範圍 就結束搜尋
                 end_dt2 = cur_dt + relativedelta(months=oPeriod + hPeriod)            
                 if (end_dt2 > eDt):
-                    print(f"*** end_dt2({end_dt2.strftime("%Y-%m")})已超過資料時間範圍，結束計算。")
+                    print(f"*** 觀察期賣出時間：({end_dt2.strftime("%Y-%m")}) 已超過資料時間範圍，結束計算。")
                     break
 
                 curY = cur_dt.strftime("%Y")
 
                 # 讀取近n(closeDfYears)年收盤價資料    
                 if (close_df is None) or (int(close_df_year) != int(curY)):            
-                    close_df = utils.getCloseDf(curY, closeDfYears)
+                    close_df = utils.getCloseDf(curY, dfNum)
                     close_df_year = cur_dt.strftime("%Y")
 
                 result_rows = []
@@ -168,60 +175,32 @@ for oPeriod in oPeriods:
                 ym_str = cur_dt.strftime('%Y-%m')
                 utils.ptMsg("**Observer RT " + ym_str + " 開始處理")
 
-                # (a) 找當月股票清單
+                # 從月均市值排名名單 提取 當月股票清單
                 month_stocks = dfTWMVrank[dfTWMVrank['year_month'] == ym_str]['stock_id'].unique()
                 utils.ptMsg("** " + ym_str + "股票清單長度：" + str(len(month_stocks)))
-                # print(month_stocks)
-                
-                # sys.exit()
                 
                 for stock in month_stocks:
-                    # (b) 找該股票當月第一個交易日
-                    # reset_index方便篩選
+                    # 找 觀察期-買入(start_date) 的資料 => 月初
                     sub_df = close_df.reset_index()
-                    mask = (
-                        (sub_df['stock_id'] == stock) &
-                        (sub_df['date'].dt.year == cur_dt.year) &
-                        (sub_df['date'].dt.month == cur_dt.month)
-                    )
-                    this_month = sub_df[mask].sort_values('date')
-                    # print("this_month=")
-                    # print(this_month.head(2))
-                    if this_month.empty:
-                        print(f"⚠️ {ym_str} Stock{stock} 沒有this_month的資料")
-                        continue  # 沒有該月資料，跳過
+                    start_row = utils.getOperiodDataRow(stock, sub_df, cur_dt, Iloc.Fst)
+                    if start_row is None:
+                        print(f"⚠️[{stock}-{cur_dt.strftime('%Y%m')}] 沒有 觀察期-買入 的資料，跳過。")
+                        continue # 該月資料不完整，不寫入
                     
-                    start_row = this_month.iloc[0]
-                    # print("## start_row=")
-                    # print(start_row)
                     start_date = start_row['date']
                     SD_close = start_row['close']
                     
-                    # (c) 找end_date  
-                    end_dt = cur_dt + relativedelta(months=oPeriod - 1)           
-                    mask_end = (
-                        (sub_df['stock_id'] == stock) &
-                        (sub_df['date'].dt.year == end_dt.year) &
-                        (sub_df['date'].dt.month == end_dt.month)
-                    )
-                    end_dt_df = sub_df[mask_end].sort_values('date')
-                    if end_dt_df.empty:
-                        print(f"⚠️ {str(end_dt.year) + str(end_dt.month)} Stock {stock} 沒有end_dt_df的資料")
-                        # print("*** sub_df=")
-                        # print(sub_df)
-                        # print("*** sub_df[mask_end]=", sub_df[mask_end])
-                        # print(sub_df['stock_id'].dtype)
-                        # print("stock =", stock, "型別 =", type(stock))
-                        # sys.exit() # for Debug
-                        continue  # 沒有該月資料，跳過
+                    # 找 觀察期-賣出(end_date) 的資料 => 月底
+                    end_dt = cur_dt + relativedelta(months=oPeriod - 1)
+                    end_row = utils.getOperiodDataRow(stock, sub_df, end_dt, Iloc.Last)
+                    if end_row is None:
+                        print(f"⚠️[{stock}-{end_dt.strftime('%Y%m')}] 沒有 觀察期-賣出 的資料，跳過。")
+                        continue # 該月資料不完整，不寫入
                     
-                    end_row = end_dt_df.iloc[-1]
-                    # print("## end_row=")
-                    # print(end_row)
                     end_date = end_row['date']
                     ED_close = end_row['close']
                     
-                    # (e) 組合欄位
+                    # 組合欄位
                     combination = f"{cur_dt.strftime('%Y%m')}-{(end_dt + relativedelta(months=1)).strftime('%Y%m')}"
                     ret = (ED_close - SD_close) / SD_close
                     
@@ -383,10 +362,11 @@ for oPeriod in oPeriods:
 
             utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
-        for planType in planTypes:
+        ### 持有期開始的分析資料，分成 PanelA、B 處理
+        for panelType in panelTypes:
             ### 計算持有期的報酬
             filePrefixIdx = filePrefixIdx + 1
-            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList-{planType}"))
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList-{panelType}"))
             if os.path.exists(output_file):
                 filtered_df = pd.read_csv(output_file)
                 utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
@@ -405,11 +385,11 @@ for oPeriod in oPeriods:
                 end_date2_list = []
                 ED_close2_list = []
 
-                close_df_sd2 = None
+                close_df_sd2 = None # DataFrame
                 close_df_sd2_y_pre = None
                 close_df_sd2_y = None
 
-                close_df_ed2 = None
+                close_df_ed2 = None  # DataFrame
                 close_df_ed2_y_pre = None
                 close_df_ed2_y = None
 
@@ -420,10 +400,13 @@ for oPeriod in oPeriods:
                     # =============== start_date2 ==============
                     start_date2 = None
                     SD_close2 = None
-                    sd2_month = row["end_date_dt"] + relativedelta(months=+1)
+                    sd2_baseDt = row["end_date_dt"] + relativedelta(months=+1)
+                    sd2_baseDt = sd2_baseDt.replace(day=1) # 調整到1日
+                    if panelType == Panel.B:
+                        sd2_baseDt = sd2_baseDt + relativedelta(days=+7)
 
                     # 組織查詢表
-                    close_df_sd2_y = sd2_month.strftime("%Y")
+                    close_df_sd2_y = sd2_baseDt.strftime("%Y")
                     if (close_df_sd2 is None) or (int(close_df_sd2_y) != int(close_df_sd2_y_pre)):
                         close_df_sd2 = utils.getCloseDf(close_df_sd2_y, 1)
                         close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
@@ -432,7 +415,7 @@ for oPeriod in oPeriods:
                     if close_df_sd2.empty:
                         utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_sd2_y}.csv，填入 None")
                     else:
-                        sd2_dataRow = utils.getHperiodDataRow(planType, close_df_sd2, stock_id, sd2_month, 0)
+                        sd2_dataRow = utils.getHperiodDataRow(panelType, stock_id, close_df_sd2, sd2_baseDt, Iloc.Fst)
                         if sd2_dataRow is not None:
                             start_date2 = sd2_dataRow["date"]
                             SD_close2 = sd2_dataRow["close"]
@@ -440,7 +423,7 @@ for oPeriod in oPeriods:
                     start_date2_list.append(start_date2)
                     SD_close2_list.append(SD_close2)
                     if start_date2 is None:
-                        print(f"⚠️[{stock_id}] start_date2 & SD_close2 is None")
+                        print(f"⚠️[{stock_id}-{sd2_baseDt.strftime("%Y%m")}] 持有期-買入 資料無法找到。")
                         end_date2_list.append(None)
                         ED_close2_list.append(None)
                         continue
@@ -448,23 +431,26 @@ for oPeriod in oPeriods:
                     # =============== end_date2 ==============
                     end_date2 = None
                     ED_close2 = None
-                    ed2_month = row["end_date_dt"] + relativedelta(months=+(hPeriod))
+                    ed2_baseDt = row["end_date_dt"] + relativedelta(months=+(hPeriod))
+                    if panelType == Panel.B:
+                        # 月底延後7天 理論上會跨月！
+                        ed2_baseDt = ed2_baseDt + relativedelta(days=+7)
 
                     # 組織查詢表
-                    close_df_ed2_y = ed2_month.strftime("%Y")
+                    close_df_ed2_y = ed2_baseDt.strftime("%Y")
                     if (close_df_ed2 is None) or (int(close_df_ed2_y) != int(close_df_ed2_y_pre)):
-                        if int(close_df_ed2_y) == int(close_df_sd2_y):
+                        if int(close_df_ed2_y) == int(close_df_sd2_y) and panelType == Panel.A:
                             close_df_ed2 = close_df_sd2
                         else:
-                            close_df_ed2 = utils.getCloseDf(close_df_ed2_y, 1)
+                            dfNum = 2 if panelType == Panel.B else 1
+                            close_df_ed2 = utils.getCloseDf(close_df_ed2_y, dfNum)
                             close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
                         close_df_ed2_y_pre = close_df_ed2_y
 
                     if close_df_ed2.empty:
                         utils.ptMsg(f"❌ 找不到檔案：closePrice_{close_df_ed2_y}.csv，填入 None")
                     else:
-                        ed2_dataRow = utils.getHperiodDataRow(planType, close_df_sd2, stock_id, ed2_month, -1)
-  
+                        ed2_dataRow = utils.getHperiodDataRow(panelType, stock_id, close_df_sd2, ed2_baseDt, Iloc.Last)
                         if ed2_dataRow is not None:
                             end_date2 = ed2_dataRow["date"]
                             ED_close2 = ed2_dataRow["close"]
@@ -472,9 +458,7 @@ for oPeriod in oPeriods:
                     end_date2_list.append(end_date2)
                     ED_close2_list.append(ED_close2)
                     if end_date2 is None:
-                        print("end_date2 is None")
-                    if ED_close2 is None:
-                        print("ED_close2 is None")
+                        print(f"⚠️[{stock_id}-{ed2_baseDt.strftime("%Y%m")}] 持有期-賣出 資料無法找到。")
 
                 # 新增欄位
                 filtered_df["start_date2"] = start_date2_list
@@ -501,7 +485,7 @@ for oPeriod in oPeriods:
 
             ### 統計持有期間平均報酬
             filePrefixIdx = filePrefixIdx + 1
-            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static-{planType}"))
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static-{panelType}"))
             if os.path.exists(output_file):
                 grouped = pd.read_csv(output_file)
                 utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
@@ -530,7 +514,7 @@ for oPeriod in oPeriods:
 
             ### 計算winner - loser
             filePrefixIdx = filePrefixIdx + 1
-            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static2-{planType}"))
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"holdingReturnList_static2-{panelType}"))
             if os.path.exists(output_file):
                 new_df = pd.read_csv(output_file)
                 utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
@@ -568,7 +552,7 @@ for oPeriod in oPeriods:
 
             ### t-test
             filePrefixIdx = filePrefixIdx + 1
-            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"t_test-{planType}"))
+            output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, f"t_test-{panelType}"))
             if os.path.exists(output_file):
                 utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
             else:

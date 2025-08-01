@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import sys
 import re
+from common.constants import Panel
+from common.constants import Iloc
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -131,11 +133,33 @@ def delete_empty_csv_files_recursive(folder_path, size_threshold=2*1024):
     print(f"\n總共檢查 {checked_files} 個檔案，刪除 {len(deleted_files)} 個空白或純換行檔案。")
     return deleted_files
 
+def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
+    dataRow = None
+    candidates = closeDf[
+        (closeDf['stock_id'] == stock_id) &
+        (closeDf['date'].dt.year == baseDt.year) &
+        (closeDf['date'].dt.month == baseDt.month)
+    ]
+    if not candidates.empty:
+        dataRow = candidates.sort_values("date_dt").iloc[iloc]
+        
+    if dataRow is None:
+        return dataRow
+    
+    ### 確保 月初/月底 的資料要分別落在特定的日期內
+    if (iloc == Iloc.Fst) and (dataRow["date_dt"].dt.day > 15):
+        return None
+    
+    if (iloc == Iloc.Last) and (dataRow["date_dt"].dt.day < 16):
+        return None
+    
+    return dataRow
+
 
 # 找出 持有期-買入(0)賣出(-1)日期 對應的資料列
-def getHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseDt: datetime, iloc: int) -> pd.Series:
+def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
     ### Panel A
-    if planType == 'A':
+    if panelType == Panel.A:
         candidates = closeDf[
             (closeDf["stock_id"] == stock_id) &
             (closeDf["date_dt"].dt.year == baseDt.year) &
@@ -145,7 +169,7 @@ def getHperiodDataRow(planType: str, closeDf: pd.DataFrame, stock_id: str, baseD
             return candidates.sort_values("date_dt").iloc[iloc]
 
     ## Panel B
-    if planType == 'B':
+    if panelType == Panel.B:
         candidates = closeDf[
             (closeDf["stock_id"] == stock_id) &
             (closeDf["date_dt"] >= baseDt) &
