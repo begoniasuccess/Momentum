@@ -138,6 +138,7 @@ def getOutputCsvPath(target_folder, filePrefixIdx, csvName):
     outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
     return outputPath
 
+# 找出 觀察期-買入賣出日期 對應的資料列
 def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
     dataRow = None
     candidates = closeDf[
