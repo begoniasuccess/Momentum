@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
 api = DataLoader()
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wNy0yMCAxNzowMjo1MiIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIxMTQuMTM3LjQ3LjI0NCIsImV4cCI6MTc1MzYwNjk3Mn0.YQMjCeFBhgqjsYkspAhyUu1RYbSM7DvfSmjlZ6nXNew"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wOC0wMSAxMzozNjoyNSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIyMTguMjEwLjIxOC40MSJ9.tD1g20KvA7irVTLJvXdl_JeXjNKKSWSfu8OTxdCeB-I"
 api.login_by_token(api_token=token)
 
 storageDir = "../data/FinMind"

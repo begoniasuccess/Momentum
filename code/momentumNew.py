@@ -31,7 +31,7 @@ panelTypes = [Panel.A, Panel.B]
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
-end_ym = "2019/12" # 取月底
+end_ym = "2014/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
@@ -46,7 +46,7 @@ hPeriods = [9] # Holding Period
 
 maxIncludeRank = 150
 
-prepareDatas = False
+prepareDatas = True
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -160,7 +160,7 @@ for oPeriod in oPeriods:
                 ### 如果end_dt2超過資料範圍 就結束搜尋
                 end_dt2 = cur_dt + relativedelta(months=oPeriod + hPeriod)            
                 if (end_dt2 > eDt):
-                    print(f"*** 觀察期賣出時間：({end_dt2.strftime("%Y-%m")}) 已超過資料時間範圍，結束計算。")
+                    utils.ptMsg(f"*** 觀察期賣出時間：({end_dt2.strftime("%Y-%m")}) 已超過資料時間範圍，結束計算。")
                     break
 
                 curY = cur_dt.strftime("%Y")
@@ -312,6 +312,7 @@ for oPeriod in oPeriods:
 
             result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
 
+
             # 確保 RT_rank 是 numeric
             result_df["RT_rank"] = pd.to_numeric(result_df["RT_rank"], errors="coerce")
 
@@ -423,7 +424,7 @@ for oPeriod in oPeriods:
                     start_date2_list.append(start_date2)
                     SD_close2_list.append(SD_close2)
                     if start_date2 is None:
-                        print(f"⚠️[{stock_id}-{sd2_baseDt.strftime("%Y%m")}] 持有期-買入 資料無法找到。")
+                        print(f"⚠️[{sd2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-買入 資料無法找到。")
                         end_date2_list.append(None)
                         ED_close2_list.append(None)
                         continue
@@ -458,7 +459,7 @@ for oPeriod in oPeriods:
                     end_date2_list.append(end_date2)
                     ED_close2_list.append(ED_close2)
                     if end_date2 is None:
-                        print(f"⚠️[{stock_id}-{ed2_baseDt.strftime("%Y%m")}] 持有期-賣出 資料無法找到。")
+                        print(f"⚠️[{ed2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-賣出 資料無法找到。")
 
                 # 新增欄位
                 filtered_df["start_date2"] = start_date2_list

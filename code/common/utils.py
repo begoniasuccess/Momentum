@@ -141,16 +141,18 @@ def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, il
         (closeDf['date'].dt.month == baseDt.month)
     ]
     if not candidates.empty:
-        dataRow = candidates.sort_values("date_dt").iloc[iloc]
+        dataRow = candidates.sort_values("date").iloc[iloc.value]
         
     if dataRow is None:
         return dataRow
     
     ### 確保 月初/月底 的資料要分別落在特定的日期內
-    if (iloc == Iloc.Fst) and (dataRow["date_dt"].dt.day > 15):
+    if (iloc == Iloc.Fst) and (dataRow["date"].day > 15):
+        ptMsg(f'[{stock_id}]月初資料日期過大 => {dataRow["date"].strftime("%Y%m%d")}')
         return None
     
-    if (iloc == Iloc.Last) and (dataRow["date_dt"].dt.day < 16):
+    if (iloc == Iloc.Last) and (dataRow["date"].day < 16):
+        ptMsg(f'[{stock_id}]月底資料日期過小 => {dataRow["date"].strftime("%Y%m%d")}')
         return None
     
     return dataRow
@@ -166,7 +168,7 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
             (closeDf["date_dt"].dt.month == baseDt.month)
         ]
         if not candidates.empty:
-            return candidates.sort_values("date_dt").iloc[iloc]
+            return candidates.sort_values("date_dt").iloc[iloc.value]
 
     ## Panel B
     if panelType == Panel.B:
@@ -177,6 +179,6 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
         ]
         
         if not candidates.empty:
-            return candidates.sort_values("date_dt").iloc[iloc]
+            return candidates.sort_values("date_dt").iloc[iloc.value]
         
     return None
