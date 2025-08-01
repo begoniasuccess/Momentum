@@ -20,12 +20,12 @@ from common.constants import Iloc
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-# python -u momentumNew.py 2>&1 | Tee-Object -FilePath ../log/terminal_log.txt -Append
+# python -u momentumMv.py 2>&1 | Tee-Object -FilePath ../log/momentumMv.log -Append
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
 print("")
-utils.ptMsg("⚙️ momentumNew.py Run")
+utils.ptMsg("⚙️ momentumMv.py Run")
 
 ### 策略參數設定
 panelTypes = [Panel.A, Panel.B] 
@@ -102,7 +102,7 @@ for oPeriod in oPeriods:
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = r'..\data\analysis\momentumNew' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = r'..\data\analysis\momentumMv' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
 
 
         ### 計算觀察期報酬
@@ -614,5 +614,5 @@ for oPeriod in oPeriods:
                 utils.ptMsg(f"✅ 已輸出結果：{output_file}")
 
 # 結束訊息
-utils.ptMsg("⚙️ momentumNew.py Finish")
+utils.ptMsg("⚙️ momentumMv.py Finish")
 print("")

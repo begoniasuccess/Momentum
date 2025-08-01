@@ -1,6 +1,0 @@
-### 安裝專案相關依賴
-pip install -r requirements.txt
-
-### 產生requirements.txt
-python -m pipreqs.pipreqs . --force
-

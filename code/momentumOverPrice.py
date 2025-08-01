@@ -15,12 +15,12 @@ import calendar
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-# python -u momentumImproved.py 2>&1 | Tee-Object -FilePath ../log/terminal.log -Append
+# python -u momentumOverPrice.py 2>&1 | Tee-Object -FilePath ../log/terminal.log -Append
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
 print("")
-utils.ptMsg("⚙️ momentumImproved.py Run")
+utils.ptMsg("⚙️ momentumOverPrice.py Run")
 
 ### 策略參數設定
 planType = "A" # A 
@@ -75,7 +75,7 @@ for oPeriod in oPeriods:
         
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = r'..\data\analysis\momentumImproved' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = r'..\data\analysis\momentumOverPrice' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
         def getOutputCsvPath(target_folder, filePrefixIdx, csvName):        
             os.makedirs(target_folder, exist_ok=True) 
             outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
@@ -643,5 +643,5 @@ for oPeriod in oPeriods:
 
 
 # 結束訊息
-utils.ptMsg("⚙️ momentumImproved.py Finish")
+utils.ptMsg("⚙️ momentumOverPrice.py Finish")
 print("")
