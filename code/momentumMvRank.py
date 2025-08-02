@@ -32,18 +32,19 @@ panelTypes = [Panel.A, Panel.B]
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
-end_ym = "2014/12" # 取月底
+end_ym = "2024/12" # 取月底
+end_ym = "2019/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
 sDt = datetime(start_year, start_month, 1)
 eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
 
-# oPeriods = [3, 6, 9 ,12] # Observer Period
-# hPeriods = [3, 6, 9 ,12] # Holding Period
+oPeriods = [3, 6, 9 ,12] # Observer Period
+hPeriods = [3, 6, 9 ,12] # Holding Period
 
-oPeriods = [3] # Observer Period
-hPeriods = [9] # Holding Period
+# oPeriods = [3] # Observer Period
+# hPeriods = [9] # Holding Period
 
 maxIncludeRank = 150
 

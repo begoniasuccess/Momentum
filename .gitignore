@@ -2,4 +2,3 @@ tmp/
 __pycache__/
 *.py[cod]
 local/
-log/*
