@@ -27,7 +27,7 @@
 	| 持有期(B) |(x+o)月的第一交易日，一週後的第一交易日|(x+o+h-1)月的最後交易日，一週後的第一交易日|
 
 ## 回測「月均市值前x大」的策略報酬
-1. 主程式位置：**code/momentumMv.py**
+1. 主程式位置：**code/momentumMvRank.py**
 2. 運行指令
 	```powershell
 	### code/底下執行
@@ -35,14 +35,14 @@
 	### [選項一](建議)
 	# 指定powershell的編碼，每次重啟一個新的會話時都要運行
 	$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-	# 運行主程式，且支援將terminal的訊息會存入文字檔log/momentumMv.log
-	python -u momentumMv.py 2>&1 | Tee-Object -FilePath ../log/terminal_log.txt -Append
+	# 運行主程式，且支援將terminal的訊息會存入文字檔log/momentumMvRank.log
+	python -u momentumMvRank.py 2>&1 | Tee-Object -FilePath ../log/terminal_log.txt -Append
 
 	### [選項二] 直接運行，terminal的訊息不會存入文字檔
-	python momentumMv.py
+	python momentumMvRank.py
 	```
 
-### momentumMv.py運行注意事項
+### momentumMvRank.py運行注意事項
  - 本程式會用到[FinMind](https://finmindtrade.com/)提供的API，所以請注意程式中的token必須是有效的
 	```python
 	### 檔案：code/common/finMind.py
@@ -54,7 +54,7 @@
 	```
  -  程式內參數設定
 	```python
-	### 檔案：code/momentumMv.py
+	### 檔案：code/momentumMvRank.py
 	### 定義此回測的股價資料起始與終止年月(首尾計入)
 	start_ym  =  "2010/01" # 取月初
 	end_ym  =  "2024/12" # 取月底
@@ -117,13 +117,11 @@
 	### 將此參數設為False，就可以略過下載/準備資料的步驟
 	prepareDatas  =  True
 
-	### Future：尚未實作，未來會新增PanelA/B選項
-	planType  =  "A"	
 	```
 
 ## 程式輸出結果說明
 	- 本程式分析資料會分別存在下列資料夾底下：
-		**data/analysis/momentumMv**
+		**data/analysis/momentumMvRank**
 		**data/analysis/momentumOverPrice**
 	- 資料夾的名稱會對應策略的參數，例如：
 		- oPeriod3_hPeriod3 >> 201001_202412
@@ -149,11 +147,11 @@
 	python mergeTcsv.py
 	
 	### terminal出現的選項對應要整合的資料
-	A # MomentumNew => 月均市值前x大(mvX)
-	B # MomentumImproved => 月均股價大於y元(overY)
+	A # MomentumMvRank => 月均市值前x大(mvX)
+	B # MomentumOverPrice => 月均股價大於y元(overY)
 	```
 - 檔案輸出位置：
-	- 路徑：data/analysis/{momentumMv 或 momentumOverPrice}/mergeTtestResult
+	- 路徑：data/analysis/{momentumMvRank 或 momentumOverPrice}/mergeTtestResult
 	- 檔案：
 		- tTestReport-yyyymm_yyyyymm.csv (csv資料)
 		- tTestReport-yyyymm_yyyyymm_p.xlsx (方便整理成論文中的圖)

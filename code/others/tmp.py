@@ -1,23 +1,24 @@
 import os
+import glob
 
-# 設定根目錄
-root_dir = "../data/analysis"
+# 設定你要處理的根目錄（換成你自己的路徑）
+root_dir = f"../data/analysis"
+print(os.path.exists(root_dir))
 
-# 要改名的檔案清單與對應新結尾
-target_files = [
-    "04-holdingReturnList.csv",
-    "05-holdingReturnList_static.csv",
-    "06-holdingReturnList_static2.csv",
-    "07-t_test.csv",
-]
+# 遞迴尋找所有 .csv 檔案
+pattern = os.path.join(root_dir, '**', '*-A.csv')
+file_list = glob.glob(pattern, recursive=True)
+print(file_list)
 
-# 遍歷所有子目錄
-for dirpath, dirnames, filenames in os.walk(root_dir):
-    for filename in filenames:
-        if filename in target_files:
-            old_path = os.path.join(dirpath, filename)
-            name, ext = os.path.splitext(filename)
-            new_filename = name + "-A" + ext
-            new_path = os.path.join(dirpath, new_filename)
-            os.rename(old_path, new_path)
-            print(f"✅ Renamed: {old_path} → {new_path}")
+# 開始處理檔案
+for filepath in file_list:
+    dir_name = os.path.dirname(filepath)
+    filename = os.path.basename(filepath)
+
+    # 新檔名（移除 -A）
+    new_filename = filename.replace('-A.csv', '.csv')
+    new_filepath = os.path.join(dir_name, new_filename)
+
+    # 更名
+    os.rename(filepath, new_filepath)
+    print(f'Renamed: {filepath} -> {new_filepath}')

@@ -142,9 +142,9 @@ def getOutputCsvPath(target_folder, filePrefixIdx, csvName):
 def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
     dataRow = None
     candidates = closeDf[
-        (closeDf['stock_id'] == stock_id) &
-        (closeDf['date'].dt.year == baseDt.year) &
-        (closeDf['date'].dt.month == baseDt.month)
+        (closeDf['stock_id'] == stock_id)
+        & (closeDf['date'].dt.year == baseDt.year)
+        & (closeDf['date'].dt.month == baseDt.month)
     ]
     if not candidates.empty:
         dataRow = candidates.sort_values("date").iloc[iloc.value]
@@ -169,9 +169,9 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
     ### Panel A
     if panelType == Panel.A:
         candidates = closeDf[
-            (closeDf["stock_id"] == stock_id) &
-            (closeDf["date_dt"].dt.year == baseDt.year) &
-            (closeDf["date_dt"].dt.month == baseDt.month)
+            (closeDf["stock_id"] == stock_id)
+            & (closeDf["date_dt"].dt.year == baseDt.year)
+            & (closeDf["date_dt"].dt.month == baseDt.month)
         ]
         if not candidates.empty:
             return candidates.sort_values("date_dt").iloc[iloc.value]
@@ -179,12 +179,12 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
     ## Panel B
     if panelType == Panel.B:
         candidates = closeDf[
-            (closeDf["stock_id"] == stock_id) &
-            (closeDf["date_dt"] >= baseDt) &
-            (closeDf["date_dt"] <= baseDt + timedelta(days=14))
+            (closeDf["stock_id"] == stock_id)
+            & (closeDf["date_dt"] >= baseDt)
+            & (closeDf["date_dt"] <= baseDt + timedelta(days=14))
         ]
         
         if not candidates.empty:
-            return candidates.sort_values("date_dt").iloc[iloc.value]
+            return candidates.sort_values("date_dt").iloc[Iloc.Fst.value]
         
     return None

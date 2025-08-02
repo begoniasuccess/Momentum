@@ -15,7 +15,7 @@ import calendar
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-# python -u momentumOverPrice.py 2>&1 | Tee-Object -FilePath ../log/terminal.log -Append
+# python -u momentumOverPrice.py 2>&1 | Tee-Object -FilePath ../log/momentumOverPrice.log -Append
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
@@ -34,12 +34,17 @@ end_year, end_month = map(int, end_ym.split('/'))
 sDt = datetime(start_year, start_month, 1)
 eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
 
-oPeriods = [3, 6, 9 ,12] # Observer Period
-hPeriods = [3, 6, 9 ,12] # Holding Period
+# oPeriods = [3, 6, 9 ,12] # Observer Period
+# hPeriods = [3, 6, 9 ,12] # Holding Period
+
+
+oPeriods = [3] # Observer Period
+hPeriods = [9] # Holding Period
+
 
 minClosePrice = 10
 
-prepareData = True
+prepareData = False
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
