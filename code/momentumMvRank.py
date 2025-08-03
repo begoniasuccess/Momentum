@@ -40,11 +40,11 @@ end_year, end_month = map(int, end_ym.split('/'))
 sDt = datetime(start_year, start_month, 1)
 eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
 
-oPeriods = [3, 6, 9 ,12] # Observer Period
-hPeriods = [3, 6, 9 ,12] # Holding Period
+# oPeriods = [3, 6, 9 ,12] # Observer Period
+# hPeriods = [3, 6, 9 ,12] # Holding Period
 
-# oPeriods = [3] # Observer Period
-# hPeriods = [9] # Holding Period
+oPeriods = [3] # Observer Period
+hPeriods = [9] # Holding Period
 
 maxIncludeRank = 150
 
@@ -302,47 +302,12 @@ for oPeriod in oPeriods:
             exclude_mask = (observer_df["RT_%_Rank"] > 99.9) | (observer_df["RT_%_Rank"] < 0.1)
             observer_df.loc[exclude_mask, "remark"] = "exclude"
 
-            # 計算 RT_rank，注意：不先創欄位
-            def compute_rt_rank(group):
-                mask = group["remark"] != "exclude"
-                # 只針對非 exclude 算排名
-                ranks = pd.Series(index=group.index, dtype="float")
-                ranks.loc[mask] = group.loc[mask, "return"].rank(method="min", ascending=False)
-                group["RT_rank"] = ranks
-                return group
-
-            observer_df = observer_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
-
+            observer_df = observer_df.groupby("combination", group_keys=False).apply(utils.compute_rt_rank)
 
             # 確保 RT_rank 是 numeric
             observer_df["RT_rank"] = pd.to_numeric(observer_df["RT_rank"], errors="coerce")
 
-            # 更新 remark: winner / loser
-            def mark_winner_loser(group):
-                valid = group[group["remark"] != "exclude"]
-                if valid.empty:
-                    return group
-
-                n = len(valid)
-                top_n = max(1, int(n * 0.1))
-                bottom_n = max(1, int(n * 0.1))
-
-                top_threshold = valid.nsmallest(top_n, "RT_rank")["RT_rank"].max()
-                bottom_threshold = valid.nlargest(bottom_n, "RT_rank")["RT_rank"].min()
-
-                # 只更新 valid 部分
-                for idx in valid.index:
-                    rt_rank = group.loc[idx, "RT_rank"]
-                    if pd.isna(rt_rank):
-                        continue
-                    if rt_rank <= top_threshold:
-                        group.loc[idx, "remark"] = "winner"
-                    elif rt_rank >= bottom_threshold and rt_rank > top_threshold:
-                        group.loc[idx, "remark"] = "loser"
-
-                return group
-
-            observer_df = observer_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+            observer_df = observer_df.groupby("combination", group_keys=False).apply(utils.mark_winner_loser)
 
             # 輸出
             observer_df.to_csv(output_file, index=False, encoding="utf-8-sig")
@@ -570,6 +535,9 @@ for oPeriod in oPeriods:
                 wMinusL_df.to_csv(output_file, index=False, encoding="utf-8-sig")
                 utils.ptMsg(f"✅ 已輸出新檔案：{output_file}")
 
+            del holding_meanRT_df
+            gc.collect()
+            
             ### t-test
             filePrefixIdx = filePrefixIdx + 1
             output_file = Path(utils.getOutputCsvPath(target_folder, filePrefixIdx, f"t_test-{panelType.value}"))
@@ -581,11 +549,7 @@ for oPeriod in oPeriods:
                 # 移除多餘逗號
                 wMinusL_df.columns = wMinusL_df.columns.str.strip()
 
-                # print(wMinusL_df["mean_avg_monthly_return"].head(10))
-                # print(wMinusL_df["mean_avg_monthly_return"].dtype)
-                
                 results = []
-
                 # 分組 t檢定
                 for remark in ["loser", "winner", "winner - loser"]:
                     # 取出該 remark 資料
@@ -593,11 +557,11 @@ for oPeriod in oPeriods:
                     n = len(values)
                     if n > 1:
                         t_stat, p_value = stats.ttest_1samp(values, popmean=0)
-                        mean = values.mean()
+                        mean_avg_monthly_return = values.mean()
                         results.append({
                             "remark": remark,
                             "n": n,
-                            "mean": mean,
+                            "mean_avg_monthly_return": mean_avg_monthly_return,
                             "t_stat": t_stat,
                             "p_value": p_value
                         })
@@ -605,7 +569,7 @@ for oPeriod in oPeriods:
                         results.append({
                             "remark": remark,
                             "n": n,
-                            "mean": values.mean() if n == 1 else None,
+                            "mean": mean_avg_monthly_return if n == 1 else None,
                             "t_stat": None,
                             "p_value": None
                         })
@@ -615,6 +579,12 @@ for oPeriod in oPeriods:
 
                 tTest_df.to_csv(output_file, index=False, encoding="utf-8-sig")
                 utils.ptMsg(f"✅ 已輸出結果：{output_file}")
+
+                del tTest_df
+                gc.collect()
+
+            del wMinusL_df
+            gc.collect()
 
 # 結束訊息
 utils.ptMsg("⚙️ momentumMvRank.py Finish")

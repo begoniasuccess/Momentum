@@ -189,7 +189,6 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
         
     return None
 
-
 # 百分比排名 (0~100)
 def scale_to_0_100(x):
     min_val = x.min()
@@ -198,3 +197,37 @@ def scale_to_0_100(x):
         return pd.Series([None] * len(x), index=x.index)
     else:
         return (x - min_val) / (max_val - min_val) * 100
+    
+# 計算 RT_rank，注意：不先創欄位
+def compute_rt_rank(group):
+    mask = group["remark"] != "exclude"
+    # 只針對非 exclude 算排名
+    ranks = pd.Series(index=group.index, dtype="float")
+    ranks.loc[mask] = group.loc[mask, "return"].rank(method="min", ascending=False)
+    group["RT_rank"] = ranks
+    return group
+
+# 更新 remark: winner / loser
+def mark_winner_loser(group):
+    valid = group[group["remark"] != "exclude"]
+    if valid.empty:
+        return group
+
+    n = len(valid)
+    top_n = max(1, int(n * 0.1))
+    bottom_n = max(1, int(n * 0.1))
+
+    top_threshold = valid.nsmallest(top_n, "RT_rank")["RT_rank"].max()
+    bottom_threshold = valid.nlargest(bottom_n, "RT_rank")["RT_rank"].min()
+
+    # 只更新 valid 部分
+    for idx in valid.index:
+        rt_rank = group.loc[idx, "RT_rank"]
+        if pd.isna(rt_rank):
+            continue
+        if rt_rank <= top_threshold:
+            group.loc[idx, "remark"] = "winner"
+        elif rt_rank >= bottom_threshold and rt_rank > top_threshold:
+            group.loc[idx, "remark"] = "loser"
+
+    return group
