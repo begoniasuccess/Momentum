@@ -116,25 +116,35 @@ for oPeriod in oPeriods:
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
             dataExist = True
         else:
-            # 查看有沒有範圍更廣的資料區間
-            os.makedirs(os.path.dirname(output_file), exist_ok=True) # 確保資料夾存在
-            file_list = os.listdir(os.path.dirname(output_file))
+            dataExist = False
+            # TODO:: 因為資料存儲格式改變，所以這段要重寫
+            # 查看有沒有範圍更廣的資料區間 
+            # os.makedirs(os.path.dirname(output_file), exist_ok=True) # 確保資料夾存在
+            # file_list = os.listdir(os.path.dirname(output_file))
 
-            # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
-            pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
+            # # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
+            # pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
 
-            # 找符合的檔案
-            matching_files = [f for f in file_list if pattern.match(f)]
-            if matching_files:
-                for f in matching_files:
-                    timeRange = utils.getSdtEdt(f)
-                    sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    if sDtInRange and dDtInRange:
-                        observer_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
-                        utils.ptMsg("☑️ 已讀入既有檔案：" + f'{os.path.dirname(output_file)}/{f}')   
-                        dataExist = True
-                        break    
+            # # 找符合的檔案
+            # matching_files = [f for f in file_list if pattern.match(f)]
+            # if matching_files:
+            #     for f in matching_files:
+            #         timeRange = utils.getSdtEdt(f)
+            #         sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            #         dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            #         if sDtInRange and dDtInRange:
+            #             observer_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
+            #             observer_df['start_date_dt'] =  pd.to_datetime(observer_df["start_date"])
+            #             observer_df['end_date_dt'] =  pd.to_datetime(observer_df["end_date"])
+            #             observer_df = [
+            #                 (observer_df["start_date_dt"].dt >= sDt)
+            #                 & (observer_df["end_date_dt"].dt <= eDt)
+            #             ]                        
+            #             observer_df = observer_df.drop(columns=["start_date_dt", "end_date_dt"]) # 移除中間欄位
+            #             observer_df.to_csv(output_file, mode="w", index=False, float_format='%.8f')
+            #             utils.ptMsg("☑️ 已讀入既有檔案：" + output_file)   
+            #             dataExist = True
+            #             break    
 
         if not dataExist:
             utils.ptMsg("📢 開始製作" + str(output_file))
@@ -282,17 +292,8 @@ for oPeriod in oPeriods:
             # 確保 return 是 float
             observer_df["return"] = pd.to_numeric(observer_df["return"], errors="coerce")
 
-            # 百分比排名 (0~100)
-            def scale_to_0_100(x):
-                min_val = x.min()
-                max_val = x.max()
-                if pd.isna(min_val) or pd.isna(max_val) or max_val == min_val:
-                    return pd.Series([None] * len(x), index=x.index)
-                else:
-                    return (x - min_val) / (max_val - min_val) * 100
-
             # 計算 RT_%_Rank
-            observer_df["RT_%_Rank"] = observer_df.groupby("combination")["return"].transform(scale_to_0_100)
+            observer_df["RT_%_Rank"] = observer_df.groupby("combination")["return"].transform(utils.scale_to_0_100)
 
             # remark 初始化
             observer_df["remark"] = ""

@@ -188,3 +188,13 @@ def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, ba
             return candidates.sort_values("date_dt").iloc[Iloc.Fst.value]
         
     return None
+
+
+# 百分比排名 (0~100)
+def scale_to_0_100(x):
+    min_val = x.min()
+    max_val = x.max()
+    if pd.isna(min_val) or pd.isna(max_val) or max_val == min_val:
+        return pd.Series([None] * len(x), index=x.index)
+    else:
+        return (x - min_val) / (max_val - min_val) * 100

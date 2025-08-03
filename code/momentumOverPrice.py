@@ -12,6 +12,9 @@ from common import anaData
 import re
 from pandas.errors import EmptyDataError
 import calendar
+from common.constants import Panel
+from common.constants import Iloc
+import gc
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
@@ -23,7 +26,7 @@ print("")
 utils.ptMsg("⚙️ momentumOverPrice.py Run")
 
 ### 策略參數設定
-planType = "A" # A 
+panelTypes = [Panel.A, Panel.B]
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
@@ -37,14 +40,14 @@ eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
 # oPeriods = [3, 6, 9 ,12] # Observer Period
 # hPeriods = [3, 6, 9 ,12] # Holding Period
 
-
 oPeriods = [3] # Observer Period
 hPeriods = [9] # Holding Period
-
 
 minClosePrice = 10
 
 prepareData = False
+
+summaryDir = "../data/analysis/summary"
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
@@ -80,7 +83,7 @@ for oPeriod in oPeriods:
         
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = r'..\data\analysis\momentumOverPrice' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = f'../data/analysis/momentumOverPrice/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
         def getOutputCsvPath(target_folder, filePrefixIdx, csvName):        
             os.makedirs(target_folder, exist_ok=True) 
             outputPath = f'{target_folder}/{str(filePrefixIdx).zfill(2)}-{csvName}.csv'
@@ -92,29 +95,39 @@ for oPeriod in oPeriods:
         filePrefixIdx = filePrefixIdx + 1
         output_file = getOutputCsvPath(target_folder, filePrefixIdx, "observerReturnList")
         if os.path.exists(output_file):
-            result_df = pd.read_csv(output_file)
+            observer_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
             dataExist = True
         else:
-            # 查看有沒有範圍更廣的資料區間
-            os.makedirs(os.path.dirname(output_file), exist_ok=True) # 確保資料夾存在
-            file_list = os.listdir(os.path.dirname(output_file))
+            dataExist = False
+            # TODO:: 因為資料存儲格式改變，所以這段要重寫
+            # 查看有沒有範圍更廣的資料區間 
+            # os.makedirs(os.path.dirname(output_file), exist_ok=True) # 確保資料夾存在
+            # file_list = os.listdir(os.path.dirname(output_file))
 
-            # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
-            pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
+            # # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
+            # pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
 
-            # 找符合的檔案
-            matching_files = [f for f in file_list if pattern.match(f)]
-            if matching_files:
-                for f in matching_files:
-                    timeRange = utils.getSdtEdt(f)
-                    sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-                    if sDtInRange and dDtInRange:
-                        result_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
-                        utils.ptMsg("☑️ 已讀入既有檔案：" + f'{os.path.dirname(output_file)}/{f}')   
-                        dataExist = True
-                        break    
+            # # 找符合的檔案
+            # matching_files = [f for f in file_list if pattern.match(f)]
+            # if matching_files:
+            #     for f in matching_files:
+            #         timeRange = utils.getSdtEdt(f)
+            #         sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            #         dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
+            #         if sDtInRange and dDtInRange:
+            #             observer_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
+            #             observer_df['start_date_dt'] =  pd.to_datetime(observer_df["start_date"])
+            #             observer_df['end_date_dt'] =  pd.to_datetime(observer_df["end_date"])
+            #             observer_df = [
+            #                 (observer_df["start_date_dt"].dt >= sDt)
+            #                 & (observer_df["end_date_dt"].dt <= eDt)
+            #             ]                        
+            #             observer_df = observer_df.drop(columns=["start_date_dt", "end_date_dt"]) # 移除中間欄位
+            #             observer_df.to_csv(output_file, mode="w", index=False, float_format='%.8f')
+            #             utils.ptMsg("☑️ 已讀入既有檔案：" + output_file)   
+            #             dataExist = True
+            #             break    
 
         if not dataExist:
             utils.ptMsg("📢 開始製作" + str(output_file))
@@ -130,8 +143,8 @@ for oPeriod in oPeriods:
                 progressDt = datetime.strptime(progressYM, "%Y%m")
                 cur_dt = progressDt + relativedelta(months=1)
                 
-            close_df_start = None
-            close_df_end = None
+            close_df_start = None # DataFrame
+            close_df_end = None # DataFrame
 
             # 逐月迭代
             exist_y_str = None    
@@ -139,7 +152,7 @@ for oPeriod in oPeriods:
                 ### 如果end_dt2超過資料範圍 就結束搜尋
                 end_dt2 = cur_dt + relativedelta(months=oPeriod + hPeriod)            
                 if (end_dt2 > eDt):
-                    print(f"*** end_dt2({end_dt2.strftime("%Y%m")})已超過資料時間範圍，結束計算。")
+                    print(f"*** 持有期-賣出 時間：({end_dt2.strftime("%Y%m")})已超過資料時間範圍，結束計算。")
                     break
 
                 curY = cur_dt.strftime("%Y")
@@ -149,14 +162,16 @@ for oPeriod in oPeriods:
                 utils.ptMsg("**Observer RT " + ym_str + " 開始處理")                
                 try:
                     ym_name = cur_dt.strftime('%Y%m')
-                    close_df_path = f"../data/analysis/summary/closePrice/closePrice_{ym_name}.csv"
+                    close_df_path = f"{summaryDir}/closePrice/closePrice_{ym_name}.csv"
                     close_df_start = pd.read_csv(close_df_path)
                     close_df_start['date'] = pd.to_datetime(close_df_start['date'], errors='coerce')
                     
                     ym_name = end_dt.strftime('%Y%m')
-                    close_df_path = f"../data/analysis/summary/closePrice/closePrice_{ym_name}.csv"
+                    close_df_path = f"{summaryDir}/closePrice/closePrice_{ym_name}.csv"
                     close_df_end = pd.read_csv(close_df_path)
                     close_df_end['date'] = pd.to_datetime(close_df_end['date'], errors='coerce')
+
+                    gc.collect() # 釋放資源
                 except Exception as error:
                     utils.ptMsg(f"⚠️ 尋找close_df失敗，錯誤：{error}")
                     sys.exit()
@@ -167,7 +182,7 @@ for oPeriod in oPeriods:
                 # (a) 找當月股票清單
                 y_str = cur_dt.strftime('%Y')
                 if (exist_y_str != y_str):
-                    candidateSrc = f"../data/analysis/summary/adjPriceMeanByMonth/{y_str}_meanOver{minClosePrice}.csv"
+                    candidateSrc = f"{summaryDir}/adjPriceMeanByMonth/{y_str}_meanOver{minClosePrice}.csv"
                     if not os.path.exists(candidateSrc):
                         utils.ptMsg(f"⚠️ 必要檔案 {candidateSrc} 不存在，請除錯！")
                         sys.exit()
@@ -250,10 +265,10 @@ for oPeriod in oPeriods:
                     utils.ptMsg("⚠️ No Observer RT Data " + ym_str + " ")
                 
                 if hasData:
-                    result_df = pd.DataFrame(result_rows)
-                    result_df.sort_values(['stock_id'], inplace=True) # 排序
+                    observer_df = pd.DataFrame(result_rows)
+                    observer_df.sort_values(['stock_id'], inplace=True) # 排序
                 else:
-                    result_df = pd.DataFrame([])
+                    observer_df = pd.DataFrame([])
 
                 ### 處理量巨大，保險起見分月暫存
                 output_file_tmp = output_file + "-tmp_" + cur_dt.strftime("%Y%m")
@@ -262,11 +277,11 @@ for oPeriod in oPeriods:
                 output_file_tmp_lastM = output_file + "-tmp_" + prev_m_dt.strftime("%Y%m")
                 if os.path.exists(output_file_tmp_lastM):
                     if hasData:
-                        result_df.to_csv(output_file_tmp_lastM, mode="a", header=False, index=False)
+                        observer_df.to_csv(output_file_tmp_lastM, mode="a", header=False, index=False)
                     os.rename(output_file_tmp_lastM, output_file_tmp)
                 else:
                     os.makedirs(os.path.dirname(output_file_tmp), exist_ok=True)
-                    result_df.to_csv(output_file_tmp, mode="w", index=False, float_format='%.8f')
+                    observer_df.to_csv(output_file_tmp, mode="w", index=False, float_format='%.8f')
 
                 utils.ptMsg("📢 Observer RT " + ym_str + " 已處理完成")
 
@@ -280,50 +295,42 @@ for oPeriod in oPeriods:
             else:
                 utils.ptMsg('⚠️ 因為沒有資料，未儲存任何檔案') 
             
-            # result_df = pd.read_csv(output_file)
+            # observer_df = pd.read_csv(output_file)
             with open(output_file, encoding="utf-8") as f:
                 first_line = f.readline().strip()
 
                 if not first_line:
                     print("檔案沒有任何內容（或只有空行），用空 DataFrame")
-                    result_df = pd.DataFrame()
+                    observer_df = pd.DataFrame()
                 else:
                     try:
-                        result_df = pd.read_csv(output_file)
+                        observer_df = pd.read_csv(output_file)
                     except EmptyDataError:
                         print("檔案格式不正確，用空 DataFrame")
-                        result_df = pd.DataFrame()
+                        observer_df = pd.DataFrame()
         
         ### 增加各種rank相關欄位
         filePrefixIdx = filePrefixIdx + 1
         output_file = getOutputCsvPath(target_folder, filePrefixIdx, "observerReturnList_rank")
         if os.path.exists(output_file):
-            result_df = pd.read_csv(output_file)
+            observer_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
 
             # 確保 return 是 float
-            result_df["return"] = pd.to_numeric(result_df["return"], errors="coerce")
+            observer_df["return"] = pd.to_numeric(observer_df["return"], errors="coerce")
 
-            # 百分比排名 (0~100)
-            def scale_to_0_100(x):
-                min_val = x.min()
-                max_val = x.max()
-                if pd.isna(min_val) or pd.isna(max_val) or max_val == min_val:
-                    return pd.Series([None] * len(x), index=x.index)
-                else:
-                    return (x - min_val) / (max_val - min_val) * 100
 
             # 計算 RT_%_Rank
-            result_df["RT_%_Rank"] = result_df.groupby("combination")["return"].transform(scale_to_0_100)
+            observer_df["RT_%_Rank"] = observer_df.groupby("combination")["return"].transform(utils.scale_to_0_100)
 
             # remark 初始化
-            result_df["remark"] = ""
+            observer_df["remark"] = ""
 
             # 先標註 exclude
-            exclude_mask = (result_df["RT_%_Rank"] > 99.9) | (result_df["RT_%_Rank"] < 0.1)
-            result_df.loc[exclude_mask, "remark"] = "exclude"
+            exclude_mask = (observer_df["RT_%_Rank"] > 99.9) | (observer_df["RT_%_Rank"] < 0.1)
+            observer_df.loc[exclude_mask, "remark"] = "exclude"
 
             # 計算 RT_rank，注意：不先創欄位
             def compute_rt_rank(group):
@@ -334,10 +341,10 @@ for oPeriod in oPeriods:
                 group["RT_rank"] = ranks
                 return group
 
-            result_df = result_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
+            observer_df = observer_df.groupby("combination", group_keys=False).apply(compute_rt_rank)
 
             # 確保 RT_rank 是 numeric
-            result_df["RT_rank"] = pd.to_numeric(result_df["RT_rank"], errors="coerce")
+            observer_df["RT_rank"] = pd.to_numeric(observer_df["RT_rank"], errors="coerce")
 
             # 更新 remark: winner / loser
             def mark_winner_loser(group):
@@ -364,34 +371,36 @@ for oPeriod in oPeriods:
 
                 return group
 
-            result_df = result_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
+            observer_df = observer_df.groupby("combination", group_keys=False).apply(mark_winner_loser)
 
             # 輸出
-            result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+            observer_df.to_csv(output_file, index=False, encoding="utf-8-sig")
             utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
         ### 產生winner_loser名單
         filePrefixIdx = filePrefixIdx + 1
         output_file = getOutputCsvPath(target_folder, filePrefixIdx, "winner_loser")
         if os.path.exists(output_file):
-            filtered_df = pd.read_csv(output_file)
+            candidateWL_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
             # 篩選 remark 為 winner 或 loser
-            filtered_df = result_df[result_df["remark"].isin(["winner", "loser"])].copy()
+            candidateWL_df = observer_df[observer_df["remark"].isin(["winner", "loser"])].copy()
 
             # 存成新檔
-            filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+            candidateWL_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
             utils.ptMsg(f"✅ 已輸出檔案：{output_file}")
 
 
         ### 計算持有期的報酬
+        holding_df = candidateWL_df.copy(deep=True)
+
         filePrefixIdx = filePrefixIdx + 1
         output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "holdingReturnList"))
         if os.path.exists(output_file):
-            filtered_df = pd.read_csv(output_file)
+            holding_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
@@ -399,8 +408,8 @@ for oPeriod in oPeriods:
             price_folder = Path(r"..\data\analysis\summary")
 
             # 把日期字串轉成 datetime
-            filtered_df["start_date_dt"] = pd.to_datetime(filtered_df["start_date"])
-            filtered_df["end_date_dt"] = pd.to_datetime(filtered_df["end_date"])
+            holding_df["start_date_dt"] = pd.to_datetime(holding_df["start_date"])
+            holding_df["end_date_dt"] = pd.to_datetime(holding_df["end_date"])
 
             # 用於儲存結果
             start_date2_list = []
@@ -417,7 +426,7 @@ for oPeriod in oPeriods:
             close_df_ed2_ym = None
 
             # 處理每一列 
-            for idx, row in filtered_df.iterrows():
+            for idx, row in holding_df.iterrows():
                 # print(f"row = ", row)
                 stock_id = str(row["stock_id"])
 
@@ -429,7 +438,7 @@ for oPeriod in oPeriods:
                 close_df_sd2_ym = sd2_month.strftime("%Y%m")
                 if (close_df_sd2 is None) or (int(close_df_sd2_ym) != int(close_df_sd2_ym_pre)):
                     # close_df_sd2 = utils.getCloseDf(close_df_sd2_ym, 1)
-                    srcFile = f"../data/analysis/summary/closePrice/closePrice_{close_df_sd2_ym}.csv"
+                    srcFile = f"{summaryDir}/closePrice/closePrice_{close_df_sd2_ym}.csv"
                     try:
                         close_df_sd2 = pd.read_csv(srcFile)
                         close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
@@ -458,15 +467,6 @@ for oPeriod in oPeriods:
 
                     start_date2_list.append(start_date2)
                     SD_close2_list.append(SD_close2)
-                    # if start_date2 is None:
-                    #     print(f"⚠️ start_date2 is None")
-                    # if SD_close2 is None:
-                    #     print(f"⚠️ SD_close2 is None")
-
-                    # print("close_df_sd2", close_df_sd2)
-                    # print("close_df_sd2_y_pre", close_df_sd2_y_pre)
-                    # print("close_df_sd2_y", close_df_sd2_y)
-                    # print("filtered_df", filtered_df.head(3))
 
                     # =============== end_date2 ==============
                     ed2_month = row["end_date_dt"] + relativedelta(months=+(hPeriod))
@@ -476,7 +476,7 @@ for oPeriod in oPeriods:
                     close_df_ed2_ym = ed2_month.strftime("%Y%m")
                     if (close_df_ed2 is None) or (int(close_df_ed2_ym) != int(close_df_ed2_ym_pre)):                        
                         # close_df_ed2 = utils.getCloseDf(close_df_ed2_ym, 1)
-                        srcFile = f"../data/analysis/summary/closePrice/closePrice_{close_df_ed2_ym}.csv"
+                        srcFile = f"{summaryDir}/closePrice/closePrice_{close_df_ed2_ym}.csv"
                         try:
                             close_df_ed2 = pd.read_csv(srcFile)
                             close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
@@ -512,24 +512,24 @@ for oPeriod in oPeriods:
                         #     print("ED_close2 is None")
 
             # 新增欄位
-            filtered_df["start_date2"] = start_date2_list
-            filtered_df["SD_close2"] = SD_close2_list
-            filtered_df["end_date2"] = end_date2_list
-            filtered_df["ED_close2"] = ED_close2_list
+            holding_df["start_date2"] = start_date2_list
+            holding_df["SD_close2"] = SD_close2_list
+            holding_df["end_date2"] = end_date2_list
+            holding_df["ED_close2"] = ED_close2_list
 
             # 轉數字
-            filtered_df["SD_close2"] = pd.to_numeric(filtered_df["SD_close2"], errors="coerce")
-            filtered_df["ED_close2"] = pd.to_numeric(filtered_df["ED_close2"], errors="coerce")
+            holding_df["SD_close2"] = pd.to_numeric(holding_df["SD_close2"], errors="coerce")
+            holding_df["ED_close2"] = pd.to_numeric(holding_df["ED_close2"], errors="coerce")
 
             # 計算 return2
-            filtered_df["return2"] = (filtered_df["ED_close2"] - filtered_df["SD_close2"]) / filtered_df["SD_close2"]
+            holding_df["return2"] = (holding_df["ED_close2"] - holding_df["SD_close2"]) / holding_df["SD_close2"]
 
             # 移除中間欄位
-            filtered_df = filtered_df.drop(columns=["start_date_dt", "end_date_dt"])
+            holding_df = holding_df.drop(columns=["start_date_dt", "end_date_dt"])
 
             # 存檔
             output_file.parent.mkdir(parents=True, exist_ok=True)
-            filtered_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+            holding_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
             utils.ptMsg(f"✅ 已完成後續報酬計算，輸出至：{output_file}")
 
@@ -537,16 +537,16 @@ for oPeriod in oPeriods:
         filePrefixIdx = filePrefixIdx + 1
         output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "holdingReturnList_static"))
         if os.path.exists(output_file):
-            grouped = pd.read_csv(output_file)
+            holding_meanRT_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
             # 確保 return2 是數字型態
-            filtered_df["return2"] = pd.to_numeric(filtered_df["return2"], errors="coerce")
+            holding_df["return2"] = pd.to_numeric(holding_df["return2"], errors="coerce")
 
             # 以 combination 和 remark 分組，計算每組的筆數(count)與平均(mean)
-            grouped = (
-                filtered_df.groupby(["combination", "remark"], dropna=False)
+            holding_meanRT_df = (
+                holding_df.groupby(["combination", "remark"], dropna=False)
                 .agg(
                     count=("return2", "count"),
                     mean_return2=("return2", "mean")
@@ -555,10 +555,10 @@ for oPeriod in oPeriods:
             )
 
             # 移除 mean_return2 為 NaN 的組
-            grouped = grouped.dropna(subset=["mean_return2"])
+            holding_meanRT_df = holding_meanRT_df.dropna(subset=["mean_return2"])
 
             # 輸出結果
-            grouped.to_csv(output_file, index=False, encoding="utf-8-sig")
+            holding_meanRT_df.to_csv(output_file, index=False, encoding="utf-8-sig")
 
             utils.ptMsg(f"✅ 統計已完成，檔案輸出：{output_file}")
 
@@ -566,7 +566,7 @@ for oPeriod in oPeriods:
         filePrefixIdx = filePrefixIdx + 1
         output_file = Path(getOutputCsvPath(target_folder, filePrefixIdx, "holdingReturnList_static2"))
         if os.path.exists(output_file):
-            new_df = pd.read_csv(output_file)
+            wMinusL_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
         else:
             utils.ptMsg("📢 開始製作" + str(output_file))
@@ -574,7 +574,7 @@ for oPeriod in oPeriods:
             rows = []
 
             # 依 combination 分組
-            for comb, group in grouped.groupby("combination"):
+            for comb, group in holding_meanRT_df.groupby("combination"):
                 # 先將原本的兩列放進去
                 for _, row in group.iterrows():
                     rows.append(row.to_dict())
@@ -596,8 +596,8 @@ for oPeriod in oPeriods:
                         "mean_return2": diff
                     })
 
-            new_df = pd.DataFrame(rows)
-            new_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+            wMinusL_df = pd.DataFrame(rows)
+            wMinusL_df.to_csv(output_file, index=False, encoding="utf-8-sig")
             utils.ptMsg(f"✅ 已輸出新檔案：{output_file}")
 
         ### t-test
@@ -609,17 +609,17 @@ for oPeriod in oPeriods:
             utils.ptMsg("📢 開始製作" + str(output_file))
 
             # 移除多餘逗號
-            new_df.columns = new_df.columns.str.strip()
+            wMinusL_df.columns = wMinusL_df.columns.str.strip()
 
-            # print(new_df["mean_return2"].head(10))
-            # print(new_df["mean_return2"].dtype)
+            # print(wMinusL_df["mean_return2"].head(10))
+            # print(wMinusL_df["mean_return2"].dtype)
             
             results = []
 
             # 分組 t檢定
             for remark in ["loser", "winner", "winner - loser"]:
                 # 取出該 remark 資料
-                values = new_df.loc[new_df["remark"] == remark, "mean_return2"].dropna().values
+                values = wMinusL_df.loc[wMinusL_df["remark"] == remark, "mean_return2"].dropna().values
                 n = len(values)
                 if n > 1:
                     t_stat, p_value = stats.ttest_1samp(values, popmean=0)
@@ -640,12 +640,11 @@ for oPeriod in oPeriods:
                         "p_value": None
                     })
             
-            result_df = pd.DataFrame(results)
-            # utils.ptMsg(result_df)
+            tTest_df = pd.DataFrame(results)
+            # utils.ptMsg(tTest_df)
 
-            result_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+            tTest_df.to_csv(output_file, index=False, encoding="utf-8-sig")
             utils.ptMsg(f"✅ 已輸出結果：{output_file}")
-
 
 # 結束訊息
 utils.ptMsg("⚙️ momentumOverPrice.py Finish")
