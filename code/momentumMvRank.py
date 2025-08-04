@@ -47,6 +47,7 @@ oPeriods = [3] # Observer Period
 hPeriods = [9] # Holding Period
 
 maxIncludeRank = 150
+staticCol = "return2" # return2、avg_monthly_return、annualized_return
 
 prepareDatas = False
 for oPeriod in oPeriods:
