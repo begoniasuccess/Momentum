@@ -276,6 +276,10 @@ for oPeriod in oPeriods:
                 # 下個月
                 cur_dt += relativedelta(months=1)
 
+            del close_df_start
+            del close_df_end
+            gc.collect()
+            
             # 輸出
             if os.path.exists(output_file_tmp):
                 os.rename(output_file_tmp, output_file)

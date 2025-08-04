@@ -160,7 +160,7 @@ for oPeriod in oPeriods:
                 progressDt = datetime.strptime(progressYM, "%Y%m")
                 cur_dt = progressDt + relativedelta(months=1)
                 
-            close_df = None
+            close_df = None # DataFrame
             close_df_year = "0"
             dfNum = (oPeriod) // 12 + 2
 
@@ -258,6 +258,9 @@ for oPeriod in oPeriods:
                 # 下個月
                 cur_dt += relativedelta(months=1)
 
+            del colse_df
+            gc.collect()
+            
             # 輸出
             if os.path.exists(output_file_tmp):
                 os.rename(output_file_tmp, output_file)
