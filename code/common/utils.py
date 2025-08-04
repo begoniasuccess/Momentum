@@ -248,7 +248,11 @@ def parse_range_from_folder(folder_name):
     end = end.replace(day=1) - pd.Timedelta(days=1)
     return start, end
 
-def process_observer_return(base_folder) -> bool:
+def findout_observerRTdata(output_path: str) -> bool:
+    if os.path.exists(output_path):
+        return True
+
+    base_folder = os.path.dirname(output_path)
     base_folder = Path(base_folder)
     root_folder = base_folder.parent
     current_range_str = base_folder.name
@@ -288,10 +292,9 @@ def process_observer_return(base_folder) -> bool:
     # 合併資料並寫出
     if combined_df:
         result_df = pd.concat(combined_df, ignore_index=True)
-        output_path = base_folder / "01-observerReturnList.csv"
         result_df.to_csv(output_path, index=False)
         print(f"📄 寫入檔案：{output_path}")
-        return True
+        return os.path.exists(output_path)
     
     print("⚠️ 沒有找到任何符合條件的資料")
     return False

@@ -18,7 +18,7 @@ import gc
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
-# python -u momentumOverPrice.py 2>&1 | Tee-Object -FilePath ../log/momentumOverPrice.log -Append
+# python -u momentumOverPrice.py 2>&1 | Tee-Object -FilePath ../log/momentumOver10.log -Append
 sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
 
 # 起始訊息
@@ -37,11 +37,11 @@ end_year, end_month = map(int, end_ym.split('/'))
 sDt = datetime(start_year, start_month, 1)
 eDt = datetime(end_year, end_month, calendar.monthrange(end_year, end_month)[1])
 
-# oPeriods = [3, 6, 9 ,12] # Observer Period
-# hPeriods = [3, 6, 9 ,12] # Holding Period
+oPeriods = [3, 6, 9 ,12] # Observer Period
+hPeriods = [3, 6, 9 ,12] # Holding Period
 
-oPeriods = [3] # Observer Period
-hPeriods = [9] # Holding Period
+# oPeriods = [3] # Observer Period
+# hPeriods = [9] # Holding Period
 
 minClosePrice = 10
 
@@ -90,16 +90,10 @@ for oPeriod in oPeriods:
         dataExist = False
         filePrefixIdx = filePrefixIdx + 1
         output_file = utils.getOutputCsvPath(target_folder, filePrefixIdx, "observerReturnList")
-        if os.path.exists(output_file):
+        if utils.findout_observerRTdata(output_file):
             observer_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
             dataExist = True
-        else:
-            utils.process_observer_return(target_folder)
-            if os.path.exists(output_file):
-                observer_df = pd.read_csv(output_file)
-                utils.ptMsg(f"☑️ 檔案已寫入：{output_file}")
-                dataExist = True
 
         if not dataExist:
             utils.ptMsg("📢 開始製作" + str(output_file))
@@ -455,8 +449,8 @@ for oPeriod in oPeriods:
                             sd2_df_mask = (
                                 (close_df_ed2["stock_id"] == stock_id) 
                                 & (close_df_ed2["date_dt"].dt.month == ed2_month_num)
-                                & (close_df_sd2["date_dt"].dt.day > 5)
-                                & (close_df_sd2["date_dt"].dt.day < 19)
+                                & (close_df_ed2["date_dt"].dt.day > 5)
+                                & (close_df_ed2["date_dt"].dt.day < 19)
                             )
                         
                         ed2_candidates = close_df_ed2[sd2_df_mask]

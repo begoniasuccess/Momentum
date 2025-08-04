@@ -33,7 +33,7 @@ panelTypes = [Panel.A, Panel.B]
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
 end_ym = "2024/12" # 取月底
-end_ym = "2019/12" # 取月底
+# end_ym = "2019/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
@@ -111,40 +111,10 @@ for oPeriod in oPeriods:
         dataExist = False
         filePrefixIdx = filePrefixIdx + 1
         output_file = utils.getOutputCsvPath(target_folder, filePrefixIdx, "observerReturnList")
-        if os.path.exists(output_file):
+        if utils.findout_observerRTdata(output_file):
             observer_df = pd.read_csv(output_file)
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
             dataExist = True
-        else:
-            dataExist = False
-            # TODO:: 因為資料存儲格式改變，所以這段要重寫
-            # 查看有沒有範圍更廣的資料區間 
-            # os.makedirs(os.path.dirname(output_file), exist_ok=True) # 確保資料夾存在
-            # file_list = os.listdir(os.path.dirname(output_file))
-
-            # # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
-            # pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
-
-            # # 找符合的檔案
-            # matching_files = [f for f in file_list if pattern.match(f)]
-            # if matching_files:
-            #     for f in matching_files:
-            #         timeRange = utils.getSdtEdt(f)
-            #         sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-            #         dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-            #         if sDtInRange and dDtInRange:
-            #             observer_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
-            #             observer_df['start_date_dt'] =  pd.to_datetime(observer_df["start_date"])
-            #             observer_df['end_date_dt'] =  pd.to_datetime(observer_df["end_date"])
-            #             observer_df = [
-            #                 (observer_df["start_date_dt"].dt >= sDt)
-            #                 & (observer_df["end_date_dt"].dt <= eDt)
-            #             ]                        
-            #             observer_df = observer_df.drop(columns=["start_date_dt", "end_date_dt"]) # 移除中間欄位
-            #             observer_df.to_csv(output_file, mode="w", index=False, float_format='%.8f')
-            #             utils.ptMsg("☑️ 已讀入既有檔案：" + output_file)   
-            #             dataExist = True
-            #             break    
 
         if not dataExist:
             utils.ptMsg("📢 開始製作" + str(output_file))
