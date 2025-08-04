@@ -435,7 +435,7 @@ for oPeriod in oPeriods:
                     end_date2_list.append(end_date2)
                     ED_close2_list.append(ED_close2)
                     if end_date2 is None:
-                        print(f"⚠️ [{ed2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-賣出 資料無法找到。")
+                        utils.ptMsg(f"⚠️ [{ed2_baseDt.strftime("%Y%m")}-{stock_id}] 持有期-賣出 資料無法找到。")
 
                 # 新增欄位
                 holding_df["start_date2"] = start_date2_list

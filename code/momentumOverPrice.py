@@ -374,11 +374,11 @@ for oPeriod in oPeriods:
                 end_date2_list = []
                 ED_close2_list = []
 
-                close_df_sd2 = None
+                close_df_sd2 = None # DataFrame
                 close_df_sd2_ym_pre = None
                 close_df_sd2_ym = None
 
-                close_df_ed2 = None
+                close_df_ed2 = None # DataFrame
                 close_df_ed2_ym_pre = None
                 close_df_ed2_ym = None
 
@@ -394,11 +394,11 @@ for oPeriod in oPeriods:
 
                     close_df_sd2_ym = sd2_month.strftime("%Y%m")
                     if (close_df_sd2 is None) or (int(close_df_sd2_ym) != int(close_df_sd2_ym_pre)):
-                        # close_df_sd2 = utils.getCloseDf(close_df_sd2_ym, 1)
                         srcFile = f"{summaryDir}/closePrice/closePrice_{close_df_sd2_ym}.csv"
                         try:
                             close_df_sd2 = pd.read_csv(srcFile)
                             close_df_sd2["date_dt"] = pd.to_datetime(close_df_sd2["date"])
+                            gc.collect()
                         except Exception as error:
                             utils.ptMsg(f"❌ closePrice_{close_df_sd2_ym}.csv讀取錯誤，填入 None，{error}")
                             start_date2 = None
@@ -410,10 +410,20 @@ for oPeriod in oPeriods:
                         start_date2 = None
                         SD_close2 = None
                     else:
-                        sd2_candidates = close_df_sd2[
-                            (close_df_sd2["stock_id"] == stock_id) &
-                            (close_df_sd2["date_dt"].dt.month == sd2_month_num)
-                        ]
+                        if panelType == Panel.A:
+                            sd2_df_mask = (
+                                (close_df_sd2["stock_id"] == stock_id)
+                                & (close_df_sd2["date_dt"].dt.month == sd2_month_num)
+                            )
+                        elif panelType == Panel.B:
+                            sd2_df_mask = (
+                                (close_df_sd2["stock_id"] == stock_id)
+                                & (close_df_sd2["date_dt"].dt.month == sd2_month_num)
+                                & (close_df_sd2["date_dt"].dt.day > 6)
+                                & (close_df_sd2["date_dt"].dt.day < 20)
+                            )
+
+                        sd2_candidates = close_df_sd2[sd2_df_mask]
                         if not sd2_candidates.empty:
                             sd2_first = sd2_candidates.sort_values("date_dt").iloc[0]
                             start_date2 = sd2_first["date"]
@@ -421,6 +431,9 @@ for oPeriod in oPeriods:
                         else:
                             start_date2 = None
                             SD_close2 = None
+
+                        if start_date2 is None:
+                            utils.ptMsg(f"⚠️ [{close_df_sd2_ym}-{stock_id}] 持有期-買入 資料無法找到。")
 
                         start_date2_list.append(start_date2)
                         SD_close2_list.append(SD_close2)
@@ -437,6 +450,7 @@ for oPeriod in oPeriods:
                             try:
                                 close_df_ed2 = pd.read_csv(srcFile)
                                 close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
+                                gc.collect()
                             except Exception as error:
                                 utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv讀取錯誤，填入 None，{error}")
                                 end_date2 = None
@@ -461,12 +475,10 @@ for oPeriod in oPeriods:
                                 end_date2 = None
                                 ED_close2 = None
 
+                            if end_date2 is None:
+                                utils.ptMsg(f"⚠️ [{close_df_ed2_ym}-{stock_id}] 持有期-賣出 資料無法找到。")
                             end_date2_list.append(end_date2)
                             ED_close2_list.append(ED_close2)
-                            # if end_date2 is None:
-                            #     print("end_date2 is None")
-                            # if ED_close2 is None:
-                            #     print("ED_close2 is None")
 
                 # 新增欄位
                 holding_df["start_date2"] = start_date2_list
@@ -508,9 +520,7 @@ for oPeriod in oPeriods:
                     holding_df.groupby(["combination", "remark"], dropna=False)
                     .agg(
                         count=("avg_monthly_return", "count"),
-                        mean_avg_monthly_return=("avg_monthly_return", "mean"),
-                        mean_return2=("return2", "mean"),
-		                mean_annualized_return=("annualized_return", "mean")
+                        mean_avg_monthly_return=("avg_monthly_return", "mean")
                     )
                     .reset_index()
                 )
