@@ -103,7 +103,7 @@ for oPeriod in oPeriods:
 
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = r'..\data\analysis\momentumMvRank' + f'/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = f'../data/analysis/momentumMv{maxIncludeRank}/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
 
 
         ### 計算觀察期報酬

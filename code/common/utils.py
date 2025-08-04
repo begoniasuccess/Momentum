@@ -231,3 +231,81 @@ def mark_winner_loser(group):
             group.loc[idx, "remark"] = "loser"
 
     return group
+
+def parse_range_from_folder(folder_name):
+    """ 解析資料夾名稱中的 yyyymm_yyyymm 為 datetime 區間 """
+    match = re.match(r"(\d{6})_(\d{6})", folder_name)
+    if not match:
+        return None, None
+    start_str, end_str = match.groups()
+    start = datetime.strptime(start_str + '01', "%Y%m%d")
+    # 將結束月份的最後一天作為結束日
+    end = datetime.strptime(end_str + '01', "%Y%m%d")
+    if end.month == 12:
+        end = end.replace(month=1, year=end.year + 1)
+    else:
+        end = end.replace(month=end.month + 1)
+    end = end.replace(day=1) - pd.Timedelta(days=1)
+    return start, end
+
+def process_observer_return(base_folder) -> bool:
+    base_folder = Path(base_folder)
+    root_folder = base_folder.parent
+    current_range_str = base_folder.name
+
+    current_start, current_end = parse_range_from_folder(current_range_str)
+    if current_start is None or current_end is None:
+        print("⚠️ 資料夾名稱格式錯誤，應為 yyyymm_yyyymm")
+        return False
+
+    print(f"🔍 處理時間區間：{current_start.date()} ~ {current_end.date()}")
+
+    combined_df = []
+
+    for subfolder in root_folder.iterdir():
+        if not subfolder.is_dir():
+            continue
+        sub_start, sub_end = parse_range_from_folder(subfolder.name)
+        if sub_start is None or sub_end is None:
+            continue
+
+        # 檢查是否是涵蓋當前範圍的資料夾
+        if sub_start <= current_start and sub_end >= current_end:
+            csv_file = subfolder / "01-observerReturnList.csv"
+            if csv_file.exists():
+                print(f"✅ 找到符合範圍的檔案：{csv_file}")
+                df = pd.read_csv(csv_file)
+
+                # 過濾 start_date 與 end_date 在區間內的資料
+                df['start_date'] = pd.to_datetime(df['start_date'])
+                df['end_date'] = pd.to_datetime(df['end_date'])
+                df = df[(df['start_date'] >= current_start) & (df['end_date'] <= current_end)]
+
+                combined_df.append(df)
+            else:
+                print(f"❌ 找不到 01-observerReturnList.csv：{subfolder}")
+    
+    # 合併資料並寫出
+    if combined_df:
+        result_df = pd.concat(combined_df, ignore_index=True)
+        output_path = base_folder / "01-observerReturnList.csv"
+        result_df.to_csv(output_path, index=False)
+        print(f"📄 寫入檔案：{output_path}")
+        return True
+    
+    print("⚠️ 沒有找到任何符合條件的資料")
+    return False
+    
+
+
+
+
+
+
+
+
+
+
+
+
+

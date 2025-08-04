@@ -83,7 +83,7 @@ for oPeriod in oPeriods:
         
         ###### 開始計算本策略的統計資料
         filePrefixIdx = 0
-        target_folder = f'../data/analysis/momentumOverPrice/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
+        target_folder = f'../data/analysis/momentumOver{minClosePrice}/oPeriod{oPeriod}_hPeriod{hPeriod}/{sDt.strftime("%Y%m")}_{eDt.strftime("%Y%m")}'
 
         ### 計算觀察期報酬
         ### stock_id,start_date,end_date,SD_close,ED_close,combination,return
@@ -95,35 +95,11 @@ for oPeriod in oPeriods:
             utils.ptMsg(f"☑️ 檔案已存在：{output_file}")
             dataExist = True
         else:
-            dataExist = False
-            # TODO:: 因為資料存儲格式改變，所以這段要重寫
-            # 查看有沒有範圍更廣的資料區間 
-            # os.makedirs(os.path.dirname(output_file), exist_ok=True) # 確保資料夾存在
-            # file_list = os.listdir(os.path.dirname(output_file))
-
-            # # 正則表達式：匹配 observerReturnListyyyymm_yyyymm.csv
-            # pattern = re.compile(r"^observerReturnList(\d{6})_(\d{6})\.csv$")
-
-            # # 找符合的檔案
-            # matching_files = [f for f in file_list if pattern.match(f)]
-            # if matching_files:
-            #     for f in matching_files:
-            #         timeRange = utils.getSdtEdt(f)
-            #         sDtInRange = utils.inTimeRange(sDt, timeRange.get("sDt"), timeRange.get("eDt"))
-            #         dDtInRange = utils.inTimeRange(eDt, timeRange.get("sDt"), timeRange.get("eDt"))
-            #         if sDtInRange and dDtInRange:
-            #             observer_df = pd.read_csv(f'{os.path.dirname(output_file)}/{f}')
-            #             observer_df['start_date_dt'] =  pd.to_datetime(observer_df["start_date"])
-            #             observer_df['end_date_dt'] =  pd.to_datetime(observer_df["end_date"])
-            #             observer_df = [
-            #                 (observer_df["start_date_dt"].dt >= sDt)
-            #                 & (observer_df["end_date_dt"].dt <= eDt)
-            #             ]                        
-            #             observer_df = observer_df.drop(columns=["start_date_dt", "end_date_dt"]) # 移除中間欄位
-            #             observer_df.to_csv(output_file, mode="w", index=False, float_format='%.8f')
-            #             utils.ptMsg("☑️ 已讀入既有檔案：" + output_file)   
-            #             dataExist = True
-            #             break    
+            utils.process_observer_return(target_folder)
+            if os.path.exists(output_file):
+                observer_df = pd.read_csv(output_file)
+                utils.ptMsg(f"☑️ 檔案已寫入：{output_file}")
+                dataExist = True
 
         if not dataExist:
             utils.ptMsg("📢 開始製作" + str(output_file))
@@ -392,11 +368,14 @@ for oPeriod in oPeriods:
                     stock_id = str(row["stock_id"])
 
                     # =============== start_date2 ==============
-                    sd2_month = row["end_date_dt"] + relativedelta(months=+1)
-                    sd2_year = sd2_month.year
-                    sd2_month_num = sd2_month.month
+                    sd2_dt = row["end_date_dt"] + relativedelta(months=+1)
+                    sd2_year = sd2_dt.year
+                    sd2_month_num = sd2_dt.month
 
-                    close_df_sd2_ym = sd2_month.strftime("%Y%m")
+                    start_date2 = None
+                    SD_close2 = None
+
+                    close_df_sd2_ym = sd2_dt.strftime("%Y%m")
                     if (close_df_sd2 is None) or (int(close_df_sd2_ym) != int(close_df_sd2_ym_pre)):
                         srcFile = f"{summaryDir}/closePrice/closePrice_{close_df_sd2_ym}.csv"
                         try:
@@ -411,8 +390,6 @@ for oPeriod in oPeriods:
 
                     if close_df_sd2.empty:
                         utils.ptMsg(f"❌ closePrice_{close_df_sd2_ym}.csv內容空白，填入 None")
-                        start_date2 = None
-                        SD_close2 = None
                     else:
                         if panelType == Panel.A:
                             sd2_df_mask = (
@@ -432,58 +409,69 @@ for oPeriod in oPeriods:
                             sd2_first = sd2_candidates.sort_values("date_dt").iloc[0]
                             start_date2 = sd2_first["date"]
                             SD_close2 = sd2_first["close"]
-                        else:
-                            start_date2 = None
-                            SD_close2 = None
 
-                        if start_date2 is None:
-                            utils.ptMsg(f"⚠️ [{close_df_sd2_ym}-{stock_id}] 持有期-買入 資料無法找到。")
+                    start_date2_list.append(start_date2)
+                    SD_close2_list.append(SD_close2)
 
-                        start_date2_list.append(start_date2)
-                        SD_close2_list.append(SD_close2)
+                    if start_date2 is None:
+                        utils.ptMsg(f"⚠️ [{close_df_sd2_ym}-{stock_id}] 持有期-買入 資料無法找到。")
+                        end_date2_list.append(None)
+                        ED_close2_list.append(None)
+                        continue
 
-                        # =============== end_date2 ==============
-                        ed2_month = row["end_date_dt"] + relativedelta(months=+(hPeriod))
-                        ed2_year = ed2_month.year
-                        ed2_month_num = ed2_month.month
+                    # =============== end_date2 ==============
+                    if panelType == Panel.A:
+                        ed2_dt = row["end_date_dt"] + relativedelta(months=+(hPeriod))
+                    elif panelType == Panel.B:
+                        ed2_dt = row["end_date_dt"] + relativedelta(months=+(hPeriod + 1))
+                        ed2_dt = ed2_dt.replace(day=1) # 調整到1日
+                    ed2_year = ed2_dt.year
+                    ed2_month_num = ed2_dt.month
 
-                        close_df_ed2_ym = ed2_month.strftime("%Y%m")
-                        if (close_df_ed2 is None) or (int(close_df_ed2_ym) != int(close_df_ed2_ym_pre)):                        
-                            # close_df_ed2 = utils.getCloseDf(close_df_ed2_ym, 1)
-                            srcFile = f"{summaryDir}/closePrice/closePrice_{close_df_ed2_ym}.csv"
-                            try:
-                                close_df_ed2 = pd.read_csv(srcFile)
-                                close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
-                                gc.collect()
-                            except Exception as error:
-                                utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv讀取錯誤，填入 None，{error}")
-                                end_date2 = None
-                                ED_close2 = None              
+                    end_date2 = None
+                    ED_close2 = None   
+
+                    close_df_ed2_ym = ed2_dt.strftime("%Y%m")
+                    if (close_df_ed2 is None) or (int(close_df_ed2_ym) != int(close_df_ed2_ym_pre)):       
+                        srcFile = f"{summaryDir}/closePrice/closePrice_{close_df_ed2_ym}.csv"
+                        try:
+                            close_df_ed2 = pd.read_csv(srcFile)
                             close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
-                            close_df_ed2_ym_pre = close_df_ed2_ym
+                            gc.collect()
+                        except Exception as error:
+                            utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv讀取錯誤，填入 None，{error}")
+                        close_df_ed2["date_dt"] = pd.to_datetime(close_df_ed2["date"])
+                        close_df_ed2_ym_pre = close_df_ed2_ym
 
-                        if close_df_ed2.empty:
-                            utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv內容空白，填入 None")
-                            end_date2 = None
-                            ED_close2 = None
-                        else:
-                            ed2_candidates = close_df_ed2[
-                                (close_df_ed2["stock_id"] == stock_id) &
-                                (close_df_ed2["date_dt"].dt.month == ed2_month_num)
-                            ]
-                            if not ed2_candidates.empty:
-                                ed2_last = ed2_candidates.sort_values("date_dt").iloc[-1]
-                                end_date2 = ed2_last["date"]
-                                ED_close2 = ed2_last["close"]
-                            else:
-                                end_date2 = None
-                                ED_close2 = None
+                    if close_df_ed2.empty:
+                        utils.ptMsg(f"❌ closePrice_{close_df_ed2_ym}.csv內容空白，填入 None")
+                    else:
+                        if panelType == Panel.A:
+                            sd2_df_mask = (
+                                (close_df_ed2["stock_id"] == stock_id) 
+                                & (close_df_ed2["date_dt"].dt.month == ed2_month_num)
+                            )
+                        elif panelType == Panel.B:
+                            sd2_df_mask = (
+                                (close_df_ed2["stock_id"] == stock_id) 
+                                & (close_df_ed2["date_dt"].dt.month == ed2_month_num)
+                                & (close_df_sd2["date_dt"].dt.day > 5)
+                                & (close_df_sd2["date_dt"].dt.day < 19)
+                            )
+                        
+                        ed2_candidates = close_df_ed2[sd2_df_mask]
+                        if not ed2_candidates.empty:
+                            iloc = -1 if panelType == Panel.A else 0
+                            ed2_last = ed2_candidates.sort_values("date_dt").iloc[iloc]
+                            end_date2 = ed2_last["date"]
+                            ED_close2 = ed2_last["close"]
 
-                            if end_date2 is None:
-                                utils.ptMsg(f"⚠️ [{close_df_ed2_ym}-{stock_id}] 持有期-賣出 資料無法找到。")
-                            end_date2_list.append(end_date2)
-                            ED_close2_list.append(ED_close2)
-
+                    end_date2_list.append(end_date2)
+                    ED_close2_list.append(ED_close2)
+                    
+                    if end_date2 is None:
+                        utils.ptMsg(f"⚠️ [{close_df_ed2_ym}-{stock_id}] 持有期-賣出 資料無法找到。")
+                        
                 # 新增欄位
                 holding_df["start_date2"] = start_date2_list
                 holding_df["SD_close2"] = SD_close2_list
