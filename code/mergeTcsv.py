@@ -42,16 +42,17 @@ if not num.isdigit():
 
 project = project + num
 
-# '07-t_test-A.csv', '11-t_test-B.csv'
-panelTypes = ['A', 'B']
-
+targetCsvDic = {
+    'A':'07-t_test-A.csv',
+    'B':'11-t_test-B.csv'
+}
 root_folder = Path(f"../data/analysis/{project}")
 if not os.path.isdir(root_folder):
     print(f"資料夾不存在： {root_folder}")
     sys.exit()
 
-for panelType in panelTypes:
-    csvName = f'07-t_test-{panelType}.csv'
+for panelType in targetCsvDic:
+    csvName = targetCsvDic[panelType]
     print(f"目標csv檔案為： {csvName}")
 
     # 找到所有 07-t_test.csv
