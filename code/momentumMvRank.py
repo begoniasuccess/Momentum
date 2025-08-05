@@ -32,8 +32,8 @@ panelTypes = [Panel.A, Panel.B]
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
-end_ym = "2024/12" # 取月底
-# end_ym = "2019/12" # 取月底
+# end_ym = "2024/12" # 取月底
+end_ym = "2019/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
@@ -535,7 +535,7 @@ for oPeriod in oPeriods:
                         results.append({
                             "remark": remark,
                             "n": n,
-                            "mean_avg_monthly_return": mean_avg_monthly_return,
+                            "mean": mean_avg_monthly_return,
                             "t_stat": t_stat,
                             "p_value": p_value
                         })
