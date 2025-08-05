@@ -121,8 +121,8 @@
 
 ## 程式輸出結果說明
 	- 本程式分析資料會分別存在下列資料夾底下：
-		**data/analysis/momentumMvRank**
-		**data/analysis/momentumOverPrice**
+		**data/analysis/momentumMv{maxIncludeRank}**
+		**data/analysis/momentumOver{minClosePrice}**
 	- 資料夾的名稱會對應策略的參數，例如：
 		- oPeriod3_hPeriod3 >> 201001_202412
 	- 資料夾內存儲了各步驟分析的檔案，若有疑慮可分階段排查：
@@ -153,10 +153,8 @@
 - 檔案輸出位置：
 	- 路徑：data/analysis/{momentumMvRank 或 momentumOverPrice}/mergeTtestResult
 	- 檔案：
-		- tTestReport-yyyymm_yyyyymm.csv (csv資料)
-		- tTestReport-yyyymm_yyyyymm_p.xlsx (方便整理成論文中的圖)
-- ⚠️特別注意：
-	- 目前t_test.csv中的平均報酬率(mean)資料是簡單報酬率，但對應論文應該轉換為年化報酬率或平均月報酬率。這部分報表目前我是用Excel將mean轉換，尚未程式化，未來版本會補上。
+		- tTestReport-yyyymm_yyyyymm-{panelType}.csv (csv資料)
+		- tTestReport-yyyymm_yyyyymm-{panelType}_p.xlsx (方便整理成論文中的圖)
 
 ## 其他指令(可略過)
 	```powershell

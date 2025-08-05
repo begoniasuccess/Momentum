@@ -42,13 +42,16 @@ if not num.isdigit():
 
 project = project + num
 
-targetCsvs = ['07-t_test.csv', '07-t_test-A.csv', '11-t_test-B.csv']
+# '07-t_test-A.csv', '11-t_test-B.csv'
+panelTypes = ['A', 'B']
+
 root_folder = Path(f"../data/analysis/{project}")
 if not os.path.isdir(root_folder):
     print(f"資料夾不存在： {root_folder}")
     sys.exit()
 
-for csvName in targetCsvs:
+for panelType in panelTypes:
+    csvName = f'07-t_test-{panelType}.csv'
     print(f"目標csv檔案為： {csvName}")
 
     # 找到所有 07-t_test.csv
@@ -94,7 +97,7 @@ for csvName in targetCsvs:
     for timeRange in resultDic:
         saveFolder = f"{root_folder}/mergeTtestResult"
         os.makedirs(saveFolder, exist_ok=True)
-        savePath = f"{saveFolder}/tTestReport-{timeRange}{csvName}.csv"
+        savePath = f"{saveFolder}/tTestReport-{timeRange}-{panelType}.csv"
         
         inputTimeoutSecs = 10
         # 檢查檔名是否已存在

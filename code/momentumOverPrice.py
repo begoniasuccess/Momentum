@@ -45,7 +45,6 @@ hPeriods = [3, 6, 9 ,12] # Holding Period
 # hPeriods = [9] # Holding Period
 
 minClosePrice = 10
-staticCol = "return2" # return2、avg_monthly_return、annualized_return
 
 prepareData = False
 
