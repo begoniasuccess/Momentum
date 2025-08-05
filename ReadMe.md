@@ -149,6 +149,8 @@
 	### terminal出現的選項對應要整合的資料
 	A # MomentumMvRank => 月均市值前x大(mvX)
 	B # MomentumOverPrice => 月均股價大於y元(overY)
+	
+	# 輸入對應的參數X、Y(排名or股價)
 	```
 - 檔案輸出位置：
 	- 路徑：data/analysis/{momentumMvRank 或 momentumOverPrice}/mergeTtestResult
