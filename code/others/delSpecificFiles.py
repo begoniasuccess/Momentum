@@ -2,15 +2,17 @@ from pathlib import Path
 import sys
 
 # 設定你的主資料夾路徑
-base_dir = Path(r"C:\Users\USER\Desktop\Han\學習\金融策略\分析程式\data\analysis\momentumMv150")  # 替換為實際路徑
+# base_dir = Path(f"../data/analysis/momentumMv150")  # 替換為實際路徑
+base_dir = Path(f"../data/analysis/momentumOver10")  # 替換為實際路徑
 if not base_dir.exists():
     print("dir error！")
     sys.exit()
 
 patterns = [
     # '*holdingReturnList_static-A.csv', '*holdingReturnList_static2-A.csv', '*t_test-A.csv',
-    # '*holdingReturnList_static-B.csv', '*holdingReturnList_static2-B.csv', '*t_test-B.csv'
-    '*t_test-A.csv','*t_test-B.csv'
+    # '*holdingReturnList_static-B.csv', '*holdingReturnList_static2-B.csv', '*t_test-B.csv',
+    '*holdingReturnList_static-A.csv', '*holdingReturnList_static-B.csv',
+    '*t_test-A.csv', '*t_test-B.csv'
 ]
 
 for pattern in patterns:

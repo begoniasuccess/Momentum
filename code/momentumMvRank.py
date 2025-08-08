@@ -32,8 +32,8 @@ panelTypes = [Panel.A, Panel.B]
 
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
-end_ym = "2024/12" # 取月底
-# end_ym = "2019/12" # 取月底
+# end_ym = "2024/12" # 取月底
+end_ym = "2019/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
@@ -227,9 +227,6 @@ for oPeriod in oPeriods:
 
                 # 下個月
                 cur_dt += relativedelta(months=1)
-
-            del colse_df
-            gc.collect()
             
             # 輸出
             if os.path.exists(output_file_tmp):
@@ -251,7 +248,6 @@ for oPeriod in oPeriods:
                     except EmptyDataError:
                         print("檔案格式不正確，用空 DataFrame")
                         observer_df = pd.DataFrame()
-            
         
         ### 增加各種rank相關欄位
         filePrefixIdx = filePrefixIdx + 1
@@ -454,7 +450,8 @@ for oPeriod in oPeriods:
                     holding_df.groupby(["combination", "remark"], dropna=False)
                     .agg(
                         count=("avg_monthly_return", "count"),
-                        mean_avg_monthly_return=("avg_monthly_return", "mean")
+                        mean_avg_monthly_return=("avg_monthly_return", "mean"),
+                        std_avg_monthly_return=("avg_monthly_return", "std")  # 加入標準差
                     )
                     .reset_index()
                 )
@@ -531,12 +528,14 @@ for oPeriod in oPeriods:
                     if n > 1:
                         t_stat, p_value = stats.ttest_1samp(values, popmean=0)
                         mean_avg_monthly_return = values.mean()
+                        std = values.std(ddof=1)  # 記得用樣本標準差 (ddof=1)
                         results.append({
                             "remark": remark,
                             "n": n,
                             "mean": mean_avg_monthly_return,
                             "t_stat": t_stat,
-                            "p_value": p_value
+                            "p_value": p_value,
+                            "std": std
                         })
                     else:
                         results.append({
@@ -544,7 +543,8 @@ for oPeriod in oPeriods:
                             "n": n,
                             "mean": mean_avg_monthly_return if n == 1 else None,
                             "t_stat": None,
-                            "p_value": None
+                            "p_value": None,
+                            "std": None
                         })
                 
                 tTest_df = pd.DataFrame(results)

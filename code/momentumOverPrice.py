@@ -507,7 +507,8 @@ for oPeriod in oPeriods:
                     holding_df.groupby(["combination", "remark"], dropna=False)
                     .agg(
                         count=("avg_monthly_return", "count"),
-                        mean_avg_monthly_return=("avg_monthly_return", "mean")
+                        mean_avg_monthly_return=("avg_monthly_return", "mean"),
+                        std_avg_monthly_return=("avg_monthly_return", "std")  # 加入標準差
                     )
                     .reset_index()
                 )
@@ -585,12 +586,14 @@ for oPeriod in oPeriods:
                     if n > 1:
                         t_stat, p_value = stats.ttest_1samp(values, popmean=0)
                         mean = values.mean()
+                        std = values.std(ddof=1)  # 記得用樣本標準差 (ddof=1)
                         results.append({
                             "remark": remark,
                             "n": n,
                             "mean": mean,
                             "t_stat": t_stat,
-                            "p_value": p_value
+                            "p_value": p_value,
+                            "std": std
                         })
                     else:
                         results.append({
@@ -598,7 +601,8 @@ for oPeriod in oPeriods:
                             "n": n,
                             "mean": values.mean() if n == 1 else None,
                             "t_stat": None,
-                            "p_value": None
+                            "p_value": None,
+                            "std": None
                         })
                 
                 tTest_df = pd.DataFrame(results)
