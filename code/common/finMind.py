@@ -186,7 +186,8 @@ def runTwStockDailyPriceAdj(stockList: list, sDt: datetime, eDt: datetime, outpu
         return False
 
     return result
-            
+
+# 取得加權指數的調整後價格          
 def getWeightIdxDailyPriceAdj(sDt: datetime, eDt: datetime) -> bool:    
     # outputDir = f'{storageDir_twDailyPriceAdj}/weightIdx'
     stockList = ['TAIEX']
