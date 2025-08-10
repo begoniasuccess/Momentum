@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
 api = DataLoader()
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wOC0wMSAxMzozNjoyNSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiIyMTguMjEwLjIxOC40MSJ9.tD1g20KvA7irVTLJvXdl_JeXjNKKSWSfu8OTxdCeB-I"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wOC0xMCAyMTo1MjozMSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiI0Mi43Mi4yNTMuMTQyIn0.b_9r9FGuBJqMPtqL04UlWV-8SFvxDds8P18IdmYnLkE"
 api.login_by_token(api_token=token)
 
 storageDir = "../data/FinMind"
@@ -141,11 +141,12 @@ storageDir_twDailyPriceAdj =  f"{storageDir}/TW/DailyPriceAdj"
 os.makedirs(storageDir_twStockInfo, exist_ok=True)
 
 # 撈取股票每日調整後價格（逐年存檔）
-def runTwStockDailyPriceAdj(stockList: list, sDt: datetime, eDt: datetime) -> bool:
+def runTwStockDailyPriceAdj(stockList: list, sDt: datetime, eDt: datetime, outputDir: str=None) -> bool:
     result = True
     try:
         utils.ptMsg("📢 即將撈取[歷史修正股價]資料（逐年存檔），股票清單長度：", len(stockList))
-        outputDir = storageDir_twDailyPriceAdj
+        if outputDir is None:
+            outputDir = storageDir_twDailyPriceAdj
 
         for stock_id in stockList:
             cur_year = sDt.year
@@ -186,3 +187,9 @@ def runTwStockDailyPriceAdj(stockList: list, sDt: datetime, eDt: datetime) -> bo
 
     return result
             
+def getWeightIdxDailyPriceAdj(sDt: datetime, eDt: datetime) -> bool:    
+    # outputDir = f'{storageDir_twDailyPriceAdj}/weightIdx'
+    stockList = ['TAIEX']
+    return runTwStockDailyPriceAdj(stockList, sDt, eDt)
+
+
