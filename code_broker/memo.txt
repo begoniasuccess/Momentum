@@ -1,0 +1,2 @@
+https://www.postgresql.org/ftp/pgadmin/pgadmin4/v9.6/windows/
+https://www.pgadmin.org/download/
