@@ -1,62 +1,117 @@
 [可設定參數]
 	sDt：起始日
 	eDt：終止日
-[參照資料]tradeDayList.csv
-	SELECT DISTINCT date::date
-		WHERE date BETWEEN 'sDt' AND 'eDt'
-		FROM tw_broker_daily_bs_stock_b
-		ORDER BY date;
-[來源資料]
-    SELECT date,securities_trader_id AS trader_id, stock_id, price, buy, sell 
-		FROM public.tw_broker_daily_bs_stock_b
-		WHERE date BETWEEN 'sDt' AND 'eDt'
-		ORDER BY date, trader_id, stock_id
-[庫資料範例]
-	date,trader_id,stock_id,price,buy,sell
-	2025-08-13,9268,2330,1200.0,39000.0,304000.0
-	2025-08-13,9268,2330,1195.0,214270.0,106263.0
-	2025-08-13,9268,2330,1190.0,525360.0,146434.0
-	2025-08-13,9268,2330,1185.0,64117.0,111450.0
+	breakEvenReturn：損益兩平點 (e.g.台股一般為0.4%)
 
-[步驟一]dailyBrokerTradeSummary.csv
-	結算各卷商每日各股的交易總股數(net_vol)、總額(net_amt)、平均股價(avg_price)
-	net_vol算法：Σ(buy - sell)
-	net_amt算法：Σ((sell - buy)*price)
-	avg_price算法：(net_amt/net_vol)*-1
+[準備參照資料]
+1.brokerTradeDayData.csv
+	SELECT date,securities_trader_id AS trader_id, stock_id, price, buy, sell 
+	FROM public.tw_broker_daily_bs_stock_b
+	WHERE date BETWEEN 'sDt' AND 'eDt'
+	ORDER BY date, trader_id, stock_id
+2.tradeDayList.csv
+	SELECT DISTINCT date::date
+	WHERE date BETWEEN 'sDt' AND 'eDt'
+	FROM tw_broker_daily_bs_stock_b
+	ORDER BY date
+3.twMarketValandVol.csv
+	SELECT MV.date, MV.stock_id, MV.market_value,
+		CASE WHEN DP.close IS NOT NULL THEN MV.market_value / DP.close
+			ELSE NULL
+		END AS total_shares
+	FROM public.tw_stock_market_value MV
+		LEFT JOIN public.tw_stock_daily_price DP 
+			ON DP.date = MV.date 
+			AND DP.stock_id = MV.stock_id
+	WHERE date BETWEEN 'sDt' AND 'eDt'
+	ORDER BY MV.date, MV.stock_id
+4.twStockDailyData.csv
+	SELECT date, stock_id, t_volume, t_money, close
+	FROM public.tw_stock_daily_price 
+	WHERE date BETWEEN 'sDt' AND 'eDt'
+	ORDER BY date, stock_id
+
+[資料範例：tw_broker_daily_bs_stock_b]
+	date,securities_trader,securities_trader_id,stock_id,price,buy,sell
+	2025-08-13,凱基台北,9268,2330,1200.0,39000,304000
+	2025-08-13,凱基台北,9268,2330,1195.0,214270,106263
+	2025-08-13,凱基台北,9268,2330,1190.0,525360,146434
+	2025-08-13,凱基台北,9268,2330,1185.0,64117,111450
+
+[步驟一] dailyBrokerTradeSummary.csv
+	用brokerTradeDayData.csv結算各卷商每日各股的交易總股數(net_vol)、總額(net_amt)、平均股價(avg_price)
+	net_vol算法：Σ(buy - sell) # 表示庫存
+	net_amt算法：Σ((buy - sell) * price) # 表示成本
+	avg_price算法：net_amt / net_vol
+
 	資料欄位：date,trader_id,stock_id,net_vol,net_amt,avg_price
-	UniKey：trader_id + date + stock_id
+	UniKey：date + trader_id + stock_id
 	
-[步驟二]overnightTradeList.csv
+[步驟二] overnightTradeList.csv
 	1.在每筆資料後加上下一個交易日的日期(date2)、交易量(net_vol2)、交易額(net_amt2)、平均股價(avg_price2)，
+	  ***下一個交易日資料，參照上面tradeDayList.csv
 	  ***如果在下一個交易日該卷商沒有交易該股的紀錄，net_vol2、net_amt2填入0，avg_price2填入NA
-	2.將net_vol < 0的資料列刪除
+	2.將(net_vol < 0)或(net_vol2 > 0)的資料列刪除
 	3.加入is_overnigth欄位，依據條件進行標註： 
 		(net_vol + net_vol2) <= 0標註為1，其餘標註為2
-	資料欄位：date,trader_id,stock_id,net_vol,net_amt,avg_price,date2,net_vol2,net_amt2,avg_price2,is_overnight
+	資料欄位：
+		date,trader_id,stock_id,net_vol,net_amt,avg_price,
+		date2,net_vol2,net_amt2,avg_price2,is_overnight
 
-[步驟三]overnightTradeList_fragment.csv
+[步驟三] overnightTradeList_fragment.csv
 	將is_overnight=2的資料進行拆分處理，規則：
-	1.將net_vol的值改成net_vol2的相反數，net_amt重新計算=新net_amt*avg_price*-1，is_overnight改為1
+	1.將net_vol的值改成net_vol2的相反數，net_amt重新計算=新net_vol * avg_price，is_overnight改為1
 	2.新增一筆資料，欄位值如下：
 		a.date、trader_id、stock_id、avg_price、date2欄位照抄
-		b.net_vol = 原本的net_vol和新net_vol的差值，net_amt = 此處net_vol*avg_price*-1
+		b.net_vol = (原本的net_vol - 新net_vol)，net_amt = 此處net_vol * avg_price
 		c.net_vol2、net_amt2、is_overnight=0，avg_price2=NA
 	資料欄位：
-	date,trader_id,stock_id,net_vol,net_amt,avg_price,date2,net_vol2,net_amt2,avg_price2,is_overnight		
+		date,trader_id,stock_id,net_vol,net_amt,avg_price,date2,net_vol2,net_amt2,avg_price2,is_overnight		
 
-[步驟四]overnightTradeStats_byDay.csv
-	以日期為單位結算各卷商的 沖銷率、沖銷報酬率、沖銷勝負，
-	1.先計算沖銷部位總交易成本與總交易成本：
-		沖銷部位總交易成本(overnight_net_amt)：該卷商該日is_overnight=1所有股票的net_amt總和
-		總交易成本(total_net_amt)：該卷商該日所有股票的net_amt總和
-	2.延伸計算：	
-		沖銷率(overnight_close_rate)：overnight_net_amt/total_net_amt
-		沖銷報酬率(overnight_close_return)：各net_vol*(avg_price2-avg_price)總和/overnight_net_amt
-		沖銷勝負(overnight_close_result)：overnight_close_return > 0 為1， overnight_close_return <= 0 為0
+[步驟四] overnightTradeList_calc.csv
+	針對is_overnight=1的資料，計算 沖銷報酬率、沖銷勝負、股本比
+	1.分股沖銷報酬率
+		overnight_return = (net_vol * (avg_price2 - avg_price)) / (net_vol * avg_price)
+		***is_overnight = 0的資料，記為NA
+	2.分股沖銷勝負
+		overnight_result = overnight_return > breakEvenReturn 為1， overnight_return <= breakEvenReturn 為0
+		***is_overnight = 0的資料，記為NA
+	3.卷商沖銷日作為隔日沖賣出的股票佔該股票多少股本比
+		sell_shares_rate = net_vol / total_shares
+		***total_shares來自twMarketValandVol.csv
+		***如果total_shares是null，則記為NA
+		***is_overnight = 0的資料，記為NA
 	資料欄位：
-	date,trader_id,overnight_net_amt,total_net_amt,overnight_close_rate,overnight_close_return,overnight_close_result
+		date,trader_id,stock_id,net_vol,net_amt,avg_price,date2,net_vol2,net_amt2,avg_price2,is_overnight,
+		overnight_return, overnight_result, sell_shares_rate
+
+[步驟五] overnightTradeStats_byDay.csv
+	以「日期」為單位結算「各卷商」的 沖銷率、沖銷報酬率、沖銷勝負、勝利標的數、標的數、標的勝率，
+	1.先計算沖銷部位交易成本與總交易成本：
+		沖銷部位交易成本
+			overnight_net_amt = Σ(net_amt) WHERE is_overnight = 1
+		總交易成本
+			total_net_amt = Σ(net_amt)
+	2.延伸計算：	
+		沖銷率 = 當日沖銷股總成本 / 當日購置股票總成本
+			overnight_close_rate = overnight_net_amt / total_net_amt
+		沖銷報酬率 = 當日沖銷獲利 / 當日沖銷股總成本
+			overnight_close_return = Σ(net_vol * (avg_price2 - avg_price)) / overnight_net_amt
+		沖銷勝負 = 沖銷報酬率是否為正
+			overnight_close_result = overnight_close_return > breakEvenReturn 為1， overnight_close_return <= breakEvenReturn 為0
+		沖銷勝利標的數 = 當日有幾個標的交易的報酬率是正的
+			win_distinct_stock_num = (overnight_result = 1)的筆數
+		沖銷標的數= 當日交易了幾種標的
+			distinct_stock_num = (is_overnight = 1)的筆數
+		沖銷標的勝率 = 沖銷勝利標的數 / 沖銷標的數
+			distinct_stock_win_rate = win_distinct_stock_num / distinct_stock_num
+	資料欄位：
+		date,trader_id,overnight_net_amt,total_net_amt,
+		overnight_close_rate,overnight_close_return,overnight_close_result,
+		win_distinct_stock_num,distinct_stock_num,distinct_stock_win_rate
+	UniKey：date + trader_id
 					
-[步驟五]j
+[步驟六] 
 
 
 

@@ -16,14 +16,18 @@ def connect_db() -> psycopg2.extensions.connection:
 # 讀取資料表：tw_broker_daily_bs_stock_b
 if __name__ == '__main__':
     conn = connect_db()
-    sql = "SELECT * FROM public.tw_broker_daily_bs_stock_b"
+    table = "tw_broker_daily_bs_stock_b"
+    
+    sql = "SELECT * FROM public." + table
     sql += " WHERE stock_id = '2330'"
     sql += " ORDER BY DATE date, securities_trader_id, stock_id"
     sql += " LIMIT 2000"
-    # sql += ""
+    
+    table = "tw_stock_daily_price"
+    # sql += "tw_stock_daily_price"
 
     df = pd.read_sql_query(sql, conn)
-    df.to_csv("test2.csv")
+    df.to_csv(table + "_test.csv")
     
     print(df.head())
     
