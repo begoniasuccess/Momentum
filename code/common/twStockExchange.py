@@ -58,12 +58,12 @@ def extract_days(text: str):
         return chinese_to_number(cn_days)
     return None
 
-def handleDispositionStockFile(sDt: datetime, eDt: datetime, simpleMode=None):
+def handleDispositionStockFile(sDt: datetime, eDt: datetime, simpleMode=None) -> bool:
     srcFolder = "../data/TwStockExchange/DispositionStock"    
     srcFile = f"{srcFolder}/{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
     if not os.path.exists(srcFile):
         print(f'檔案不存在：{srcFile}')
-        return
+        return False
 
     df = pd.read_csv(srcFile, dtype={"證券代號": str})
 
@@ -104,6 +104,7 @@ def handleDispositionStockFile(sDt: datetime, eDt: datetime, simpleMode=None):
 
     outputFile = f'{srcFolder}/{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}-{suffix}.csv'
     df.to_csv(outputFile, mode="w", index=False)
+    return os.path.exists(outputFile)
 
 sDt = datetime.strptime("2021/01/01", "%Y/%m/%d")
 eDt = datetime.strptime("2025/08/24", "%Y/%m/%d")

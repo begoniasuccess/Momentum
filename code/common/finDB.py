@@ -2,7 +2,7 @@ import psycopg2
 import pandas as pd
 
 # 連線資料庫
-def connect_db() -> psycopg2.extensions.connection:
+def getConn() -> psycopg2.extensions.connection:
     conn = psycopg2.connect(
         host='140.113.87.91',
         database='finDB',
@@ -18,7 +18,7 @@ def connect_db() -> psycopg2.extensions.connection:
 
 # 讀取資料表：tw_broker_daily_bs_stock_b
 if __name__ == '__main__':
-    conn = connect_db()
+    conn = getConn()
     table = "tw_broker_daily_bs_stock_b"
     
     sql = "SELECT * FROM public." + table
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     print(df.head())
 
 def exeQuery(sql: str) -> pd.DataFrame:
-    conn = connect_db()
+    conn = getConn()
     df = pd.read_sql_query(sql, conn)
     return df
     

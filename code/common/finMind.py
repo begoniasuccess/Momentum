@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 ### FinMind api設定
 apiUrl = "https://api.finmindtrade.com/api/v4/data"
 api = DataLoader()
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wOC0xMCAyMTo1MjozMSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiI0Mi43Mi4yNTMuMTQyIn0.b_9r9FGuBJqMPtqL04UlWV-8SFvxDds8P18IdmYnLkE"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyNS0wOC0zMSAxNTo1NzoyOSIsInVzZXJfaWQiOiJueWN1bGFiNjE1IiwiaXAiOiI0Mi43Mi4yMjcuMjI0IiwiZXhwIjoxNzU3MjMxODQ5fQ.FZ0d4a-od4pX6G4indB99IM-wy5cRTTxM3Pmbi4-YIk"
 api.login_by_token(api_token=token)
 
 storageDir = "../data/FinMind"
@@ -18,6 +18,9 @@ os.makedirs(storageDir, exist_ok=True)
 
 storageDir_twStockInfo =  f"{storageDir}/TW/StockInfo"
 os.makedirs(storageDir_twStockInfo, exist_ok=True)
+
+def getDataLoader() -> DataLoader:
+    return api
 
 # 撈取台股清單
 def twStockInfo(includeCateHistory:bool=False) -> pd.DataFrame:
