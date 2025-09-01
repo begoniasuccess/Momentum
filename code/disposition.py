@@ -6,7 +6,7 @@ import datetime
 from sqlalchemy import create_engine
 import os
 from common import finDB
-from common import twStockExchange
+from code.common import handleTwseTpex
 
 ### in PowerShell：
 # $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
@@ -18,16 +18,17 @@ eDt = pd.to_datetime("2025-08-24")
 
 
 ### Part01：計算上市處置股公布日放空報酬率
-outputFile = f"../data/analysis/disposition/short_return-{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
+stockType = "twse"
+outputFile = f"../data/analysis/disposition/short_return_{type}-{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
 if os.path.exists(outputFile):
     df_disp_twse = pd.read_csv(outputFile)
     print(f'上市處置股放空報酬率已計算完成：{outputFile}')
 else:
     print(f'開始計算：上市處置股放空報酬率')
     srcDir = f"../data/TwStockExchange/DispositionStock"
-    srcDataPath = f"{srcDir}/{sDt.strftime('%Y%m%d')}_{eDt.strftime('%Y%m%d')}-simple.csv"
+    srcDataPath = f"{srcDir}/twse-{sDt.strftime('%Y%m%d')}_{eDt.strftime('%Y%m%d')}-simple.csv"
     if not os.path.exists(srcDataPath):
-        if not twStockExchange.handleDispositionStockFile(sDt, eDt, True):
+        if not handleTwseTpex.handleDispositionStockFile(sDt, eDt, True, stockType):
             print(f"Not exit： {srcDataPath}")
             sys.exit()    
     df_disp_twse = pd.read_csv(srcDataPath, parse_dates=["公布日期", "處置起始", "處置結束"])
@@ -76,4 +77,11 @@ else:
     df_disp_twse.to_csv(outputFile, index=False, encoding="utf-8-sig")
 
 ### Part02：計算[上櫃]處置股公布日放空報酬率
-
+stockType = "tpex"
+outputFile = f"../data/analysis/disposition/short_return_{type}-{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
+if os.path.exists(outputFile):
+    df_disp_twse = pd.read_csv(outputFile)
+    print(f'上櫃處置股放空報酬率已計算完成：{outputFile}')
+else:
+    print(f'開始計算：上櫃處置股放空報酬率')
+    
