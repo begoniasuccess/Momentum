@@ -34,9 +34,11 @@ if __name__ == '__main__':
     
     print(df.head())
 
-def exeQuery(sql: str) -> pd.DataFrame:
-    conn = getConn()
-    df = pd.read_sql_query(sql, conn)
-    return df
-    
+# def exeQuery(sql: str) -> pd.DataFrame:
+#     conn = getConn()
+#     df = pd.read_sql_query(sql, conn)
+#     return df
+
+def exeQuery(sql: str, conn:psycopg2.extensions.connection) -> pd.DataFrame:
+    return pd.read_sql_query(sql, conn)
 
