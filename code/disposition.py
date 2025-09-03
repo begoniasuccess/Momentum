@@ -122,18 +122,19 @@ else:
 
                 stockSql = "','".join(map(str, stockList))
                 brokerSql = "','".join(map(str, brokerList))
-                sql = f"SELECT DISTINCT date, securities_trader_id AS broker_id, stock_id FROM public.tw_broker_daily_bs_stock_b"
+                sql = f"SELECT date, securities_trader_id AS broker_id, stock_id FROM public.tw_broker_daily_bs_stock_b"
                 sql += f" WHERE date BETWEEN '{startDate:%Y-%m-%d}' AND '{endDate:%Y-%m-%d}'"
                 sql += f" AND securities_trader_id IN ('{brokerSql}')"
                 sql += f" AND stock_id IN ('{stockSql}')"
-                sql += f" ORDER BY date, stock_id"
-
-                
+                # sql += f" ORDER BY date, stock_id" # 脫慢速度
                 print(sql)
                 df_findBroker = finDB.exeQuery(sql, conn)
+                
+                # 庫這邊搜尋速度很慢，所以存檔以利之後重跑
+                df_findBroker.drop_duplicates(subset=['date','broker_id','stock_id'], inplace=True)
+                df_findBroker.sort_values(by=['date', 'stock_id'], inplace=True)
                 df_findBroker.to_csv(searchPath, index=False, encoding='utf-8-sig')
-
-            # 庫這邊搜尋速度很慢，所以存檔以利之後重跑
+            
             if df_findBroker.empty:
                 print(f"tw_broker_daily_bs_stock_b沒有對應資料！")
                 continue # 前往下個月
