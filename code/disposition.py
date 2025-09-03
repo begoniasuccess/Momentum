@@ -109,25 +109,36 @@ else:
             startDate = pd.to_datetime(f"{year}-{month}-01")
             endDate = pd.to_datetime(f"{year}-{month}-{last_day}")
 
-            mask = (df_disp["公布日期"] >= startDate) & (df_disp["公布日期"] <= endDate)
-            df_filter_month = df_disp.loc[mask]
+            searchPath = f'../data/FinDB/disposition/tw_broker_daily_bs_stock_b/{year}_{month}.csv'
+            if (os.path.exists(searchPath)):
+                df_findBroker = pd.read_csv(searchPath)
+            else:
+                mask = (df_disp["公布日期"] >= startDate) & (df_disp["公布日期"] <= endDate)
+                df_filter_month = df_disp.loc[mask]
 
-            stockList = df_filter_month["證券代號"].unique().tolist()
-            if not stockList:
-                continue
+                stockList = df_filter_month["證券代號"].unique().tolist()
+                if not stockList:
+                    continue
 
-            stockSql = "','".join(map(str, stockList))
-            brokerSql = "','".join(map(str, brokerList))
-            sql = f"SELECT date, securities_trader_id AS broker_id, stock_id FROM public.tw_broker_daily_bs_stock_b"
-            sql += f" WHERE date BETWEEN '{startDate:%Y-%m-%d}' AND '{endDate:%Y-%m-%d}'"
-            sql += f" AND securities_trader_id IN ('{brokerSql}')"
-            sql += f" AND stock_id IN ('{stockSql}')"
-            sql += f" ORDER BY date, stock_id"
-            print(sql)
-            df_findBroker = finDB.exeQuery(sql, conn)
+                stockSql = "','".join(map(str, stockList))
+                brokerSql = "','".join(map(str, brokerList))
+                sql = f"SELECT DISTINCT date, securities_trader_id AS broker_id, stock_id FROM public.tw_broker_daily_bs_stock_b"
+                sql += f" WHERE date BETWEEN '{startDate:%Y-%m-%d}' AND '{endDate:%Y-%m-%d}'"
+                sql += f" AND securities_trader_id IN ('{brokerSql}')"
+                sql += f" AND stock_id IN ('{stockSql}')"
+                sql += f" ORDER BY date, stock_id"
+
+                
+                print(sql)
+                df_findBroker = finDB.exeQuery(sql, conn)
+                df_findBroker.to_csv(searchPath, index=False, encoding='utf-8-sig')
+
+            # 庫這邊搜尋速度很慢，所以存檔以利之後重跑
             if df_findBroker.empty:
-                print(f"sql沒有資料！")
+                print(f"tw_broker_daily_bs_stock_b沒有對應資料！")
                 continue # 前往下個月
+
+            continue # test
             
             # 轉 datetime（容錯）
             df_disp["公布日期"] = pd.to_datetime(df_disp["公布日期"], errors="coerce")
