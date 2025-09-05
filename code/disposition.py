@@ -139,7 +139,7 @@ else:
                 print(f"tw_broker_daily_bs_stock_b沒有對應資料！")
                 continue # 前往下個月
 
-            continue # test
+            # continue # test
             
             # 轉 datetime（容錯）
             df_disp["公布日期"] = pd.to_datetime(df_disp["公布日期"], errors="coerce")
