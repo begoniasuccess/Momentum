@@ -22,7 +22,7 @@ anaDir = "../data/analysis/disposition"
 ### Part01：計算處置股公布日放空報酬率
 outputFile = f"{anaDir}/short_return_{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
 if os.path.exists(outputFile):
-    df_disp = pd.read_csv(outputFile, dtype={"證券代號": str, "公布日期": datetime, "處置起始": datetime, "處置結束": datetime})
+    df_disp = pd.read_csv(outputFile, dtype={"證券代號": str}, parse_dates=["公布日期", "處置起始", "處置結束"])
     print(f'處置股放空報酬率已計算完成：{outputFile}')
 else:
     print(f'開始計算：處置股放空報酬率')
@@ -95,7 +95,7 @@ else:
 ### Part02：查看特定券商該日有無購股
 outputFile = f"{anaDir}/short_return_{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}-broker_buy.csv"
 if os.path.exists(outputFile):
-    df_disp = pd.read_csv(outputFile, dtype={"證券代號": str, "公布日期": datetime, "處置起始": datetime, "處置結束": datetime})
+    df_disp = pd.read_csv(outputFile, dtype={"證券代號": str}, parse_dates=["公布日期", "處置起始", "處置結束"])
     print(f'已知特定券商該日有無購股：{outputFile}')
 else:
     print(f'開始查找：特定券商該日有無購股')
@@ -147,47 +147,36 @@ else:
 
 
 ### Part03：新增欄位T-20~T-1、T+1~T+10
-outputFile = f"{anaDir}/short_return_{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}-series_close.csv"
-backupDatesFile = f"{anaDir}/short_return_{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}-series_close-backup_dates.csv"
+outputFile = f"{anaDir}/series_close_price-{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
 if os.path.exists(outputFile):
-    df_close_dates = pd.read_csv(outputFile, dtype={"stock_id": str, "date": datetime})
+    df_close_dates = pd.read_csv(outputFile, dtype={"stock_id": str}, parse_dates=["date"])
     print(f'***已存在-收盤價T-20~T-1、T+1~T+10：{outputFile}')
 else:
     print(f'***開始寫入-收盤價T-20~T-1、T+1~T+10')
-    df_disp = df_disp[["公布日期","證券代號","證券名稱","處置起始","處置結束","short_return","broker_bought"]]
-    df_backup = df_disp[["公布日期","證券代號","證券名稱"]] 
-    
-    df_close_dates = pd.DataFrame(columns=["stock_id", "date_type", "date", "close"])
-
+    df_close_dates = pd.DataFrame(columns=["key", "stock_id", "T+n", "date", "close"])
+    df_disp = df_disp[["公布日期","證券代號","證券名稱","收盤價"]]
     for idx, row in df_disp.iterrows():
-        df_close_dates.loc[len(df_close_dates)] = [row["公布日期"].strf, 2603, "長榮", -0.0321]
-        
+        tDate = row["公布日期"].strftime("%Y-%m-%d")
+        stockId = row["證券代號"]
+        print(idx, tDate, stockId, row["證券名稱"])
 
+        key =  row["公布日期"].strftime("%Y%m%d") + "-" + stockId
+        df_close_dates.loc[len(df_close_dates)] = [key, stockId, 0, tDate, row["收盤價"]]
+        
         # 找前20日：T-1~T-20
-        sql = f"SELECT stock_id, '' AS date_type, date, close"
+        sql = f"SELECT date, stock_id, close"
         sql += f" FROM public.tw_stock_daily_price_adj"
         sql += f" WHERE stock_id = '{row["證券代號"]}'"
         sql += f" AND date < '{row["公布日期"]}'"
         sql += f" ORDER BY date DESC, stock_id"
         sql += f" LIMIT 20"
         df_close_prices = finDB.exeQuery(sql, conn)
-        for idx2, row2 in df_close_prices.iterrows:
-            # df_disp.at[idx, f"T+{(idx2 + 1)}"] = row2["close"]
-            df_close_prices.at[idx2, "date_type"] = f"T-{(idx2 + 1)}"
-        
-
-        # test
-        print(df_close_prices)
-        sys.exit()
-
-        
         for idx2, row2 in df_close_prices.iterrows():
-            df_disp.at[idx, f"T-{(idx2 + 1)}"] = row2["close"]
-            df_backup.at[idx, f"T-{(idx2 + 1)}_date"] = row2["date"]
-            df_backup.at[idx, f"T-{(idx2 + 1)}"] = row2["close"]
+            df_close_dates.loc[len(df_close_dates)] = [key, stockId, -(idx2 + 1), row2["date"].strftime("%Y-%m-%d"), row2["close"]]
 
         # 後10日：T+1~T+10
-        sql = f"SELECT date, stock_id, close FROM public.tw_stock_daily_price_adj"
+        sql = f"SELECT date, stock_id, close"
+        sql += f" FROM public.tw_stock_daily_price_adj"
         sql += f" WHERE stock_id = '{row["證券代號"]}'"
         sql += f" AND date > '{row["公布日期"]}'"
         sql += f" ORDER BY date ASC, stock_id"
@@ -195,13 +184,13 @@ else:
         df_close_prices = finDB.exeQuery(sql, conn)
 
         for idx2, row2 in df_close_prices.iterrows():
-            df_disp.at[idx, f"T+{(idx2 + 1)}"] = row2["close"]
-            df_backup.at[idx, f"T+{(idx2 + 1)}_date"] = row2["date"]
-            df_backup.at[idx, f"T+{(idx2 + 1)}"] = row2["close"]
+            df_close_dates.loc[len(df_close_dates)] = [key, stockId, (idx2 + 1), row2["date"].strftime("%Y-%m-%d"), row2["close"]]
 
-        print(idx, row["公布日期"], row["證券代號"], row["證券名稱"])
-
-    df_disp.to_csv(outputFile, index=False, encoding="utf-8-sig")
+        # 每N筆存檔一次
+        if idx % 100 is 0:
+            df_close_dates.to_csv(outputFile, index=False, encoding="utf-8-sig")        
+        
+    df_close_dates.to_csv(outputFile, index=False, encoding="utf-8-sig")
     
 ### Part04：對交易前後的價格進行分析
 
