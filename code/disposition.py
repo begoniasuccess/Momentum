@@ -209,39 +209,42 @@ if os.path.exists(outputFile):
     df_ana_series_close = pd.read_csv(outputFile)
     print(f'***已存在-對T-1~T-20的收盤價進行型態分析：', outputFile)
 else:
-    # for test
-    df_close_dates = df_close_dates.head(31*5)
+    # # for test
+    # df_close_dates = df_close_dates.head(31*5)
 
-    # 只取 T-1 ~ T-20
+    # ---------- 篩選 T-1 ~ T-20 ----------
     df_sub = df_close_dates[df_close_dates["T+n"].between(-20, -1)].copy()
 
-    # ========== 定義特徵函數 ==========
+    # ---------- 定義特徵函數 ----------
     def trend_slope(group):
-        if len(group) < 2:
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
             return np.nan
-        y = group.sort_values("T+n")["close"].values  # 由舊到新
         X = np.arange(len(y)).reshape(-1, 1)
         model = LinearRegression().fit(X, y)
         return model.coef_[0]
 
-    def max_drawdown(series):
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
         cum_max = series.cummax()
         drawdown = (series - cum_max) / cum_max
         return drawdown.min()
 
-    # ========== 每個 key 計算特徵 ==========
+    # ---------- 每個 key 計算統計量 ----------
     summary = (
         df_sub.groupby("key")["close"]
-        .agg(["mean","std","min","max","skew", lambda x: kurtosis(x, fisher=True)])
+        .agg(["mean", "std", "min", "max", "skew", lambda x: kurtosis(x, fisher=True)])
         .rename(columns={"<lambda_0>":"kurt"})
         .reset_index()
     )
 
-    # 加上 trend_slope 與 max_drawdown
+    # ---------- 加上 trend_slope 與 max_drawdown ----------
     summary["trend_slope"] = df_sub.groupby("key").apply(trend_slope).values
-    summary["max_drawdown"] = df_sub.groupby("key")["close"].apply(max_drawdown).values
+    summary["max_drawdown"] = df_sub.groupby("key").apply(max_drawdown).values
 
-    # ========== 中文描述 ==========
+    # ---------- 中文描述函數 ----------
     def interpret_trend_slope(val):
         if val > 0.2:
             return "明顯上升"
@@ -283,7 +286,6 @@ else:
             return "接近常態"
 
     def interpret_maxdd(val):
-        # 修正中文描述，負值越小表示跌幅越大
         if val > -0.05:
             return "股價一路上漲"
         elif val > -0.1:
@@ -293,18 +295,123 @@ else:
         else:
             return "股價大幅波動（腰斬級）"
 
-    # 逐欄位生成中文描述
+    # ---------- 生成中文描述 ----------
     summary["std_cm"] = summary["std"].apply(interpret_volatility)
     summary["skew_cm"] = summary["skew"].apply(interpret_skew)
     summary["kurt_cm"] = summary["kurt"].apply(interpret_kurt)
     summary["trend_slope_cm"] = summary["trend_slope"].apply(interpret_trend_slope)
     summary["max_drawdown_cm"] = summary["max_drawdown"].apply(interpret_maxdd)
 
-    # 拆 key
+    # ---------- 拆 key ----------
     summary[["date","stock_id"]] = summary["key"].str.split("-", expand=True)
 
-    # ========== 輸出 ==========
+    # ---------- 輸出 ----------
     summary.to_csv(outputFile, index=False, encoding="utf-8-sig")
     print("完成 ✅，結果已輸出至", outputFile)
+
+### Part05：對T+1~T+10的收盤價進行型態分析
+outputIdx = outputIdx + 1
+outputFile = f"{anaDir}/{outputIdx}-ana_aft_series_close-{sDt.strftime("%Y%m%d")}_{eDt.strftime("%Y%m%d")}.csv"
+if os.path.exists(outputFile):
+    df_ana_series_close = pd.read_csv(outputFile)
+    print(f'***已存在-對T+1~T+10的收盤價進行型態分析：', outputFile)
+else:
+    # ---------- 篩選 T+1 ~ T+10 ----------
+    df_sub = df_close_dates[df_close_dates["T+n"].between(1, 10)].copy()
+
+    # ---------- 定義特徵函數 ----------
+    def trend_slope(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
+            return np.nan
+        X = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(X, y)
+        return model.coef_[0]
+
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
+        cum_max = series.cummax()
+        drawdown = (series - cum_max) / cum_max
+        return drawdown.min()
+
+    # ---------- 每個 key 計算統計量 ----------
+    summary = (
+        df_sub.groupby("key")["close"]
+        .agg(["mean", "std", "min", "max", "skew", lambda x: kurtosis(x, fisher=True)])
+        .rename(columns={"<lambda_0>":"kurt"})
+        .reset_index()
+    )
+
+    # ---------- 加上 trend_slope 與 max_drawdown ----------
+    summary["trend_slope"] = df_sub.groupby("key").apply(trend_slope).values
+    summary["max_drawdown"] = df_sub.groupby("key").apply(max_drawdown).values
+
+    # ---------- 中文描述函數 ----------
+    def interpret_trend_slope(val):
+        if val > 0.2:
+            return "明顯上升"
+        elif val > 0.05:
+            return "略有上升"
+        elif val > -0.05:
+            return "趨勢相對平穩"
+        elif val > -0.2:
+            return "略有下降"
+        else:
+            return "明顯下降"
+
+    def interpret_volatility(std):
+        if std < 1:
+            return "低波動"
+        elif std < 3:
+            return "中等波動"
+        else:
+            return "高波動"
+
+    def interpret_skew(val):
+        if val > 1:
+            return "分布明顯右偏（偶爾有高價）"
+        elif val > 0.3:
+            return "分布略偏右"
+        elif val > -0.3:
+            return "分布接近對稱"
+        elif val > -1:
+            return "分布略偏左"
+        else:
+            return "分布明顯左偏（偶爾有低價）"
+
+    def interpret_kurt(val):
+        if val > 1:
+            return "常有極端值"
+        elif val < -1:
+            return "分布平坦（較均勻）"
+        else:
+            return "接近常態"
+
+    def interpret_maxdd(val):
+        if val > -0.05:
+            return "股價一路上漲"
+        elif val > -0.1:
+            return "股價小幅回調"
+        elif val > -0.3:
+            return "股價有明顯跌幅"
+        else:
+            return "股價大幅波動（腰斬級）"
+
+    # ---------- 生成中文描述 ----------
+    summary["std_cm"] = summary["std"].apply(interpret_volatility)
+    summary["skew_cm"] = summary["skew"].apply(interpret_skew)
+    summary["kurt_cm"] = summary["kurt"].apply(interpret_kurt)
+    summary["trend_slope_cm"] = summary["trend_slope"].apply(interpret_trend_slope)
+    summary["max_drawdown_cm"] = summary["max_drawdown"].apply(interpret_maxdd)
+
+    # ---------- 拆 key ----------
+    summary[["date","stock_id"]] = summary["key"].str.split("-", expand=True)
+
+    # ---------- 輸出 ----------
+    summary.to_csv(outputFile, index=False, encoding="utf-8-sig")
+    print("完成 ✅，結果已輸出至", outputFile)
+
 
 conn.close()
