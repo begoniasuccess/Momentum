@@ -7,6 +7,8 @@ from common import finMind
 import re
 from pathlib import Path
 from collections import defaultdict
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
 storageDir_twMarketValue =  f"../data/FinMind/TW/MarketValue"
 os.makedirs(storageDir_twMarketValue, exist_ok=True)
@@ -404,3 +406,177 @@ def runAdjPriceMeanByMonth(sDt: datetime, eDt: datetime, filterMeanClose: int=0)
         return False
 
     return result
+
+    # ---------- 定義特徵函數 ----------
+    def trend_slope(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
+            return np.nan
+        X = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(X, y)
+        return model.coef_[0]
+
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
+        cum_max = series.cummax()
+        drawdown = (series - cum_max) / cum_max
+        return drawdown.min()
+
+    # ---------- 定義特徵函數 ----------
+    def trend_slope(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
+            return np.nan
+        X = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(X, y)
+        return model.coef_[0]
+
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
+        cum_max = series.cummax()
+        drawdown = (series - cum_max) / cum_max
+        return drawdown.min()
+
+
+    # ---------- 定義特徵函數 ----------
+    def trend_slope(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
+            return np.nan
+        X = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(X, y)
+        return model.coef_[0]
+
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
+        cum_max = series.cummax()
+        drawdown = (series - cum_max) / cum_max
+        return drawdown.min()
+
+    # ---------- 定義特徵函數 ----------
+    def trend_slope(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
+            return np.nan
+        X = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(X, y)
+        return model.coef_[0]
+
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
+        cum_max = series.cummax()
+        drawdown = (series - cum_max) / cum_max
+        return drawdown.min()
+
+    # ---------- 定義特徵函數 ----------
+    def trend_slope(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        y = group["close"].values
+        if len(y) < 2:
+            return np.nan
+        X = np.arange(len(y)).reshape(-1, 1)
+        model = LinearRegression().fit(X, y)
+        return model.coef_[0]
+
+    def max_drawdown(group):
+        group = group.sort_values("T+n")  # 由舊到新
+        series = group["close"]
+        cum_max = series.cummax()
+        drawdown = (series - cum_max) / cum_max
+        return drawdown.min()
+
+# ---------- 定義特徵函數 ----------
+def trend_slope(group):
+	group = group.sort_values("T+n")  # 由舊到新
+	y = group["close"].values
+	if len(y) < 2:
+		return np.nan
+	X = np.arange(len(y)).reshape(-1, 1)
+	model = LinearRegression().fit(X, y)
+	return model.coef_[0]
+
+def max_drawdown(group):
+	group = group.sort_values("T+n")  # 由舊到新
+	series = group["close"]
+	cum_max = series.cummax()
+	drawdown = (series - cum_max) / cum_max
+	return drawdown.min()
+
+# ---------- 中文描述函數 ----------
+def interpret_trend_slope(val):
+	if val > 0.2:
+		return "明顯上升"
+	elif val > 0.05:
+		return "略有上升"
+	elif val > -0.05:
+		return "趨勢相對平穩"
+	elif val > -0.2:
+		return "略有下降"
+	else:
+		return "明顯下降"
+
+def interpret_volatility(std):
+	if std < 1:
+		return "低波動"
+	elif std < 3:
+		return "中等波動"
+	else:
+		return "高波動"
+
+def interpret_skew(val):
+	if val > 1:
+		return "分布明顯右偏（偶爾有高價）"
+	elif val > 0.3:
+		return "分布略偏右"
+	elif val > -0.3:
+		return "分布接近對稱"
+	elif val > -1:
+		return "分布略偏左"
+	else:
+		return "分布明顯左偏（偶爾有低價）"
+
+def interpret_kurt(val):
+	if val > 1:
+		return "常有極端值"
+	elif val < -1:
+		return "分布平坦（較均勻）"
+	else:
+		return "接近常態"
+
+def interpret_maxdd(val):
+	if val > -0.05:
+		return "股價一路上漲"
+	elif val > -0.1:
+		return "股價小幅回調"
+	elif val > -0.3:
+		return "股價有明顯跌幅"
+	else:
+		return "股價大幅波動（腰斬級）"
+
+# 計算過去 N 日均量 & 最大量
+def get_volume_stats(df, idx, window):
+    # 用 iloc 基於位置切片
+    start = max(0, idx - window + 1)
+    subset = df.iloc[start: idx + 1]['t_volume']  # 含 T
+    avg_vol = subset.mean()
+    max_vol = subset.max()
+    return avg_vol, max_vol
+
+# 往前取 N 天（包含 T）
+def calc_vol_stats(N, df, T):
+    window = df.loc[df["date"] <= T].sort_values("date", ascending=False).head(N)["t_volume"]
+    mean = window.mean()
+    max = window.max()
+    return {
+        f"avg_vol": mean.round(2),
+        f"max_vol": max.round(2),
+        f"vol_diff": ((max-mean)/max).round(4)
+    }
