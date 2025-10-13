@@ -2,8 +2,8 @@ import sys
 import pandas as pd
 import calendar
 import os
-from common import finDB
-from common import handleTwseTpex
+from module import finDB
+from module import handleTwseTpex
 from common import anaData
 from scipy.stats import kurtosis
 

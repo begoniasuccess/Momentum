@@ -1,13 +1,14 @@
+import sys, os
+sys.path.append(os.path.dirname(__file__))
+sys.stdout.reconfigure(encoding='utf-8')
+
 import pandas as pd
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
-import sys
 import re
 from common.constants import Panel
 from common.constants import Iloc
-
-sys.stdout.reconfigure(encoding='utf-8')
+import db
 
 def nowTime():
     """取得當前時間 (yyyy/mm/dd hh:mm:ss)"""
@@ -105,7 +106,6 @@ def is_really_empty_file(filepath):
         print(f"檢查失敗：{filepath}，原因：{e}")
         return False
 
-
 def delete_empty_csv_files_recursive(folder_path, size_threshold=2*1024):
     """檔案大小小且內容純空白，即刪除"""
     deleted_files = []
@@ -162,7 +162,6 @@ def getOperiodDataRow(stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, il
         return None
     
     return dataRow
-
 
 # 找出 持有期-買入賣出日期 對應的資料列
 def getHperiodDataRow(panelType: Panel, stock_id: str, closeDf: pd.DataFrame, baseDt: datetime, iloc: Iloc) -> pd.Series:
@@ -299,9 +298,65 @@ def findout_observerRTdata(output_path: str) -> bool:
     print("⚠️ 沒有找到任何符合條件的資料")
     return False
     
+def roc_to_unix(roc_date: str) -> int:
+    year = None 
+    month = None 
+    day = None    
+    seperators = ["/", ".", "-"]
+    for seperator in seperators:
+        if seperator in roc_date:  
+            year, month, day = map(int, roc_date.split(seperator))
+    if year is None:
+        return None
+        
+    gregorian_year = year + 1911 # 民國 → 西元（加 1911 年）
+    dt = datetime(gregorian_year, month, day)
+    return int(dt.timestamp())
 
+def get_api_info(apiName: str) -> pd.DataFrame:
+    sql = f"SELECT *, src_link || api_path AS url FROM data_source"
+    sql += f" WHERE name = '{apiName}'"
+    target = db.query_to_df(sql)
+    return target
 
+def _is_fully_in_range(sDt: datetime, eDt: datetime, minDt: datetime, maxDt: datetime) -> bool:
+    """
+    判斷區間 sDt~eDt 是否完全包含在 minDt~maxDt 內
+    回傳布林值
+    """
+    return minDt <= sDt <= maxDt and minDt <= eDt <= maxDt
 
+def _is_no_overlap(sDt: datetime, eDt: datetime, minDt: datetime, maxDt: datetime) -> bool:
+    """
+    判斷區間 sDt~eDt 是否與 minDt~maxDt 完全不重疊
+    回傳布林值
+    """
+    return eDt < minDt or sDt > maxDt
+
+def _overlap_period(sDt: datetime, eDt: datetime, minDt: datetime, maxDt: datetime):
+    """
+    判斷兩個時間區間是否重疊，並回傳重疊區間。
+
+    參數：
+        sDt, eDt : datetime
+        minDt, maxDt : datetime
+
+    回傳：
+        若有重疊，回傳 (overlap_start, overlap_end)
+        若無重疊，回傳 None
+    """
+    # 先確保時間順序正確
+    if sDt > eDt or minDt > maxDt:
+        raise ValueError("起訖時間錯誤：start 必須早於 end")
+
+    # 計算重疊區間
+    overlap_start = max(sDt, minDt)
+    overlap_end = min(eDt, maxDt)
+
+    if overlap_start <= overlap_end:
+        return overlap_start, overlap_end
+    else:
+        return None
 
 
 
