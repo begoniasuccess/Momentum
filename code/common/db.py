@@ -5,6 +5,7 @@ import sqlite3
 import pandas as pd
 from contextlib import contextmanager
 from pathlib import Path
+from datetime import datetime
 
 # 資料庫路徑
 DB_PATH = Path("../Data/data_center.db")
@@ -54,3 +55,18 @@ def execute_sql(sql: str, params: tuple | list[tuple] = ()):
     except sqlite3.Error as e:
         print(f"[SQLite Error] {e}")
         return -1
+    
+def output_dump():
+    output_path = f"dump_{datetime.today().strftime("%Y%m%d%H%M%S")}.sql"
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        with open(output_path, "w", encoding="utf-8") as f:
+            for line in conn.iterdump():
+                f.write(f"{line}\n")
+        conn.close()
+        print(f"✅ Dump 完成，已輸出到 {DB_PATH}")
+    except Exception as e:
+        print("❌ 發生錯誤：", e)
+        
+if __name__ == "__main__": 
+    output_dump()

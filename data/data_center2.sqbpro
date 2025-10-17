@@ -1,38 +1,139 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="data_center.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser query pragmas" current="2"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2475"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="tpex_bulletin_attention" custom_title="0" dock_id="1" table="4,23:maintpex_bulletin_attention"/><dock_state state="000000ff00000000fd000000010000000200000309000001c3fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000000003090000013a00ffffff0000029d0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="data_source" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="23"/><column index="2" value="202"/><column index="3" value="39"/><column index="4" value="241"/><column index="5" value="187"/><column index="6" value="300"/><column index="7" value="288"/><column index="8" value="64"/><column index="9" value="300"/><column index="10" value="82"/><column index="11" value="38"/><column index="12" value="156"/><column index="13" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_afterTrading_tradingIndex" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="20"/><column index="2" value="57"/><column index="3" value="33"/><column index="4" value="47"/><column index="5" value="57"/><column index="6" value="63"/><column index="7" value="33"/><column index="8" value="57"/><column index="9" value="39"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_attention" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="0" mode="1"/></sort><column_widths><column index="1" value="83"/><column index="2" value="57"/><column index="3" value="117"/><column index="4" value="33"/><column index="5" value="1118"/><column index="6" value="86"/><column index="7" value="94"/><column index="8" value="62"/><column index="9" value="300"/><column index="10" value="156"/><column index="11" value="85"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_disposal" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="329"/><column index="5" value="33"/><column index="6" value="156"/><column index="7" value="300"/><column index="8" value="6034"/><column index="9" value="54"/><column index="10" value="54"/><column index="11" value="300"/><column index="12" value="156"/><column index="13" value="85"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="10" mode="0"/></sort><column_widths><column index="1" value="46"/><column index="2" value="57"/><column index="3" value="124"/><column index="4" value="57"/><column index="5" value="689"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="156"/><column index="10" value="85"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_punish" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="33"/><column index="6" value="176"/><column index="7" value="161"/><column index="8" value="85"/><column index="9" value="1905"/><column index="10" value="300"/><column index="11" value="156"/><column index="12" value="85"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_attention_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="1" mode="0"/></sort><column_widths><column index="1" value="39"/><column index="2" value="101"/><column index="3" value="57"/><column index="4" value="119"/><column index="5" value="33"/><column index="6" value="54"/><column index="7" value="54"/><column index="8" value="3754"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="History">DROP VIEW IF EXISTS &quot;main&quot;.&quot;v_attention_notice&quot;;
-CREATE VIEW v_attention_notice AS
-SELECT
-	'twse' AS &quot;來源&quot;,
-	strftime('%Y/%m/%d', datetime(日期_ts, 'unixepoch'))  AS &quot;公告日期&quot;,
-    &quot;證券代號&quot;,
-    &quot;證券名稱&quot;,
-    &quot;累計次數&quot; AS &quot;累計&quot;,        
-    &quot;收盤價&quot;,
-    &quot;本益比&quot;,
-	&quot;注意交易資訊&quot;
-FROM twse_announcement_notice
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="data_center.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser query pragmas" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2583"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="tpex_bulletin_disposal" custom_title="0" dock_id="6" table="4,22:maintpex_bulletin_disposal"/><dock_state state="000000ff00000000fd000000010000000200000335000001b2fc0100000005fb000000160064006f0063006b00420072006f007700730065003101000000000000024d0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000000002b30000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000000002d10000000000000000fb000000160064006f0063006b00420072006f00770073006500350100000000000002d10000000000000000fb000000160064006f0063006b00420072006f00770073006500360100000000000003350000013a00ffffff000003350000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="addition_info" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="20"/><column index="2" value="23"/><column index="3" value="64"/><column index="4" value="51"/><column index="5" value="54"/><column index="6" value="43"/><column index="7" value="49"/><column index="8" value="38"/><column index="9" value="57"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="relation_punish_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="39"/><column index="3" value="55"/><column index="4" value="52"/><column index="5" value="156"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_attention" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="57"/><column index="3" value="117"/><column index="4" value="33"/><column index="5" value="300"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="62"/><column index="9" value="300"/><column index="10" value="156"/><column index="11" value="85"/><column index="12" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_disposal" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="114"/><column index="5" value="33"/><column index="6" value="156"/><column index="7" value="145"/><column index="8" value="134"/><column index="9" value="54"/><column index="10" value="54"/><column index="11" value="124"/><column index="12" value="156"/><column index="13" value="85"/><column index="14" value="45"/><column index="15" value="60"/><column index="16" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="5" mode="1"/></sort><column_widths><column index="1" value="46"/><column index="2" value="57"/><column index="3" value="124"/><column index="4" value="57"/><column index="5" value="300"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="156"/><column index="10" value="85"/><column index="11" value="247"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_punish" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="33"/><column index="6" value="176"/><column index="7" value="161"/><column index="8" value="85"/><column index="9" value="300"/><column index="10" value="265"/><column index="11" value="156"/><column index="12" value="85"/><column index="13" value="45"/><column index="14" value="60"/><column index="15" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_attention_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="85"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="247"/><column index="6" value="33"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_data_source" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="202"/><column index="2" value="241"/><column index="3" value="64"/><column index="4" value="300"/><column index="5" value="300"/><column index="6" value="82"/><column index="7" value="38"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="System">PRAGMA integrity_check;
+</sql><sql name="History">DROP VIEW IF EXISTS &quot;main&quot;.&quot;v_attention_notice&quot;;
+CREATE VIEW v_attention_notice AS
+SELECT
+	'twse' AS &quot;來源&quot;,
+	strftime('%Y/%m/%d', datetime(日期_ts, 'unixepoch'))  AS &quot;公告日期&quot;,
+    &quot;證券代號&quot;,
+    &quot;證券名稱&quot;,
+    &quot;累計次數&quot; AS &quot;累計&quot;,        
+    &quot;收盤價&quot;,
+    &quot;本益比&quot;,
+	&quot;注意交易資訊&quot;
+FROM twse_announcement_notice
+
+UNION ALL
+
+SELECT
+	'tpex' AS &quot;來源&quot;,
+	strftime('%Y/%m/%d', datetime(公告日期_ts, 'unixepoch'))  AS &quot;公告日期&quot;,
+    &quot;證券代號&quot;,
+    &quot;證券名稱&quot;,
+    &quot;累計&quot;,       
+    &quot;收盤價&quot;,
+    &quot;本益比&quot;,
+	&quot;注意交易資訊&quot;
+FROM tpex_bulletin_attention
+
+ALTER TABLE twse_announcement_punish ADD COLUMN law_src TEXT;
+ALTER TABLE tpex_bulletin_disposal ADD COLUMN law_src TEXT;
+
+ALTER TABLE twse_announcement_punish ADD COLUMN last_notice INTEGER;
+ALTER TABLE tpex_bulletin_disposal ADD COLUMN last_notice INTEGER;
+
+CREATE TABLE IF NOT EXISTS relation_punish_notice (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL,
+    punish_id INTEGER NOT NULL,
+    notice_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT (datetime('now', 'localtime')),
+    UNIQUE (punish_id, notice_id, type)
+);
+
+CREATE TABLE addition_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    target_table TEXT NOT NULL,
+    target_id INTEGER NOT NULL,
+    col_name TEXT NOT NULL,
+    col_val TEXT,
+    memo TEXT,
+    created_at TIMESTAMP DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now')),
+    UNIQUE(target_table, target_id, col_name)
+);
+
+
+SELECT * FROM twse_announcement_punish 
+	WHERE 證券代號 = (SELECT 證券代號 FROM twse_announcement_punish WHERE id+0 = 808)
+	AND 公布日期_ts &lt;= (SELECT 公布日期_ts FROM twse_announcement_punish WHERE id+0 = 808)
+	ORDER BY 公布日期_ts DESC;
+	
+SELECT * FROM twse_announcement_notice 
+	WHERE 證券代號 = (SELECT 證券代號 FROM twse_announcement_punish WHERE id+0 = 808)
+	AND 日期_ts &lt;= (SELECT 公布日期_ts FROM twse_announcement_punish WHERE id+0 = 808)
+	ORDER BY 日期_ts DESC LIMIT 5;
 
-UNION ALL
+SELECT R.* FROM relation_punish_notice R;
 
-SELECT
-	'tpex' AS &quot;來源&quot;,
-	strftime('%Y/%m/%d', datetime(公告日期_ts, 'unixepoch'))  AS &quot;公告日期&quot;,
-    &quot;證券代號&quot;,
-    &quot;證券名稱&quot;,
-    &quot;累計&quot;,       
-    &quot;收盤價&quot;,
-    &quot;本益比&quot;,
-	&quot;注意交易資訊&quot;
-FROM tpex_bulletin_attention
+SELECT R.id, R.type, 
+		R.punish_id, 
+		P.公布日期 AS 處置日期, N.日期 AS 公告日期, P.證券代號, P.證券名稱, P.累計 AS 處置累計, P.處置起迄時間, P.處置措施,
+		P.last_notice, P.notice_cnt,
+		R.notice_id, 
+		N.累計次數 AS 注意累計, N.law_src AS 公告法源, N.注意交易資訊,
+		P.處置內容
+	FROM relation_punish_notice R
+	LEFT JOIN twse_announcement_punish P ON R.punish_id+0 = P.id+0 AND R.type = 'twse'
+	LEFT JOIN twse_announcement_notice N ON R.notice_id+0 = N.id+0 AND R.type = 'twse'
+	WHERE R.type = 'twse'
+	ORDER BY 處置日期 DESC, punish_id, 公告日期 DESC;
+	
+SELECT R.id, R.type, 
+		R.punish_id, 
+		P.公布日期 AS 處置日期, P.證券代號, N.證券名稱, P.累計 AS 處置累計, P.處置起迄時間, P.處置措施,
+		P.last_notice, P.notice_cnt,
+		R.notice_id, 
+		N.日期 AS 公告日期, N.累計次數 AS 注意累計, N.law_src AS 公告法源, N.注意交易資訊,
+		P.處置內容
+	FROM relation_punish_notice R
+	LEFT JOIN tpex_bulletin_disposal P ON R.punish_id+0 = P.id+0 AND R.type = 'tpex'
+	LEFT JOIN tpex_bulletin_attention N ON R.notice_id+0 = N.id+0 AND R.type = 'tpex'
+	WHERE R.type = 'tpex'
+	ORDER BY 處置日期 DESC, punish_id, 公告日期 DESC;
+SELECT * FROM twse_announcement_notice 
+	WHERE 證券代號 = (SELECT 證券代號 FROM twse_announcement_punish WHERE id+0 = 1182) 
+	AND 日期_ts &lt;= (SELECT 公布日期_ts FROM twse_announcement_punish WHERE id+0 = 1182) 
+	ORDER BY 日期_ts DESC;
 
-ALTER TABLE twse_announcement_punish ADD COLUMN law_src TEXT;
-ALTER TABLE tpex_bulletin_disposal ADD COLUMN law_src TEXT;</sql><sql name="View*">--SELECT * FROM data_source WHERE name LIKE '%注意%' OR name LIKE '%處置%' ORDER by name;
---SELECT * FROM twse_announcement_notice WHERE law_src IS NULL or law_src = '' ORDER BY 日期_ts DESC LIMIT 200 OFFSET 0;
+SELECT * FROM twse_announcement_punish
+    WHERE last_notice IS NULL OR notice_cnt IS NULL;
+	
+SELECT * FROM tpex_bulletin_disposal
+    WHERE last_notice IS NULL OR notice_cnt IS NULL;
 
---SELECT COUNT(*) AS cnt FROM twse_announcement_notice WHERE law_src IS NULL or law_src = '';
+SELECT * FROM twse_announcement_notice
+	WHERE 證券代號 = '8021' AND 日期 LIKE '114.08.%'
+	ORDER BY 日期 DESC;
+	
+SELECT * FROM twse_announcement_punish WHERE id+0 = 206;
+SELECT * FROM twse_announcement_notice 
+	WHERE 證券代號 = (SELECT 證券代號 FROM twse_announcement_punish WHERE id+0 = 206) 
+	ORDER BY 日期_ts DESC;
+	
 
---SELECT * FROM tpex_bulletin_attention WHERE law_src IS NULL or law_src = '';
---SELECT * FROM tpex_bulletin_attention WHERE id = 11594 ORDER BY id;
-
-SELECT typeof(id), * FROM tpex_bulletin_attention WHERE id BETWEEN 17480 AND 17490;
---SELECT *FROM tpex_bulletin_attention WHERE id = 17485;
---UPDATE tpex_bulletin_attention  SET law_src = '第六款' WHERE id = 17487;</sql><sql name="Execute">UPDATE tpex_bulletin_attention SET law_src = NULL;</sql><current_tab id="1"/></tab_sql></sqlb_project>
+SELECT * FROM tpex_bulletin_disposal WHERE id+0 = 206;
+SELECT * FROM tpex_bulletin_attention 
+	WHERE 證券代號 = (SELECT 證券代號 FROM tpex_bulletin_disposal WHERE id+0 = 206) 
+	ORDER BY 公告日期_ts DESC;
+	
+--UPDATE tpex_bulletin_disposal SET 證券代號 = '8299' WHERE 證券代號 = '82992';
+SELECT * FROM tpex_bulletin_disposal 
+	--WHERE 證券名稱 LIKE '群聯%'
+	--WHERE 處置原因 LIKE '轉%'
+	WHERE LENGTH(證券代號) &gt; 4
+	ORDER BY 公布日期;
+
+
+
+</sql><sql name="View*">SELECT R.id, R.type, R.punish_id, P.證券代號, N.證券名稱,  
+		date(P.公布日期_ts, 'unixepoch') AS 處置日期, P.處置原因
+	FROM relation_punish_notice R
+	LEFT JOIN twse_announcement_punish P ON (P.id = R.punish_id AND R.type = 'twse') 
+	LEFT JOIN twse_announcement_notice N ON (N.id = R.notice_id AND R.type = 'twse')
+	WHERE R.type = 'twse';
+	
+UNION
+	SELECT R.id, R.type, R.punish_id, P.證券代號, N.證券名稱, 
+		date(P.公布日期_ts, 'unixepoch') AS 處置日期, P.處置內容 AS 
+	LEFT JOIN tpex_bulletin_disposal P ON (P.id = R.punish_id AND R.type = 'tpex')
+	LEFT JOIN tpex_bulletin_attention N ON (N.id = R.notice_id AND R.type = 'tpex')
+	WHERE R.type = 'tpex';</sql><current_tab id="2"/></tab_sql></sqlb_project>

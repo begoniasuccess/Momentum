@@ -175,7 +175,7 @@ def writein_db(apiName, data) -> int:
     except:
         return False
     
-    values = []
+    insert_vals = []
     insert_cols = []
     match apiName:
         case "上市公布注意有價證券資訊":
@@ -197,7 +197,7 @@ def writein_db(apiName, data) -> int:
                     except (ValueError, TypeError):
                         pe_value = None
                         
-                    values.append((
+                    insert_vals.append((
                         r[1].strip(),
                         r[2].strip(),
                         int(r[3]),
@@ -232,7 +232,7 @@ def writein_db(apiName, data) -> int:
                         continue
                         
                     # 準備所有資料
-                    values.append((
+                    insert_vals.append((
                         r[1].strip(), # 公布日期
                         utils.roc_to_unix(r[1].strip()), # 公布日期_ts
                         r[2].strip(), # 證券代號
@@ -274,7 +274,7 @@ def writein_db(apiName, data) -> int:
                         pe_value = None
                     
                     # 準備所有資料
-                    values.append((
+                    insert_vals.append((
                         r[1].strip(), # 證券代號
                         r[2].strip(), # 證券名稱
                         int(r[3]), # 累計
@@ -317,7 +317,7 @@ def writein_db(apiName, data) -> int:
                         pe_value = None
                                                 
                     # 準備所有資料
-                    values.append((
+                    insert_vals.append((
                         r[1].strip(), # 公布日期
                         utils.roc_to_unix(r[1].strip()), # 公布日期_ts
                         r[2].strip(), # 證券代號
@@ -340,7 +340,7 @@ def writein_db(apiName, data) -> int:
     if len(insert_cols) == 0:
         return False
     
-    if len(values) == 0:
+    if len(insert_vals) == 0:
         return True
     
     sql = f"""
@@ -349,14 +349,18 @@ def writein_db(apiName, data) -> int:
     VALUES 
         ({", ".join(["?"] * len(insert_cols))})
     """
-    return db.execute_sql(sql, values)
+    return db.execute_sql(sql, insert_vals)
 
 
 # ======== 範例測試 ========
 if __name__ == "__main__":
-    sDt = datetime(2020, 1, 1)
-    eDt = datetime(2025, 10, 1)
-    testData = get_punish("twse", sDt, eDt)
-    print("Data Count：", testData.shape[0])
-    print(testData.head())
+    sDt = datetime(2019, 1, 1)
+    eDt = datetime.today()
+    
+    types = ["twse", "tpex"]
+    for type in types:           
+        testData = get_notice(type, sDt, eDt)
+        testData = get_punish(type, sDt, eDt)
+        print("Data Count：", testData.shape[0])
+    # print(testData.head())
     
