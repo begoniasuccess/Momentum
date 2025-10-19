@@ -358,6 +358,33 @@ def _overlap_period(sDt: datetime, eDt: datetime, minDt: datetime, maxDt: dateti
     else:
         return None
 
+def chinese_to_int(s: str) -> int:
+    num_map = {"零":0, "一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9}
+    unit_map = {"十":10, "百":100, "千":1000}
+    big_unit_map = {"萬":10000, "億":100000000}
+
+    def section_to_number(section: str) -> int:
+        total, num = 0, 0
+        for ch in section:
+            if ch in num_map:
+                num = num_map[ch]
+            elif ch in unit_map:
+                total += (num or 1) * unit_map[ch]
+                num = 0
+            elif ch == "零":
+                continue
+        return total + num
+
+    total, section = 0, ""
+    current_unit = 1
+    for ch in reversed(s):
+        if ch in big_unit_map:
+            total += section_to_number(section) * big_unit_map[ch]
+            section = ""
+        else:
+            section = ch + section
+    total += section_to_number(section)
+    return total
 
 
 

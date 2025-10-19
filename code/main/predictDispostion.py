@@ -6,6 +6,7 @@ import pandas as pd
 from common import utils, db
 from module import data_provider
 import re
+import copy
 
 ### 寫入 Relation
 def writein_relation():
@@ -136,6 +137,7 @@ def writein_relation():
     return 
 
 def ana_punish_content(type, row):
+    result = None
     match type.lower():
         case 'twse':
             text = row.處置內容
@@ -156,49 +158,153 @@ def ana_punish_content(type, row):
             measure_a = re.search(r'ａ(.*?)(?=ｂ|$)', measures, re.S)
             measure_b = re.search(r'ｂ(.*?)(?=ｃ|$)', measures, re.S)
             measure_c = re.search(r'ｃ(.*)', measures, re.S)
-            return {
+            
+            result = {
                 "處置原因": [reason, 'str'],    
                 "處置期間": [period, 'str'],
                 "處置措施_a": [measure_a.group(1).strip() if measure_a else None, 'str'],
                 "處置措施_b": [measure_b.group(1).strip() if measure_b else None, 'str'],
                 "處置措施_c": [measure_c.group(1).strip() if measure_c else None, 'str'],
             }
+            
         case 'tpex':
             text = row.處置內容
             
-            # 1️⃣ 提取代號，例如：(代號：3313)
-            match_id = re.search(r'代號：(\d+)', text)
-            stock_id = match_id.group(1) if match_id else None
+            # OK
+            def extract_recent_days(text: str):
+                """擷取『最近XX個營業日內曾發布處置』"""
+                m = re.search(r"最近(\d+)個營業日內曾發布處置", text)
+                if not m:
+                    return None
+                return {'發布處置_最近n日內': [int(m.group(1)), 'int']}
 
-            # 2️⃣ 因連續 N 個營業日
-            match_consecutive = re.search(r'因連續(\d+)個營業日', text)
-            consecutive_days = int(match_consecutive.group(1)) if match_consecutive else None
+            # OK
+            def extract_attention_trigger(text: str):
+                """
+                解析完整句型：
+                『連續X個營業日達本中心作業要點第Y條第Z項第K款經本中心公告注意交易資訊』
+                回傳 dict：
+                    {
+                    "連續觸發注意公告_天數": x,
+                    "連續觸發注意公告_條項款": "000y000z000k"
+                    }
+                若找不到完整句型則回傳 None
+                """
+                pattern = (
+                    r"連續(\d+)個營業日達本中心作業要點"
+                    r"第([一二三四五六七八九十]+)條"
+                    r"第([一二三四五六七八九十]+)項"
+                    r"第([一二三四五六七八九十]+)款"
+                    r"經本中心公告注意交易資訊"
+                )
 
-            # 3️⃣ 達本中心作業要點第四條第一項第 X 款公布注意交易資訊
-            match_law = re.search(r'達本中心作業要點(.*?)經本中心公布注意交易資訊', text)
-            law_article = match_law.group(1) if match_law else None
+                m = re.search(pattern, text)
+                if not m:
+                    return None  # 沒有完整結構就跳過
 
-            # 4️⃣ 約每 N 分鐘撮合一次
-            match_interval = re.search(r'約每(\d+)分鐘撮合一次', text)
-            interval_minutes = int(match_interval.group(1)) if match_interval else None
+                n_days = int(m.group(1))
+                t = utils.chinese_to_int(m.group(2))
+                i = utils.chinese_to_int(m.group(3))
+                k = utils.chinese_to_int(m.group(4))
+                clause_code = f"{t:04d}{i:04d}{k:04d}"
 
-            # 5️⃣ 最近 N 個營業日內曾發布處置
-            match_recent = re.search(r'最近(\d+)個營業日內曾發布處置', text)
-            recent_days = int(match_recent.group(1)) if match_recent else None
+                return {
+                    "注意公告_連續觸發_天數": [n_days, 'int'],
+                    "注意公告_連續觸發_條項款": [clause_code, 'str'],
+                }
 
-            # ✅ 結果示範
-            print("stock_id:", stock_id)
-            print("consecutive_days:", consecutive_days)
-            print("law_article:", law_article)
-            print("interval_minutes:", interval_minutes)
-            print("recent_days:", recent_days)
-            return {
-                "股票代號": [stock_id, 'str'],
-                "連續違規營業日數": [consecutive_days, 'int'],
-                "違規條款": [law_article, 'str'],
-                "撮合頻率_分": [interval_minutes, 'int'],
-                "最近n個營業日內發布處置": [recent_days, 'int']
-            }   
+            # OK
+            def extract_interval(text: str):
+                """擷取『約X分鐘撮合一次』"""
+                m = re.search(r"約(\d+)分鐘", text)
+                if not m:
+                    return None
+                return {
+                    "撮合頻率_n分一次": [int(m.group(1)), 'int']
+                }
+            
+            def parse_recent_days_notice(text: str):
+                """
+                解析「最近X個營業日內有Y個營業日經本中心公布注意交易資訊」
+                回傳 {
+                    "注意公告_近日多次_n個營業日": X,Y,
+                    "注意公告_近日多次_次數":                    
+                    }
+                """
+                pattern = r"最近(\d+)個營業日內有(\d+)個營業日經本中心公布注意交易資訊"
+                m = re.search(pattern, text)
+                if not m:
+                    return None
+                return {
+                    "注意公告_近日多次_n個營業日": [int(m.group(1)), 'int'],
+                    "注意公告_近日多次_次數": [int(m.group(2)), 'int']
+                }
+                
+            def parse_consecutive_days_notice(text: str):
+                """
+                解析「連續X個營業日經本中心公布注意交易資訊」
+                回傳 {'注意公告_連續觸發_天數': X}
+                """
+                pattern = r"連續(\d+)個營業日經本中心公布注意交易資訊"
+                m = re.search(pattern, text)
+                if not m:
+                    return None
+                return {"注意公告_連續觸發_天數": [int(m.group(1)), 'int']}
+            
+            def parse_recent_rule_trigger(text: str):
+                """
+                解析：
+                「最近X個營業日曾達本中心作業要點第<中文數字>條第<中文數字>項第<中文數字>款經本中心公布注意交易資訊」
+
+                回傳：
+                {
+                "注意公告_近日曾達_n個營業日": X,
+                "注意公告_近日曾達_條項款": "<條(4位)><項(4位)><款(4位)>"
+                }
+                若找不到完整句型回傳 None。
+                """
+                pattern = (
+                    r"最近(\d+)個營業日曾達本中心作業要點"
+                    r"第([一二三四五六七八九十百千零]+)條"
+                    r"第([一二三四五六七八九十百千零]+)項"
+                    r"第([一二三四五六七八九十百千零]+)款"
+                    r"經本中心公[布告]注意交易資訊"
+                )
+
+                m = re.search(pattern, text)
+                if not m:
+                    return None
+
+                obs_days = int(m.group(1))
+
+                ch_t = m.group(2)
+                ch_i = m.group(3)
+                ch_k = m.group(4)
+
+                t = utils.chinese_to_int(ch_t)
+                i = utils.chinese_to_int(ch_i)
+                k = utils.chinese_to_int(ch_k)
+
+                if t is None or i is None or k is None:
+                    return None
+
+                clause_code = f"{t:04d}{i:04d}{k:04d}"
+
+                return {
+                    "注意公告_近日曾達_n個營業日": [obs_days, 'int'],
+                    "注意公告_近日曾達_條項款": [clause_code, 'str']
+                }
+            
+            fun_list = [extract_recent_days, extract_attention_trigger, extract_interval, parse_recent_days_notice, parse_consecutive_days_notice, parse_recent_rule_trigger]
+            
+            result = {}
+            for fun in fun_list:
+                feature = fun(text)
+                if feature is None:
+                    continue
+                result.update(feature)
+    
+    return result
 
 ### 對處置股的資料進行各種處理
 def handle_punish():    
@@ -214,6 +320,9 @@ def handle_punish():
         
         sql = f"SELECT COUNT(*) AS cnt FROM {table}"
         sql += f" WHERE law_src IS NULL or TRIM(law_src) = ''"
+        if type == 'tpex':
+            # 可轉債股票不是特定關係戶買不到，這邊略過
+            sql += " ADN 處置內容 NOT LIKE '公司債(%''"       
         
         totalCnt = db.query_single_value(sql)
         print("totalCnt=", int(totalCnt))
@@ -224,6 +333,9 @@ def handle_punish():
             
         sql = f"SELECT * FROM {table}"
         sql += f" WHERE law_src IS NULL or TRIM(law_src) = ''"
+        if type == 'tpex':
+            # 可轉債股票不是特定關係戶買不到，這邊略過
+            sql += " ADN 處置內容 NOT LIKE '%公司債%''"       
         sql += f" ORDER BY {time_col}_ts DESC"
         df_target = db.query_to_df(sql)
         # print("sql=", sql)
@@ -243,53 +355,24 @@ def handle_punish():
             if (idx % reportCnt == 1):
                 print(f"***開始處理第{idx}筆資料...")
 
-            ### 寫入 [連續違規次數]
-            violation_times = 0 
-            # TODO：count violation_times            
-            ele_violate_cnt = AddInfo()
-            ele_violate_cnt.tag = tag
-            ele_violate_cnt.target_table = table
-            ele_violate_cnt.target_id = row.id
-            ele_violate_cnt.col_name = "連續違規次數"
-            ele_violate_cnt.col_val = violation_times
-            ele_violate_cnt.val_type = "int"
-            add_vals.append(ele_violate_cnt)
+            ele_base = AddInfo()
+            ele_base.tag = tag
+            ele_base.target_table = table
+            ele_base.target_id = row.id
             
-            ### 寫入 [處置起訖時間]
-            punish_start_at = None
-            punish_end_at = None
-            # TODO:: handle punish_start_at、punish_end_at
-            ele_punish_start = AddInfo()
-            ele_punish_start.tag = tag
-            ele_punish_start.target_table = table
-            ele_punish_start.target_id = row.id
-            ele_punish_start.col_name = "處置起始日"
-            ele_punish_start.col_val = punish_start_at
-            ele_punish_start.val_type = "ts"
-            add_vals.append(ele_punish_start)
-            
-            ele_punish_end = AddInfo()
-            ele_punish_end.tag = tag
-            ele_punish_end.target_table = table
-            ele_punish_end.target_id = row.id
-            ele_punish_end.col_name = "處置終止日"
-            ele_punish_end.col_val = punish_end_at
-            ele_punish_end.val_type = "ts"
-            add_vals.append(ele_punish_end)
-            
-            ### 處理twse的處置內容
+            ### 處理處置內容
             punish_content_obj = ana_punish_content(type, row)
+            print("punish_content_obj", punish_content_obj)
             for col_name, col_val in punish_content_obj:
-                ele = AddInfo()
-                ele.tag = tag
-                ele.target_table = table
-                ele.target_id = row.id
+                ele = copy.deepcopy(ele_base)
                 ele.col_name = col_name
                 ele.col_val = col_val[0]
                 ele.val_type = col_val[1]
                 add_vals.append(ele)
                     
+            print(punish_content_obj, add_vals)
             sys.exit() # test
+            
             insert_cnt = insert_addition_info(add_vals)
             total_insert += insert_cnt
             
@@ -382,9 +465,13 @@ def handle_notice():
             continue
         
         total_update = 0
-            
+        
+        
         sql = f"SELECT * FROM {table}"
         sql += f" WHERE law_src IS NULL or TRIM(law_src) = ''"
+        if type == 'tpex':
+            # 可轉債股票不是特定關係戶買不到，這邊略過
+            sql += " ADN 處置內容 NOT LIKE '%公司債%''"        
         sql += f" ORDER BY {time_col}_ts DESC"
         df_target = db.query_to_df(sql)
         # print("sql=", sql)
@@ -438,5 +525,5 @@ def handle_notice():
     return
 
 if __name__ == "__main__": 
-    writein_relation()
+    handle_punish()
     # handle_notice()
