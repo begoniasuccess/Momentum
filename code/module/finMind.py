@@ -4,6 +4,7 @@ from datetime import datetime
 import pandas as pd
 from FinMind.data import DataLoader
 from common import utils
+import requests
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -196,4 +197,39 @@ def getWeightIdxDailyPriceAdj(sDt: datetime, eDt: datetime) -> bool:
     stockList = ['TAIEX']
     return runTwStockDailyPriceAdj(stockList, sDt, eDt)
 
+# 取得台股的所有交易日期
+def getTwStockTradingDates() -> pd.DataFrame:
+    fileDir = "../data/FinMind/TW/StockInfo/twStockTradingDate.csv"
+    url = "https://api.finmindtrade.com/api/v4/data"
+    parameter = {"dataset": "TaiwanStockTradingDate"}
 
+    # ===== 檔案存在，先讀舊資料 =====
+    if os.path.exists(fileDir):
+        df_local = pd.read_csv(fileDir)
+        try:
+            last_local_date = pd.to_datetime(df_local["date"].max()).date()
+        except Exception:
+            last_local_date = None
+    else:
+        df_local = None
+        last_local_date = None
+
+    # ===== 檢查是否需要更新 =====
+    resp = requests.get(url, params=parameter)
+    data = pd.DataFrame(resp.json()["data"])
+    last_online_date = pd.to_datetime(data["date"].max()).date()
+
+    need_update = (
+        last_local_date is None or
+        last_local_date < last_online_date
+    )
+
+    if need_update:
+        # 更新資料並覆蓋
+        os.makedirs(os.path.dirname(fileDir), exist_ok=True)
+        data.to_csv(fileDir, index=False, encoding="utf-8-sig")
+        print(f"✅ 已更新交易日曆至 {last_online_date}")
+        return data
+    else:
+        print(f"📁 使用本地快取：已是最新至 {last_local_date}")
+        return df_local

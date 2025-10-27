@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="data_center.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser query pragmas" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2583"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="twse_announcement_punish" custom_title="0" dock_id="6" table="4,24:maintwse_announcement_punish"/><dock_state state="000000ff00000000fd000000010000000200000329000001b2fc0100000005fb000000160064006f0063006b00420072006f007700730065003101000000000000024d0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000000002b30000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000000002d10000000000000000fb000000160064006f0063006b00420072006f00770073006500350100000000000002d10000000000000000fb000000160064006f0063006b00420072006f00770073006500360100000000000003290000013400ffffff000003290000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="addition_info" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="20"/><column index="2" value="23"/><column index="3" value="64"/><column index="4" value="51"/><column index="5" value="54"/><column index="6" value="43"/><column index="7" value="49"/><column index="8" value="38"/><column index="9" value="57"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="relation_punish_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="39"/><column index="3" value="55"/><column index="4" value="52"/><column index="5" value="156"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_attention" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="57"/><column index="3" value="117"/><column index="4" value="33"/><column index="5" value="300"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="62"/><column index="9" value="300"/><column index="10" value="156"/><column index="11" value="85"/><column index="12" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_disposal" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="114"/><column index="5" value="33"/><column index="6" value="156"/><column index="7" value="145"/><column index="8" value="134"/><column index="9" value="54"/><column index="10" value="54"/><column index="11" value="124"/><column index="12" value="156"/><column index="13" value="85"/><column index="14" value="45"/><column index="15" value="60"/><column index="16" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="5" mode="1"/></sort><column_widths><column index="1" value="46"/><column index="2" value="57"/><column index="3" value="124"/><column index="4" value="57"/><column index="5" value="300"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="156"/><column index="10" value="85"/><column index="11" value="247"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_punish" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="6" mode="1"/></sort><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="33"/><column index="6" value="176"/><column index="7" value="161"/><column index="8" value="85"/><column index="9" value="300"/><column index="10" value="265"/><column index="11" value="156"/><column index="12" value="85"/><column index="13" value="45"/><column index="14" value="60"/><column index="15" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_attention_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="85"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="247"/><column index="6" value="33"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_data_source" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="202"/><column index="2" value="241"/><column index="3" value="64"/><column index="4" value="300"/><column index="5" value="300"/><column index="6" value="82"/><column index="7" value="38"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="System">PRAGMA integrity_check;
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="data_center.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser query pragmas" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2795"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="tpex_bulletin_attention" custom_title="0" dock_id="6" table="4,23:maintpex_bulletin_attention"/><dock_state state="000000ff00000000fd00000001000000020000033c0000022afc0100000005fb000000160064006f0063006b00420072006f007700730065003101000000000000024d0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000000002b30000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000000002d10000000000000000fb000000160064006f0063006b00420072006f00770073006500350100000000000002d10000000000000000fb000000160064006f0063006b00420072006f007700730065003601000000000000033c0000013a00ffffff0000033c0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="addition_info" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="0" mode="1"/></sort><column_widths><column index="1" value="64"/><column index="2" value="179"/><column index="3" value="209"/><column index="4" value="72"/><column index="5" value="118"/><column index="6" value="120"/><column index="7" value="49"/><column index="8" value="91"/><column index="9" value="156"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="data_source" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="1" mode="0"/></sort><column_widths><column index="1" value="23"/><column index="2" value="202"/><column index="3" value="39"/><column index="4" value="241"/><column index="5" value="187"/><column index="6" value="300"/><column index="7" value="288"/><column index="8" value="64"/><column index="9" value="300"/><column index="10" value="82"/><column index="11" value="38"/><column index="12" value="156"/><column index="13" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="relation_punish_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="4" mode="0"/></sort><column_widths><column index="1" value="39"/><column index="2" value="76"/><column index="3" value="82"/><column index="4" value="107"/><column index="5" value="231"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_afterTrading_tradingIndex" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="20"/><column index="2" value="57"/><column index="3" value="33"/><column index="4" value="47"/><column index="5" value="57"/><column index="6" value="63"/><column index="7" value="33"/><column index="8" value="57"/><column index="9" value="39"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_attention" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="57"/><column index="3" value="117"/><column index="4" value="33"/><column index="5" value="3754"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="62"/><column index="9" value="300"/><column index="10" value="156"/><column index="11" value="85"/><column index="12" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_bulletin_disposal" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="300"/><column index="5" value="33"/><column index="6" value="156"/><column index="7" value="473"/><column index="8" value="725"/><column index="9" value="54"/><column index="10" value="54"/><column index="11" value="300"/><column index="12" value="156"/><column index="13" value="85"/><column index="14" value="45"/><column index="15" value="60"/><column index="16" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tpex_insti_summary" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="20"/><column index="2" value="57"/><column index="3" value="28"/><column index="4" value="42"/><column index="5" value="57"/><column index="6" value="76"/><column index="7" value="76"/><column index="8" value="63"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="10" mode="1"/></sort><column_widths><column index="1" value="46"/><column index="2" value="57"/><column index="3" value="124"/><column index="4" value="57"/><column index="5" value="501"/><column index="6" value="78"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="156"/><column index="10" value="85"/><column index="11" value="247"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="twse_announcement_punish" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="13" mode="1"/></sort><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="33"/><column index="6" value="230"/><column index="7" value="161"/><column index="8" value="85"/><column index="9" value="405"/><column index="10" value="265"/><column index="11" value="156"/><column index="12" value="85"/><column index="13" value="45"/><column index="14" value="60"/><column index="15" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_data_source" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="202"/><column index="2" value="241"/><column index="3" value="64"/><column index="4" value="300"/><column index="5" value="300"/><column index="6" value="82"/><column index="7" value="38"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_stock_notice" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="85"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="247"/><column index="6" value="33"/><column index="7" value="54"/><column index="8" value="54"/><column index="9" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="v_stock_punish" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="78"/><column index="3" value="57"/><column index="4" value="124"/><column index="5" value="33"/><column index="6" value="176"/><column index="7" value="161"/><column index="8" value="85"/><column index="9" value="300"/><column index="10" value="300"/><column index="11" value="156"/><column index="12" value="85"/><column index="13" value="45"/><column index="14" value="60"/><column index="15" value="58"/><column index="16" value="52"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="System">PRAGMA integrity_check;
 </sql><sql name="History">DROP VIEW IF EXISTS &quot;main&quot;.&quot;v_attention_notice&quot;;
 CREATE VIEW v_attention_notice AS
 SELECT
@@ -123,17 +123,113 @@ SELECT * FROM tpex_bulletin_disposal
 	ORDER BY 公布日期;
 
 
+-- 4️⃣ 刪掉舊表
+DROP TABLE addition_info;
 
-</sql><sql name="View">SELECT R.id, R.type, R.punish_id, P.證券代號, N.證券名稱,  
-		date(P.公布日期_ts, 'unixepoch') AS 處置日期, P.處置原因
-	FROM relation_punish_notice R
+-- 2️⃣ 建立新表（加上 UNIQUE 條件）
+CREATE TABLE addition_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tag TEXT,
+    target_table TEXT,
+    target_id INTEGER,
+    col_name TEXT,
+    col_val TEXT,
+    val_type TEXT,
+	memo	TEXT,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(tag, target_table, target_id, col_name, col_val, val_type)
+);
+
+
+
+</sql><sql name="View">SELECT 
+	R.id, R.type, R.notice_id, R.punish_id, P.證券代號, N.證券名稱, strftime('%Y/%m/%d', N.日期_ts, 'unixepoch') AS 注意日期,
+	date(P.公布日期_ts, 'unixepoch') AS 處置日期,-- A.col_val AS 處置原因,
+	 N.law_src AS 注意公告法源, N.注意交易資訊 AS 注意公告資訊,
+	'' AS 注意公告_近日多次_n個營業日, '' AS 注意公告_近日多次_次數,
+	'' AS 注意公告_近日曾達_n個營業日, '' AS 注意公告_近日曾達_條項款,
+	'' AS 注意公告_連續觸發_天數, '' AS 注意公告_連續觸發_條項款,
+	'' AS 發布處置_最近n日內, '' AS 撮合頻率_n分一次
+FROM relation_punish_notice R
 	LEFT JOIN twse_announcement_punish P ON (P.id = R.punish_id AND R.type = 'twse') 
 	LEFT JOIN twse_announcement_notice N ON (N.id = R.notice_id AND R.type = 'twse')
-	WHERE R.type = 'twse';
-	
-UNION
-	SELECT R.id, R.type, R.punish_id, P.證券代號, N.證券名稱, 
-		date(P.公布日期_ts, 'unixepoch') AS 處置日期, P.處置內容 AS 
+	LEFT JOIN addition_info A ON A.target_table = 'twse_announcement_punish' AND A.target_id = P.id AND col_name = '處置原因'
+	WHERE R.type = 'twse'
+UNION ALL
+SELECT 
+	R.id, R.type, R.notice_id, R.punish_id, P.證券代號, N.證券名稱, strftime('%Y/%m/%d', N.公告日期_ts, 'unixepoch') AS 注意日期,
+	date(P.公布日期_ts, 'unixepoch') AS 處置日期,-- P.處置內容 AS 處置原因, 
+	N.law_src AS 注意公告法源, N.注意交易資訊 AS 注意公告資訊,
+	A.col_val AS 注意公告_近日多次_n個營業日, A2.col_val AS 注意公告_近日多次_次數,
+	A3.col_val AS 注意公告_近日曾達_n個營業日, A4.col_val AS 注意公告_近日曾達_條項款,
+	A5.col_val AS 注意公告_連續觸發_天數, A6.col_val AS 注意公告_連續觸發_條項款,
+	A7.col_val AS 發布處置_最近n日內, A8.col_val AS 撮合頻率_n分一次
+FROM relation_punish_notice R
 	LEFT JOIN tpex_bulletin_disposal P ON (P.id = R.punish_id AND R.type = 'tpex')
 	LEFT JOIN tpex_bulletin_attention N ON (N.id = R.notice_id AND R.type = 'tpex')
-	WHERE R.type = 'tpex';</sql><current_tab id="2"/></tab_sql></sqlb_project>
+	LEFT JOIN addition_info A ON A.target_table = 'tpex_bulletin_disposal' 
+		AND A.target_id = P.id AND A.col_name = '注意公告_近日多次_n個營業日'
+	LEFT JOIN addition_info A2 ON A2.target_table = 'tpex_bulletin_disposal' 
+		AND A2.target_id = P.id AND A2.col_name = '注意公告_近日多次_次數'
+	LEFT JOIN addition_info A3 ON A3.target_table = 'tpex_bulletin_disposal' 
+		AND A3.target_id = P.id AND A3.col_name = '注意公告_近日曾達_n個營業日'
+	LEFT JOIN addition_info A4 ON A4.target_table = 'tpex_bulletin_disposal' 
+		AND A4.target_id = P.id AND A4.col_name = '注意公告_近日曾達_條項款'
+	LEFT JOIN addition_info A5 ON A5.target_table = 'tpex_bulletin_disposal' 
+		AND A5.target_id = P.id AND A5.col_name = '注意公告_連續觸發_天數'
+	LEFT JOIN addition_info A6 ON A6.target_table = 'tpex_bulletin_disposal' 
+		AND A6.target_id = P.id AND A6.col_name = '注意公告_連續觸發_條項款'
+	LEFT JOIN addition_info A7 ON A7.target_table = 'tpex_bulletin_disposal' 
+		AND A7.target_id = P.id AND A7.col_name = '發布處置_最近n日內'
+	LEFT JOIN addition_info A8 ON A8.target_table = 'tpex_bulletin_disposal' 
+		AND A8.target_id = P.id AND A8.col_name = '撮合頻率_n分一次'
+	WHERE R.type = 'tpex' AND P.處置內容 NOT LIKE '%公司債%'
+	ORDER BY 8, 5, 7 DESC;
+
+SELECT COUNT(*) FROM relation_punish_notice WHERE </sql><sql name="Execute">CREATE VIEW v_stock_punish AS
+SELECT 
+    'twse' AS type,
+    公布日期,
+    證券代號,
+    證券名稱,
+    累計,
+    處置條件,
+    處置起迄時間 AS 處置起訖時間,
+    處置措施,
+    處置內容,
+    備註,
+    created_at,
+    公布日期_ts,
+    law_src,
+    last_notice,
+    notice_cnt,
+    notice_dt
+FROM twse_announcement_punish
+
+UNION ALL
+
+SELECT 
+    'tpex' AS type,
+    公布日期,
+    證券代號,
+    證券名稱,
+    累計,
+    處置原因 AS 處置條件,
+    處置起訖時間,
+    NULL AS 處置措施,
+    處置內容,
+    memo AS 備註,
+    created_at,
+    公布日期_ts,
+    law_src,
+    last_notice,
+    notice_cnt,
+    notice_dt
+FROM tpex_bulletin_disposal;
+</sql><sql name="tmp">
+SELECT P.notice_dt, (N.證券名稱 || '-' || N.公告日期) AS notice_info, P.* FROM tpex_bulletin_disposal P
+	LEFT JOIN tpex_bulletin_attention N ON P.last_notice = N.id
+	WHERE last_notice IS NOT NULL AND last_notice &lt;&gt; ''
+	ORDER BY 公布日期 DESC;
+
+</sql><current_tab id="4"/></tab_sql></sqlb_project>

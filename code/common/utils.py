@@ -358,7 +358,23 @@ def _overlap_period(sDt: datetime, eDt: datetime, minDt: datetime, maxDt: dateti
     else:
         return None
 
-def chinese_to_int(s: str) -> int:
+def chinese_to_int(s) -> int:
+    # 如果是 int，直接返回
+    if isinstance(s, int):
+        return s
+
+    # 如果是字串，先轉半形
+    if isinstance(s, str):
+        # 全形轉半形
+        s = s.translate(str.maketrans(
+            "０１２３４５６７８９",
+            "0123456789"
+        ))
+        # 半形阿拉伯數字，直接轉 int
+        if s.isdigit():
+            return int(s)
+
+    # 原本的中文數字處理
     num_map = {"零":0, "一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9}
     unit_map = {"十":10, "百":100, "千":1000}
     big_unit_map = {"萬":10000, "億":100000000}
@@ -376,7 +392,6 @@ def chinese_to_int(s: str) -> int:
         return total + num
 
     total, section = 0, ""
-    current_unit = 1
     for ch in reversed(s):
         if ch in big_unit_map:
             total += section_to_number(section) * big_unit_map[ch]

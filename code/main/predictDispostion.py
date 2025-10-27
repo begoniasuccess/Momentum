@@ -4,12 +4,399 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 import pandas as pd
 from common import utils, db
-from module import data_provider
+from module import finMind
 import re
 import copy
+from datetime import datetime
+import pytz
+
+TZ = pytz.timezone("Asia/Taipei")
+
+def to_day_ts(ts_series: pd.Series) -> pd.Series:
+    """將 timestamp（秒）轉成台北時區「當日 00:00」的 epoch 秒"""
+    dt = pd.to_datetime(ts_series, unit="s", utc=True, errors="coerce").dt.tz_convert(TZ)
+    day0 = dt.dt.normalize()  # 歸零到當天 00:00
+    return (day0.view("int64") // 10**9).astype("Int64")
+
+def build_trading_index() -> dict[int, int]:
+    """建立交易日曆索引：day_ts → 交易日序號"""
+    df_calendar = finMind.getTwStockTradingDates()
+    df_calendar["date"] = pd.to_datetime(df_calendar["date"]).dt.tz_localize(TZ).dt.normalize()
+    df_calendar["day_ts"] = (df_calendar["date"].view("int64") // 10**9).astype("int64")
+    uniq = pd.Index(df_calendar["day_ts"].unique()).sort_values()
+    return {int(ts): i for i, ts in enumerate(uniq)}
+
+
+def update_punish_notice_dt():
+    """
+    自動計算 twse/tpex 處置股距離最後注意公告的交易日差 (T–N)
+    並更新至 notice_dt 欄位
+    """
+
+    punish_apiNames = ["上市公布處置有價證券", "上櫃處置有價證券資訊"]
+
+    # 取得交易日曆索引（timestamp 版）
+    trading_idx = build_trading_index()
+
+    for punish_apiName in punish_apiNames:
+        punish_apiInfo = utils.get_api_info(punish_apiName)
+        punish_table = punish_apiInfo["storage_table"].iloc[0]
+        punish_time_col = punish_apiInfo["time_col"].iloc[0]
+        type = punish_apiInfo["type"].iloc[0].lower()
+
+        print(f"\n🔹 處理資料表：{punish_table}")
+
+        # 搜尋 notice 對應表
+        if type == "twse":
+            notice_apiName = "上市公布注意有價證券資訊"
+        else:
+            notice_apiName = "上櫃公布注意有價證券資訊"
+
+        notice_apiInfo = utils.get_api_info(notice_apiName)
+        notice_table = notice_apiInfo["storage_table"].iloc[0]
+        notice_time_col = notice_apiInfo["time_col"].iloc[0]
+
+        punish_ts_col = punish_time_col + "_ts"
+        notice_ts_col = notice_time_col + "_ts"
+
+        # === 讀取處置與注意資料 ===
+        df_punish = db.query_to_df(
+            f"SELECT id, 證券代號, last_notice, {punish_ts_col} AS punish_ts FROM {punish_table}"
+        )
+        df_notice = db.query_to_df(
+            f"SELECT id, {notice_ts_col} AS notice_ts FROM {notice_table}"
+        )
+
+        # 建立 notice_id → notice_ts 對照表
+        notice_map = dict(zip(df_notice["id"], df_notice["notice_ts"]))
+        df_punish["notice_ts"] = df_punish["last_notice"].map(notice_map)
+
+        # 正規化到「當日 00:00」
+        df_punish["punish_day_ts"] = to_day_ts(df_punish["punish_ts"])
+        df_punish["notice_day_ts"] = to_day_ts(df_punish["notice_ts"])
+
+        # === 計算交易日差 ===
+        def calc_t_minus(row):
+            try:
+                p = int(row["punish_day_ts"])
+                n = int(row["notice_day_ts"])
+                ip = trading_idx.get(p)
+                in_ = trading_idx.get(n)
+                if ip is None or in_ is None:
+                    return None
+                diff = ip - in_
+                return f"T-{diff}" if diff >= 0 else None
+            except Exception:
+                return None
+
+        df_punish["notice_dt"] = df_punish.apply(calc_t_minus, axis=1)
+
+        # === 批次更新資料庫 ===
+        updates = [
+            (r["notice_dt"], int(r["id"]))
+            for _, r in df_punish.iterrows()
+            if pd.notna(r["notice_dt"])
+        ]
+        if updates:
+            sql = f"UPDATE {punish_table} SET notice_dt = ? WHERE id = ?"
+            affected = db.execute_sql(sql, updates)
+            print(f"✅ 已更新 {affected} 筆 notice_dt")
+        else:
+            print("⚠️ 無可更新資料")
+
+    print("\n🎯 全部處置表更新完成！")
+    
+def divideAttentionLawSrc():
+    apiNames = ["上市公布注意有價證券資訊", "上櫃公布注意有價證券資訊"]
+    
+    for apiName in apiNames:
+        apiInfo = utils.get_api_info(apiName)
+        table = apiInfo["storage_table"].iloc[0]
+        type = apiInfo["type"].iloc[0].lower()
+        time_col = apiInfo["time_col"].iloc[0]
+        
+        sql = f"SELECT * FROM {table}"
+        sql += f" WHERE law_src IS NOT NULL AND law_src <> ''"
+        sql += f" AND id NOT IN (SELECT DISTINCT(target_id) FROM addition_info WHERE target_table = '{table}')"
+        sql += f" ORDER BY id"
+        df = db.query_to_df(sql)
+        if df.empty:
+            continue
+        
+        ele_base = AddInfo()
+        ele_base.tag = "stock_notice_law_src"
+        ele_base.target_table = table       
+        ele_base.col_name = "law_src" 
+        ele_base.val_type = "str"
+        
+        total_insert = 0
+        reportCnt = 100        
+        for idx, row in enumerate(df.itertuples(index=True, name="notice"), 1):
+            if idx % reportCnt == 1:
+                print(f"***開始處理第 {idx} 筆資料...")
+                
+            # 分析law_src
+            law_srcs = row.law_src.split(",")
+            # print(law_srcs) 
+            
+            add_vals = []
+            sort = 0
+            for law_src in law_srcs:
+                sort = sort + 1
+                ele = copy.deepcopy(ele_base)
+                ele.target_id = row.id
+                ele.col_val = law_src
+                ele.memo = sort
+                add_vals.append(ele)
+            
+            insert_cnt = insert_addition_info(add_vals)
+            total_insert += insert_cnt
+            # sys.exit()
+            
+        print("total_insert", total_insert)
+    return
 
 ### 寫入 Relation
 def writein_relation():
+    """
+    將處置公告(punish)和注意公告(notice)建立關聯
+    修正版：
+    - 不限制距離天數，保留所有可能對應 notice
+    - 不刪除舊資料，允許多批 notice 對應同一 punish
+    - 支援 TWSE / TPEX
+    """
+    table = "relation_punish_notice"
+    insert_cols = ["type", "punish_id", "notice_id"]
+
+    apiNames = ["上市公布處置有價證券", "上櫃處置有價證券資訊"]
+
+    for apiName in apiNames:
+        print("**開始處理：", apiName)
+
+        punish_apiInfo = utils.get_api_info(apiName)
+        punish_table = punish_apiInfo["storage_table"].iloc[0]
+        type = punish_apiInfo["type"].iloc[0].lower()
+        punish_time_col = punish_apiInfo["time_col"].iloc[0]
+
+        # 查找尚未關聯的處置公告
+        sql = f"""
+        SELECT *
+        FROM {punish_table}
+        WHERE last_notice IS NULL OR notice_cnt IS NULL
+        ORDER BY {punish_time_col}_ts DESC
+        """
+        df_punishes = db.query_to_df(sql)
+        if df_punishes.empty:
+            continue
+
+        total_insert = 0
+        total_update = 0
+        reportCnt = 100
+
+        for idx, row_punish in enumerate(df_punishes.itertuples(index=True, name="punish"), 1):
+            if idx % reportCnt == 1:
+                print(f"***開始處理第 {idx} 筆資料...")
+
+            # 依交易所選擇對應 notice API
+            match type:
+                case "twse":
+                    notice_apiName = "上市公布注意有價證券資訊"
+                case "tpex":
+                    notice_apiName = "上櫃公布注意有價證券資訊"
+                case _:
+                    print(f"***未知交易所類型：{type}")
+                    continue
+
+            notice_apiInfo = utils.get_api_info(notice_apiName)
+            notice_table = notice_apiInfo["storage_table"].iloc[0]
+            notice_time_col = notice_apiInfo["time_col"].iloc[0]
+
+            punish_date_ts = getattr(row_punish, punish_time_col + "_ts")
+
+            # 🔹 撈取所有該證券的 notice，無時間限制
+            sql = f"""
+            SELECT *
+            FROM {notice_table}
+            WHERE 證券代號 = (
+                SELECT 證券代號
+                FROM {punish_table}
+                WHERE id+0 = {row_punish.id}
+            )
+            ORDER BY {notice_time_col}_ts DESC
+            """
+            df_notices = db.query_to_df(sql)
+
+            if df_notices.empty:
+                print("*** 找不到注意股資料", sql)
+                continue
+
+            insert_vals = []
+
+            for row_notice in df_notices.itertuples(index=True, name="notice"):
+                notice_date_ts = getattr(row_notice, notice_time_col + "_ts")
+
+                # 如果需要，可以加額外過濾條件，例如：
+                # notice_date_ts <= punish_date_ts
+                # 現在保留所有 notice
+                insert_vals.append([type, row_punish.id, row_notice.id])
+
+            if len(insert_vals) == 0:
+                continue
+
+            # 🔹 批次寫入 relation table
+            sql_insert = f"""
+            INSERT OR REPLACE INTO {table}
+                ({",".join(insert_cols)})
+            VALUES ({", ".join(["?"] * len(insert_cols))})
+            """
+            insert_cnt = db.execute_sql(sql_insert, insert_vals)
+            total_insert += insert_cnt
+
+            # 🔹 更新 punish table，last_notice 使用最接近處置公告的 notice
+            sorted_insert = sorted(insert_vals, key=lambda x: getattr(df_notices[df_notices.id == x[2]].iloc[0], notice_time_col + "_ts"), reverse=True)
+            fst_notice_id = sorted_insert[0][2]
+
+            sql_update = f"""
+            UPDATE {punish_table}
+            SET last_notice = {fst_notice_id},
+                notice_cnt = {len(insert_vals)}
+            WHERE id+0 = {row_punish.id}
+            """
+            update_cnt = db.execute_sql(sql_update)
+            total_update += update_cnt
+
+        print(f"total_update={total_update}, total_insert={total_insert}")
+
+    print("✅ 全部處理完成")
+    return
+
+def writein_relation2():
+    table = "relation_punish_notice"
+    insert_cols = ["type", "punish_id", "notice_id"]
+
+    apiNames = ["上市公布處置有價證券", "上櫃處置有價證券資訊"]
+
+    for apiName in apiNames:
+        print("**開始處理：", apiName)
+
+        punish_apiInfo = utils.get_api_info(apiName)
+        punish_table = punish_apiInfo["storage_table"].iloc[0]
+        type = punish_apiInfo["type"].iloc[0].lower()
+        punish_time_col = punish_apiInfo["time_col"].iloc[0]
+
+        # 找出尚未關聯注意股的處置公告
+        sql = f"""
+        SELECT COUNT(*) AS cnt
+        FROM {punish_table}
+        WHERE last_notice IS NULL OR notice_cnt IS NULL
+        """
+        totalCnt = db.query_single_value(sql)
+        print("totalCnt =", int(totalCnt))
+
+        if totalCnt < 1:
+            continue
+
+        sql = f"""
+        SELECT *
+        FROM {punish_table}
+        WHERE last_notice IS NULL OR notice_cnt IS NULL
+        ORDER BY {punish_time_col}_ts DESC
+        """
+        df_punishes = db.query_to_df(sql)
+        if df_punishes.empty:
+            continue
+
+        total_insert = 0
+        total_update = 0
+        reportCnt = 100
+
+        for idx, row_punish in enumerate(df_punishes.itertuples(index=True, name="punish"), 1):
+            if idx % reportCnt == 1:
+                print(f"***開始處理第 {idx} 筆資料...")
+
+            # 依交易所切換對應注意 API
+            match type:
+                case "twse":
+                    notice_apiName = "上市公布注意有價證券資訊"
+                case "tpex":
+                    notice_apiName = "上櫃公布注意有價證券資訊"
+                case _:
+                    print(f"***未知交易所類型：{type}")
+                    continue
+
+            notice_apiInfo = utils.get_api_info(notice_apiName)
+            notice_table = notice_apiInfo["storage_table"].iloc[0]
+            notice_time_col = notice_apiInfo["time_col"].iloc[0]
+
+            punish_date_ts = getattr(row_punish, punish_time_col + "_ts")
+
+            # 🔹 限制在處置公告前 14 天內的注意資料
+            sql = f"""
+            SELECT *
+            FROM {notice_table}
+            WHERE 證券代號 = (
+                SELECT 證券代號
+                FROM {punish_table}
+                WHERE id+0 = {row_punish.id}
+            )
+              AND {notice_time_col}_ts BETWEEN ({punish_date_ts} - 86400*14) AND {punish_date_ts}
+            ORDER BY {notice_time_col}_ts DESC
+            """
+            df_notices = db.query_to_df(sql)
+
+            if df_notices.empty:
+                print("*** 找不到注意股資料", sql)
+                continue
+
+            insert_vals = []
+            previous_notice_date_ts = None
+
+            for row_notice in df_notices.itertuples(index=True, name="notice"):
+                notice_date_ts = getattr(row_notice, notice_time_col + "_ts")
+
+                # 距離處置超過 7 天就跳過（但不中斷）
+                if (punish_date_ts - notice_date_ts) > 86400 * 7:
+                    continue
+
+                # 若與上一筆注意公告間隔太久，也跳過
+                if previous_notice_date_ts and (previous_notice_date_ts - notice_date_ts) > 86400 * 5:
+                    continue
+
+                insert_vals.append([type, row_punish.id, row_notice.id])
+                previous_notice_date_ts = notice_date_ts
+
+            if len(insert_vals) == 0:
+                continue
+
+            # 🔹 清空舊關聯再重建，避免舊資料殘留
+            db.execute_sql(f"DELETE FROM {table} WHERE punish_id = {row_punish.id}")
+
+            # 🔹 寫入關聯表
+            sql_insert = f"""
+            INSERT OR REPLACE INTO {table}
+                ({",".join(insert_cols)})
+            VALUES ({", ".join(["?"] * len(insert_cols))})
+            """
+            insert_cnt = db.execute_sql(sql_insert, insert_vals)
+            total_insert += insert_cnt
+
+            # 🔹 更新 punish table 的 last_notice 與 notice_cnt
+            fst_notice_id = insert_vals[-1][2]  # 最接近處置日的那筆
+            sql_update = f"""
+            UPDATE {punish_table}
+            SET last_notice = {fst_notice_id},
+                notice_cnt = {len(insert_vals)}
+            WHERE id+0 = {row_punish.id}
+            """
+            update_cnt = db.execute_sql(sql_update)
+            total_update += update_cnt
+
+        print(f"total_update={total_update}, total_insert={total_insert}")
+
+    print("✅ 全部處理完成")
+    return
+
+def writein_relation_old():
     table = "relation_punish_notice"
     insert_cols = [
         "type", 
@@ -182,20 +569,20 @@ def ana_punish_content(type, row):
             def extract_attention_trigger(text: str):
                 """
                 解析完整句型：
-                『連續X個營業日達本中心作業要點第Y條第Z項第K款經本中心公告注意交易資訊』
+                『因連續x個營業日達本中心作業要點第y條第z項第k款經本中心公布注意交易資訊』
                 回傳 dict：
                     {
-                    "連續觸發注意公告_天數": x,
-                    "連續觸發注意公告_條項款": "000y000z000k"
+                    "注意公告_連續觸發_天數": x,
+                    "注意公告_連續觸發_條項款": "000y000z000k"
                     }
                 若找不到完整句型則回傳 None
                 """
                 pattern = (
                     r"連續(\d+)個營業日達本中心作業要點"
-                    r"第([一二三四五六七八九十]+)條"
-                    r"第([一二三四五六七八九十]+)項"
-                    r"第([一二三四五六七八九十]+)款"
-                    r"經本中心公告注意交易資訊"
+                    r"第([一二三四五六七八九十百千零0-9０-９]+)條"
+                    r"第([一二三四五六七八九十百千零0-9０-９]+)項"
+                    r"第([一二三四五六七八九十百千零0-9０-９]+)款"
+                    r"經本中心公布注意交易資訊"
                 )
 
                 m = re.search(pattern, text)
@@ -215,14 +602,15 @@ def ana_punish_content(type, row):
 
             # OK
             def extract_interval(text: str):
-                """擷取『約X分鐘撮合一次』"""
-                m = re.search(r"約(\d+)分鐘", text)
+                """擷取『約每n分鐘撮合一次』"""
+                m = re.search(r"約每([一二三四五六七八九十百千零0-9０-９]+)分鐘撮合一次", text)
                 if not m:
                     return None
                 return {
                     "撮合頻率_n分一次": [int(m.group(1)), 'int']
                 }
             
+            # OK
             def parse_recent_days_notice(text: str):
                 """
                 解析「最近X個營業日內有Y個營業日經本中心公布注意交易資訊」
@@ -239,7 +627,8 @@ def ana_punish_content(type, row):
                     "注意公告_近日多次_n個營業日": [int(m.group(1)), 'int'],
                     "注意公告_近日多次_次數": [int(m.group(2)), 'int']
                 }
-                
+            
+            # OK
             def parse_consecutive_days_notice(text: str):
                 """
                 解析「連續X個營業日經本中心公布注意交易資訊」
@@ -254,7 +643,7 @@ def ana_punish_content(type, row):
             def parse_recent_rule_trigger(text: str):
                 """
                 解析：
-                「最近X個營業日曾達本中心作業要點第<中文數字>條第<中文數字>項第<中文數字>款經本中心公布注意交易資訊」
+                「最近X個營業日曾達本中心作業要點第x條第y項第z款經本中心公布注意交易資訊」
 
                 回傳：
                 {
@@ -265,9 +654,9 @@ def ana_punish_content(type, row):
                 """
                 pattern = (
                     r"最近(\d+)個營業日曾達本中心作業要點"
-                    r"第([一二三四五六七八九十百千零]+)條"
-                    r"第([一二三四五六七八九十百千零]+)項"
-                    r"第([一二三四五六七八九十百千零]+)款"
+                    r"第([一二三四五六七八九十百千零0-9０-９]+)條"
+                    r"第([一二三四五六七八九十百千零0-9０-９]+)項"
+                    r"第([一二三四五六七八九十百千零0-9０-９]+)款"
                     r"經本中心公[布告]注意交易資訊"
                 )
 
@@ -308,7 +697,8 @@ def ana_punish_content(type, row):
 
 ### 對處置股的資料進行各種處理
 def handle_punish():    
-    apiNames = ["上市公布處置有價證券", "上櫃處置有價證券資訊"]
+    # apiNames = ["上市公布處置有價證券", "上櫃處置有價證券資訊"]
+    apiNames = ["上櫃處置有價證券資訊"]
     
     tag = "stock_punish"
     for apiName in apiNames:
@@ -322,7 +712,7 @@ def handle_punish():
         sql += f" WHERE law_src IS NULL or TRIM(law_src) = ''"
         if type == 'tpex':
             # 可轉債股票不是特定關係戶買不到，這邊略過
-            sql += " ADN 處置內容 NOT LIKE '公司債(%''"       
+            sql += " AND 處置內容 NOT LIKE '%公司債%'"       
         
         totalCnt = db.query_single_value(sql)
         print("totalCnt=", int(totalCnt))
@@ -335,7 +725,7 @@ def handle_punish():
         sql += f" WHERE law_src IS NULL or TRIM(law_src) = ''"
         if type == 'tpex':
             # 可轉債股票不是特定關係戶買不到，這邊略過
-            sql += " ADN 處置內容 NOT LIKE '%公司債%''"       
+            sql += " AND 處置內容 NOT LIKE '%公司債%'"       
         sql += f" ORDER BY {time_col}_ts DESC"
         df_target = db.query_to_df(sql)
         # print("sql=", sql)
@@ -349,7 +739,7 @@ def handle_punish():
         ## 遍歷資料
         idx = 0
         reportCnt = 100
-        add_vals = []
+        
         for row in df_target.itertuples(index=True, name="MyRow"): 
             idx += 1  
             if (idx % reportCnt == 1):
@@ -362,16 +752,20 @@ def handle_punish():
             
             ### 處理處置內容
             punish_content_obj = ana_punish_content(type, row)
-            print("punish_content_obj", punish_content_obj)
-            for col_name, col_val in punish_content_obj:
+            add_vals = []
+            # print("punish_content_obj", punish_content_obj)
+            stock_name = row.證券名稱
+            if type == 'tpex':
+                stock_name = re.sub(r"\(.*\)$", "", stock_name)
+            for col_name, col_val in punish_content_obj.items():
+                if col_val[0] is None:
+                    continue
                 ele = copy.deepcopy(ele_base)
-                ele.col_name = col_name
+                ele.col_name = col_name.strip()
                 ele.col_val = col_val[0]
-                ele.val_type = col_val[1]
+                ele.val_type = col_val[1].strip()                    
+                ele.memo = f"[{row.證券代號}_{stock_name}]{getattr(row, time_col)}"
                 add_vals.append(ele)
-                    
-            print(punish_content_obj, add_vals)
-            sys.exit() # test
             
             insert_cnt = insert_addition_info(add_vals)
             total_insert += insert_cnt
@@ -381,7 +775,10 @@ def handle_punish():
     return
 
 
-
+def handle_twse_punish_from_addInfo():
+    print()
+    
+    
 
 class AddInfo:
     def __init__(self):
@@ -409,7 +806,7 @@ class AddInfo:
             data_list.insert(0, self.id)
         return data_list
 
-def insert_addition_info(datas:list, report_cnt:int = 100)-> int:
+def insert_addition_info(datas: list) -> int:
     table = "addition_info"
     insert_cols = [
         "tag",
@@ -420,29 +817,31 @@ def insert_addition_info(datas:list, report_cnt:int = 100)-> int:
         "val_type",
         "memo"
     ]
-    
+
+    # 統一轉成 list[tuple]
     insert_vals = []
     for oneData in datas:
-        if isinstance(oneData, list) or isinstance(oneData, tuple):
-            insert_vals = datas
-            break
-        
         if isinstance(oneData, AddInfo):
             insert_vals.append(oneData.output_list())
-        
-    sql = f"""
-            INSERT OR REPLACE INTO {table} 
-                ({",".join(insert_cols)})
-            VALUES 
-                ({", ".join(["?"] * len(insert_cols))})
-            """
-    insert_cnt =  db.execute_sql(sql, insert_vals)
-    if (insert_cnt > 0):
-        return insert_cnt
-    else:
-        print("***Relation table 寫入失敗", sql)
-    
-    return 0
+        elif isinstance(oneData, (list, tuple)):
+            insert_vals.append(tuple(oneData))
+        else:
+            raise TypeError(f"Unsupported data type: {type(oneData)}")
+    if not insert_vals:
+        return 0
+
+    sql = f"INSERT OR IGNORE INTO {table}"
+    sql += f"({",".join(insert_cols)})"
+    sql += f" VALUES "
+    sql += f"({", ".join(["?"] * len(insert_cols))})"
+
+    insert_cnt = db.execute_sql(sql, insert_vals)
+    # if insert_cnt == 0:
+    #     print("***AddtionInfo table 未寫入資料", sql)
+    if insert_cnt < 0:
+        print("***AddtionInfo table 寫入失敗", sql)
+
+    return insert_cnt
 
 ### 把注意股的"觸發法條(law_src)"擷取出來
 def handle_notice():    
@@ -471,7 +870,7 @@ def handle_notice():
         sql += f" WHERE law_src IS NULL or TRIM(law_src) = ''"
         if type == 'tpex':
             # 可轉債股票不是特定關係戶買不到，這邊略過
-            sql += " ADN 處置內容 NOT LIKE '%公司債%''"        
+            sql += " AND 處置內容 NOT LIKE '%公司債%'"        
         sql += f" ORDER BY {time_col}_ts DESC"
         df_target = db.query_to_df(sql)
         # print("sql=", sql)
@@ -524,6 +923,7 @@ def handle_notice():
         print("total_update", total_update)
     return
 
-if __name__ == "__main__": 
-    handle_punish()
-    # handle_notice()
+
+
+
+# if __name__ == "__main__": 
