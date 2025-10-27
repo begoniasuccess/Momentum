@@ -106,28 +106,27 @@ def update_punish_notice_dt():
 
     print("\n🎯 全部處置表更新完成！")
     
-def divideAttentionLawSrc():
+def divideNoticeLawSrc():
     apiNames = ["上市公布注意有價證券資訊", "上櫃公布注意有價證券資訊"]
+
+    ele_base = AddInfo()
+    ele_base.tag = "stock_notice_law_src"
+    ele_base.target_table = table       
+    ele_base.col_name = "law_src"
+    ele_base.val_type = "str"
     
     for apiName in apiNames:
         apiInfo = utils.get_api_info(apiName)
         table = apiInfo["storage_table"].iloc[0]
-        type = apiInfo["type"].iloc[0].lower()
-        time_col = apiInfo["time_col"].iloc[0]
         
         sql = f"SELECT * FROM {table}"
         sql += f" WHERE law_src IS NOT NULL AND law_src <> ''"
-        sql += f" AND id NOT IN (SELECT DISTINCT(target_id) FROM addition_info WHERE target_table = '{table}')"
+        sql += f" AND id NOT IN (SELECT DISTINCT(target_id) FROM addition_info"
+        sql += f" WHERE target_table = '{table}' AND tag = '{ele_base.tag }' AND col_name = '{ele_base.col_name}')"
         sql += f" ORDER BY id"
         df = db.query_to_df(sql)
         if df.empty:
             continue
-        
-        ele_base = AddInfo()
-        ele_base.tag = "stock_notice_law_src"
-        ele_base.target_table = table       
-        ele_base.col_name = "law_src" 
-        ele_base.val_type = "str"
         
         total_insert = 0
         reportCnt = 100        
@@ -774,12 +773,6 @@ def handle_punish():
         print("total_update", total_update)
     return
 
-
-def handle_twse_punish_from_addInfo():
-    print()
-    
-    
-
 class AddInfo:
     def __init__(self):
         self.id = None
@@ -923,7 +916,66 @@ def handle_notice():
         print("total_update", total_update)
     return
 
+def divide_notice_reason():
+    apiNames = ["上市公布注意有價證券資訊", "上櫃公布注意有價證券資訊"]
+    ele_base = AddInfo()
+    ele_base.tag = "stock_notice_law_src"   
+    ele_base.col_name = "注意交易資訊" 
+    ele_base.val_type = "str"
+    
+    for apiName in apiNames:
+        apiInfo = utils.get_api_info(apiName)
+        table = apiInfo["storage_table"].iloc[0]
+        type = apiInfo["type"].iloc[0].lower()
+        ele_base.target_table = table
+        
+        sql = f"SELECT * FROM {table}"
+        sql += f" WHERE id NOT IN (SELECT DISTINCT(target_id) FROM addition_info"
+        sql += f" WHERE target_table = '{table}' AND tag = '{ele_base.tag }' AND col_name = '{ele_base.col_name}')"
+        sql += f" ORDER BY id"
+        df = db.query_to_df(sql)
+        if df.empty:
+            continue
+        
+        total_insert = 0
+        reportCnt = 100        
+        for idx, row in enumerate(df.itertuples(index=True, name="notice"), 1):
+            if idx % reportCnt == 1:
+                print(f"***開始處理第 {idx} 筆資料...")
+                
+            # 分析 注意交易資訊
+            if type == "twse":
+                itemSpilt = "﹞。"
+            else: 
+                itemSpilt = "<br>"
+            notice_infos = row.注意交易資訊.split(itemSpilt)
+            # print(df.head(), notice_infos) 
+            
+            add_vals = []
+            sort = 0
+            for notice_info in notice_infos:
+                if notice_info == "" or notice_info is None:
+                    continue
+                
+                sort = sort + 1
+                ele = copy.deepcopy(ele_base)
+                ele.target_id = row.id
+                if type == "twse":
+                    itemSpilt = "﹝"
+                else: 
+                    itemSpilt = "(第"
+                ele.col_val = notice_info.split(itemSpilt)[0]
+                ele.memo = sort
+                add_vals.append(ele)
+            
+            insert_cnt = insert_addition_info(add_vals)
+            total_insert += insert_cnt
+            # sys.exit()
+            
+        print("total_insert", total_insert)
+        # sys.exit()
+    return        
 
-
-
-# if __name__ == "__main__": 
+# python -m main.predictDispostion
+if __name__ == "__main__": 
+    divide_notice_reason()
