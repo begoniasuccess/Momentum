@@ -10,6 +10,7 @@ import copy
 from datetime import datetime
 import pytz
 
+
 TZ = pytz.timezone("Asia/Taipei")
 
 def to_day_ts(ts_series: pd.Series) -> pd.Series:
@@ -976,6 +977,52 @@ def divide_notice_reason():
         # sys.exit()
     return        
 
+def fix_tpex_law_src(batch_size: int = 1000):
+    """
+    🚑 自動修復 tpex_bulletin_attention 的 law_src 欄位
+    - 根據「注意交易資訊」內容重新解析出「第X款」
+    - 若不同於舊值則覆蓋更新
+    """
+    table = "tpex_bulletin_attention"
+    offset = 0
+    total_fixed = 0
+
+    pattern = re.compile(r"第[一二三四五六七八九十]+款")
+
+    while True:
+        sql = f"""
+        SELECT id, 注意交易資訊, law_src
+        FROM {table}
+        ORDER BY id ASC
+        LIMIT {batch_size} OFFSET {offset}
+        """
+        df = db.query_to_df(sql)
+        if df.empty:
+            print("✅ 已無更多資料，停止檢查")
+            break
+
+        updates = []
+        for _, row in df.iterrows():
+            info = str(row["注意交易資訊"]) if row["注意交易資訊"] else ""
+            matches = pattern.findall(info)
+            if not matches:
+                continue
+
+            new_law_src = ",".join(sorted(set(matches)))  # 去重+排序
+            old_law_src = str(row["law_src"]) if row["law_src"] else ""
+
+            if new_law_src != old_law_src:
+                updates.append((new_law_src, row["id"]))
+
+        if updates:
+            db.execute_sql(f"UPDATE {table} SET law_src = ? WHERE id = ?", updates)
+            total_fixed += len(updates)
+            print(f"🩹 批次修正 {len(updates)} 筆（OFFSET={offset}）")
+
+        offset += len(df)
+
+    print(f"🎯 修正完成，共更新 {total_fixed} 筆")
+
 # python -m main.predictDispostion
-if __name__ == "__main__": 
-    divide_notice_reason()
+if __name__ == "__main__":
+    fix_tpex_law_src()
