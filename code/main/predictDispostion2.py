@@ -6,7 +6,7 @@ import pandas as pd
 from common import utils, db
 from module import finMind
 import re
-from datetime import datetime
+from datetime import datetime, date
 import pytz
 import re
 from typing import List, Optional, Iterable
@@ -355,7 +355,6 @@ def get_threshold(law, feature_key, table_name):
     val = db.query_single_value(sql, (market, law, feature_key))
     return float(val) if val is not None else None
 
-
 def extract_law_src_feature(batch_size=1000):
     """
     從 v_notice_law_src 提取條款特徵 → law_feature_base
@@ -462,23 +461,187 @@ def extract_law_src_feature(batch_size=1000):
     elapsed = time.time() - t0
     print(f"✅ 全部完成，共寫入 {inserted:,} 筆，總耗時 {elapsed:.1f}s")
 
+def find_trading_date_index(target_date, trading_dates):
+    match = trading_dates.index[trading_dates["date"] == target_date]
+    return match[0] if len(match) > 0 else None
 
-def update_notice_behavior_features(batch_size: int = 1000):
+
+def calc_law1_consecutive_days():
+
+    db.execute_sql("UPDATE notice_behavior_feature SET law1_consecutive_days = NULL")
+
+    # 非第一款直接設 0
+    db.execute_sql("""
+        UPDATE notice_behavior_feature
+            SET law1_consecutive_days = 0
+        WHERE law_src NOT LIKE '%第一款%'
+    """)
+
+    # ※※※ 這裡重點改成 ASC（由舊到新） ※※※
+    sql = """
+        SELECT 
+            strftime('%Y-%m-%d', N.notice_dt_ts, 'unixepoch', 'localtime') AS notice_date,
+            N.id, N.stock_no
+        FROM notice_behavior_feature N
+        WHERE law_src LIKE '%第一款%'
+        ORDER BY stock_no, notice_dt_ts ASC
     """
-    🚀 批次更新 notice_behavior_feature 六個新欄位
-        law1_consecutive_days
-        law1to8_count_10d
-        law1to8_count_30d
-        notice_count_7d
-        unique_law_count_7d
-        same_law_repeat_5d
-    """
+    feature_df = db.query_to_df(sql)
+
+    # ============= 準備交易日表 =============
+    trading_dates = finMind.getTwStockTradingDates()
+    trading_dates["date"] = pd.to_datetime(trading_dates["date"])
+    trading_dates = trading_dates.sort_values("date")
+    trading_dates["date"] = trading_dates["date"].dt.strftime("%Y-%m-%d")
+    trading_dates = trading_dates.reset_index(drop=True)
+
+    # dict: date → index
+    date_pos = {d: i for i, d in enumerate(trading_dates["date"])}
+
+    def td_idx(d):
+        return date_pos.get(d, None)
+
+    # ============= 主邏輯 =============
+    current_stock = None
+    prev_idx = None
+    consec = 0
+
+    total = len(feature_df)
+
+    for i, (_, row) in enumerate(feature_df.iterrows(), start=1):
+
+        if i % 1000 == 0:
+            print(f"處理 {i}/{total}...")
+
+        stock_no = row["stock_no"]
+        notice_date = row["notice_date"]
+        id_ = row["id"]
+
+        idx_curr = td_idx(notice_date)
+
+        # 換股票 → 重置
+        if stock_no != current_stock:
+            current_stock = stock_no
+            consec = 1
+
+        else:
+            if idx_curr is None or prev_idx is None:
+                consec = 1
+            elif idx_curr - prev_idx == 1:   # 由舊到新 → index 正向遞增
+                consec += 1
+            else:
+                consec = 1
+
+        prev_idx = idx_curr
+
+        # 每筆都 UPDATE
+        db.execute_sql(f"""
+            UPDATE notice_behavior_feature
+                SET law1_consecutive_days = {consec}
+            WHERE id = {id_}
+        """)
+
+    print("✔ 計算完成（由舊到新，最新為最大值）")
+
+    return
+
+# python -m main.predictDispostion2
+if __name__ == "__main__":
+    calc_law1_consecutive_days()
+
+# ============================================
+# ② law1~8 計數（10 日）
+# ============================================
+def calc_law1to8_count_10d(g, row):
+    ts = int(row["notice_dt_ts"])
+    past = g[(g["notice_dt_ts"] >= ts - 10*86400) & (g["notice_dt_ts"] < ts)]
+    return sum(any(f"第{i}款" in str(x) for i in range(1, 9)) for x in past["law_src"])
+
+
+# ============================================
+# ③ law1~8 計數（30 日）
+# ============================================
+def calc_law1to8_count_30d(g, row):
+    ts = int(row["notice_dt_ts"])
+    past = g[(g["notice_dt_ts"] >= ts - 30*86400) & (g["notice_dt_ts"] < ts)]
+    return sum(any(f"第{i}款" in str(x) for i in range(1, 9)) for x in past["law_src"])
+
+
+# ============================================
+# ④ 注意公告次數（7 日）
+# ============================================
+def calc_notice_count_7d(g, row):
+    ts = int(row["notice_dt_ts"])
+    past = g[(g["notice_dt_ts"] >= ts - 7*86400) & (g["notice_dt_ts"] < ts)]
+    return len(past)
+
+
+# ============================================
+# ⑤ 過去 7 日獨立法條數量
+# ============================================
+def calc_unique_law_count_7d(g, row):
+    ts = int(row["notice_dt_ts"])
+    past = g[(g["notice_dt_ts"] >= ts - 7*86400) & (g["notice_dt_ts"] < ts)]
+
+    laws = set()
+    for s in past["law_src"]:
+        if not s:
+            continue
+        for l in str(s).split(","):
+            l = l.strip()
+            if l:
+                laws.add(l)
+    return len(laws)
+
+
+# ============================================
+# ⑥ 過去 5 日是否重複相同法條
+# ============================================
+def calc_same_law_repeat_5d(g, row):
+    ts = int(row["notice_dt_ts"])
+    curr_laws = [l.strip() for l in (row["law_src"] or "").split(",") if l.strip()]
+    if not curr_laws:
+        return 0
+
+    past = g[(g["notice_dt_ts"] >= ts - 5*86400) & (g["notice_dt_ts"] < ts)]
+
+    def share_any(s):
+        if not s:
+            return False
+        return any(l in s for l in curr_laws)
+
+    return sum(share_any(x) for x in past["law_src"])
+
+
+
+# ============================================
+# 可自由開關
+# ============================================
+FEATURE_SWITCH = {
+    "law1_consecutive_days": True,
+    "law1to8_count_10d": True,
+    "law1to8_count_30d": True,
+    "notice_count_7d": True,
+    "unique_law_count_7d": True,
+    "same_law_repeat_5d": True,
+}
+
+
+
+# ============================================
+# 🚀 主更新函式（最終版）
+# ============================================
+def update_notice_behavior_features(batch_size: int = 2000):
     t0 = time.time()
 
-    sql = "SELECT * FROM notice_behavior_feature ORDER BY notice_dt_ts ASC"
-    df = db.query_to_df(sql)
+    df = db.query_to_df("""
+        SELECT *
+        FROM notice_behavior_feature
+        ORDER BY stock_no, notice_dt_ts
+    """)
+
     if df.empty:
-        print("⚠️ 無資料可更新")
+        print("⚠ 無資料可更新")
         return
 
     df["notice_dt_ts"] = pd.to_numeric(df["notice_dt_ts"], errors="coerce")
@@ -486,55 +649,22 @@ def update_notice_behavior_features(batch_size: int = 1000):
     df = df.sort_values(["stock_no", "notice_dt_ts"]).reset_index(drop=True)
 
     updates = []
+
     for stock_no, g in df.groupby("stock_no"):
-        g = g.sort_values("notice_dt_ts")
-        for i, row in g.iterrows():
-            ts = row["notice_dt_ts"]
-            law = row["law_src"] or ""
-            law_list = [l.strip() for l in law.split(",") if l.strip()]
+        g = g.sort_values("notice_dt_ts").reset_index(drop=True)
 
-            # 過去區間
-            past_10d = g[(g["notice_dt_ts"] >= ts - 10 * 86400) & (g["notice_dt_ts"] < ts)]
-            past_30d = g[(g["notice_dt_ts"] >= ts - 30 * 86400) & (g["notice_dt_ts"] < ts)]
-            past_7d = g[(g["notice_dt_ts"] >= ts - 7 * 86400) & (g["notice_dt_ts"] < ts)]
-            past_5d = g[(g["notice_dt_ts"] >= ts - 5 * 86400) & (g["notice_dt_ts"] < ts)]
+        for _, row in g.iterrows():
 
-            # 特徵
-            law1_consecutive = 0
-            if "第一款" in law_list:
-                prev = g[g["notice_dt_ts"] < ts].tail(3)
-                law1_consecutive = 1
-                for _, p in prev.iterrows():
-                    if "第一款" in str(p["law_src"]):
-                        law1_consecutive += 1
-                    else:
-                        break
-
-            law1to8_10d = sum(
-                any(f"第{i}款" in (p or "") for i in range(1, 9))
-                for p in past_10d["law_src"]
-            )
-            law1to8_30d = sum(
-                any(f"第{i}款" in (p or "") for i in range(1, 9))
-                for p in past_30d["law_src"]
-            )
-            notice_7d = len(past_7d)
-            unique_law_7d = len(
-                set(l for p in past_7d["law_src"] if p for l in p.split(","))
-            )
-            same_law_repeat_5d = sum(
-                any(l in (p or "") for l in law_list)
-                for p in past_5d["law_src"]
-            )
+            v_law1 = calc_law1_consecutive_days(row) if FEATURE_SWITCH["law1_consecutive_days"] else row["law1_consecutive_days"]
+            v_10d  = calc_law1to8_count_10d(g, row)      if FEATURE_SWITCH["law1to8_count_10d"] else row["law1to8_count_10d"]
+            v_30d  = calc_law1to8_count_30d(g, row)      if FEATURE_SWITCH["law1to8_count_30d"] else row["law1to8_count_30d"]
+            v_7d   = calc_notice_count_7d(g, row)        if FEATURE_SWITCH["notice_count_7d"] else row["notice_count_7d"]
+            v_uniq = calc_unique_law_count_7d(g, row)    if FEATURE_SWITCH["unique_law_count_7d"] else row["unique_law_count_7d"]
+            v_5d   = calc_same_law_repeat_5d(g, row)     if FEATURE_SWITCH["same_law_repeat_5d"] else row["same_law_repeat_5d"]
 
             updates.append((
-                law1_consecutive,
-                law1to8_10d,
-                law1to8_30d,
-                notice_7d,
-                unique_law_7d,
-                same_law_repeat_5d,
-                row["id"]
+                v_law1, v_10d, v_30d, v_7d, v_uniq, v_5d,
+                int(row["id"])
             ))
 
             if len(updates) >= batch_size:
@@ -548,7 +678,7 @@ def update_notice_behavior_features(batch_size: int = 1000):
                         same_law_repeat_5d=?
                     WHERE id=?;
                 """, updates)
-                print(f"📦 已更新 {len(updates)} 筆")
+                print(f"📦 批次更新 {len(updates)} 筆")
                 updates.clear()
 
     if updates:
@@ -563,68 +693,5 @@ def update_notice_behavior_features(batch_size: int = 1000):
             WHERE id=?;
         """, updates)
 
-    print(f"✅ 全部完成，共更新 {len(df)} 筆，耗時 {time.time()-t0:.1f}s")
-
-def update_risk_score_regulation(batch_size: int = 1000):
-    """
-    🚀 修正版：確保 risk_score_regulation 正確寫入
-    """
-    t0 = time.time()
-    sql = """
-    SELECT id,
-           COALESCE(law1_consecutive_days,0) AS law1_consecutive_days,
-           COALESCE(law1to8_count_10d,0) AS law1to8_count_10d,
-           COALESCE(law1to8_count_30d,0) AS law1to8_count_30d
-    FROM notice_behavior_feature
-    """
-    df = db.query_to_df(sql)
-    if df.empty:
-        print("⚠️ 無資料可更新")
-        return
-
-    updates = []
-    count_high, count_med, count_low = 0, 0, 0
-
-    for _, row in df.iterrows():
-        s1 = int(row["law1_consecutive_days"])
-        s2 = int(row["law1to8_count_10d"])
-        s3 = int(row["law1to8_count_30d"])
-
-        score = 0
-        if s1 >= 3:
-            score = 100
-            count_high += 1
-        elif s2 >= 6:
-            score = 80
-            count_high += 1
-        elif s3 >= 12:
-            score = 70
-            count_med += 1
-        elif s2 >= 4 and s1 >= 2:
-            score = 50
-            count_low += 1
-        else:
-            score = 0
-
-        updates.append((score, row["id"]))
-
-        if len(updates) >= batch_size:
-            db.execute_sql(
-                "UPDATE notice_behavior_feature SET risk_score_regulation=? WHERE id=?",
-                updates
-            )
-            updates.clear()
-
-    if updates:
-        db.execute_sql(
-            "UPDATE notice_behavior_feature SET risk_score_regulation=? WHERE id=?",
-            updates
-        )
-
-    elapsed = time.time() - t0
-    print(f"✅ 全部完成，共更新 {len(df)} 筆，耗時 {elapsed:.1f}s")
-    print(f"📊 命中情況：高風險={count_high} 中風險={count_med} 低風險={count_low}")
+    print(f"✅ 全部完成，共更新 {len(df)} 筆，耗時 {time.time()-t0:.2f} 秒")
     
-# python -m main.predictDispostion
-if __name__ == "__main__":
-    update_risk_score_regulation()
