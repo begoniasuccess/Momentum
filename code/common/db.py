@@ -329,23 +329,6 @@ def batch_join_notice_law_src(
 
 
 # python -m common.db
-if __name__ == "__main__": 
-    # sql = """
-    # SELECT * FROM tpex_bulletin_attention 
-	# WHERE 注意交易資訊 LIKE '%個營業日(含當日)累積之最後成交價漲幅達%' 
-	# 	AND law_src NOT LIKE '%第一款%'
-    # """    
-    # df = export_sql_to_csv(sql=sql, file_name="tpex_not_law01_new")
-    # print(df.head())
-    # tables = [
-    #     "twse_announcement_notice",
-    #     "tpex_bulletin_attention",
-    #     "twse_announcement_punish",
-    #     "tpex_bulletin_disposal"
-    # ]
-    
-    # for table in tables:
-    #     df = export_table_to_csv(table_name=table)
-    #     # print(df.head())
-    
-    df = export_table_to_csv(table_name="notice_behavior_feature")
+if __name__ == "__main__":     
+    table = "v_law1_feature_ana"
+    export_table_to_csv(table)
