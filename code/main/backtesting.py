@@ -1,8 +1,15 @@
 from module import finMind as fm
+from module import twse, tpex
 from common import db
 import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import sys, os
+from pathlib import Path
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, roc_auc_score
+from xgboost import XGBClassifier
 
 def prepare_v_law1_feature_ana_stock_price():
     sql = """
@@ -17,7 +24,7 @@ def prepare_v_law1_feature_ana_stock_price():
     for idx, row in df.iterrows():
         if (pre_stock is not None and row["stock_no"] != pre_stock):
             # sql = f"""
-            #     DELETE FROM fm_stock_span WHERE stock_id = '{pre_stock}' 
+            #     DELETE FROM date_span WHERE idx_key = '{pre_stock}' 
             # """
             db.execute_sql(sql)
             fst_dt = datetime.strptime(date_list[0], "%Y-%m-%d")
@@ -36,16 +43,10 @@ def prepare_v_law1_feature_ana_stock_price():
     print(f"get day stock price：{pre_stock} {fst_dt.strftime('%Y-%m-%d')}~{fst_dt.strftime('%Y-%m-%d')}")
     df = fm.get_tw_stock_daily_price(pre_stock, fst_dt, last_dt)
     
-import sys, os
-from pathlib import Path
 
 # 確保可以 import common.db
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.append(str(BASE_DIR))
-
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, roc_auc_score
-from xgboost import XGBClassifier
 
 # =========================================
 # 1) 用 SQL 準備 ML 用的資料表
@@ -257,10 +258,15 @@ def run_xgboost_for_long():
 # 4) main
 # =========================================
 
+# python -m main.backtesting
 if __name__ == "__main__":
-    # 先建立 ML 資料表
-    prepare_ml_tables()
-
-    # 跑 XGBoost
-    clf_s, fi_s = run_xgboost_for_short()
-    clf_l, fi_l = run_xgboost_for_long()
+    sDt = datetime(2011, 1, 1)
+    eDt = datetime(2026, 1, 1)
+    # df = twse.get_notice(sDt, eDt)
+    # print(df.head(5))
+    # df = twse.get_punish(sDt, eDt)
+    # print(df.head(5))
+    # df = tpex.get_notice(sDt, eDt)
+    # print(df.head(5))
+    df = tpex.get_punish(sDt, eDt)
+    print(df.head(5))

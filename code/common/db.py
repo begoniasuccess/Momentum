@@ -12,9 +12,18 @@ DB_PATH = Path("../Data/data_center.db")
 
 @contextmanager
 def get_connection():
-    """建立並自動關閉 SQLite 連線，增加 timeout 避免 locked"""
-    conn = sqlite3.connect(DB_PATH, timeout=10)  # 最多等 10 秒
+    """
+    建立並自動關閉 SQLite 連線
+    - WAL: 降低 read/write 互卡
+    - busy_timeout: 遇到鎖等待
+    """
+    conn = sqlite3.connect(DB_PATH, timeout=60)  # 60 秒更耐鎖
     try:
+        # --- 重要：提升抗 locked ---
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+        conn.execute("PRAGMA temp_store=MEMORY;")
+        conn.execute("PRAGMA busy_timeout=60000;")  # 60s
         yield conn
     finally:
         conn.close()
@@ -330,5 +339,8 @@ def batch_join_notice_law_src(
 
 # python -m common.db
 if __name__ == "__main__":     
-    table = "v_law1_feature_ana"
+    table = "v_law1_feature_ana_t1_long"
+    export_table_to_csv(table)
+    
+    table = "v_law1_feature_ana_t1_short"
     export_table_to_csv(table)

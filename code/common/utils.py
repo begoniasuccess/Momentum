@@ -9,6 +9,9 @@ import re
 from common.constants import Panel
 from common.constants import Iloc
 import db
+import time
+from typing import Optional, Tuple, List
+
 
 def nowTime():
     """取得當前時間 (yyyy/mm/dd hh:mm:ss)"""
@@ -313,6 +316,185 @@ def roc_to_unix(roc_date: str) -> int:
     dt = datetime(gregorian_year, month, day)
     return int(dt.timestamp())
 
+def _dstr(ts: pd.Timestamp) -> str:
+    return ts.strftime("%Y-%m-%d")
+
+
+def _to_unix_ts(date_yyyy_mm_dd: str) -> int:
+    """date string -> unix seconds (00:00:00 local)"""
+    dt = pd.Timestamp(date_yyyy_mm_dd).to_pydatetime()
+    return int(time.mktime(dt.timetuple()))
+
+
+def _clean_float(x) -> Optional[float]:
+    if x is None:
+        return None
+    s = str(x).strip()
+    if s == "" or s.upper() in {"N/A", "NA", "NULL"} or s in {"-----", "--", "-"}:
+        return None
+    s = s.replace(",", "")
+    try:
+        return float(s)
+    except Exception:
+        return None
+
+
+def _clean_int(x) -> Optional[int]:
+    if x is None:
+        return None
+    s = str(x).strip()
+    if s == "" or s.upper() in {"N/A", "NA", "NULL"} or s in {"-----", "--", "-"}:
+        return None
+    s = s.replace(",", "")
+    try:
+        return int(float(s))
+    except Exception:
+        return None
+
+
+def _roc_to_ad_yyyy_mm_dd(s: str) -> Optional[str]:
+    """
+    支援：
+    - "115/01/15"
+    - "100.01.03"
+    - "114/12/31"
+    - "20110103" / "2026/01/15" / "2026-01-15"（若本來就是西元也盡量吃）
+    回傳 "YYYY-MM-DD"
+    """
+    if s is None:
+        return None
+    s = str(s).strip()
+    if not s:
+        return None
+
+    # 先抓純數字 YYYYMMDD
+    m = re.fullmatch(r"(\d{8})", s)
+    if m:
+        y = int(s[:4])
+        mm = int(s[4:6])
+        dd = int(s[6:8])
+        return f"{y:04d}-{mm:02d}-{dd:02d}"
+
+    # 支援 YYYY/MM/DD 或 YYYY-MM-DD 或 YYYY.MM.DD
+    m = re.fullmatch(r"(\d{4})[\/\-\.](\d{1,2})[\/\-\.](\d{1,2})", s)
+    if m:
+        y = int(m.group(1))
+        mm = int(m.group(2))
+        dd = int(m.group(3))
+        return f"{y:04d}-{mm:02d}-{dd:02d}"
+
+    # 民國 "115/01/15" 或 "100.01.03"
+    m = re.fullmatch(r"(\d{2,3})[\/\.](\d{1,2})[\/\.](\d{1,2})", s)
+    if m:
+        roc_y = int(m.group(1))
+        y = roc_y + 1911
+        mm = int(m.group(2))
+        dd = int(m.group(3))
+        return f"{y:04d}-{mm:02d}-{dd:02d}"
+
+    return None
+
+
+def _parse_range_roc(s: str) -> Tuple[Optional[str], Optional[str], Optional[int]]:
+    """
+    解析 "115/01/16～115/01/29" 或 "115/01/16~115/01/29"
+    回傳 (start_yyyy_mm_dd, end_yyyy_mm_dd, total_days_inclusive_or_none)
+    total_days 以「日曆日含頭尾」粗算（不是交易日）
+    """
+    if s is None:
+        return (None, None, None)
+    t = str(s).strip()
+    if not t:
+        return (None, None, None)
+
+    t = t.replace("～", "~").replace("—", "-").replace("–", "-")
+    parts = t.split("~")
+    if len(parts) != 2:
+        return (None, None, None)
+
+    s1 = _roc_to_ad_yyyy_mm_dd(parts[0].strip())
+    s2 = _roc_to_ad_yyyy_mm_dd(parts[1].strip())
+    if not s1 or not s2:
+        return (s1, s2, None)
+
+    try:
+        d1 = pd.Timestamp(s1)
+        d2 = pd.Timestamp(s2)
+        total = int((d2 - d1).days) + 1
+    except Exception:
+        total = None
+    return (s1, s2, total)
+
+
+def _get_span(target_table: str) -> Tuple[Optional[pd.Timestamp], Optional[pd.Timestamp]]:
+    """
+    從 date_span 讀取 target_table 的 (start_date, end_date)，idx_key 固定用 'date'
+    """
+    span_row = db.query_to_df(
+        """
+        SELECT start_date, end_date
+        FROM date_span
+        WHERE target_table = ? AND idx_key = ?
+        """,
+        (target_table, "date"),
+    )
+    if span_row is None or span_row.empty:
+        return (None, None)
+    mem_s = pd.Timestamp(span_row.loc[0, "start_date"]).normalize()
+    mem_e = pd.Timestamp(span_row.loc[0, "end_date"]).normalize()
+    return (mem_s, mem_e)
+
+
+def _calc_fetch_ranges(
+    req_s: pd.Timestamp,
+    req_e: pd.Timestamp,
+    mem_s: Optional[pd.Timestamp],
+    mem_e: Optional[pd.Timestamp],
+) -> Tuple[List[Tuple[pd.Timestamp, pd.Timestamp]], pd.Timestamp, pd.Timestamp]:
+    """
+    根據「要求區間 req_s~req_e」與「記憶區間 mem_s~mem_e」
+    算出需要補抓的區間清單 fetch_ranges，以及更新後要寫回的 new_s/new_e
+    """
+    fetch_ranges: List[Tuple[pd.Timestamp, pd.Timestamp]] = []
+
+    if mem_s is None or mem_e is None:
+        return [(req_s, req_e)], req_s, req_e
+
+    new_s = min(mem_s, req_s)
+    new_e = max(mem_e, req_e)
+
+    # 完全被涵蓋：不需要抓
+    if req_s >= mem_s and req_e <= mem_e:
+        fetch_ranges = []
+    # 完全在記憶區間右側
+    elif req_s > mem_e:
+        fetch_ranges = [(mem_e + pd.Timedelta(days=1), req_e)]
+    # 完全在記憶區間左側
+    elif req_e < mem_s:
+        fetch_ranges = [(req_s, mem_s - pd.Timedelta(days=1))]
+    # 有交集：左右兩段各自補
+    else:
+        if req_s < mem_s:
+            fetch_ranges.append((req_s, mem_s - pd.Timedelta(days=1)))
+        if req_e > mem_e:
+            fetch_ranges.append((mem_e + pd.Timedelta(days=1), req_e))
+
+    return fetch_ranges, new_s, new_e
+
+def _update_span(target_table: str, new_s: pd.Timestamp, new_e: pd.Timestamp) -> None:
+    db.execute_sql(
+        """
+        INSERT INTO date_span (target_table, idx_key, start_date, end_date)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(target_table, idx_key) DO UPDATE SET
+          start_date = excluded.start_date,
+          end_date   = excluded.end_date,
+          updated_at = strftime('%s','now')
+        """,
+        (target_table, "date", _dstr(new_s), _dstr(new_e)),
+    )
+
+
 def get_api_info(apiName: str) -> pd.DataFrame:
     sql = f"SELECT *, src_link || api_path AS url FROM data_source"
     sql += f" WHERE name = '{apiName}'"
@@ -401,6 +583,36 @@ def chinese_to_int(s) -> int:
     total += section_to_number(section)
     return total
 
+# ======== 區域二整合進來：共用工具 ========
+def _date_to_str(date: datetime = None, formate: str = None) -> str:
+    """將 datetime 轉為 yyyymmdd 字串，若未指定則取今日"""
+    if date is None:
+        date = datetime.today()
+    if formate is None:
+        formate = "%Y%m%d"
+    return date.strftime(formate)
+
+
+def _save_to_csv(df: pd.DataFrame, apiEndpoint: str, filename: str):
+    """
+    儲存 df 到 ../data/TwStockExchange/{apiEndpoint}/{filename}.csv
+    encoding: utf-8-sig
+    """
+    data_center = "../data/TwStockExchange"
+
+    # 1. 檢查 data_center 是否存在
+    if not os.path.exists(data_center):
+        raise FileNotFoundError(f"❌ data_center 不存在：{data_center}")
+
+    # 2. 確保目標資料夾存在
+    dir_path = os.path.join(data_center, apiEndpoint)
+    os.makedirs(dir_path, exist_ok=True)
+
+    path = os.path.join(dir_path, f"{filename}.csv")
+
+    # 3. 儲存 CSV
+    df.to_csv(path, index=False, encoding="utf-8-sig")
+    print(f"✅ 已儲存：{path}")
 
 
 

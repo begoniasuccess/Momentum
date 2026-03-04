@@ -267,8 +267,8 @@ def get_tw_stock_daily_price(
         span_row = db.query_to_df(
             """
             SELECT start_date, end_date
-            FROM fm_stock_span
-            WHERE target_table = ? AND stock_id = ?
+            FROM date_span
+            WHERE target_table = ? AND idx_key = ?
             """,
             (target_table, sid),
         )
@@ -335,9 +335,9 @@ def get_tw_stock_daily_price(
         # --- 更新 span ---
         db.execute_sql(
             """
-            INSERT INTO fm_stock_span (target_table, stock_id, start_date, end_date, updated_at)
+            INSERT INTO date_span (target_table, idx_key, start_date, end_date, updated_at)
             VALUES (?, ?, ?, ?, strftime('%s','now'))
-            ON CONFLICT(target_table, stock_id) DO UPDATE SET
+            ON CONFLICT(target_table, idx_key) DO UPDATE SET
               start_date = excluded.start_date,
               end_date   = excluded.end_date,
               updated_at = strftime('%s','now')
@@ -367,7 +367,12 @@ def get_tw_stock_daily_price(
 
     return pd.concat(all_dfs, ignore_index=True)
 
+def get_tw_stock_info_with_warrant() -> pd.DataFrame:
+    df = api.taiwan_stock_info_with_warrant()
+    df.to_csv("finMind.csv", index=False, encoding='utf-8')
+    return df
 
 # python -m module.finMind
-# if __name__ == "__main__":     
+if __name__ == "__main__":     
+    get_tw_stock_info_with_warrant()
     

@@ -190,42 +190,46 @@ def _build_ai_law_rows(target_id: int, law_seq_per_para: List[str]) -> List[tupl
         ))
     return rows
 
-def fix_tpex_law_src_and_rebuild_ai_strict(
+def tpex_notice_text_to_ai_law_src(
     batch_size: int = 1000,
     ids: Optional[List[int]] = None,
-    rewrite_table_law_src: bool = True,
     dry_run: bool = False,
     verbose: bool = True,
 ):
     """
-    嚴格版：
-    - 以 <br> 分段，逐段擷取第一個「第X款」，允許重複、保留順序。
-    - 表欄位 law_src = 非空段的條款以逗號串接（保留重複與順序）。
-    - addition_info 的 law_src 每段寫一筆（段內無條款則寫空字串）以確保 memo 與段落一一對齊。
-    """
-    t0 = datetime.now()
-    scanned = 0
-    upd_table = 0
-    del_ai = 0
-    ins_ai = 0
+    將 tpex_bulletin_attention.注意交易資訊
+    解析第X款 → 重建 addition_info (stock_notice_law_src)
 
-    # 取來源
+    ✔ 不再使用 table.law_src
+    ✔ 完全以 raw text 為唯一來源
+    ✔ 每段對應一筆 addition_info（memo=段落序）
+    """
+
+    table_name = "tpex_bulletin_attention"
+
+    scanned = 0
+    total_deleted = 0
+    total_inserted = 0
+
+    # -------------------------------------------------------
+    # 取來源資料
+    # -------------------------------------------------------
     if ids:
         placeholders = ",".join(["?"] * len(ids))
-        src = db.query_to_df(f"""
-            SELECT id, 注意交易資訊, law_src
-            FROM tpex_bulletin_attention
+        df = db.query_to_df(f"""
+            SELECT id, 注意交易資訊
+            FROM {table_name}
             WHERE id+0 IN ({placeholders})
             ORDER BY id+0 ASC
         """, tuple(ids))
-        batches = [src]
+        batches = [df]
     else:
         batches = []
         offset = 0
         while True:
             df = db.query_to_df(f"""
-                SELECT id, 注意交易資訊, law_src
-                FROM tpex_bulletin_attention
+                SELECT id, 注意交易資訊
+                FROM {table_name}
                 ORDER BY id+0 ASC
                 LIMIT {batch_size} OFFSET {offset}
             """)
@@ -234,75 +238,65 @@ def fix_tpex_law_src_and_rebuild_ai_strict(
             batches.append(df)
             offset += len(df)
 
-    for bidx, df in enumerate(batches, start=1):
-        if df.empty: 
+    # -------------------------------------------------------
+    # 主迴圈
+    # -------------------------------------------------------
+    for batch_idx, df in enumerate(batches, start=1):
+
+        if df.empty:
             continue
+
         scanned += len(df)
 
-        table_update_params = []
         delete_ids = []
-        ai_insert_rows = []
+        insert_rows = []
 
         for _, row in df.iterrows():
             tid = int(row["id"])
-            info = str(row["注意交易資訊"]) if row["注意交易資訊"] else ""
+            text = str(row["注意交易資訊"] or "")
 
-            # 逐段解析
-            paras = _split_paras(info)  # 段落列表（已去除空段）
+            # 分段
+            paras = _split_paras(text)
+
             # 每段抓第一個條款（允許為空字串）
-            laws_per_para = [_extract_first_law_or_empty(seg) for seg in paras]
+            laws_per_para = [
+                _extract_first_law_or_empty(seg)
+                for seg in paras
+            ]
 
-            # 表用值：只串接非空的條款，保留重複與順序
-            table_law_str = ",".join([x for x in laws_per_para if x])
-
-            # 需要更新表？
-            need_upd_table = rewrite_table_law_src and ((row["law_src"] or "") != table_law_str)
-
-            # 需要重建 AI？
+            # 檢查是否需要重建
             current_ai = _get_ai_law_seq_by_memo(tid)
-            need_rebuild_ai = (current_ai != laws_per_para)
-
-            if not (need_upd_table or need_rebuild_ai):
+            if current_ai == laws_per_para:
                 continue
 
-            if need_upd_table:
-                table_update_params.append((table_law_str, tid))
-
-            if need_rebuild_ai:
-                delete_ids.append(tid)
-                ai_insert_rows.extend(_build_ai_law_rows(tid, laws_per_para))
+            delete_ids.append(tid)
+            insert_rows.extend(
+                _build_ai_law_rows(tid, laws_per_para)
+            )
 
         if verbose:
-            print(f"📦 批次 {bidx}: 掃描 {len(df)} 筆，"
-                  f"待更新表內 law_src={len(table_update_params)}，"
-                  f"待重建 AI 明細（逐段）={len(delete_ids)} 筆")
+            print(f"📦 批次 {batch_idx} 掃描 {len(df)} 筆")
 
         if not dry_run:
-            if table_update_params:
-                cnt = db.execute_sql(
-                    "UPDATE tpex_bulletin_attention SET law_src = ? WHERE id+0 = ?",
-                    table_update_params
-                )
-                if cnt > 0: upd_table += cnt
 
+            # 刪舊 AI
             if delete_ids:
-                cnt_del = _delete_ai_law_rows(delete_ids)
-                if cnt_del > 0: del_ai += cnt_del
+                cnt = _delete_ai_law_rows(delete_ids)
+                total_deleted += cnt if cnt > 0 else 0
 
-            if ai_insert_rows:
-                cnt_ins = insert_addition_info(ai_insert_rows)
-                if cnt_ins > 0: ins_ai += cnt_ins
+            # 新增 AI
+            if insert_rows:
+                cnt = insert_addition_info(insert_rows)
+                total_inserted += cnt if cnt > 0 else 0
 
     stats = {
         "scanned": scanned,
-        "table_law_src_updated": upd_table,
-        "ai_law_rows_deleted": del_ai,
-        "ai_law_rows_inserted": ins_ai,
-        "elapsed_sec": (datetime.now() - t0).total_seconds(),
+        "ai_deleted": total_deleted,
+        "ai_inserted": total_inserted,
         "dry_run": dry_run
     }
-    if verbose:
-        print("🎯 完成：", stats)
+
+    print("🎯 完成：", stats)
     return stats
 
 def extract_features(row):
@@ -372,25 +366,6 @@ def extract_law_src_feature(batch_size=1000):
       - 進度顯示
       - 中斷續跑
     """
-
-    # ===============================
-    #  1️⃣ 建立輸出表（含 threshold_value 欄位）
-    # ===============================
-    create_table_sql = """
-    CREATE TABLE IF NOT EXISTS law_feature_base (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        ai_key TEXT NOT NULL,
-        target_table TEXT NOT NULL,
-        target_id INTEGER NOT NULL,
-        law_src TEXT NOT NULL,
-        feature_key TEXT NOT NULL,
-        feature_value REAL,
-        threshold_value REAL,
-        raw_text TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """
-    db.execute_sql(create_table_sql)
 
     # ===============================
     #  2️⃣ 找出已處理過的 ai_key（續跑機制）
@@ -1505,6 +1480,6 @@ def repair_twse_price_diff_features():
 # python -m main.predictDispostion2
 if __name__ == "__main__":
     print("--- RUN main.predictDispostion2 ---")
-    repair_twse_price_diff_features()
+    tpex_notice_text_to_ai_law_src()
     
     
