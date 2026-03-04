@@ -1,0 +1,5 @@
+
+# local databases
+data/*.db
+*.db
+
