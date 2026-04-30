@@ -33,7 +33,7 @@ panelTypes = [Panel.A, Panel.B]
 # 起始與結束年月
 start_ym = "2010/01" # 取月初
 # end_ym = "2024/12" # 取月底
-end_ym = "2019/12" # 取月底
+end_ym = "2025/12" # 取月底
 
 start_year, start_month = map(int, start_ym.split('/'))
 end_year, end_month = map(int, end_ym.split('/'))
@@ -48,7 +48,7 @@ hPeriods = [3, 6, 9 ,12] # Holding Period
 
 maxIncludeRank = 150
 
-prepareDatas = False
+prepareDatas = True
 for oPeriod in oPeriods:
     for hPeriod in hPeriods:
         utils.ptMsg(f"⚙️ 參數設定：{sDt.strftime("%Y/%m/%d")}~{eDt.strftime("%Y/%m/%d")}/Period(o、h):{oPeriod}、{hPeriod}")
